@@ -1,0 +1,22 @@
+.image img{
+	float: left;
+}
+.h2{
+	float: left;
+	margin: 23px 15px;
+	font-size: 24px;
+}
+.h4{
+	float: left;
+	margin: -20px 50px;
+}
+.span{
+	float: left;
+	margin-left: 100px;
+}
+.feeTable th{
+	text-align: center;
+}
+.feeTable th td{
+	border-spacing: 10px;
+}

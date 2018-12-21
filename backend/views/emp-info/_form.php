@@ -1,0 +1,143 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use common\models\EmpDesignation;
+use common\models\EmpType;
+use common\models\Branches;
+
+/* @var $this yii\web\View */
+/* @var $model common\models\EmpInfo */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="emp-info-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_father_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_cnic')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '99999-9999999-9', ]) ?>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_email')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_gender')->dropDownList([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => 'Select Gender']) ?>
+        </div>
+    </div>
+    <div class="row">        
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_photo')->fileInput() ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_perm_address')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_temp_address')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_marital_status')->dropDownList([ 'Single' => 'Single', 'Married' => 'Married', ], ['prompt' => 'Select Merital Status']) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_qualification')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_passing_year')->textInput() ?>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_institute_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'degree_scan_copy')->fileInput() ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_designation_id')->dropDownList(
+                    ArrayHelper::map(EmpDesignation::find()->all(),'emp_designation_id','emp_designation'), ['prompt'=>'Select Designation']
+                )?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_type_id')->dropDownList(
+                    ArrayHelper::map(EmpType::find()->all(),'emp_type_id','emp_type'), ['prompt'=>'Select Type']
+                )?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'group_by')->dropDownList([ 'Faculty' => 'Faculty', 'Non-Faculty' => 'Non-Faculty', ], ['prompt' => 'Select Group']) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_branch_id')->dropDownList(
+                    ArrayHelper::map(Branches::find()->all(),'branch_id','branch_name'), ['prompt'=>'Select Branch']
+                )?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_salary')->textInput() ?>
+        </div>
+        <div class="col-md-4">
+           <?= $form->field($model,'reference')->dropDownList([ 'Yes' => 'Yes', 'No' => 'No', ], 
+           ['prompt' => 'Select Group', 'id' => 'reference']) ?> 
+        </div>
+    </div>
+
+    <!-- Form of Employee Reference -->
+    <div id="referenceshow" style="display: none;">
+        <h3>Emp Reference</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <?= $form->field($empRefModel, 'ref_name')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-4">
+                <?= $form->field($empRefModel, 'ref_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+            </div>
+            <div class="col-md-4">
+                <?= $form->field($empRefModel, 'ref_cnic')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '99999-9999999-9', ]) ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <?= $form->field($empRefModel, 'ref_designation')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
+    </div>  
+    
+	<?php if (!Yii::$app->request->isAjax){ ?>
+	  	<div class="form-group">
+	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	    </div>
+	<?php } ?>
+
+    <?php ActiveForm::end(); ?>
+    
+</div>
+<?php
+$script = <<< JS
+$('#reference').on('change',function(){
+        
+    if($("#reference").val() == 'Yes'){
+        $("#referenceshow").show()
+    } else {
+        $("#referenceshow").hide()
+    }
+    });
+
+JS;
+$this->registerJs($script);
+?> 
