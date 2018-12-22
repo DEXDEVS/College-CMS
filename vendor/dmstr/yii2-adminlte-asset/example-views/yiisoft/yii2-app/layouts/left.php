@@ -86,7 +86,7 @@
                     // Fee Registration start...
                     [
                         'label' => 'Fee Registration',
-                        'icon' => 'envelope',
+                        'icon' => 'credit-card',
                         'url' => '#',
                         'items' => [
                             ['label' => 'Fee Type', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-type',],
@@ -111,6 +111,15 @@
                     ],
                     // ------------------------------------------------
                     // SMS close...
+                    // ------------------------------------------------
+                    // Email start...
+                    [
+                        'label' => 'Email',
+                        'icon' => 'envelope-o',
+                        'url' => 'index.php?r=emails',
+                    ],
+                    // ------------------------------------------------
+                    // Email close...
                     // ------------------------------------------------
 
                     // Calender start...
