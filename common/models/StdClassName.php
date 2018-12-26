@@ -37,7 +37,7 @@ class StdClassName extends \yii\db\ActiveRecord
             [['class_name', 'class_name_description'], 'required'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['created_by', 'updated_by'], 'integer'],
-            [['class_name'], 'string', 'max' => 32],
+            [['class_name'], 'string', 'max' => 120],
             [['class_name_description'], 'string', 'max' => 255],
         ];
     }

@@ -46,7 +46,8 @@
                         'items' => [
                             ['label' => 'Branches', 'icon' => 'caret-right', 'url' => 'index.php?r=branches',],
                             ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sessions',],
-                            ['label' => 'Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
+                            ['label' => 'Class Name', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class-name',],
+                            ['label' => 'Assign Students in Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
                             ['label' => 'Sections', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sections',],
                             ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-detail',],
                         ],
