@@ -4,7 +4,8 @@
 	<title>Attendance</title>
 </head>
 <body>
-	<form  action = "index.php?r=std-attendance/attendance" method="POST">
+	<form  action = "index.php?r=std-attendance/attendance" method="POST" style="margin-top: -35px">
+		<h1 class="well well-sm text" align="center">Attendance</h1>
     	<div class="row">
             <div class="col-md-4">
                 <div class="form-group">
