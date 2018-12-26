@@ -29,12 +29,10 @@ CrudAsset::register($this);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    '<span style="float:right;">'.
-                        Html::a('<i class="glyphicon glyphicon-plus"></i> Collect Vouchers', ['/fee-transaction-detail/collect-voucher'],
-                    ['title'=> 'Collect Generated Vouchers','class'=>'btn btn-warning']).'</span> &nbsp;'.
-                    '<span style="float:right;">'.
-                        Html::a('<i class="glyphicon glyphicon-print"></i> Generate Vouchers', ['/fee-transaction-detail/fee-voucher'],
-                    ['title'=> 'Create New Vouchers','class'=>'btn btn-success']).'</span>'.    
+                    // '<span style="float:right;">'.
+                    // Html::a('<i class="glyphicon glyphicon-plus"></i> Collect Vouchers', ['/fee-transaction-detail/collect-voucher'],
+                    // // ['title'=> 'Collect Generated Vouchers','class'=>'btn btn-warning']).'</span> &nbsp;'.
+                    // '<span style="float:right;">'.   
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
                     ['role'=>'modal-remote','title'=> 'Create new Fee Transaction Details','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],

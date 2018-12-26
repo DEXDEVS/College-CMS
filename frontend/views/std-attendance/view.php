@@ -12,7 +12,9 @@ use yii\widgets\DetailView;
         'attributes' => [
             'std_attend_id',
             'teacher_id',
-            'class_id',
+            'class_name_id',
+            'session_id',
+            'section_id',
             'date',
             'student_id',
             'status',

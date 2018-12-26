@@ -7,25 +7,28 @@ use Yii;
 /**
  * This is the model class for table "std_fee_details".
  *
- * @property integer $fee_id
- * @property integer $std_id
+ * @property int $fee_id
+ * @property int $std_id
  * @property double $admission_fee
  * @property double $addmission_fee_discount
  * @property double $net_addmission_fee
- * @property double $monthly_fee
- * @property double $monthly_fee_discount
- * @property double $net_monthly_fee
+ * @property string $fee_category
+ * @property int $concession_id
+ * @property int $no_of_installment
+ * @property double $tuition_fee
+ * @property double $net_tuition_fee
  * @property string $created_at
  * @property string $updated_at
- * @property integer $created_by
- * @property integer $updated_by
+ * @property int $created_by
+ * @property int $updated_by
  *
  * @property StdPersonalInfo $std
+ * @property Concession $concession
  */
 class StdFeeDetails extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -33,33 +36,37 @@ class StdFeeDetails extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['std_id', 'admission_fee', 'addmission_fee_discount', 'net_addmission_fee', 'monthly_fee', 'monthly_fee_discount', 'net_monthly_fee'], 'required'],
-            [['std_id', 'created_by', 'updated_by'], 'integer'],
-            [['admission_fee', 'addmission_fee_discount', 'net_addmission_fee', 'monthly_fee', 'monthly_fee_discount', 'net_monthly_fee'], 'number'],
+            [['std_id', 'admission_fee', 'addmission_fee_discount', 'net_addmission_fee', 'fee_category', 'concession_id', 'no_of_installment', 'tuition_fee', 'net_tuition_fee'], 'required'],
+            [['std_id', 'concession_id', 'no_of_installment', 'created_by', 'updated_by'], 'integer'],
+            [['admission_fee', 'addmission_fee_discount', 'net_addmission_fee', 'tuition_fee', 'net_tuition_fee'], 'number'],
+            [['fee_category'], 'string'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
+            [['concession_id'], 'exist', 'skipOnError' => true, 'targetClass' => Concession::className(), 'targetAttribute' => ['concession_id' => 'concession_id']],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
             'fee_id' => 'Fee ID',
-            'std_id' => 'Student Name',
+            'std_id' => 'Std ID',
             'admission_fee' => 'Admission Fee',
             'addmission_fee_discount' => 'Addmission Fee Discount',
             'net_addmission_fee' => 'Net Addmission Fee',
-            'monthly_fee' => 'Monthly Fee',
-            'monthly_fee_discount' => 'Monthly Fee Discount',
-            'net_monthly_fee' => 'Net Monthly Fee',
+            'fee_category' => 'Fee Category',
+            'concession_id' => 'Concession ID',
+            'no_of_installment' => 'No Of Installment',
+            'tuition_fee' => 'Tuition Fee',
+            'net_tuition_fee' => 'Tuition Fee Par Installment',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
@@ -73,5 +80,13 @@ class StdFeeDetails extends \yii\db\ActiveRecord
     public function getStd()
     {
         return $this->hasOne(StdPersonalInfo::className(), ['std_id' => 'std_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConcession()
+    {
+        return $this->hasOne(Concession::className(), ['concession_id' => 'concession_id']);
     }
 }

@@ -33,15 +33,25 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'monthly_fee',
+        'attribute'=>'fee_category',
     ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'monthly_fee_discount',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'net_monthly_fee',
+        'attribute'=>'concession_id',
+        'value'=>'concession.concession_name',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'tuition_fee',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'no_of_installment',
+    ],
+    
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'net_tuition_fee',
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',

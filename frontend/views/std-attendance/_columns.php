@@ -16,11 +16,23 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'teacher.emp_name',
+        'attribute'=>'teacher_id',
+        'value'=>'teacher.emp_name'
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'class.class_name',
+        'attribute'=>'class_name_id',
+        'value'=>'className.class_name'
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'session_id',
+        'value'=>'session.session_name'
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'section_id',
+        'value'=>'section.section_name'
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -28,7 +40,8 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'student.std_name',
+        'attribute'=>'student_id',
+        'value'=>'student.std_name'
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

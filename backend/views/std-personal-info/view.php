@@ -14,7 +14,7 @@ $options = ['data-lightbox'=>'profile image','data-title'=>$photoInfo['alt']];
 <div class="std-personal-info-view">
 
     <center>
-        <figure class="img img-circle">
+        <figure>
             <?= Html::a($photo,$photoInfo['url'],$options); ?>
             <!-- <figcaption>(Click to enlarge)</figcaption> -->
         </figure>    

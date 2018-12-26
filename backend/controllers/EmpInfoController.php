@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\EmpInfo;
 use common\models\EmpReference;
-use backend\models\EmpInfoSearch;
+use common\models\EmpInfoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\StdAttendanceHead;
+use common\models\Concession;
 
 /**
- * StdAttendanceHeadSearch represents the model behind the search form about `common\models\StdAttendanceHead`.
+ * ConcessionSearch represents the model behind the search form about `common\models\Concession`.
  */
-class StdAttendanceHeadSearch extends StdAttendanceHead
+class ConcessionSearch extends Concession
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class StdAttendanceHeadSearch extends StdAttendanceHead
     public function rules()
     {
         return [
-            [['std_atten_head_id', 'std_atten_head_class_id', 'std_atten_head_course_id', 'total_students', 'total_present_students', 'total_absent_students', 'Total_leave_students', 'created_by', 'updated_by'], 'integer'],
-            [['datetime', 'created_at', 'updated_at'], 'safe'],
+            [['concession_id', 'created_by', 'updated_by'], 'integer'],
+            [['concession_name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class StdAttendanceHeadSearch extends StdAttendanceHead
      */
     public function search($params)
     {
-        $query = StdAttendanceHead::find();
+        $query = Concession::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,19 +56,14 @@ class StdAttendanceHeadSearch extends StdAttendanceHead
         }
 
         $query->andFilterWhere([
-            'std_atten_head_id' => $this->std_atten_head_id,
-            'std_atten_head_class_id' => $this->std_atten_head_class_id,
-            'std_atten_head_course_id' => $this->std_atten_head_course_id,
-            'datetime' => $this->datetime,
-            'total_students' => $this->total_students,
-            'total_present_students' => $this->total_present_students,
-            'total_absent_students' => $this->total_absent_students,
-            'Total_leave_students' => $this->Total_leave_students,
+            'concession_id' => $this->concession_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
         ]);
+
+        $query->andFilterWhere(['like', 'concession_name', $this->concession_name]);
 
         return $dataProvider;
     }

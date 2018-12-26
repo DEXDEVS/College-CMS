@@ -6,6 +6,7 @@ use yii\web\UploadedFile;
 use dosamigos\datetimepicker\DateTimePicker;
 use kartik\select2\Select2;
 use common\models\StdClassName;
+use common\models\Concession;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StdPersonalInfo */
@@ -130,33 +131,41 @@ use common\models\StdClassName;
         <div class="row">
             <div class="col-md-4">
                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
-                    ['prompt'=>'']
-                )?>
+                        ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
+                        ['prompt'=>'']
+                    )?>
             </div>
+            <div class="col-md-4">
+                <?= $form->field($stdAcademicInfo, 'subject_combination')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-4">
-                 <?= $form->field($stdAcademicInfo, 'passing_year')->textInput(['maxlength' => true]) ?>
+               <?= $form->field($stdAcademicInfo, 'passing_year')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-4">
+                <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput() ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <?= $form->field($stdAcademicInfo, 'total_marks')->textInput(['id'=>'totalMarks']) ?>
+                <?= $form->field($stdAcademicInfo, 'total_marks')->textInput(['id'=>'totalMarks']) ?>   
             </div>
             <div class="col-md-4">
-                <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>
+                 <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>   
             </div>
             <div class="col-md-4">
-                <?= $form->field($stdAcademicInfo, 'percentage')->textInput(['id'=>'percentage']) ?>
+                <?= $form->field($stdAcademicInfo, 'percentage')->textInput(['id'=>'percentage']) ?>    
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <?= $form->field($stdAcademicInfo, 'grades')->dropDownList([ 'A+' => 'A+', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'F' => 'F', ], ['prompt' => '']) ?>
+            <div class="col-md-4">
+                <?= $form->field($stdAcademicInfo, 'grades')->dropDownList([ 'A+' => 'A+', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'F' => 'F', ], ['prompt' => '']) ?>  
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <?= $form->field($stdAcademicInfo, 'Institute')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
@@ -180,19 +189,28 @@ use common\models\StdClassName;
         </div>
         <div class="row">
             <div class="col-md-4">
-                <?= $form->field($stdFeeDetails, 'monthly_fee')->textInput(['type' => 'number','id' => 'monthlyFee']) ?>
+               <?= $form->field($stdFeeDetails, 'fee_category')->dropDownList([ 'Annual' => 'Annual', 'Semester' => 'Semester', ], ['prompt' => 'Select Category']) ?> 
             </div>
             <div class="col-md-4">
-                <?= $form->field($stdFeeDetails, 'monthly_fee_discount')->textInput(['type' => 'number','id' => 'monthlyFeeDiscount']) ?>
-             </div>
-              <div class="col-md-4">
-                <?= $form->field($stdFeeDetails, 'net_monthly_fee')->textInput(['type' => 'number', 'id' => 'netMonthlyFee', 'readonly'=> true, 'onfocus' => 'showNetMonthlyFee();' ]) ?>
+                <?= $form->field($stdFeeDetails, 'concession_id')->dropDownList(
+                        ArrayHelper::map(Concession::find()->all(),'concession_id','concession_name'),
+                        ['prompt'=>'Select Concession Type']
+                    )?>
             </div>
-        </div>        
-        <!-- Fee detail end -->
-
-        
+            <div class="col-md-4">
+                <?= $form->field($stdFeeDetails, 'tuition_fee')->textInput(['type' => 'number','id' => 'tuitionFee']) ?>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-4">
+                <?= $form->field($stdFeeDetails, 'no_of_installment')->textInput(['type' => 'number','id' => 'noOfInstallment']) ?>
+            </div>
+            <div class="col-md-4">
+                <?= $form->field($stdFeeDetails, 'net_tuition_fee')->textInput(['type' => 'number','id' => 'netTuitionFee','readonly'=> true, 'onfocus' => 'showNetTuitionFee();' ]) ?>
+            </div>
+        </div>
+        <!-- Fee detail end -->
+    </div>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
@@ -211,11 +229,11 @@ use common\models\StdClassName;
                 var value2 = document.getElementById('admissionFeeDiscount').value;
                 document.getElementById('netAdmissionFee').value = value1 - value2 ;
             }
-            // showNetMonthlyFee function...!
-            function showNetMonthlyFee() {
-                var value1 = document.getElementById('monthlyFee').value;
-                var value2 = document.getElementById('monthlyFeeDiscount').value;
-                document.getElementById('netMonthlyFee').value = value1 - value2;
+            // showNetTuitionFee function...!
+            function showNetTuitionFee() {
+                var value1 = document.getElementById('tuitionFee').value;
+                var value2 = document.getElementById('noOfInstallment').value;
+                document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
             }
 $('#obtainedMarks').on('change',function(){
    var totalMarks = $('#totalMarks').val();

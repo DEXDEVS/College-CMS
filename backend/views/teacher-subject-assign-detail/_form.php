@@ -48,6 +48,9 @@ use common\models\Subjects;
                 ]);
                 ?>
             </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'no_of_lecture')->dropDownList([ '1 Lecture' => '1 Lecture', '2 Lectures' => '2 Lectures', '3 Lectures' => '3 Lectures', '4 Lectures' => '4 Lectures', '5 Lectures' => '5 Lectures', '6 Lectures' => '6 Lectures', 'Full Week' => 'Full Week', ], ['prompt' => '']) ?>
+            </div>
         </div>
 
     <?php if (!Yii::$app->request->isAjax){ ?>

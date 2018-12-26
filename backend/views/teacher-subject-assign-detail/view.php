@@ -14,6 +14,7 @@ use yii\widgets\DetailView;
             'teacher_subject_assign_detail_head_id',
             'class_id',
             'subject_id',
+            'no_of_lecture',
             'created_at',
             'updated_at',
             'created_by',

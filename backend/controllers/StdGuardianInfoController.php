@@ -99,11 +99,7 @@ class StdGuardianInfoController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post())){
-                        $model->created_by = Yii::$app->user->identity->id; 
-                        $model->created_at = new \yii\db\Expression('NOW()');
-                        $model->updated_by = '0'; 
-                        $model->save();
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new StdGuardianInfo",
@@ -128,7 +124,7 @@ class StdGuardianInfoController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->std_guardian_id]);
+                return $this->redirect(['view', 'id' => $model->std_guardian_info_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
@@ -164,19 +160,15 @@ class StdGuardianInfoController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post())){
-                        $model->updated_by = Yii::$app->user->identity->id;
-                        $model->updated_at = new \yii\db\Expression('NOW()');
-                        $model->created_by = $model->created_by;
-                        $model->save();
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "StdGuardianInfo #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-success','role'=>'modal-remote'])
                 ];    
             }else{
                  return [
@@ -193,7 +185,7 @@ class StdGuardianInfoController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->std_guardian_id]);
+                return $this->redirect(['view', 'id' => $model->std_guardian_info_id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,

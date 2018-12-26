@@ -23,8 +23,8 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'guardian_cnic')->textInput(['maxlength' => true]) ?>
-        </div>
+                <?= $form->field($model, 'guardian_cnic')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '99999-9999999-9', ]) ?>
+            </div> 
         <div class="col-md-4">
             <?= $form->field($model, 'guardian_email')->textInput(['maxlength' => true]) ?>
         </div>
@@ -37,7 +37,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'guardian_contact_no_2')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>  
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'guardian_monthly_income')->textInput() ?>
+            <?= $form->field($model, 'guardian_monthly_income')->textInput(['type'=>'number']) ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'guardian_occupation')->textInput(['maxlength' => true]) ?>

@@ -18,26 +18,26 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <?= $form->field($stdEnrollmentHead, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
                     ['prompt'=>'']
                 )?>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <?= $form->field($stdEnrollmentHead, 'session_id')->dropDownList(
                     ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name'),
                     ['prompt'=>'']
                 )?>
             </div>
-            <div class="col-md-4">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <?= $form->field($stdEnrollmentHead, 'section_id')->dropDownList(
                     ArrayHelper::map(StdSections::find()->all(),'section_id','section_name'),
                     ['prompt'=>'']
                 )?>
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'std_enroll_detail_std_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(StdPersonalInfo::find()->all(),'std_id','std_name'),
