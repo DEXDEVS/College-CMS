@@ -11,10 +11,12 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [
+    'language' => 'ur',
+    'sourceLanguage' => 'en',
+     'modules' => [
         'gridview' =>  [
-            'class' => '\kartik\grid\Module',
-        ],
+            'class' => '\kartik\grid\Module'
+        ], 
     ],
     'components' => [
         'request' => [
@@ -40,16 +42,6 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        'gridview' =>  [
-            'class' => '\kartik\grid\Module',
-        ],
-        'bulksms' => [
-            'class' => 'netesy\bulksms\BulkSms',
-            'username' => 'DEXDEVS',
-            'password' => 'dexdevs03',
-            'sender' => '+923317375027',
-            'url' => 'http://bsms.ufone.com/bsms_app5/sendapi-0.3.jsp',
         ],
         /*
         'urlManager' => [

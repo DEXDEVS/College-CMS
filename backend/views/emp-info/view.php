@@ -19,12 +19,7 @@ $degOptions = ['data-lightbox'=>'profile image','data-title'=>$degreeInfo['alt']
         <figure>
             <?= Html::a($photo,$photoInfo['url'],$options); ?>
             <!-- <figcaption>(Click to enlarge)</figcaption> -->
-        </figure>
-        <figure>
-            <?= Html::a($degree,$degreeInfo['url'],$degOptions); ?>
-            <!-- <figcaption>(Click to enlarge)</figcaption> -->
-        </figure>    
-
+        </figure>   
     <br>
  
     <?= DetailView::widget([
@@ -56,5 +51,22 @@ $degOptions = ['data-lightbox'=>'profile image','data-title'=>$degreeInfo['alt']
             'updated_by',
         ],
     ]) ?>
-
+    <button class="btn btn-success">Display Degree Image</button>
+    <br/>
+    <div id="figure" style="display:none;margin-top: 10px; ">
+        <figure>
+            <?= Html::a($degree,$degreeInfo['url'],$degOptions); ?>
+            <!-- <figcaption>(Click to enlarge)</figcaption> -->
+        </figure> 
+    </div>
 </div>
+<?php
+$script = <<< JS
+$(document).ready(function(){
+    $("button").click(function(){
+        $("#figure").toggle();
+    });
+});
+JS;
+$this->registerJs($script);
+?>
