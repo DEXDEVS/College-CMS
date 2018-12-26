@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2018 at 08:00 AM
+-- Generation Time: Dec 26, 2018 at 03:25 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -110,7 +110,8 @@ INSERT INTO `emails` (`emial_id`, `receiver_name`, `receiver_email`, `email_subj
 (10, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545484846.jpg', '2018-12-22 13:20:52', 1, '2018-12-22 13:20:52', 1),
 (11, 'anas', 'anasshafqat01@gmail.com', 'helli', 'mlklkk', 'attachments/1545761723.jpg', '2018-12-25 18:15:28', 1, '0000-00-00 00:00:00', 0),
 (12, 'Anas', 'anasshafqat01@gmail.com', 'Hello', 'heloo heloo heloo heloo', 'attachments/1545764108.jpg', '2018-12-25 18:55:13', 1, '0000-00-00 00:00:00', 0),
-(13, 'Anas', 'anasshafqat01@gmail.com', 'Hello', 'Testing Email....', 'attachments/1545804180.jpg', '2018-12-26 06:03:14', 1, '0000-00-00 00:00:00', 0);
+(13, 'Anas', 'anasshafqat01@gmail.com', 'Hello', 'Testing Email....', 'attachments/1545804180.jpg', '2018-12-26 06:03:14', 1, '0000-00-00 00:00:00', 0),
+(14, 'khh', 'anasshafqat01@gmail.com', 'hello', 'jkhjkh', 'attachments/1545816221.sql', '2018-12-26 09:23:48', 1, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -237,31 +238,27 @@ INSERT INTO `emp_type` (`emp_type_id`, `emp_type`, `created_at`, `updated_at`, `
 CREATE TABLE `events` (
   `event_id` int(11) NOT NULL,
   `event_title` varchar(80) NOT NULL,
-  `event_detail` varchar(255) NOT NULL,
-  `event_start_date` datetime NOT NULL,
-  `event_end_date` datetime NOT NULL,
-  `event_type` int(11) NOT NULL,
-  `event_url` varchar(255) DEFAULT NULL,
-  `event_all_day` tinyint(1) NOT NULL DEFAULT '0',
+  `event_detail` text NOT NULL,
+  `event_start_datetime` datetime NOT NULL,
+  `event_end_datetime` datetime NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `is_status` tinyint(1) NOT NULL DEFAULT '0'
+  `is_status` enum('Active','Inactive') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`event_id`, `event_title`, `event_detail`, `event_start_date`, `event_end_date`, `event_type`, `event_url`, `event_all_day`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`) VALUES
-(1, 'Last Day', 'Last Day of Janvi', '2015-05-30 00:00:00', '2015-05-30 00:00:00', 2, NULL, 0, '2015-05-27 15:34:53', 1, '2015-05-27 15:40:30', 1, 2),
-(2, 'Janvi BDay', 'Happy Birthday Janvi ', '2015-07-05 00:00:00', '2015-07-05 00:00:00', 4, NULL, 0, '2015-05-27 15:35:38', 1, '2015-05-27 15:40:48', 1, 2),
-(3, 'Happy Bday', 'HAppy Birthday KarmrajSir', '2015-07-25 00:00:00', '2015-07-25 00:00:00', 4, NULL, 0, '2015-05-27 15:36:10', 1, '2015-05-27 15:41:05', 1, 2),
-(4, 'Launching New Application', 'Launch of Edusec Yii2', '2015-06-02 09:30:00', '2015-06-02 10:00:00', 2, NULL, 0, '2015-05-27 15:37:00', 1, '2015-05-27 15:39:37', 1, 0),
-(5, 'Meeting for staff ', 'All Staff Members-Meeting', '2015-06-09 00:00:00', '2015-06-09 00:00:00', 3, NULL, 0, '2015-05-27 15:37:42', 1, NULL, NULL, 0),
-(6, 'Mango Festival', 'Two-day festival celebrating the ubiquitous Indian mango fruit with quizzes, competitions, mango tasting and over 400 varieties of the fruit on display.', '2015-07-01 08:30:00', '2015-07-01 15:00:00', 2, NULL, 0, '2015-05-27 15:38:08', 1, '2015-05-27 15:38:44', 1, 0),
-(7, 'Celebration Time', 'Celebration Time', '2015-06-25 00:00:00', '2015-06-25 00:00:00', 4, NULL, 0, '2015-05-27 15:39:12', 1, NULL, NULL, 0);
+INSERT INTO `events` (`event_id`, `event_title`, `event_detail`, `event_start_datetime`, `event_end_datetime`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`) VALUES
+(1, 'Last Day', 'Last Day of Janvi', '2015-05-30 00:00:00', '2015-05-30 00:00:00', '2015-05-27 15:34:53', 1, '2015-05-27 15:40:30', 1, 'Inactive'),
+(2, 'Janvi BDay', 'Happy Birthday Janvi ', '2015-07-05 00:00:00', '2015-07-05 00:00:00', '2015-05-27 15:35:38', 1, '2015-05-27 15:40:48', 1, 'Inactive'),
+(3, 'Happy Bday', 'HAppy Birthday KarmrajSir', '2015-07-25 00:00:00', '2015-07-25 00:00:00', '2015-05-27 15:36:10', 1, '2015-05-27 15:41:05', 1, 'Inactive'),
+(4, 'Launching New Application', 'Launch of Edusec Yii2', '2015-06-02 09:30:00', '2015-06-02 10:00:00', '2015-05-27 15:37:00', 1, '2015-05-27 15:39:37', 1, ''),
+(5, 'Meeting for staff ', 'All Staff Members-Meeting', '2015-06-09 00:00:00', '2015-06-09 00:00:00', '2015-05-27 15:37:42', 1, NULL, NULL, ''),
+(7, 'Celebration Time', 'Celebration Time', '2015-06-25 00:00:00', '2015-06-25 00:00:00', '2015-05-27 15:39:12', 1, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -442,12 +439,12 @@ INSERT INTO `month` (`month_id`, `month_name`) VALUES
 CREATE TABLE `msg_of_day` (
   `msg_of_day_id` int(11) NOT NULL,
   `msg_details` varchar(100) NOT NULL,
-  `msg_user_type` char(3) NOT NULL DEFAULT '0',
+  `msg_user_type` enum('Students','Parents','Employees','Others') NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `is_status` tinyint(1) NOT NULL DEFAULT '0'
+  `is_status` enum('Active','Inactive') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -455,12 +452,12 @@ CREATE TABLE `msg_of_day` (
 --
 
 INSERT INTO `msg_of_day` (`msg_of_day_id`, `msg_details`, `msg_user_type`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`) VALUES
-(1, 'Each Day is a GIFT don\'t send it BACK unopened.  Have a nice Day !', '0', '2015-05-27 15:21:01', 1, NULL, NULL, 0),
-(2, 'Every day may not be GOOD but there is something GOOD in every day.', 'S', '2015-05-27 15:21:22', 1, NULL, NULL, 1),
-(3, 'Every ONE wants happiness, No ONE needs pain, But its not possible to get a rainbow.', 'E', '2015-05-27 15:21:41', 1, NULL, NULL, 1),
-(4, 'Smile is the Electricity and Life is a Battery whenever you Smile the Battery gets Charges.', '0', '2015-05-27 15:21:59', 1, NULL, NULL, 1),
-(5, 'The Best for the Group comes when everyone in the group does what’s best for himself AND the group.', 'E', '2015-05-27 15:22:20', 1, NULL, NULL, 1),
-(6, 'In life, as in football, you won\'t go far unless you know where the goalposts are.\r\n-- Arnold Glasow', 'S', '2015-05-27 15:24:54', 1, NULL, NULL, 1);
+(1, 'Each Day is a GIFT don\'t send it BACK unopened.  Have a nice Day !', 'Students', '2015-05-27 15:21:01', 1, NULL, NULL, 'Active'),
+(2, 'Every day may not be GOOD but there is something GOOD in every day.', 'Parents', '2015-05-27 15:21:22', 1, NULL, NULL, 'Active'),
+(3, 'Every ONE wants happiness, No ONE needs pain, But its not possible to get a rainbow.', 'Employees', '2015-05-27 15:21:41', 1, NULL, NULL, 'Active'),
+(4, 'Smile is the Electricity and Life is a Battery whenever you Smile the Battery gets Charges.', 'Students', '2015-05-27 15:21:59', 1, '2018-12-26 18:11:26', 1, 'Active'),
+(5, 'The Best for the Group comes when everyone in the group does what’s best for himself AND the group.', 'Students', '2015-05-27 15:22:20', 1, NULL, NULL, 'Active'),
+(6, 'In life, as in football, you won\'t go far unless you know where the goalposts are.-- Arnold Glasow', 'Students', '2015-05-27 15:24:54', 1, '2018-12-26 18:11:18', 1, 'Active');
 
 -- --------------------------------------------------------
 
@@ -471,27 +468,25 @@ INSERT INTO `msg_of_day` (`msg_of_day_id`, `msg_details`, `msg_user_type`, `crea
 CREATE TABLE `notice` (
   `notice_id` int(11) NOT NULL,
   `notice_title` varchar(25) NOT NULL,
-  `notice_description` varchar(255) DEFAULT NULL,
-  `notice_user_type` char(3) NOT NULL,
-  `notice_date` date DEFAULT NULL,
-  `notice_file_path` varchar(100) DEFAULT NULL,
+  `notice_description` text,
+  `notice_user_type` enum('Students','Parents','Employees','Others') NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `is_status` tinyint(1) NOT NULL DEFAULT '0'
+  `is_status` enum('Active','Inactive') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `notice`
 --
 
-INSERT INTO `notice` (`notice_id`, `notice_title`, `notice_description`, `notice_user_type`, `notice_date`, `notice_file_path`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`) VALUES
-(1, 'Next Week Summer Exam ', 'summer Exam will be conducted on Next week. All The Best', 'S', '2015-06-01', NULL, '2015-05-27 15:26:29', 1, NULL, NULL, 0),
-(2, 'Monthly Report', 'All Employee have to submit their report on month end.', 'E', '2015-06-05', NULL, '2015-05-27 15:27:23', 1, NULL, NULL, 0),
-(3, 'Summer Vacation', 'Summer Vacation starts from June to  2nd week of July.', '0', '2015-05-30', NULL, '2015-05-27 15:28:37', 1, NULL, NULL, 0),
-(4, 'Attendance Report', 'All Employees collect their class wise  attendance report', 'E', '2015-05-29', NULL, '2015-05-27 15:30:35', 1, NULL, NULL, 0),
-(5, 'Exam From Fill', 'All Students come and fill their exam forms', 'S', '2015-05-25', NULL, '2015-05-27 15:33:07', 1, NULL, NULL, 0);
+INSERT INTO `notice` (`notice_id`, `notice_title`, `notice_description`, `notice_user_type`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`) VALUES
+(1, 'Next Week Summer Exam ', 'Summer Exam will be conducted on Next week. All The Best', 'Students', '2015-05-27 15:26:29', 1, '2018-12-26 18:44:07', 1, 'Active'),
+(2, 'Monthly Report', 'All Employee have to submit their report on month end.', 'Employees', '2015-05-27 15:27:23', 1, '2018-12-26 18:43:37', 1, 'Active'),
+(3, 'Summer Vacation', 'Summer Vacation starts from June to  2nd week of July.', 'Students', '2015-05-27 15:28:37', 1, '2018-12-26 18:44:16', 1, 'Inactive'),
+(4, 'Attendance Report', 'All Employees collect their class wise  attendance report', 'Employees', '2015-05-27 15:30:35', 1, '2018-12-26 18:44:19', 1, 'Active'),
+(5, 'Exam From Fill', 'All Students come and fill their exam forms', 'Students', '2015-05-27 15:33:07', 1, '2018-12-26 18:44:03', 1, 'Active');
 
 -- --------------------------------------------------------
 
@@ -539,10 +534,10 @@ CREATE TABLE `std_academic_info` (
 --
 
 INSERT INTO `std_academic_info` (`academic_id`, `std_id`, `class_name_id`, `subject_combination`, `previous_class`, `passing_year`, `previous_class_rollno`, `total_marks`, `obtained_marks`, `grades`, `percentage`, `Institute`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 3, 7, '', '3rd', '2017', 0, 505, 509, 'A+', 100.79207920792, 'DexDevs', '2018-12-20 18:49:41', '2018-12-20 18:49:41', 1, 1),
-(2, 1, 9, '', '5th', '2017', 0, 505, 400, 'A', 89, 'DexDevs', '2018-10-10 14:19:34', '0000-00-00 00:00:00', 1, 0),
-(3, 2, 3, '', 'KG1', '2017', 0, 300, 299, 'A+', 99, 'DexDevs', '2018-10-10 14:20:12', '0000-00-00 00:00:00', 1, 0),
-(4, 9, 9, '', '5th', '2011', 0, NULL, NULL, '', NULL, 'XYZ', '2018-11-03 06:06:34', '0000-00-00 00:00:00', 1, 0);
+(1, 3, 7, '', 'FSC - Pre-Medical', '2017', 0, 1100, 860, 'A', 78.181818181818, 'DexDevs', '2018-12-26 10:18:51', '2018-12-26 10:18:51', 1, 1),
+(2, 1, 9, '', 'BSC - Double Computer-Math (Part - I)', '2017', 0, 505, 400, 'A', 89, 'DexDevs', '2018-12-26 10:13:22', '2018-12-26 10:13:22', 1, 1),
+(3, 2, 3, '', 'Matric', '2017', 0, 1100, 980, 'A+', 89.090909090909, 'Govt Girls High School', '2018-12-26 10:14:44', '2018-12-26 10:14:44', 1, 1),
+(4, 9, 9, '', 'BSC - Double Computer-Math (Part - I)', '2017', 0, 400, 300, 'A', 75, 'XYZ', '2018-12-26 10:16:52', '2018-12-26 10:16:52', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -567,7 +562,9 @@ CREATE TABLE `std_attendance` (
 
 INSERT INTO `std_attendance` (`std_attend_id`, `teacher_id`, `class_name_id`, `session_id`, `section_id`, `date`, `student_id`, `status`) VALUES
 (1, 2, 3, 2, 1, '2018-12-19 00:00:00', 1, 'P'),
-(2, 2, 3, 2, 1, '2018-12-19 00:00:00', 2, 'A');
+(2, 2, 3, 2, 1, '2018-12-19 00:00:00', 2, 'A'),
+(3, 2, 3, 2, 1, '2018-12-26 00:00:00', 1, 'A'),
+(4, 2, 3, 2, 1, '2018-12-26 00:00:00', 2, 'P');
 
 -- --------------------------------------------------------
 
@@ -605,7 +602,7 @@ INSERT INTO `std_class` (`class_id`, `class_name_id`, `session_id`, `section_id`
 
 CREATE TABLE `std_class_name` (
   `class_name_id` int(11) NOT NULL,
-  `class_name` varchar(32) NOT NULL,
+  `class_name` varchar(120) NOT NULL,
   `class_name_description` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -618,15 +615,15 @@ CREATE TABLE `std_class_name` (
 --
 
 INSERT INTO `std_class_name` (`class_name_id`, `class_name`, `class_name_description`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Play Group', 'Play Group', '2018-10-07 20:31:34', '0000-00-00 00:00:00', 1, 0),
-(2, 'KG1', 'KG!', '2018-10-07 20:31:48', '0000-00-00 00:00:00', 1, 0),
-(3, 'Prep', 'Prep', '2018-10-07 20:32:01', '0000-00-00 00:00:00', 1, 0),
-(4, '1st', '1st', '2018-10-07 20:37:01', '0000-00-00 00:00:00', 1, 0),
-(5, '2nd', '2nd', '2018-10-07 20:37:10', '0000-00-00 00:00:00', 1, 0),
-(6, '3rd', '3rd', '2018-10-07 20:37:19', '0000-00-00 00:00:00', 1, 0),
-(7, '4th', '4th', '2018-10-07 20:37:35', '0000-00-00 00:00:00', 1, 0),
-(8, '5th', '5th', '2018-10-07 20:37:44', '0000-00-00 00:00:00', 1, 0),
-(9, '6th', '6th', '2018-10-07 20:37:53', '0000-00-00 00:00:00', 1, 0);
+(1, 'FSC Pre-Medical (Part - I)', 'Intermediate FSC Pre-Medical (Part - I)', '2018-12-26 09:45:54', '2018-12-26 09:45:54', 1, 1),
+(2, 'FSC Pre-Medical (Part - II)', 'Intermediate FSC Pre-Medical (Part - II)', '2018-12-26 09:46:55', '2018-12-26 09:46:55', 1, 1),
+(3, 'FSC Pre-Engineering (Part - I)', 'Intermediate FSC Pre-Engineering (Part - I)', '2018-12-26 09:47:39', '2018-12-26 09:47:39', 1, 1),
+(4, 'FSC Pre-Engineering (Part - II)', 'Intermediate FSC Pre-Engineering (Part - II)', '2018-12-26 09:48:09', '2018-12-26 09:48:09', 1, 1),
+(5, 'ICS (Part - I)', 'Intermediate ICS (Part - I)', '2018-12-26 09:48:46', '2018-12-26 09:48:46', 1, 1),
+(6, 'ICS (Part - II)', 'Intermediate ICS (Part - II)', '2018-12-26 09:49:18', '2018-12-26 09:49:18', 1, 1),
+(7, 'BSC - ZBC (Part - I)', 'Bachelor BSC - ZBC (Part - I)', '2018-12-26 09:50:48', '2018-12-26 09:50:48', 1, 1),
+(8, 'BSC - Double Computer-Math (Part - I)', 'Bachelor BSC - Double Computer-Math (Part - I)', '2018-12-26 10:10:58', '2018-12-26 10:10:58', 1, 1),
+(9, 'BSC - Double Computer-Math (Part - II)', 'Bachelor 	BSC - Double Computer-Math (Part - II)', '2018-12-26 10:11:24', '2018-12-26 10:11:24', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -714,7 +711,9 @@ CREATE TABLE `std_fee_details` (
 --
 
 INSERT INTO `std_fee_details` (`fee_id`, `std_id`, `admission_fee`, `addmission_fee_discount`, `net_addmission_fee`, `fee_category`, `concession_id`, `no_of_installment`, `tuition_fee`, `net_tuition_fee`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 8, 5000, 400, 4600, 'Annual', 3, 4, 40000, 10000, '2018-12-22 09:15:04', '0000-00-00 00:00:00', 0, 0);
+(1, 8, 5000, 400, 4600, 'Annual', 3, 4, 40000, 10000, '2018-12-22 09:15:04', '0000-00-00 00:00:00', 0, 0),
+(2, 1, 5000, 500, 4500, 'Annual', 2, 4, 40000, 10000, '2018-12-26 10:33:40', '0000-00-00 00:00:00', 0, 0),
+(3, 2, 5000, 500, 4500, 'Annual', 2, 4, 45000, 11250, '2018-12-26 10:36:24', '0000-00-00 00:00:00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -745,9 +744,9 @@ CREATE TABLE `std_guardian_info` (
 
 INSERT INTO `std_guardian_info` (`std_guardian_info_id`, `std_id`, `guardian_name`, `guardian_relation`, `guardian_cnic`, `guardian_email`, `guardian_contact_no_1`, `guardian_contact_no_2`, `guardian_monthly_income`, `guardian_occupation`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
 (1, 1, 'G Mustafa', 'Father', '12345-6789123-4', 'abu@gmail.com', '+12-345-6789123', '+12-345-6789123', 30000, 'Businessmen', '2018-12-15 14:06:41', '0000-00-00 00:00:00', 1, 0),
-(2, 2, 'Iftkhar', '', '12345-6789123-4', 'abu@gmail.com', '+12-345-6789123', '+12-345-6789123', 0, '', '2018-10-10 14:33:37', '0000-00-00 00:00:00', 1, 0),
-(3, 3, 'dfghj', '', '12345-6787545-6', 'dfghjkjhg@.com', '+34-567-8823456', '+34-567-8987456', 0, '', '2018-10-27 08:14:43', '0000-00-00 00:00:00', 1, 0),
-(4, 9, 'Naveed Anjum', '', '12345-6789098-7', '', '+34-567-8909876', '', 0, '', '2018-11-03 05:53:46', '0000-00-00 00:00:00', 1, 0);
+(2, 2, 'Iftkhar', 'Rehman', '12345-6789123-4', 'abu@gmail.com', '+12-345-6789123', '+12-345-6789123', 0, 'sddd', '2018-12-26 08:19:38', '0000-00-00 00:00:00', 1, 0),
+(3, 3, 'Ali', 'Father', '12345-6787545-6', 'ali@gmail.com', '+34-567-8823456', '+34-567-8987456', 0, 'xyz', '2018-12-26 08:19:17', '0000-00-00 00:00:00', 1, 0),
+(4, 9, 'Naveed Anjum', 'Father', '12345-6789098-7', 'Naveed@gmail.com', '+34-567-8909876', '+92-123-4567876', 0, 'abc', '2018-12-26 08:25:20', '0000-00-00 00:00:00', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -905,7 +904,10 @@ INSERT INTO `teacher_subject_assign_detail` (`teacher_subject_assign_detail_id`,
 (4, 1, 2, 4, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0),
 (5, 1, 2, 5, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0),
 (6, 1, 2, 6, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0),
-(7, 1, 2, 7, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0);
+(7, 1, 2, 7, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0),
+(8, 2, 3, 1, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0),
+(9, 2, 3, 4, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0),
+(10, 2, 3, 7, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -928,7 +930,8 @@ CREATE TABLE `teacher_subject_assign_head` (
 --
 
 INSERT INTO `teacher_subject_assign_head` (`teacher_subject_assign_head_id`, `teacher_id`, `teacher_subject_assign_head_name`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, 'Nadia Gull', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0);
+(1, 1, 'Nadia Gull', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0),
+(2, 3, 'Asad Hussain', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -955,7 +958,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'sbuQbFqUQaaweB1Z-0Uj9pX4l1O3AMSu', '$2y$13$uKEhJ4s7pPEeZzYnZeEwYOyTYJCpQhSm.NKSgkeJcpWFBe0iqnu6a', NULL, 'admin@dexdevs.com', 10, 1538846711, 1538846711),
 (2, 'Nadia Gull', 'gQfgRy6bOrf6c0rA3GcHbJ8NBBkNOvav', '$2y$13$jZNfJkMzYUgfTOKlS4/J5OGCYddtOkPUX4HuDldfO42z4QehkAnnS', 'BQQPywNyB5CLu8tQB6fdmSq7JAQpVUSQ_1544169305', 'nadiagull285@gmail.com', 10, 1544164564, 1544169305),
-(3, 'kinza', '49-7nkeRO0S1DiJufMw2Z_03csIPfFKv', '$2y$13$GsKlW7WedO19nhEeSeELruQiVbrcn3fkw2cKDvun9.bw7qfQElrRW', NULL, 'kinza.fatima.522@gmail.com', 10, 1544420311, 1544420311);
+(3, 'kinza', '49-7nkeRO0S1DiJufMw2Z_03csIPfFKv', '$2y$13$GsKlW7WedO19nhEeSeELruQiVbrcn3fkw2cKDvun9.bw7qfQElrRW', NULL, 'kinza.fatima.522@gmail.com', 10, 1544420311, 1544420311),
+(4, 'anas', 'r_IlA2UFtjJd9CVfr-EOcjBPtHvTPLNF', '$2y$13$ngUV4J2RIM/TAxYqyts4N.80LJ99YfakZDeRFCxEAPn2sIOAFIvRK', NULL, 'anasshafqat01@gmail.com', 10, 1545816011, 1545816089);
 
 --
 -- Indexes for dumped tables
@@ -1217,7 +1221,7 @@ ALTER TABLE `concession`
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-  MODIFY `emial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `emial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `emp_designation`
@@ -1289,7 +1293,7 @@ ALTER TABLE `msg_of_day`
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `notice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `notice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sms`
@@ -1307,7 +1311,7 @@ ALTER TABLE `std_academic_info`
 -- AUTO_INCREMENT for table `std_attendance`
 --
 ALTER TABLE `std_attendance`
-  MODIFY `std_attend_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `std_attend_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `std_class`
@@ -1337,7 +1341,7 @@ ALTER TABLE `std_enrollment_head`
 -- AUTO_INCREMENT for table `std_fee_details`
 --
 ALTER TABLE `std_fee_details`
-  MODIFY `fee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `fee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `std_guardian_info`
@@ -1373,19 +1377,19 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `teacher_subject_assign_detail`
 --
 ALTER TABLE `teacher_subject_assign_detail`
-  MODIFY `teacher_subject_assign_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `teacher_subject_assign_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `teacher_subject_assign_head`
 --
 ALTER TABLE `teacher_subject_assign_head`
-  MODIFY `teacher_subject_assign_head_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `teacher_subject_assign_head_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
