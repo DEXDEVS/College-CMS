@@ -100,6 +100,20 @@
                     // ------------------------------------------------
                     // Fee Registration close...
                     // ------------------------------------------------
+                    // Msg of Day start...
+                    [
+                        'label' => 'Communications',
+                        'icon' => 'comments',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Message Management', 'icon' => 'caret-right', 'url' => 'index.php?r=msg-of-day'],
+                            ['label' => 'Events Management', 'icon' => 'caret-right', 'url' => 'index.php?r=events'],
+                            ['label' => 'Notice Management', 'icon' => 'caret-right', 'url' => 'index.php?r=notice'],
+                        ],
+                    ],
+                    // ------------------------------------------------
+                    // Msg of Day close...
+                    // ------------------------------------------------
                     // SMS start...
                     [
                         'label' => 'SMS',
