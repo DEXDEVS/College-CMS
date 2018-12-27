@@ -13,7 +13,10 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>1050</h3>
+              <?php 
+              $query = (new \yii\db\Query())->from('std_personal_info');
+              $id = $query->count('std_id'); ?>
+              <h3><?php echo $id; ?> </h3>
 
               <p>Student Registrations</p>
             </div>
@@ -28,7 +31,10 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px"></sup></h3>
+              <?php 
+              $query = (new \yii\db\Query())->from('emp_info');
+              $id = $query->count('emp_id'); ?>
+              <h3><?php echo $id; ?> </h3>
 
               <p>Employee Registrations</p>
             </div>
@@ -43,7 +49,10 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+             <?php 
+              $query = (new \yii\db\Query())->from('user');
+              $id = $query->count('id'); ?>
+              <h3><?php echo $id; ?> </h3>
 
               <p>User Registrations</p>
             </div>

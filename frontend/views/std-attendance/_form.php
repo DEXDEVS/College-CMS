@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'teacher_id')->textInput() ?>
 
-    <?= $form->field($model, 'class_id')->textInput() ?>
+    <?= $form->field($model, 'class_name_id')->textInput() ?>
 
     <?= $form->field($model, 'date')->textInput() ?>
 

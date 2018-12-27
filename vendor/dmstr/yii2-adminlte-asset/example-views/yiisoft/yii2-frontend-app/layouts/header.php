@@ -232,6 +232,7 @@ use yii\helpers\Html;
                         <img src="images/anas.jpg" class="user-image" alt="User Image"/>
                         <span class="hidden-xs">
                             <!--  -->
+                            
                         </span>
                     </a>
                     <ul class="dropdown-menu">
