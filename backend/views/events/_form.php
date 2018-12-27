@@ -33,7 +33,6 @@ use dosamigos\datetimepicker\DateTimePicker;
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd HH:ii:ss',
                     'todayBtn' => true,
-                    'minDate' => 0
                 ]
             ]);?>
         </div>
