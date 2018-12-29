@@ -41,7 +41,7 @@ class BranchesSearch extends Branches
      */
     public function search($params)
     {
-        $query = Branches::find();
+        $query = Branches::find()->where(['delete_status' => 1,'status'=> 'Active']);;
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
