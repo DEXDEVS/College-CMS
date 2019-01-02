@@ -31,7 +31,7 @@ class StdAttendanceController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','attendance','view','update','delete'],
+                        'actions' => ['logout', 'index','attendance','view','update','delete','attendance','fetch-section'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
