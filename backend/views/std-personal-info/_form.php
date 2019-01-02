@@ -152,18 +152,18 @@ use common\models\Concession;
         </div>
         <div class="row">
             <div class="col-md-4">
-                <?= $form->field($stdAcademicInfo, 'total_marks')->textInput(['id'=>'totalMarks']) ?>   
+                <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>
             </div>
             <div class="col-md-4">
-                 <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>   
+                <?= $form->field($stdAcademicInfo, 'total_marks')->textInput(['id'=>'totalMarks']) ?> 
             </div>
             <div class="col-md-4">
-                <?= $form->field($stdAcademicInfo, 'percentage')->textInput(['id'=>'percentage']) ?>    
+                <?= $form->field($stdAcademicInfo, 'percentage')->textInput(['id'=>'percentage', 'readonly' => true]) ?>    
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <?= $form->field($stdAcademicInfo, 'grades')->dropDownList([ 'A+' => 'A+', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'F' => 'F', ], ['prompt' => '']) ?>  
+                <?= $form->field($stdAcademicInfo, 'grades')->textInput(['id'=>'grade', 'readonly' => true]) ?>  
             </div>
             <div class="col-md-4">
                 <?= $form->field($stdAcademicInfo, 'Institute')->textInput(['maxlength' => true]) ?>
@@ -235,11 +235,41 @@ use common\models\Concession;
                 var value2 = document.getElementById('noOfInstallment').value;
                 document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
             }
-$('#obtainedMarks').on('change',function(){
+$('#totalMarks').on('change',function(){
    var totalMarks = $('#totalMarks').val();
    var obtainedMarks = $('#obtainedMarks').val();
    var percentage = ((parseInt(obtainedMarks) / parseInt(totalMarks))*100);
    $('#percentage').val(percentage);
+   //$('#grade').val(percentage);
+});
+
+$('#percentage').on('focus',function(){
+   var percent = $('#percentage').val();
+   // console.log(percent);
+   // alert(percent);
+
+   var percentage = parseInt(percent);
+   if (percentage>=90) {
+        $('#grade').val('A+');
+   }
+   else if (percentage>=80) {
+        $('#grade').val('A'); 
+   }
+   else if (percentage>=70){
+        $('#grade').val('B+');
+   }
+   else if (percentage>=60){
+        $('#grade').val('B');
+   }
+   else if (percentage>=50){
+        $('#grade').val('C');
+   }
+   else if (percentage>=40){
+        $('#grade').val('D');
+   }else{
+        $('#grade').val('F');
+   }
+
 });
 </script>
         
