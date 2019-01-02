@@ -32,7 +32,7 @@ class FeeTransactionDetailController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index',  'create', 'view', 'update', 'delete','fee-voucher', 'fetch-students', 'collect-voucher', 'update-voucher'],
+                        'actions' => ['logout', 'index',  'create', 'view', 'update', 'delete', 'bulk-delete', 'fee-voucher', 'fetch-students', 'collect-voucher', 'update-voucher'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

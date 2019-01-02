@@ -32,7 +32,7 @@ class TeacherSubjectAssignDetailController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
