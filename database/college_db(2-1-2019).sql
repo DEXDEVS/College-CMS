@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2019 at 05:53 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Jan 02, 2019 at 08:53 AM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,102 @@ SET time_zone = "+00:00";
 --
 -- Database: `college_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_assignment`
+--
+
+CREATE TABLE `auth_assignment` (
+  `item_name` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL,
+  `created_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('admin', '3', NULL),
+('data entry operator', '4', NULL),
+('data entry operator', '6', NULL),
+('reviewer', '5', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_item`
+--
+
+CREATE TABLE `auth_item` (
+  `name` varchar(64) NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text,
+  `rule_name` varchar(64) DEFAULT NULL,
+  `data` text,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+('admin', 1, 'admin can create advocate , view advocate , update advocate , delete advocate', NULL, NULL, NULL, NULL),
+('create-advocate', 1, 'allow user to create advocate', NULL, NULL, NULL, NULL),
+('data entry operator', 1, 'can create , view , update the record of the advocate', NULL, NULL, NULL, NULL),
+('delete-advocate', 1, 'user can delete the advocate', NULL, NULL, NULL, NULL),
+('export record', 1, 'Superadmin can export the record', NULL, NULL, NULL, NULL),
+('go to index', 1, 'user can go to advocates index page', NULL, NULL, NULL, NULL),
+('reviewer', 1, 'can update and read records', NULL, NULL, NULL, NULL),
+('update-advocate', 1, 'user can update the advocate', NULL, NULL, NULL, NULL),
+('view-advocate', 1, 'user can view the advocate', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_item_child`
+--
+
+CREATE TABLE `auth_item_child` (
+  `parent` varchar(64) NOT NULL,
+  `child` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `auth_item_child`
+--
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('admin', 'create-advocate'),
+('admin', 'delete-advocate'),
+('admin', 'export record'),
+('admin', 'go to index'),
+('admin', 'update-advocate'),
+('admin', 'view-advocate'),
+('data entry operator', 'create-advocate'),
+('data entry operator', 'go to index'),
+('data entry operator', 'update-advocate'),
+('data entry operator', 'view-advocate'),
+('reviewer', 'go to index'),
+('reviewer', 'update-advocate'),
+('reviewer', 'view-advocate');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_rule`
+--
+
+CREATE TABLE `auth_rule` (
+  `name` varchar(64) NOT NULL,
+  `data` text,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -681,7 +777,9 @@ INSERT INTO `std_enrollment_detail` (`std_enroll_detail_id`, `std_enroll_detail_
 (6, 2, 6, 'Qasim', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
 (7, 2, 7, 'Anas Shafqat', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
 (8, 2, 8, 'Zia Ali', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
-(9, 2, 9, 'Ali Naveed', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1);
+(9, 2, 9, 'Ali Naveed', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
+(10, 3, 5, 'Hamza', '2019-01-02 06:49:49', '0000-00-00 00:00:00', 1, 0, 1),
+(11, 3, 6, 'Qasim', '2019-01-02 06:49:49', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -707,8 +805,9 @@ CREATE TABLE `std_enrollment_head` (
 --
 
 INSERT INTO `std_enrollment_head` (`std_enroll_head_id`, `class_name_id`, `session_id`, `section_id`, `std_enroll_head_name`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(1, 3, 2, 1, 'Prep-2016-2017-Pink', '2018-12-17 06:08:09', '0000-00-00 00:00:00', 1, 0, 1),
-(2, 3, 1, 5, 'Prep-2015-2016-Green', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1);
+(1, 3, 2, 1, 'FSC Pre-Engineering (Part - I)-2018-2020-Pink', '2019-01-02 06:27:04', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 3, 1, 5, 'FSC Pre-Engineering (Part - I)-2018-2020-Green', '2019-01-02 06:27:23', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 8, 1, 6, 'BSC - Double Computer-Math (Part - I)-2018-2020-Blue', '2019-01-02 06:49:49', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -876,7 +975,7 @@ CREATE TABLE `std_sessions` (
 --
 
 INSERT INTO `std_sessions` (`session_id`, `session_branch_id`, `session_name`, `session_start_date`, `session_end_date`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(1, 1, '2018-2020', '2018-09-01', '2020-09-30', 'Active', '2018-12-30 16:22:13', '2018-12-30 16:22:13', 1, 1, 1),
+(1, 1, '2017-2019', '2018-09-01', '2020-09-30', 'Active', '2019-01-02 07:42:12', '2019-01-02 07:42:12', 1, 1, 1),
 (2, 2, '2018-2020', '2018-09-01', '2020-09-30', 'Active', '2018-12-30 16:23:07', '2018-12-30 16:23:07', 1, 1, 1),
 (3, 1, 'xyz', '2018-12-31', '2018-12-31', 'Active', '2018-12-31 11:43:34', '2018-12-31 11:43:34', 1, 1, 0);
 
@@ -1002,6 +1101,33 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`);
+
+--
+-- Indexes for table `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `type` (`type`);
+
+--
+-- Indexes for table `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Indexes for table `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
 
 --
 -- Indexes for table `branches`
@@ -1367,13 +1493,13 @@ ALTER TABLE `std_class_name`
 -- AUTO_INCREMENT for table `std_enrollment_detail`
 --
 ALTER TABLE `std_enrollment_detail`
-  MODIFY `std_enroll_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `std_enroll_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `std_enrollment_head`
 --
 ALTER TABLE `std_enrollment_head`
-  MODIFY `std_enroll_head_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `std_enroll_head_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `std_fee_details`
@@ -1432,6 +1558,13 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `branches`
@@ -1541,7 +1674,7 @@ ALTER TABLE `std_sessions`
 ALTER TABLE `teacher_subject_assign_detail`
   ADD CONSTRAINT `teacher_subject_assign_detail_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`),
   ADD CONSTRAINT `teacher_subject_assign_detail_ibfk_6` FOREIGN KEY (`teacher_subject_assign_detail_head_id`) REFERENCES `teacher_subject_assign_head` (`teacher_subject_assign_head_id`),
-  ADD CONSTRAINT `teacher_subject_assign_detail_ibfk_7` FOREIGN KEY (`class_id`) REFERENCES `std_class` (`class_id`);
+  ADD CONSTRAINT `teacher_subject_assign_detail_ibfk_7` FOREIGN KEY (`class_id`) REFERENCES `std_class_name` (`class_name_id`);
 
 --
 -- Constraints for table `teacher_subject_assign_head`

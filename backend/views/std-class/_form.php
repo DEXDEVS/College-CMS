@@ -17,20 +17,28 @@ use common\models\StdSections;
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'class_name_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name')
+                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
+                    ['prompt'=>'Select Class',]
                 )?>
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'session_id')->dropDownList(
-                    ArrayHelper::map(StdSessions::find()->where(['status'=>'Active','delete_status'=>1])->all(),'session_id','session_name'),
-                     ['prompt'=>'Select Session',]
-                )?>
+                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1])->all(),'session_id','session_name'),
+                    [
+                        'prompt'=>'Select Session',
+                        'id' => 'sessionId',
+                        'onchange'=>
+                            '$.post("index.php?r=std-sections/lists&id='.'"+$(this).val(), function( data ){
+                                $("select#sectionId").html(data);
+                            });'
+                    ]);?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'section_id')->dropDownList(
-                    ArrayHelper::map(StdSections::find()->all(),'section_id','section_name')
+                    ArrayHelper::map(StdSections::find()->where(['delete_status'=>1])->all(),'section_id','section_name'),
+                    ['prompt'=>'Select Section','id'=>'sectionId']
                 )?>
             </div>
             <!-- <div class="col-md-6">

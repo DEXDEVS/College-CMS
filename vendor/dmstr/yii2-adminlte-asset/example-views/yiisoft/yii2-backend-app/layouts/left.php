@@ -48,7 +48,7 @@
                             ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sessions',],
                             ['label' => 'Class Name', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class-name',],
                             ['label' => 'Subjects', 'icon' => 'caret-right', 'url' => 'index.php?r=subjects',],
-                            ['label' => 'Assign Students in Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
+                            ['label' => 'Assign Students in Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-enrollment-detail',],
                             ['label' => 'Sections', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sections',],
                             ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-detail',],
                         ],

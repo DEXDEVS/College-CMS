@@ -5,7 +5,7 @@
 	<title>Fee Vocher</title>
 </head>
 <body>
-<div class="container" style="margin-top: -60px;">
+<div class="container-fluid" style="margin-top: -30px;">
 	<h1 class="well well-sm" align="center">Generate Voucher</h1>
     <form  action = "index.php?r=fee-transaction-detail/generate-voucher" method="POST">
     	<div class="row">
