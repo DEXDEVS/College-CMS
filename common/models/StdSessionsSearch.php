@@ -41,7 +41,7 @@ class StdSessionsSearch extends StdSessions
      */
     public function search($params)
     {
-        $query = StdSessions::find();
+        $query = StdSessions::find()->where(['delete_status' => 1]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -54,16 +54,17 @@ class StdSessionsSearch extends StdSessions
             // $query->where('0=1');
             return $dataProvider;
         }
-        $query->joinWith('sessionBranch');
-        $query->andFilterWhere([
-            'session_id' => $this->session_id,
-            'session_start_date' => $this->session_start_date,
-            'session_end_date' => $this->session_end_date,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-        ]);
+
+        // $query->joinWith('sessionBranch');
+        // $query->andFilterWhere([
+        //     'session_id' => $this->session_id,
+        //     'session_start_date' => $this->session_start_date,
+        //     'session_end_date' => $this->session_end_date,
+        //     'created_at' => $this->created_at,
+        //     'updated_at' => $this->updated_at,
+        //     'created_by' => $this->created_by,
+        //     'updated_by' => $this->updated_by,
+        // ]);
 
         $query->andFilterWhere(['like', 'session_name', $this->session_name])
             ->andFilterWhere(['like', 'status', $this->status])

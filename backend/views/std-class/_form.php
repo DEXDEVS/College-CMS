@@ -17,12 +17,12 @@ use common\models\StdSections;
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'class_name_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name')
+                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name')
                 )?>
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'session_id')->dropDownList(
-                    ArrayHelper::map(StdSessions::find()->where(['status'=>'Active'])->all(),'session_id','session_name'),
+                    ArrayHelper::map(StdSessions::find()->where(['status'=>'Active','delete_status'=>1])->all(),'session_id','session_name'),
                      ['prompt'=>'Select Session',]
                 )?>
             </div>
@@ -37,14 +37,6 @@ use common\models\StdSections;
                  <?= $form->field($model, 'class_name')->textInput(['maxlength' => true]) ?>
             </div> -->
         </div>
-    <!-- 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?> -->
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

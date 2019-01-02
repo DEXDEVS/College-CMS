@@ -41,7 +41,7 @@ class SubjectsSearch extends Subjects
      */
     public function search($params)
     {
-        $query = Subjects::find();
+        $query = Subjects::find()->where(['delete_status' => 1]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

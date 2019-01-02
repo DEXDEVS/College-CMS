@@ -31,7 +31,7 @@ class BranchesController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -228,9 +228,12 @@ class BranchesController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);
         
-        $update = Yii::$app->db->createCommand()->update('branches', ['delete_status' => 0], ['branch_id' => $model])->execute();
+        $model = Branches::findOne($id);
+        $model->delete_status = 0;
+        $model->updated_by = Yii::$app->user->identity->id;
+        $model->updated_at = new \yii\db\Expression('NOW()');
+        $model->update();
 
         if($request->isAjax){
             /*
@@ -258,8 +261,11 @@ class BranchesController extends Controller
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
-            $model = $this->findModel($pk);
-            $model->delete();
+            $model = Branches::findOne($pk);
+            $model->delete_status = 0;
+            $model->updated_by = Yii::$app->user->identity->id;
+            $model->updated_at = new \yii\db\Expression('NOW()');
+            $model->update();
         }
 
         if($request->isAjax){

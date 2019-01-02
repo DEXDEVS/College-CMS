@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2018 at 08:55 AM
+-- Generation Time: Jan 02, 2019 at 05:53 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -41,7 +41,7 @@ CREATE TABLE `branches` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -49,10 +49,10 @@ CREATE TABLE `branches` (
 --
 
 INSERT INTO `branches` (`branch_id`, `institute_id`, `branch_code`, `branch_name`, `branch_location`, `branch_contact_no`, `branch_email`, `status`, `delete_status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, '001', 'Dari Sanghi(RYK)', 'Dari Sanghi', '068-58-23456', 'tci@gmal.com', 'Active', 1, '2018-12-30 16:20:33', '2018-12-04 07:12:13', 1, 1),
-(2, 1, '002', 'Gulshan Iqbal(RYK)', 'Gulshan Iqbal', '068-58-75567', 'tciryk@gmail.com', 'Active', 1, '2018-12-28 15:10:21', '2018-12-04 07:12:27', 1, 1),
-(3, 1, '003', 'Ahmed Branch', 'Gulshan Usman', '068-58-87526', 'branch003@gmail.com', 'Active', 0, '2018-12-30 16:20:20', '0000-00-00 00:00:00', 1, 0),
-(4, 1, '004', 'Ali Branch', 'Abbasia Town', '068-58-76576', 'branch004@gmail.com', 'Active', 0, '2018-12-30 16:20:41', '2018-12-28 15:00:56', 1, 1);
+(1, 1, '001', 'Dari Sanghi(RYK)', 'Dari Sanghi', '068-58-23456', 'tci@gmal.com', 'Active', 1, '2018-12-31 11:06:49', '2018-12-31 10:01:08', 1, '1'),
+(2, 1, '002', 'Gulshan Iqbal(RYK)', 'Gulshan Iqbal', '068-58-75567', 'tciryk@gmail.com', 'Active', 1, '2018-12-31 10:01:34', '2018-12-31 10:01:15', 1, '1'),
+(3, 1, '003', 'Ahmed Branch', 'Gulshan Usman', '068-58-87526', 'branch003@gmail.com', 'Active', 1, '2019-01-02 04:52:36', '2018-12-31 11:08:57', 1, '1'),
+(4, 1, '004', 'Ali Branch', 'Abbasia Town', '068-58-76576', 'branch004@gmail.com', 'Active', 1, '2019-01-02 04:52:40', '2018-12-31 11:08:47', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -66,17 +66,18 @@ CREATE TABLE `concession` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `concession`
 --
 
-INSERT INTO `concession` (`concession_id`, `concession_name`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, '100% Concession ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1),
-(2, '50% Concession ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1),
-(3, 'Kinship', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1);
+INSERT INTO `concession` (`concession_id`, `concession_name`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, '100% Concession ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1, 1),
+(2, '50% Concession ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1, 1),
+(3, 'Kinship', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -94,31 +95,32 @@ CREATE TABLE `emails` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `emails`
 --
 
-INSERT INTO `emails` (`emial_id`, `receiver_name`, `receiver_email`, `email_subject`, `email_content`, `email_attachment`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'Anas', 'anasshafqat01@gmail.com', 'Welcome', 'This is testing email from yii2...!', 'attachments/1545482896.png', '2018-12-22 12:48:24', 0, '0000-00-00 00:00:00', 0),
-(3, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Wellcome to DEXDEVS', 'This is testing email from Yii2...!', 'attachments/1545483278.png', '2018-12-22 12:54:44', 1, '0000-00-00 00:00:00', 0),
-(4, 'Saif ur Rehman', 'saifarshad.6987@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email from Yii2...!', 'attachments/1545483348.png', '2018-12-22 12:55:52', 1, '0000-00-00 00:00:00', 0),
-(5, 'Nauman Shahid', 'hwhasmhi1625@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email from Yii2...!', 'attachments/1545483409.png', '2018-12-22 12:56:55', 1, '0000-00-00 00:00:00', 0),
-(6, 'Nauman Shahid', 'hwhashmi1625@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545483610.png', '2018-12-22 13:00:16', 1, '0000-00-00 00:00:00', 0),
-(7, 'Nadia Gull', 'nadiagull285@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545483685.png', '2018-12-22 13:01:39', 1, '0000-00-00 00:00:00', 0),
-(8, 'Kinza Fatima', 'kinza.fatima522@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545483773.png', '2018-12-22 13:02:59', 1, '0000-00-00 00:00:00', 0),
-(9, 'Rana Faraz', 'ranafarazahmed@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!	', 'attachments/1545484174.png', '2018-12-22 13:09:38', 1, '0000-00-00 00:00:00', 0),
-(10, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545484846.jpg', '2018-12-22 13:20:52', 1, '2018-12-22 13:20:52', 1),
-(11, 'anas', 'anasshafqat01@gmail.com', 'helli', 'mlklkk', 'attachments/1545761723.jpg', '2018-12-25 18:15:28', 1, '0000-00-00 00:00:00', 0),
-(12, 'Anas', 'anasshafqat01@gmail.com', 'Hello', 'heloo heloo heloo heloo', 'attachments/1545764108.jpg', '2018-12-25 18:55:13', 1, '0000-00-00 00:00:00', 0),
-(13, 'Anas', 'anasshafqat01@gmail.com', 'Hello', 'Testing Email....', 'attachments/1545804180.jpg', '2018-12-26 06:03:14', 1, '0000-00-00 00:00:00', 0),
-(14, 'khh', 'anasshafqat01@gmail.com', 'hello', 'jkhjkh', 'attachments/1545816221.sql', '2018-12-26 09:23:48', 1, '0000-00-00 00:00:00', 0),
-(15, 'Mehtab', 'chmehtab4@gmail.com', 'Hello', 'This is testing Email with file attachment from Yii2....', 'attachments/1546064434.png', '2018-12-29 06:21:12', 1, '0000-00-00 00:00:00', 0),
-(16, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Wellcome', 'Testing Email...', 'attachments/1546066690.png', '2018-12-29 06:58:16', 1, '0000-00-00 00:00:00', 0),
-(17, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Hello', '<h2>Hello Sir,</h2><p><b><i>This is testing email from yii2...</i></b><br></p><p><b><i><br></i></b></p><p><b></b>Regards<b></b></p><p><b><i>Anas Shafqat</i></b></p>', 'attachments/1546068232.mp4', '2018-12-29 07:26:27', 1, '0000-00-00 00:00:00', 0),
-(18, 'Rana Faraz', 'ranafarazahmed@gmail.com', 'Testing Email', '<h2><b>Hello Sir,</b></h2><p><b><i></i><i>This is testing Email from Yii2 with text formatting.</i><i></i></b><b></b></p><p><b><i><br></i></b></p><p><b>Note:</b></p><p><ol><li><i>jkhjhj</i></li><li><i>erwrwe</i></li><li><i>werwe</i></li><li><i>were</i></li><li><i>werwerwr</i></li></ol><p>Regards,<br></p><p><b><i>Anas Shafqat</i></b></p></p>', 'attachments/1546069705.jpg', '2018-12-29 07:48:30', 1, '0000-00-00 00:00:00', 0);
+INSERT INTO `emails` (`emial_id`, `receiver_name`, `receiver_email`, `email_subject`, `email_content`, `email_attachment`, `created_at`, `created_by`, `updated_at`, `updated_by`, `delete_status`) VALUES
+(1, 'Anas', 'anasshafqat01@gmail.com', 'Welcome', 'This is testing email from yii2...!', 'attachments/1545482896.png', '2018-12-22 12:48:24', 0, '0000-00-00 00:00:00', 0, 1),
+(3, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Wellcome to DEXDEVS', 'This is testing email from Yii2...!', 'attachments/1545483278.png', '2018-12-22 12:54:44', 1, '0000-00-00 00:00:00', 0, 1),
+(4, 'Saif ur Rehman', 'saifarshad.6987@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email from Yii2...!', 'attachments/1545483348.png', '2018-12-22 12:55:52', 1, '0000-00-00 00:00:00', 0, 1),
+(5, 'Nauman Shahid', 'hwhasmhi1625@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email from Yii2...!', 'attachments/1545483409.png', '2018-12-22 12:56:55', 1, '0000-00-00 00:00:00', 0, 1),
+(6, 'Nauman Shahid', 'hwhashmi1625@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545483610.png', '2018-12-22 13:00:16', 1, '0000-00-00 00:00:00', 0, 1),
+(7, 'Nadia Gull', 'nadiagull285@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545483685.png', '2018-12-22 13:01:39', 1, '0000-00-00 00:00:00', 0, 1),
+(8, 'Kinza Fatima', 'kinza.fatima522@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545483773.png', '2018-12-22 13:02:59', 1, '0000-00-00 00:00:00', 0, 1),
+(9, 'Rana Faraz', 'ranafarazahmed@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!	', 'attachments/1545484174.png', '2018-12-22 13:09:38', 1, '0000-00-00 00:00:00', 0, 1),
+(10, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Wellcome To DEXDEVS', 'This is testing email with file attachment from Yii2...!', 'attachments/1545484846.jpg', '2018-12-31 10:46:04', 1, '2018-12-31 10:46:04', 1, 0),
+(11, 'anas', 'anasshafqat01@gmail.com', 'helli', 'mlklkk', 'attachments/1545761723.jpg', '2018-12-31 10:44:52', 1, '2018-12-31 10:44:52', 1, 0),
+(12, 'Anas', 'anasshafqat01@gmail.com', 'Hello', 'heloo heloo heloo heloo', 'attachments/1545764108.jpg', '2018-12-31 11:11:53', 1, '2018-12-31 11:11:53', 1, 0),
+(13, 'Anas', 'anasshafqat01@gmail.com', 'Hello', 'Testing Email....', 'attachments/1545804180.jpg', '2018-12-26 06:03:14', 1, '0000-00-00 00:00:00', 0, 1),
+(14, 'khh', 'anasshafqat01@gmail.com', 'hello', 'jkhjkh', 'attachments/1545816221.sql', '2018-12-26 09:23:48', 1, '0000-00-00 00:00:00', 0, 1),
+(15, 'Mehtab', 'chmehtab4@gmail.com', 'Hello', 'This is testing Email with file attachment from Yii2....', 'attachments/1546064434.png', '2018-12-29 06:21:12', 1, '0000-00-00 00:00:00', 0, 1),
+(16, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Wellcome', 'Testing Email...', 'attachments/1546066690.png', '2018-12-29 06:58:16', 1, '0000-00-00 00:00:00', 0, 1),
+(17, 'Anas Shafqat', 'anasshafqat01@gmail.com', 'Hello', '<h2>Hello Sir,</h2><p><b><i>This is testing email from yii2...</i></b><br></p><p><b><i><br></i></b></p><p><b></b>Regards<b></b></p><p><b><i>Anas Shafqat</i></b></p>', 'attachments/1546068232.mp4', '2018-12-29 07:26:27', 1, '0000-00-00 00:00:00', 0, 1),
+(18, 'Rana Faraz', 'ranafarazahmed@gmail.com', 'Testing Email', '<h2><b>Hello Sir,</b></h2><p><b><i></i><i>This is testing Email from Yii2 with text formatting.</i><i></i></b><b></b></p><p><b><i><br></i></b></p><p><b>Note:</b></p><p><ol><li><i>jkhjhj</i></li><li><i>erwrwe</i></li><li><i>werwe</i></li><li><i>were</i></li><li><i>werwerwr</i></li></ol><p>Regards,<br></p><p><b><i>Anas Shafqat</i></b></p></p>', 'attachments/1546069705.jpg', '2018-12-29 07:48:30', 1, '0000-00-00 00:00:00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -132,20 +134,21 @@ CREATE TABLE `emp_designation` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `emp_designation`
 --
 
-INSERT INTO `emp_designation` (`emp_designation_id`, `emp_designation`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Principal', '2018-10-31 08:17:08', '2018-10-31 08:17:08', 1, 1),
-(2, 'Vise Principal', '2018-10-31 08:17:30', '2018-10-31 08:17:30', 1, 1),
-(3, 'Coordinator', '2018-10-31 08:23:02', '0000-00-00 00:00:00', 1, 0),
-(4, 'Teacher', '2018-10-31 08:23:21', '0000-00-00 00:00:00', 1, 0),
-(5, 'Security Gaurd', '2018-10-31 09:55:43', '2018-10-31 09:55:43', 1, 1),
-(6, 'Accountant', '2018-12-07 06:29:32', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `emp_designation` (`emp_designation_id`, `emp_designation`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'Principal', '2018-10-31 08:17:08', '2018-10-31 08:17:08', 1, 1, 1),
+(2, 'Vise Principal', '2018-10-31 08:17:30', '2018-10-31 08:17:30', 1, 1, 1),
+(3, 'Coordinator', '2018-10-31 08:23:02', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 'Teacher', '2018-10-31 08:23:21', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 'Security Gaurd', '2018-10-31 09:55:43', '2018-10-31 09:55:43', 1, 1, 1),
+(6, 'Accountant', '2018-12-07 06:29:32', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -177,18 +180,19 @@ CREATE TABLE `emp_info` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `emp_info`
 --
 
-INSERT INTO `emp_info` (`emp_id`, `emp_name`, `emp_father_name`, `emp_cnic`, `emp_contact_no`, `emp_perm_address`, `emp_temp_address`, `emp_marital_status`, `emp_gender`, `emp_photo`, `emp_designation_id`, `emp_type_id`, `group_by`, `emp_branch_id`, `emp_email`, `emp_qualification`, `emp_passing_year`, `emp_institute_name`, `degree_scan_copy`, `emp_salary`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Nadia Gull', 'Iftikhar Ali', '31303-1234567-8', '+92-123-4567890', 'RYK', 'RYK', 'Single', 'Female', 'uploads/Nadia Gull_emp_photo.jpg', 4, 4, 'Faculty', 2, 'nadiagill285@gmail.com', 'BSCS', 2018, 'Superior College', '', 10000, '2018-12-15 13:43:37', '2018-12-15 13:43:37', 1, 1),
-(2, 'Kinza Mustafa', 'Ghulam Mustafa', '45102-3456789-0', '+92-345-6789098', 'ryk', 'ryk', 'Single', 'Female', 'uploads/Kinza Mustafa_emp_photo.jpg', 1, 3, 'Faculty', 2, 'kinza.fatima.522@gmail.com', 'BSCS', 2017, 'IUB', 'uploads/Kinza Mustafa_degree_scan_copy.jpg', 30000, '2018-12-15 13:48:54', '2018-12-15 13:48:54', 1, 1),
-(3, 'Asad Hussain', 'Muhammad Ali', '12345-6789987-6', '+23-456-7899876', 'sdfghjkjhgfghjkl;', 'xcvghjklkjhgfdfghjk', 'Single', 'Male', 'uploads/Asad Hussain_emp_photo.jpg', 2, 3, 'Faculty', 2, 'asad@gmail.com', 'BSCS', 2015, 'Fast University', 'uploads/Asad Hussain_degree_scan_copy.jpg', 20000, '2018-12-20 18:06:10', '0000-00-00 00:00:00', 1, 0),
-(4, 'Anas Shafqat', 'Shafqat Ali', '31303-0437738-3', '+92-331-7375027', 'Gulshan Iqbal', '', 'Single', 'Male', 'uploads/Anas Shafqat_emp_photo.jpg', 4, 4, 'Faculty', 2, 'anasshafqat01@gmail.com', 'BSCS', 2018, 'Superior Group of Colleges', 'uploads/Anas Shafqat_degree_scan_copy.png', 50000, '2018-12-27 08:02:32', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `emp_info` (`emp_id`, `emp_name`, `emp_father_name`, `emp_cnic`, `emp_contact_no`, `emp_perm_address`, `emp_temp_address`, `emp_marital_status`, `emp_gender`, `emp_photo`, `emp_designation_id`, `emp_type_id`, `group_by`, `emp_branch_id`, `emp_email`, `emp_qualification`, `emp_passing_year`, `emp_institute_name`, `degree_scan_copy`, `emp_salary`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'Nadia Gull', 'Iftikhar Ali', '31303-1234567-8', '+92-123-4567890', 'RYK', 'RYK', 'Single', 'Female', 'uploads/Nadia Gull_emp_photo.jpg', 4, 4, 'Faculty', 2, 'nadiagill285@gmail.com', 'BSCS', 2018, 'Superior College', '', 10000, '2018-12-15 13:43:37', '2018-12-15 13:43:37', 1, 1, 1),
+(2, 'Kinza Mustafa', 'Ghulam Mustafa', '45102-3456789-0', '+92-345-6789098', 'ryk', 'ryk', 'Single', 'Female', 'uploads/Kinza Mustafa_emp_photo.jpg', 1, 3, 'Faculty', 2, 'kinza.fatima.522@gmail.com', 'BSCS', 2017, 'IUB', 'uploads/Kinza Mustafa_degree_scan_copy.jpg', 30000, '2018-12-15 13:48:54', '2018-12-15 13:48:54', 1, 1, 1),
+(3, 'Asad Hussain', 'Muhammad Ali', '12345-6789987-6', '+23-456-7899876', 'sdfghjkjhgfghjkl;', 'xcvghjklkjhgfdfghjk', 'Single', 'Male', 'uploads/Asad Hussain_emp_photo.jpg', 2, 3, 'Faculty', 2, 'asad@gmail.com', 'BSCS', 2015, 'Fast University', 'uploads/Asad Hussain_degree_scan_copy.jpg', 20000, '2018-12-20 18:06:10', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 'Anas Shafqat', 'Shafqat Ali', '31303-0437738-3', '+92-331-7375027', 'Gulshan Iqbal', '', 'Single', 'Male', 'uploads/Anas Shafqat_emp_photo.jpg', 4, 4, 'Faculty', 2, 'anasshafqat01@gmail.com', 'BSCS', 2018, 'Superior Group of Colleges', 'uploads/Anas Shafqat_degree_scan_copy.png', 50000, '2018-12-27 08:02:32', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -224,18 +228,19 @@ CREATE TABLE `emp_type` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `emp_type`
 --
 
-INSERT INTO `emp_type` (`emp_type_id`, `emp_type`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Daily Wadge', '2018-12-14 07:49:12', '0000-00-00 00:00:00', 1, 0),
-(2, 'Weekly Wedge', '2018-12-14 07:49:55', '0000-00-00 00:00:00', 1, 0),
-(3, 'Contract', '2018-12-14 07:50:32', '0000-00-00 00:00:00', 1, 0),
-(4, 'Permanent ', '2018-12-14 07:52:24', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `emp_type` (`emp_type_id`, `emp_type`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'Daily Wadge', '2018-12-14 07:49:12', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 'Weekly Wedge', '2018-12-14 07:49:55', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 'Contract', '2018-12-14 07:50:32', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 'Permanent ', '2018-12-14 07:52:24', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -253,20 +258,21 @@ CREATE TABLE `events` (
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `is_status` enum('Active','Inactive') NOT NULL
+  `is_status` enum('Active','Inactive') NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`event_id`, `event_title`, `event_detail`, `event_start_datetime`, `event_end_datetime`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`) VALUES
-(1, 'Last Day', 'Last Day of Janvi', '2015-05-30 00:00:00', '2015-05-30 00:00:00', '2015-05-27 15:34:53', 1, '2015-05-27 15:40:30', 1, 'Inactive'),
-(2, 'Janvi BDay', 'Happy Birthday Janvi ', '2015-07-05 00:00:00', '2015-07-05 00:00:00', '2015-05-27 15:35:38', 1, '2015-05-27 15:40:48', 1, 'Inactive'),
-(3, 'Happy Bday', 'HAppy Birthday KarmrajSir', '2015-07-25 00:00:00', '2015-07-25 00:00:00', '2015-05-27 15:36:10', 1, '2015-05-27 15:41:05', 1, 'Inactive'),
-(4, 'Launching New Application', 'Launch of Edusec Yii2', '2015-06-02 09:30:00', '2015-06-02 10:00:00', '2015-05-27 15:37:00', 1, '2015-05-27 15:39:37', 1, ''),
-(5, 'Meeting for staff ', 'All Staff Members-Meeting', '2015-06-09 00:00:00', '2015-06-09 00:00:00', '2015-05-27 15:37:42', 1, NULL, NULL, ''),
-(7, 'Celebration Time', 'Celebration Time', '2015-06-25 00:00:00', '2015-06-25 00:00:00', '2015-05-27 15:39:12', 1, NULL, NULL, '');
+INSERT INTO `events` (`event_id`, `event_title`, `event_detail`, `event_start_datetime`, `event_end_datetime`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`, `delete_status`) VALUES
+(1, 'Last Day', 'Last Day of Janvi', '2015-05-30 00:00:00', '2015-05-30 00:00:00', '2015-05-27 15:34:53', 1, '2015-05-27 15:40:30', 1, 'Inactive', 1),
+(2, 'Janvi BDay', 'Happy Birthday Janvi ', '2015-07-05 00:00:00', '2015-07-05 00:00:00', '2015-05-27 15:35:38', 1, '2015-05-27 15:40:48', 1, 'Inactive', 1),
+(3, 'Happy Bday', 'HAppy Birthday KarmrajSir', '2015-07-25 00:00:00', '2015-07-25 00:00:00', '2015-05-27 15:36:10', 1, '2015-05-27 15:41:05', 1, 'Inactive', 1),
+(4, 'Launching New Application', 'Launch of Edusec Yii2', '2015-06-02 09:30:00', '2015-06-02 10:00:00', '2015-05-27 15:37:00', 1, '2015-05-27 15:39:37', 1, '', 1),
+(5, 'Meeting for staff ', 'All Staff Members-Meeting', '2015-06-09 00:00:00', '2015-06-09 00:00:00', '2015-05-27 15:37:42', 1, NULL, NULL, '', 1),
+(7, 'Celebration Time', 'Celebration Time', '2015-06-25 00:00:00', '2015-06-25 00:00:00', '2015-05-27 15:39:12', 1, NULL, NULL, '', 1);
 
 -- --------------------------------------------------------
 
@@ -285,20 +291,21 @@ CREATE TABLE `fee_transaction_detail` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `fee_transaction_detail`
 --
 
-INSERT INTO `fee_transaction_detail` (`fee_trans_detail_id`, `fee_trans_detail_head_id`, `fee_type_id`, `fee_amount`, `fee_discount`, `discounted_value`, `net_total`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, 1, 1140, '60', 60, 0, '2018-12-18 08:32:54', '0000-00-00 00:00:00', 1, 0),
-(2, 1, 4, 222, '0', 0, 0, '2018-12-18 08:32:54', '0000-00-00 00:00:00', 1, 0),
-(3, 2, 1, 750, '50', 50, 0, '2018-12-18 08:48:56', '0000-00-00 00:00:00', 1, 0),
-(4, 2, 2, 1700, '100', 100, 0, '2018-12-18 08:48:56', '0000-00-00 00:00:00', 1, 0),
-(5, 3, 2, 1340, '60', 60, 0, '2018-12-18 18:54:27', '0000-00-00 00:00:00', 1, 0),
-(6, 3, 5, 410, '90', 90, 0, '2018-12-18 18:54:27', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `fee_transaction_detail` (`fee_trans_detail_id`, `fee_trans_detail_head_id`, `fee_type_id`, `fee_amount`, `fee_discount`, `discounted_value`, `net_total`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 1, 1, 1140, '60', 60, 0, '2018-12-18 08:32:54', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 1, 4, 222, '0', 0, 0, '2018-12-18 08:32:54', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 2, 1, 750, '50', 50, 0, '2018-12-18 08:48:56', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 2, 2, 1700, '100', 100, 0, '2018-12-18 08:48:56', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 3, 2, 1340, '60', 60, 0, '2018-12-18 18:54:27', '0000-00-00 00:00:00', 1, 0, 1),
+(6, 3, 5, 410, '90', 90, 0, '2018-12-18 18:54:27', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -323,17 +330,18 @@ CREATE TABLE `fee_transaction_head` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `fee_transaction_head`
 --
 
-INSERT INTO `fee_transaction_head` (`fee_trans_id`, `class_name_id`, `session_id`, `section_id`, `std_id`, `std_name`, `month`, `transaction_date`, `total_amount`, `total_discount`, `paid_amount`, `remaining`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 3, 1, 5, 3, 'Noman', 11, '2018-12-18 01:32:14', 1362, 60, 0, 0, 'Unpaid', '2018-12-18 08:47:17', '0000-00-00 00:00:00', 1, 0),
-(2, 3, 2, 1, 2, 'Nadia', 2, '2018-12-18 01:48:21', 2450, 150, 0, 0, 'Unpaid', '2018-12-18 08:48:56', '0000-00-00 00:00:00', 1, 0),
-(3, 3, 2, 1, 1, 'Kinza', 2, '2018-12-18 11:53:48', 1750, 150, 0, 0, 'Unpaid', '2018-12-18 18:54:27', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `fee_transaction_head` (`fee_trans_id`, `class_name_id`, `session_id`, `section_id`, `std_id`, `std_name`, `month`, `transaction_date`, `total_amount`, `total_discount`, `paid_amount`, `remaining`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 3, 1, 5, 3, 'Noman', 11, '2018-12-18 01:32:14', 1362, 60, 0, 0, 'Unpaid', '2018-12-18 08:47:17', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 3, 2, 1, 2, 'Nadia', 2, '2018-12-18 01:48:21', 2450, 150, 0, 0, 'Unpaid', '2018-12-18 08:48:56', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 3, 2, 1, 1, 'Kinza', 2, '2018-12-18 11:53:48', 1750, 150, 0, 0, 'Unpaid', '2018-12-18 18:54:27', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -351,20 +359,21 @@ CREATE TABLE `fee_type` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `fee_type`
 --
 
-INSERT INTO `fee_type` (`fee_type_id`, `fee_type_name`, `fee_type_description`, `fee_amount`, `starting_date`, `ending_date`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Admission Fee', 'Student have to pay admission fee only one time', 1000, '2015-01-01 11:30:48', '2016-01-01 11:30:48', '2018-11-03 06:36:22', '0000-00-00 00:00:00', 1, 0),
-(2, 'Tuition Fee', 'Paid on monthly bases', NULL, NULL, NULL, '2018-11-03 06:48:34', '0000-00-00 00:00:00', 1, 0),
-(3, 'Late Fee Fine', 'Pay fine after due date', 100, NULL, NULL, '2018-11-03 06:50:23', '2018-11-03 06:50:23', 1, 1),
-(4, 'Absent Fine', 'pay fine when student is absent', 10, NULL, NULL, '2018-11-03 06:51:12', '0000-00-00 00:00:00', 1, 0),
-(5, 'Library Fine', 'Pay fine in case of library rules voilation', 50, NULL, NULL, '2018-11-03 06:52:59', '0000-00-00 00:00:00', 1, 0),
-(6, 'Transportation Fee', 'Pay when student take transportation service.', 500, '2015-03-01 11:50:03', '2016-01-01 11:55:03', '2018-11-03 06:54:41', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `fee_type` (`fee_type_id`, `fee_type_name`, `fee_type_description`, `fee_amount`, `starting_date`, `ending_date`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'Admission Fee', 'Student have to pay admission fee only one time', 1000, '2015-01-01 11:30:48', '2016-01-01 11:30:48', '2018-11-03 06:36:22', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 'Tuition Fee', 'Paid on monthly bases', NULL, NULL, NULL, '2018-11-03 06:48:34', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 'Late Fee Fine', 'Pay fine after due date', 100, NULL, NULL, '2018-11-03 06:50:23', '2018-11-03 06:50:23', 1, 1, 1),
+(4, 'Absent Fine', 'pay fine when student is absent', 10, NULL, NULL, '2018-11-03 06:51:12', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 'Library Fine', 'Pay fine in case of library rules voilation', 50, NULL, NULL, '2018-11-03 06:52:59', '0000-00-00 00:00:00', 1, 0, 1),
+(6, 'Transportation Fee', 'Pay when student take transportation service.', 500, '2015-03-01 11:50:03', '2016-01-01 11:55:03', '2018-11-03 06:54:41', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -380,15 +389,16 @@ CREATE TABLE `institute` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `institute`
 --
 
-INSERT INTO `institute` (`institute_id`, `institute_name`, `institute_logo`, `institute_account_no`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, ' THE CANADIAN INSTITUTE (TCI)', '', '54637195377393', '2018-12-04 16:33:46', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `institute` (`institute_id`, `institute_name`, `institute_logo`, `institute_account_no`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, ' THE CANADIAN INSTITUTE (TCI)', '', '54637195377393', '2018-12-04 16:33:46', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -452,20 +462,21 @@ CREATE TABLE `msg_of_day` (
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `is_status` enum('Active','Inactive') NOT NULL
+  `is_status` enum('Active','Inactive') NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `msg_of_day`
 --
 
-INSERT INTO `msg_of_day` (`msg_of_day_id`, `msg_details`, `msg_user_type`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`) VALUES
-(1, 'Each Day is a GIFT don\'t send it BACK unopened.  Have a nice Day !', 'Students', '2015-05-27 15:21:01', 1, NULL, NULL, 'Active'),
-(2, 'Every day may not be GOOD but there is something GOOD in every day.', 'Parents', '2015-05-27 15:21:22', 1, NULL, NULL, 'Active'),
-(3, 'Every ONE wants happiness, No ONE needs pain, But its not possible to get a rainbow.', 'Employees', '2015-05-27 15:21:41', 1, NULL, NULL, 'Active'),
-(4, 'Smile is the Electricity and Life is a Battery whenever you Smile the Battery gets Charges.', 'Students', '2015-05-27 15:21:59', 1, '2018-12-26 18:11:26', 1, 'Active'),
-(5, 'The Best for the Group comes when everyone in the group does what’s best for himself AND the group.', 'Students', '2015-05-27 15:22:20', 1, NULL, NULL, 'Active'),
-(6, 'In life, as in football, you won\'t go far unless you know where the goalposts are.-- Arnold Glasow', 'Students', '2015-05-27 15:24:54', 1, '2018-12-26 18:11:18', 1, 'Active');
+INSERT INTO `msg_of_day` (`msg_of_day_id`, `msg_details`, `msg_user_type`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`, `delete_status`) VALUES
+(1, 'Each Day is a GIFT don\'t send it BACK unopened.  Have a nice Day !', 'Students', '2015-05-27 15:21:01', 1, NULL, NULL, 'Active', 1),
+(2, 'Every day may not be GOOD but there is something GOOD in every day.', 'Parents', '2015-05-27 15:21:22', 1, NULL, NULL, 'Active', 1),
+(3, 'Every ONE wants happiness, No ONE needs pain, But its not possible to get a rainbow.', 'Employees', '2015-05-27 15:21:41', 1, NULL, NULL, 'Active', 1),
+(4, 'Smile is the Electricity and Life is a Battery whenever you Smile the Battery gets Charges.', 'Students', '2015-05-27 15:21:59', 1, '2018-12-26 18:11:26', 1, 'Active', 1),
+(5, 'The Best for the Group comes when everyone in the group does what’s best for himself AND the group.', 'Students', '2015-05-27 15:22:20', 1, NULL, NULL, 'Active', 1),
+(6, 'In life, as in football, you won\'t go far unless you know where the goalposts are.-- Arnold Glasow', 'Students', '2015-05-27 15:24:54', 1, '2018-12-26 18:11:18', 1, 'Active', 1);
 
 -- --------------------------------------------------------
 
@@ -482,19 +493,20 @@ CREATE TABLE `notice` (
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `is_status` enum('Active','Inactive') NOT NULL
+  `is_status` enum('Active','Inactive') NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `notice`
 --
 
-INSERT INTO `notice` (`notice_id`, `notice_title`, `notice_description`, `notice_user_type`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`) VALUES
-(1, 'Next Week Summer Exam ', 'Summer Exam will be conducted on Next week. All The Best', 'Students', '2015-05-27 15:26:29', 1, '2018-12-26 18:44:07', 1, 'Active'),
-(2, 'Monthly Report', 'All Employee have to submit their report on month end.', 'Employees', '2015-05-27 15:27:23', 1, '2018-12-26 18:43:37', 1, 'Active'),
-(3, 'Summer Vacation', 'Summer Vacation starts from June to  2nd week of July.', 'Students', '2015-05-27 15:28:37', 1, '2018-12-26 18:44:16', 1, 'Inactive'),
-(4, 'Attendance Report', 'All Employees collect their class wise  attendance report', 'Employees', '2015-05-27 15:30:35', 1, '2018-12-26 18:44:19', 1, 'Active'),
-(5, 'Exam From Fill', 'All Students come and fill their exam forms', 'Students', '2015-05-27 15:33:07', 1, '2018-12-26 18:44:03', 1, 'Active');
+INSERT INTO `notice` (`notice_id`, `notice_title`, `notice_description`, `notice_user_type`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_status`, `delete_status`) VALUES
+(1, 'Next Week Summer Exam ', 'Summer Exam will be conducted on Next week. All The Best', 'Students', '2015-05-27 15:26:29', 1, '2018-12-26 18:44:07', 1, 'Active', 1),
+(2, 'Monthly Report', 'All Employee have to submit their report on month end.', 'Employees', '2015-05-27 15:27:23', 1, '2018-12-26 18:43:37', 1, 'Active', 1),
+(3, 'Summer Vacation', 'Summer Vacation starts from June to  2nd week of July.', 'Students', '2015-05-27 15:28:37', 1, '2018-12-26 18:44:16', 1, 'Inactive', 1),
+(4, 'Attendance Report', 'All Employees collect their class wise  attendance report', 'Employees', '2015-05-27 15:30:35', 1, '2018-12-26 18:44:19', 1, 'Active', 1),
+(5, 'Exam From Fill', 'All Students come and fill their exam forms', 'Students', '2015-05-27 15:33:07', 1, '2018-12-26 18:44:03', 1, 'Active', 1);
 
 -- --------------------------------------------------------
 
@@ -509,7 +521,8 @@ CREATE TABLE `sms` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updted_at` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -534,18 +547,19 @@ CREATE TABLE `std_academic_info` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_academic_info`
 --
 
-INSERT INTO `std_academic_info` (`academic_id`, `std_id`, `class_name_id`, `subject_combination`, `previous_class`, `passing_year`, `previous_class_rollno`, `total_marks`, `obtained_marks`, `grades`, `percentage`, `Institute`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 3, 7, '', 'FSC - Pre-Medical', '2017', 0, 1100, 860, 'A', 78.181818181818, 'DexDevs', '2018-12-26 10:18:51', '2018-12-26 10:18:51', 1, 1),
-(2, 1, 9, '', 'BSC - Double Computer-Math (Part - I)', '2017', 0, 505, 400, 'A', 89, 'DexDevs', '2018-12-26 10:13:22', '2018-12-26 10:13:22', 1, 1),
-(3, 2, 3, '', 'Matric', '2017', 0, 1100, 980, 'A+', 89.090909090909, 'Govt Girls High School', '2018-12-26 10:14:44', '2018-12-26 10:14:44', 1, 1),
-(4, 9, 9, '', 'BSC - Double Computer-Math (Part - I)', '2017', 0, 400, 300, 'A', 75, 'XYZ', '2018-12-26 10:16:52', '2018-12-26 10:16:52', 1, 1);
+INSERT INTO `std_academic_info` (`academic_id`, `std_id`, `class_name_id`, `subject_combination`, `previous_class`, `passing_year`, `previous_class_rollno`, `total_marks`, `obtained_marks`, `grades`, `percentage`, `Institute`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 3, 7, '', 'FSC - Pre-Medical', '2017', 0, 1100, 860, 'A', 78.181818181818, 'DexDevs', '2018-12-26 10:18:51', '2018-12-26 10:18:51', 1, 1, 1),
+(2, 1, 9, '', 'BSC - Double Computer-Math (Part - I)', '2017', 0, 505, 400, 'A', 89, 'DexDevs', '2018-12-26 10:13:22', '2018-12-26 10:13:22', 1, 1, 1),
+(3, 2, 3, '', 'Matric', '2017', 0, 1100, 980, 'A+', 89.090909090909, 'Govt Girls High School', '2018-12-26 10:14:44', '2018-12-26 10:14:44', 1, 1, 1),
+(4, 9, 9, '', 'BSC - Double Computer-Math (Part - I)', '2017', 0, 400, 300, 'A', 75, 'XYZ', '2018-12-26 10:16:52', '2018-12-26 10:16:52', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -589,18 +603,19 @@ CREATE TABLE `std_class` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_class`
 --
 
-INSERT INTO `std_class` (`class_id`, `class_name_id`, `session_id`, `section_id`, `class_name`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, 2, 1, 'Play Group-2016-2017-Pink', '2018-12-03 15:17:28', '0000-00-00 00:00:00', 1, 0),
-(2, 3, 2, 2, 'Prep-2016-2017-Green', '2018-12-03 15:17:49', '0000-00-00 00:00:00', 1, 0),
-(3, 5, 2, 3, '2nd-2016-2017-Blue', '2018-12-03 15:18:09', '0000-00-00 00:00:00', 1, 0),
-(4, 5, 2, 1, '2nd-2016-2017-Pink', '2018-12-03 15:18:34', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `std_class` (`class_id`, `class_name_id`, `session_id`, `section_id`, `class_name`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 1, 2, 1, 'Play Group-2016-2017-Pink', '2018-12-03 15:17:28', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 3, 2, 2, 'Prep-2016-2017-Green', '2018-12-03 15:17:49', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 5, 2, 3, '2nd-2016-2017-Blue', '2018-12-03 15:18:09', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 5, 2, 1, '2nd-2016-2017-Pink', '2018-12-03 15:18:34', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -615,23 +630,25 @@ CREATE TABLE `std_class_name` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_class_name`
 --
 
-INSERT INTO `std_class_name` (`class_name_id`, `class_name`, `class_name_description`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'FSC Pre-Medical (Part - I)', 'Intermediate FSC Pre-Medical (Part - I)', '2018-12-26 09:45:54', '2018-12-26 09:45:54', 1, 1),
-(2, 'FSC Pre-Medical (Part - II)', 'Intermediate FSC Pre-Medical (Part - II)', '2018-12-26 09:46:55', '2018-12-26 09:46:55', 1, 1),
-(3, 'FSC Pre-Engineering (Part - I)', 'Intermediate FSC Pre-Engineering (Part - I)', '2018-12-26 09:47:39', '2018-12-26 09:47:39', 1, 1),
-(4, 'FSC Pre-Engineering (Part - II)', 'Intermediate FSC Pre-Engineering (Part - II)', '2018-12-26 09:48:09', '2018-12-26 09:48:09', 1, 1),
-(5, 'ICS (Part - I)', 'Intermediate ICS (Part - I)', '2018-12-26 09:48:46', '2018-12-26 09:48:46', 1, 1),
-(6, 'ICS (Part - II)', 'Intermediate ICS (Part - II)', '2018-12-26 09:49:18', '2018-12-26 09:49:18', 1, 1),
-(7, 'BSC - ZBC (Part - I)', 'Bachelor BSC - ZBC (Part - I)', '2018-12-26 09:50:48', '2018-12-26 09:50:48', 1, 1),
-(8, 'BSC - Double Computer-Math (Part - I)', 'Bachelor BSC - Double Computer-Math (Part - I)', '2018-12-26 10:10:58', '2018-12-26 10:10:58', 1, 1),
-(9, 'BSC - Double Computer-Math (Part - II)', 'Bachelor 	BSC - Double Computer-Math (Part - II)', '2018-12-26 10:11:24', '2018-12-26 10:11:24', 1, 1);
+INSERT INTO `std_class_name` (`class_name_id`, `class_name`, `class_name_description`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'FSC Pre-Medical (Part - I)', 'Intermediate FSC Pre-Medical (Part - I)', '2018-12-26 09:45:54', '2018-12-26 09:45:54', 1, 1, 1),
+(2, 'FSC Pre-Medical (Part - II)', 'Intermediate FSC Pre-Medical (Part - II)', '2018-12-26 09:46:55', '2018-12-26 09:46:55', 1, 1, 1),
+(3, 'FSC Pre-Engineering (Part - I)', 'Intermediate FSC Pre-Engineering (Part - I)', '2018-12-26 09:47:39', '2018-12-26 09:47:39', 1, 1, 1),
+(4, 'FSC Pre-Engineering (Part - II)', 'Intermediate FSC Pre-Engineering (Part - II)', '2018-12-26 09:48:09', '2018-12-26 09:48:09', 1, 1, 1),
+(5, 'ICS (Part - I)', 'Intermediate ICS (Part - I)', '2018-12-26 09:48:46', '2018-12-26 09:48:46', 1, 1, 1),
+(6, 'ICS (Part - II)', 'Intermediate ICS (Part - II)', '2018-12-26 09:49:18', '2018-12-26 09:49:18', 1, 1, 1),
+(7, 'BSC - ZBC (Part - I)', 'Bachelor BSC - ZBC (Part - I)', '2018-12-26 09:50:48', '2018-12-26 09:50:48', 1, 1, 1),
+(8, 'BSC - Double Computer-Math (Part - I)', 'Bachelor BSC - Double Computer-Math (Part - I)', '2018-12-26 10:10:58', '2018-12-26 10:10:58', 1, 1, 1),
+(9, 'BSC - Double Computer-Math (Part - II)', 'Bachelor 	BSC - Double Computer-Math (Part - II)', '2018-12-26 10:11:24', '2018-12-26 10:11:24', 1, 1, 1),
+(11, 'xyz', 'dsfsd', '2018-12-31 11:54:57', '2018-12-31 11:54:57', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -647,23 +664,24 @@ CREATE TABLE `std_enrollment_detail` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_enrollment_detail`
 --
 
-INSERT INTO `std_enrollment_detail` (`std_enroll_detail_id`, `std_enroll_detail_head_id`, `std_enroll_detail_std_id`, `std_enroll_detail_std_name`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, 1, 'Kinza', '2018-12-17 06:08:09', '0000-00-00 00:00:00', 1, 0),
-(2, 1, 2, 'Nadia', '2018-12-17 06:08:09', '0000-00-00 00:00:00', 1, 0),
-(3, 2, 3, 'Noman', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0),
-(4, 2, 4, 'Ali', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0),
-(5, 2, 5, 'Hamza', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0),
-(6, 2, 6, 'Qasim', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0),
-(7, 2, 7, 'Anas Shafqat', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0),
-(8, 2, 8, 'Zia Ali', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0),
-(9, 2, 9, 'Ali Naveed', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `std_enrollment_detail` (`std_enroll_detail_id`, `std_enroll_detail_head_id`, `std_enroll_detail_std_id`, `std_enroll_detail_std_name`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 1, 1, 'Kinza', '2018-12-17 06:08:09', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 1, 2, 'Nadia', '2018-12-17 06:08:09', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 2, 3, 'Noman', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 2, 4, 'Ali', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 2, 5, 'Hamza', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
+(6, 2, 6, 'Qasim', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
+(7, 2, 7, 'Anas Shafqat', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
+(8, 2, 8, 'Zia Ali', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1),
+(9, 2, 9, 'Ali Naveed', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -680,16 +698,17 @@ CREATE TABLE `std_enrollment_head` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_enrollment_head`
 --
 
-INSERT INTO `std_enrollment_head` (`std_enroll_head_id`, `class_name_id`, `session_id`, `section_id`, `std_enroll_head_name`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 3, 2, 1, 'Prep-2016-2017-Pink', '2018-12-17 06:08:09', '0000-00-00 00:00:00', 1, 0),
-(2, 3, 1, 5, 'Prep-2015-2016-Green', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `std_enrollment_head` (`std_enroll_head_id`, `class_name_id`, `session_id`, `section_id`, `std_enroll_head_name`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 3, 2, 1, 'Prep-2016-2017-Pink', '2018-12-17 06:08:09', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 3, 1, 5, 'Prep-2015-2016-Green', '2018-12-17 06:42:29', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -711,17 +730,18 @@ CREATE TABLE `std_fee_details` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_fee_details`
 --
 
-INSERT INTO `std_fee_details` (`fee_id`, `std_id`, `admission_fee`, `addmission_fee_discount`, `net_addmission_fee`, `fee_category`, `concession_id`, `no_of_installment`, `tuition_fee`, `net_tuition_fee`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 8, 5000, 400, 4600, 'Annual', 3, 4, 40000, 10000, '2018-12-22 09:15:04', '0000-00-00 00:00:00', 0, 0),
-(2, 1, 5000, 500, 4500, 'Annual', 2, 4, 40000, 10000, '2018-12-26 10:33:40', '0000-00-00 00:00:00', 0, 0),
-(3, 2, 5000, 500, 4500, 'Annual', 2, 4, 45000, 11250, '2018-12-26 10:36:24', '0000-00-00 00:00:00', 0, 0);
+INSERT INTO `std_fee_details` (`fee_id`, `std_id`, `admission_fee`, `addmission_fee_discount`, `net_addmission_fee`, `fee_category`, `concession_id`, `no_of_installment`, `tuition_fee`, `net_tuition_fee`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 8, 5000, 400, 4600, 'Annual', 3, 4, 40000, 10000, '2018-12-22 09:15:04', '0000-00-00 00:00:00', 0, 0, 1),
+(2, 1, 5000, 500, 4500, 'Annual', 2, 4, 40000, 10000, '2018-12-26 10:33:40', '0000-00-00 00:00:00', 0, 0, 1),
+(3, 2, 5000, 500, 4500, 'Annual', 2, 4, 45000, 11250, '2018-12-26 10:36:24', '0000-00-00 00:00:00', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -743,18 +763,19 @@ CREATE TABLE `std_guardian_info` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_guardian_info`
 --
 
-INSERT INTO `std_guardian_info` (`std_guardian_info_id`, `std_id`, `guardian_name`, `guardian_relation`, `guardian_cnic`, `guardian_email`, `guardian_contact_no_1`, `guardian_contact_no_2`, `guardian_monthly_income`, `guardian_occupation`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, 'G Mustafa', 'Father', '12345-6789123-4', 'abu@gmail.com', '+92-306-3772105', '+12-345-6789123', 30000, 'Businessmen', '2018-12-30 10:36:06', '0000-00-00 00:00:00', 1, 0),
-(2, 2, 'Iftkhar', 'Rehman', '12345-6789123-4', 'abu@gmail.com', '+92-331-7375027', '+12-345-6789123', 0, 'sddd', '2018-12-30 10:36:24', '0000-00-00 00:00:00', 1, 0),
-(3, 3, 'Ali', 'Father', '12345-6787545-6', 'ali@gmail.com', '', '+34-567-8987456', 0, 'xyz', '2018-12-30 14:55:07', '0000-00-00 00:00:00', 1, 0),
-(4, 9, 'Naveed Anjum', 'Father', '12345-6789098-7', 'Naveed@gmail.com', '', '+92-123-4567876', 0, 'abc', '2018-12-30 14:55:12', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `std_guardian_info` (`std_guardian_info_id`, `std_id`, `guardian_name`, `guardian_relation`, `guardian_cnic`, `guardian_email`, `guardian_contact_no_1`, `guardian_contact_no_2`, `guardian_monthly_income`, `guardian_occupation`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 1, 'G Mustafa', 'Father', '12345-6789123-4', 'abu@gmail.com', '+92-306-3772105', '+12-345-6789123', 30000, 'Businessmen', '2018-12-30 10:36:06', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 2, 'Iftkhar', 'Rehman', '12345-6789123-4', 'abu@gmail.com', '+92-331-7375027', '+12-345-6789123', 0, 'sddd', '2018-12-30 10:36:24', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 3, 'Ali', 'Father', '12345-6787545-6', 'ali@gmail.com', '', '+34-567-8987456', 0, 'xyz', '2018-12-30 14:55:07', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 9, 'Naveed Anjum', 'Father', '12345-6789098-7', 'Naveed@gmail.com', '', '+92-123-4567876', 0, 'abc', '2018-12-30 14:55:12', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -781,23 +802,24 @@ CREATE TABLE `std_personal_info` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_personal_info`
 --
 
-INSERT INTO `std_personal_info` (`std_id`, `std_name`, `std_father_name`, `std_contact_no`, `std_DOB`, `std_gender`, `std_permanent_address`, `std_temporary_address`, `std_email`, `std_photo`, `std_b_form`, `std_district`, `std_religion`, `std_nationality`, `std_tehseel`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Kinza', 'Mustafa Ali', '+12-345-6789098', '0000-00-00', 'Female', 'RYK', 'RYK', 'kinza@gmail.com', '', '12345-1234567-1', 'RYK', 'Islam', 'Pakistani', 'RYK', '2018-11-07 07:34:30', '2018-11-07 07:34:30', 1, 1),
-(2, 'Nadia', 'Iftikhar Ali', '+12-345-6789009', '2018-10-29', 'Female', 'RYK', 'RYK', 'nadia@gmail.com', '', '12345-6789123-4', 'RYK', 'RYK', 'Pakistan', 'Islam', '2018-11-05 16:48:57', '2018-11-05 16:48:57', 1, 1),
-(3, 'Noman', 'Shahid', '+12-345-6789123', '2018-10-10', 'Male', 'RYK', 'RYK', 'nomi@gmail.com', '', '12345-6789123-4', 'RYK', 'Islam', 'Pakistani', 'RYK', '2018-11-05 16:52:56', '2018-11-05 16:52:56', 1, 1),
-(4, 'Ali', '', '+56-234-6789098', '2018-10-27', 'Male', 'seuh', 'hggyu', 'hiuuhi', '', '23456-7890987-6', 'jbjbj', 'knk', 'jjj', 'jhjh', '2018-10-27 08:21:09', '0000-00-00 00:00:00', 1, 0),
-(5, 'Hamza', '', '+35-678-9009876', '2018-10-27', 'Male', 'tghjk', 'lkokjo', '4567kpok', 'uploads/Hamza_photo.jpg', '23678-7654345-6', 'dfhjk', 'jojoj', 'jjoijho', 'hukhukhk', '2018-11-01 06:49:57', '2018-11-01 06:49:57', 1, 1),
-(6, 'Qasim', '', '+38-909-8765445', '2018-10-27', 'Male', 'dtrjhhi iyhiuh ', 'huihuii uihui', 'hiuhuihuiu', '', '23678-8765434-5', 'vhg ghjhl ', 'u uiuigug ', 'gyugfu gyuguilui ', 'yuyugul gygyugul ', '2018-10-27 08:22:15', '0000-00-00 00:00:00', 1, 0),
-(7, 'Anas Shafqat', '', '+92-331-7375027', '2018-10-27', 'Male', 'Gulshan Iqbal, Rahim Yar Khan', 'Gulshan Iqbal, Rahim Yar Khan', 'ihuih ', 'uploads/Anas Shafqat_photo.jpg', '23467-8987655-6', 'drtyu ', 'yhiopjh iuhui ', 'rtyuijhh ', 'tyguhjioog', '2018-11-01 06:48:42', '2018-11-01 06:48:42', 1, 1),
-(8, 'Zia Ali', 'Ali Ahmed', '+12-345-6789098', '2009-06-09', 'Male', 'Gulshan Iqbal, Rahim Yar Khan', 'Gulshan Iqbal, Rahim Yar Khan', 'zia@gmail.com', 'uploads/Zia Ali_photo.jpg', '12345-6789876-5', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', '2018-11-05 16:42:39', '2018-11-05 16:42:39', 1, 1),
-(9, 'Ali Naveed', 'Naveed Anjum', '+12-345-6789098', '2018-11-03', 'Male', 'mnhgbfdsfvbghgfd', '', 'sdfghjkllkjhgvc', 'uploads/Ali Naveed_photo.jpg', '23456-7890987-6', 'RYK', 'Islam', 'Pakistani', 'RKY', '2018-11-03 05:53:46', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `std_personal_info` (`std_id`, `std_name`, `std_father_name`, `std_contact_no`, `std_DOB`, `std_gender`, `std_permanent_address`, `std_temporary_address`, `std_email`, `std_photo`, `std_b_form`, `std_district`, `std_religion`, `std_nationality`, `std_tehseel`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'Kinza', 'Mustafa Ali', '+12-345-6789098', '0000-00-00', 'Female', 'RYK', 'RYK', 'kinza@gmail.com', '', '12345-1234567-1', 'RYK', 'Islam', 'Pakistani', 'RYK', '2018-11-07 07:34:30', '2018-11-07 07:34:30', 1, 1, 1),
+(2, 'Nadia', 'Iftikhar Ali', '+12-345-6789009', '2018-10-29', 'Female', 'RYK', 'RYK', 'nadia@gmail.com', '', '12345-6789123-4', 'RYK', 'RYK', 'Pakistan', 'Islam', '2018-11-05 16:48:57', '2018-11-05 16:48:57', 1, 1, 1),
+(3, 'Noman', 'Shahid', '+12-345-6789123', '2018-10-10', 'Male', 'RYK', 'RYK', 'nomi@gmail.com', '', '12345-6789123-4', 'RYK', 'Islam', 'Pakistani', 'RYK', '2018-11-05 16:52:56', '2018-11-05 16:52:56', 1, 1, 1),
+(4, 'Ali', '', '+56-234-6789098', '2018-10-27', 'Male', 'seuh', 'hggyu', 'hiuuhi', '', '23456-7890987-6', 'jbjbj', 'knk', 'jjj', 'jhjh', '2018-10-27 08:21:09', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 'Hamza', '', '+35-678-9009876', '2018-10-27', 'Male', 'tghjk', 'lkokjo', '4567kpok', 'uploads/Hamza_photo.jpg', '23678-7654345-6', 'dfhjk', 'jojoj', 'jjoijho', 'hukhukhk', '2018-11-01 06:49:57', '2018-11-01 06:49:57', 1, 1, 1),
+(6, 'Qasim', '', '+38-909-8765445', '2018-10-27', 'Male', 'dtrjhhi iyhiuh ', 'huihuii uihui', 'hiuhuihuiu', '', '23678-8765434-5', 'vhg ghjhl ', 'u uiuigug ', 'gyugfu gyuguilui ', 'yuyugul gygyugul ', '2018-10-27 08:22:15', '0000-00-00 00:00:00', 1, 0, 1),
+(7, 'Anas Shafqat', '', '+92-331-7375027', '2018-10-27', 'Male', 'Gulshan Iqbal, Rahim Yar Khan', 'Gulshan Iqbal, Rahim Yar Khan', 'ihuih ', 'uploads/Anas Shafqat_photo.jpg', '23467-8987655-6', 'drtyu ', 'yhiopjh iuhui ', 'rtyuijhh ', 'tyguhjioog', '2018-11-01 06:48:42', '2018-11-01 06:48:42', 1, 1, 1),
+(8, 'Zia Ali', 'Ali Ahmed', '+12-345-6789098', '2009-06-09', 'Male', 'Gulshan Iqbal, Rahim Yar Khan', 'Gulshan Iqbal, Rahim Yar Khan', 'zia@gmail.com', 'uploads/Zia Ali_photo.jpg', '12345-6789876-5', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', '2018-11-05 16:42:39', '2018-11-05 16:42:39', 1, 1, 1),
+(9, 'Ali Naveed', 'Naveed Anjum', '+12-345-6789098', '2018-11-03', 'Male', 'mnhgbfdsfvbghgfd', '', 'sdfghjkllkjhgvc', 'uploads/Ali Naveed_photo.jpg', '23456-7890987-6', 'RYK', 'Islam', 'Pakistani', 'RKY', '2018-11-03 05:53:46', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -813,20 +835,21 @@ CREATE TABLE `std_sections` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_sections`
 --
 
-INSERT INTO `std_sections` (`section_id`, `session_id`, `section_name`, `section_intake`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 2, 'Pink', 25, '2018-12-03 14:59:12', '0000-00-00 00:00:00', 1, 0),
-(2, 2, 'Green', 30, '2018-12-03 14:59:37', '0000-00-00 00:00:00', 1, 0),
-(3, 2, 'Blue', 25, '2018-12-03 15:00:00', '0000-00-00 00:00:00', 1, 0),
-(4, 1, 'Pink', 25, '2018-12-03 15:00:26', '0000-00-00 00:00:00', 1, 0),
-(5, 1, 'Green', 30, '2018-12-03 15:00:47', '0000-00-00 00:00:00', 1, 0),
-(6, 1, 'Blue', 30, '2018-12-03 15:01:13', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `std_sections` (`section_id`, `session_id`, `section_name`, `section_intake`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 2, 'Pink', 25, '2018-12-03 14:59:12', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 2, 'Green', 30, '2018-12-03 14:59:37', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 2, 'Blue', 25, '2018-12-03 15:00:00', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 1, 'Pink', 25, '2018-12-03 15:00:26', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 1, 'Green', 30, '2018-12-03 15:00:47', '0000-00-00 00:00:00', 1, 0, 1),
+(6, 1, 'Blue', 30, '2018-12-03 15:01:13', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -844,16 +867,18 @@ CREATE TABLE `std_sessions` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `std_sessions`
 --
 
-INSERT INTO `std_sessions` (`session_id`, `session_branch_id`, `session_name`, `session_start_date`, `session_end_date`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, '2018-2020', '2018-09-01', '2020-09-30', 'Active', '2018-12-30 16:22:13', '2018-12-30 16:22:13', 1, 1),
-(2, 2, '2018-2020', '2018-09-01', '2020-09-30', 'Active', '2018-12-30 16:23:07', '2018-12-30 16:23:07', 1, 1);
+INSERT INTO `std_sessions` (`session_id`, `session_branch_id`, `session_name`, `session_start_date`, `session_end_date`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 1, '2018-2020', '2018-09-01', '2020-09-30', 'Active', '2018-12-30 16:22:13', '2018-12-30 16:22:13', 1, 1, 1),
+(2, 2, '2018-2020', '2018-09-01', '2020-09-30', 'Active', '2018-12-30 16:23:07', '2018-12-30 16:23:07', 1, 1, 1),
+(3, 1, 'xyz', '2018-12-31', '2018-12-31', 'Active', '2018-12-31 11:43:34', '2018-12-31 11:43:34', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -867,21 +892,24 @@ CREATE TABLE `subjects` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subjects`
 --
 
-INSERT INTO `subjects` (`subject_id`, `subject_name`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Maths', '2018-10-27 16:25:24', '0000-00-00 00:00:00', 0, 0),
-(2, 'English-A', '2018-12-03 15:02:31', '0000-00-00 00:00:00', 0, 0),
-(3, 'Urdu-A', '2018-12-03 15:02:48', '0000-00-00 00:00:00', 0, 0),
-(4, 'Physics', '2018-10-27 16:26:14', '0000-00-00 00:00:00', 0, 0),
-(5, 'Biology', '2018-11-05 17:32:33', '0000-00-00 00:00:00', 0, 0),
-(6, 'Islamiyat', '2018-12-03 15:01:55', '0000-00-00 00:00:00', 0, 0),
-(7, 'Computer', '2018-12-03 15:02:12', '0000-00-00 00:00:00', 0, 0);
+INSERT INTO `subjects` (`subject_id`, `subject_name`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'Maths', '2018-10-27 16:25:24', '0000-00-00 00:00:00', 0, 0, 1),
+(2, 'English-A', '2018-12-03 15:02:31', '0000-00-00 00:00:00', 0, 0, 1),
+(3, 'Urdu-A', '2018-12-03 15:02:48', '0000-00-00 00:00:00', 0, 0, 1),
+(4, 'Physics', '2018-10-27 16:26:14', '0000-00-00 00:00:00', 0, 0, 1),
+(5, 'Biology', '2018-11-05 17:32:33', '0000-00-00 00:00:00', 0, 0, 1),
+(6, 'Islamiyat', '2018-12-03 15:01:55', '0000-00-00 00:00:00', 0, 0, 1),
+(7, 'Computer', '2018-12-03 15:02:12', '0000-00-00 00:00:00', 0, 0, 1),
+(8, 'Chemistry', '2018-12-31 11:57:16', '0000-00-00 00:00:00', 0, 0, 1),
+(9, 'Social Studies', '2018-12-31 11:57:46', '2018-12-31 11:57:46', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -898,24 +926,25 @@ CREATE TABLE `teacher_subject_assign_detail` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teacher_subject_assign_detail`
 --
 
-INSERT INTO `teacher_subject_assign_detail` (`teacher_subject_assign_detail_id`, `teacher_subject_assign_detail_head_id`, `class_id`, `subject_id`, `no_of_lecture`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, 2, 1, '1 Lecture', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0),
-(2, 1, 2, 2, '1 Lecture', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0),
-(3, 1, 2, 3, '1 Lecture', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0),
-(4, 1, 2, 4, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0),
-(5, 1, 2, 5, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0),
-(6, 1, 2, 6, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0),
-(7, 1, 2, 7, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0),
-(8, 2, 3, 1, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0),
-(9, 2, 3, 4, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0),
-(10, 2, 3, 7, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `teacher_subject_assign_detail` (`teacher_subject_assign_detail_id`, `teacher_subject_assign_detail_head_id`, `class_id`, `subject_id`, `no_of_lecture`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 1, 2, 1, '1 Lecture', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 1, 2, 2, '1 Lecture', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 1, 2, 3, '1 Lecture', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 1, 2, 4, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 1, 2, 5, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0, 1),
+(6, 1, 2, 6, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0, 1),
+(7, 1, 2, 7, '1 Lecture', '2018-12-17 06:29:45', '0000-00-00 00:00:00', 1, 0, 1),
+(8, 2, 3, 1, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0, 1),
+(9, 2, 3, 4, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0, 1),
+(10, 2, 3, 7, '1 Lecture', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -930,16 +959,17 @@ CREATE TABLE `teacher_subject_assign_head` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `updated_by` int(11) NOT NULL,
+  `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teacher_subject_assign_head`
 --
 
-INSERT INTO `teacher_subject_assign_head` (`teacher_subject_assign_head_id`, `teacher_id`, `teacher_subject_assign_head_name`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 1, 'Nadia Gull', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0),
-(2, 3, 'Asad Hussain', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `teacher_subject_assign_head` (`teacher_subject_assign_head_id`, `teacher_id`, `teacher_subject_assign_head_name`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 1, 'Nadia Gull', '2018-12-17 06:29:44', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 3, 'Asad Hussain', '2018-12-26 07:50:59', '0000-00-00 00:00:00', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1331,7 +1361,7 @@ ALTER TABLE `std_class`
 -- AUTO_INCREMENT for table `std_class_name`
 --
 ALTER TABLE `std_class_name`
-  MODIFY `class_name_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `class_name_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `std_enrollment_detail`
@@ -1373,13 +1403,13 @@ ALTER TABLE `std_sections`
 -- AUTO_INCREMENT for table `std_sessions`
 --
 ALTER TABLE `std_sessions`
-  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `teacher_subject_assign_detail`

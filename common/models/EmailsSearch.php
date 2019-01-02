@@ -41,7 +41,7 @@ class EmailsSearch extends Emails
      */
     public function search($params)
     {
-        $query = Emails::find();
+        $query = Emails::find()->where(['delete_status' => 1]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
