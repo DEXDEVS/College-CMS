@@ -58,10 +58,12 @@
 					</select>      
                 </div>    
             </div>              
-            <div class="col-md-2">
+            <div class="col-md-2 col-md-offset-10">
                 <div class="form-group">
                 	<label></label>
-                    <button type="submit" name="submit" class="btn btn-info form-control">Take Attendance</button>
+                    <button type="submit" name="submit" class="btn btn-info form-control" style="margin-top: -25px;">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>	
+                	<b>Get Class</b></button>
                 </div>    
             </div>    
         </div>
@@ -76,17 +78,17 @@
 
 		$student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
 		?>
-	<div class="container-fluid">
+	<div class="container-fluid" style="margin-top: -30px">
 		<hr>
 		<form method="POST" action="index.php?r=std-attendance/attendance">
 			<div class="row">
-				<div class="col-md-6">
-					<table width="100%">
-						<tr>
+				<div class="col-md-8 col-md-offset-2">
+					<table width="100%" class="table table-responsive table-condensed table-hover">
+						<tr class="label-success" style="color: white;"> 
 							<th>Sr No</th>
 							<th>RollNo</th>
 							<th>Student Name</th>
-							<th>Attendance</th>
+							<th class="text-center">Attendance</th>
 						</tr>
 						
 						<?php $length = count($student);
@@ -98,10 +100,10 @@
 								<?php $stdId = $student[$i]['std_enroll_detail_std_id'];
 									  $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll();?>
 								<td><?php echo $stdName[0]['std_name'] ?></td>
-								<td>
-									<input type="radio" name="std<?php echo $i+1?>" value="P" checked="checked" />Present
-									<input type="radio" name="std<?php echo $i+1?>" value="A" />Absent
-									<input type="radio" name="std<?php echo $i+1?>" value="L" />Leave
+								<td align="center">
+									<input type="radio" name="std<?php echo $i+1?>" value="P" checked="checked"/> <b  style="color: green">Present </b> &nbsp; &nbsp;| &nbsp; 
+									<input type="radio" name="std<?php echo $i+1?>" value="A" /> <b style="color: red">Absent </b> &nbsp; &nbsp;| &nbsp; 
+									<input type="radio" name="std<?php echo $i+1?>" value="L" /><b style="color: #F7C564;">Leave</b>
 								</td>
 							</tr>
 					<?php
@@ -111,8 +113,16 @@
 					?>
 					</table>
 				</div>
+			</div>
+			<hr>
 
-			</div><hr>
+			<div class="row">
+				<div class="col-md-2 col-md-offset-5">
+					<button type="submit" name="save" class="btn btn-success form-control"><i class="glyphicon glyphicon-saved"></i>
+						<b>Save Attendance</b></button>
+				</div>
+			</div>
+
 			<div class="col-md-2">
 	                <div class="form-group">
 	                	<?php foreach ($stdAttendId as $value) {
@@ -124,7 +134,6 @@
 	                	<input type="hidden" name="sessionid" value="<?php echo $sessionid; ?>">
 	                	<input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
 	                	<input type="hidden" name="date" value="<?php echo $date; ?>">
-	                    <button type="submit" name="save" class="btn btn-info form-control">Save Attendance</button>
 	                </div>    
 	        </div>
 	    </form> 
