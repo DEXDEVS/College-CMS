@@ -4,7 +4,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use common\models\EmpInfo;
 use kartik\select2\Select2;
-use common\models\StdClass;
+use common\models\StdClassName;
 use common\models\Subjects;
 
 /* @var $this yii\web\View */
@@ -24,7 +24,7 @@ use common\models\Subjects;
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'class_id')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(StdClass::find()->all(),'class_id','class_name'),
+                    'data' => ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select'],
                     'pluginOptions' => [

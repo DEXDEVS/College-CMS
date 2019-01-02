@@ -31,7 +31,7 @@ class StdSectionsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete','lists','bulk-delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -274,6 +274,7 @@ class StdSectionsController extends Controller
             echo "<option> - </option>";
         }
     } 
+
     public function actionBulkDelete()
     {        
         $request = Yii::$app->request;

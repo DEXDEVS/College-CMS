@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div class="container-fluid" style="margin-top: -50px;">
+<div class="container-fluid" style="margin-top: -30px;">
 	<h1 class="well well-sm" align="center">Voucher Collection</h1>
     <form method="POST">
     	<div class="row">
@@ -45,7 +45,9 @@
 
         if ($status == "Unpaid") {
         $studentID = $transactionHead[0]['std_id'];
-        $classID = $transactionHead[0]['std_class_id'];
+        $classID = $transactionHead[0]['class_name_id'];
+        // $classID = $transactionHead[0]['class_name_id'];
+        // $classID = $transactionHead[0]['class_name_id'];
         $monthID = $transactionHead[0]['month'];  
 
         $month = Yii::$app->db->createCommand("SELECT month_name FROM month WHERE month_id = '$monthID'")->queryAll();      
