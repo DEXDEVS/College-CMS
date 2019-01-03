@@ -61,9 +61,9 @@
             <div class="col-md-2 col-md-offset-10">
                 <div class="form-group">
                 	<label></label>
-                    <button type="submit" name="submit" class="btn btn-info form-control" style="margin-top: -25px;">
+                    <button type="submit" name="submit" class="btn btn-success form-control" style="margin-top: -25px;">
                     <i class="fa fa-sign-in" aria-hidden="true"></i>	
-                	<b>Get Class</b></button>
+                	<b>Take Attendance</b></button>
                 </div>    
             </div>    
         </div>
@@ -82,7 +82,7 @@
 		<hr>
 		<form method="POST" action="index.php?r=std-attendance/attendance">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-8">
 					<table width="100%" class="table table-responsive table-condensed table-hover">
 						<tr class="label-success" style="color: white;"> 
 							<th>Sr No</th>
@@ -103,7 +103,7 @@
 								<td align="center">
 									<input type="radio" name="std<?php echo $i+1?>" value="P" checked="checked"/> <b  style="color: green">Present </b> &nbsp; &nbsp;| &nbsp; 
 									<input type="radio" name="std<?php echo $i+1?>" value="A" /> <b style="color: red">Absent </b> &nbsp; &nbsp;| &nbsp; 
-									<input type="radio" name="std<?php echo $i+1?>" value="L" /><b style="color: #F7C564;">Leave</b>
+									<input type="radio" name="std<?php echo $i+1?>" value="L" /><b style="color: #F7C564;"> Leave</b>
 								</td>
 							</tr>
 					<?php
@@ -112,6 +112,41 @@
 						}
 					?>
 					</table>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						
+						<?php 
+							// Select Class Name
+							$className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
+							// Select Section 
+							$sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
+							// Select Section
+							$sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
+						?>
+
+						<table width="100%" class="table table-responsive table-bordered table-responsive table-condensed table-hover">
+							<tr class="label-success" style="color: white;"> 
+								<td align="center" colspan="2"><b>Class Info</b></td>
+							</tr>
+							<tr>
+								<th>Date</th>
+								<td><?php echo $date; ?></td>
+							</tr>
+							<tr>
+								<th>Class</th>
+								<td><?php echo $className[0]['class_name']; ?></td>
+							</tr>
+							<tr>
+								<th>Session</th>
+								<td><?php echo $sessionName[0]['session_name']; ?></td>
+							</tr>
+							<tr>
+								<th>Section </th>
+								<td><?php echo $sectionName[0]['section_name']; ?></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 			<hr>
