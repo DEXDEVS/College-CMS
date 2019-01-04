@@ -3,17 +3,16 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\StdClassName */
+/* @var $model common\models\Concession */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="std-class-name-form">
+<div class="concession-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'class_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'concession_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'class_name_description')->textInput(['maxlength' => true]) ?>
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

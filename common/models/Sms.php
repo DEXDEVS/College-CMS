@@ -13,7 +13,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  * @property int $created_by
- * @property int $updted_at
+ * @property int $updated_by
  */
 class Sms extends \yii\db\ActiveRecord
 {
@@ -31,10 +31,10 @@ class Sms extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sms_name', 'sms_template', 'created_by', 'updted_at'], 'required'],
+            [['sms_name', 'sms_template', 'created_by', 'updated_by'], 'required'],
             [['sms_template'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
-            [['created_by', 'updted_at'], 'integer'],
+            [['created_by', 'updated_by'], 'integer'],
             [['sms_name'], 'string', 'max' => 120],
         ];
     }
@@ -51,7 +51,7 @@ class Sms extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
-            'updted_at' => 'Updted At',
+            'updated_by' => 'Updated By',
         ];
     }
 }

@@ -10,17 +10,13 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-        [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_id',
-    ],
+    //     [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'concession_id',
+    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_name',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_template',
+        'attribute'=>'concession_name',
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',

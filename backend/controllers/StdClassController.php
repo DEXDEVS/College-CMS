@@ -8,7 +8,6 @@ use common\models\StdClassSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use \yii\web\Response;
 use yii\helpers\Html;
 
@@ -23,20 +22,6 @@ class StdClassController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -71,15 +56,16 @@ class StdClassController extends Controller
     public function actionView($id)
     {   
         $request = Yii::$app->request;
+        $model = $this->findModel($id);
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "StdClass #".$id,
+                    'title'=> "<b>Stdudent Class: </b>".$model->class_name,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-success','role'=>'modal-remote'])
                 ];    
         }else{
             return $this->render('view', [
@@ -106,26 +92,27 @@ class StdClassController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new StdClass",
+                    'title'=> "<b>Create new Stdudent Class</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
         
                 ];         
             }else if($model->load($request->post())){
-                        $program = Yii::$app->db->createCommand("SELECT program_name FROM programs where program_id = $model->class_program_id")->queryAll();
-                        $semester = Yii::$app->db->createCommand("SELECT semester_name FROM semesters where semester_id = $model->class_semester_id")->queryAll();
-                        $section = Yii::$app->db->createCommand("SELECT section_name FROM sections where section_id = $model->class_section_id")->queryAll();
-                        $batche = Yii::$app->db->createCommand("SELECT batch_name FROM batches where batch_id = $model->class_batch_id")->queryAll();
-                    
-                        $model->class_name = $program[0]['program_name'].'-'.$semester[0]['semester_name'].
-                                            '-'.$section[0]['section_name'].'-'.$batche[0]['batch_name'];
-                        $model->created_by = Yii::$app->user->identity->id; 
-                        $model->created_at = new \yii\db\Expression('NOW()');
-                        $model->updated_by = '0'; 
-                        $model->save();
+                $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name where class_name_id = $model->class_name_id")->queryAll();
+                $session = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions where session_id = $model->session_id")->queryAll();
+                $section = Yii::$app->db->createCommand("SELECT section_name FROM std_sections where section_id = $model->section_id")->queryAll();
+                                    
+                $model->class_name = $className[0]['class_name'].'-'.$session[0]['session_name'].
+                                            '-'.$section[0]['section_name'];
+                                            
+                $model->created_by = Yii::$app->user->identity->id; 
+                $model->created_at = new \yii\db\Expression('NOW()');
+                $model->updated_by = '0'; 
+                $model->updated_at = '0';
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new StdClass",
@@ -140,8 +127,8 @@ class StdClassController extends Controller
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
         
                 ];         
             }
@@ -179,42 +166,36 @@ class StdClassController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update StdClass #".$id,
+                    'title'=> "<b>Update Stdudent Class: </b>".$model->class_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
-                        $program = Yii::$app->db->createCommand("SELECT program_name FROM programs where program_id = $model->class_program_id")->queryAll();
-                        $semester = Yii::$app->db->createCommand("SELECT semester_name FROM semesters where semester_id = $model->class_semester_id")->queryAll();
-                        $section = Yii::$app->db->createCommand("SELECT section_name FROM sections where section_id = $model->class_section_id")->queryAll();
-                        $batche = Yii::$app->db->createCommand("SELECT batch_name FROM batches where batch_id = $model->class_batch_id")->queryAll();
-                    
-                        $model->class_name = $program[0]['program_name'].'-'.$semester[0]['semester_name'].
-                                            '-'.$section[0]['section_name'].'-'.$batche[0]['batch_name'];
-                        $model->updated_by = Yii::$app->user->identity->id;
-                        $model->updated_at = new \yii\db\Expression('NOW()');
-                        $model->created_by = $model->created_by;
-                        $model->save();
+                $model->updated_by = Yii::$app->user->identity->id;
+                $model->updated_at = new \yii\db\Expression('NOW()');
+                $model->created_by = $model->created_by;
+                $model->created_at = $model->created_at;
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "StdClass #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-success','role'=>'modal-remote'])
                 ];    
             }else{
                  return [
-                    'title'=> "Update StdClass #".$id,
+                    'title'=> "Update Stdudent Class: ".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
                 ];        
             }
         }else{
@@ -230,6 +211,7 @@ class StdClassController extends Controller
             }
         }
     }
+
 
     /**
      * Delete an existing StdClass model.

@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Sms;
-use common\models\SmsSearch;
+use common\models\Concession;
+use common\models\ConcessionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,9 +13,9 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * SmsController implements the CRUD actions for Sms model.
+ * ConcessionController implements the CRUD actions for Concession model.
  */
-class SmsController extends Controller
+class ConcessionController extends Controller
 {
     /**
      * @inheritdoc
@@ -48,12 +48,12 @@ class SmsController extends Controller
     }
 
     /**
-     * Lists all Sms models.
+     * Lists all Concession models.
      * @return mixed
      */
     public function actionIndex()
     {    
-        $searchModel = new SmsSearch();
+        $searchModel = new ConcessionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -64,7 +64,7 @@ class SmsController extends Controller
 
 
     /**
-     * Displays a single Sms model.
+     * Displays a single Concession model.
      * @param integer $id
      * @return mixed
      */
@@ -74,7 +74,7 @@ class SmsController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Sms #".$id,
+                    'title'=> "Concession #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -89,7 +89,7 @@ class SmsController extends Controller
     }
 
     /**
-     * Creates a new Sms model.
+     * Creates a new Concession model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -97,7 +97,7 @@ class SmsController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Sms();  
+        $model = new Concession();  
 
         if($request->isAjax){
             /*
@@ -106,7 +106,7 @@ class SmsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new Sms",
+                    'title'=> "Create new Concession",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -114,18 +114,23 @@ class SmsController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                $model->created_by = Yii::$app->user->identity->id; 
+                $model->created_at = new \yii\db\Expression('NOW()');
+                $model->updated_by = '0';
+                $model->updated_at = '0'; 
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Sms",
-                    'content'=>'<span class="text-success">Create Sms success</span>',
+                    'title'=> "Create new Concession",
+                    'content'=>'<span class="text-success">Create Concession success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new Sms",
+                    'title'=> "Create new Concession",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -139,7 +144,7 @@ class SmsController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->sms_id]);
+                return $this->redirect(['view', 'id' => $model->concession_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
@@ -150,7 +155,7 @@ class SmsController extends Controller
     }
 
     /**
-     * Updates an existing Sms model.
+     * Updates an existing Concession model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -168,17 +173,22 @@ class SmsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update Sms #".$id,
+                    'title'=> "Update Concession #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                $model->updated_by = Yii::$app->user->identity->id;
+                $model->updated_at = new \yii\db\Expression('NOW()');
+                $model->created_by = $model->created_by;
+                $model->created_at = $model->created_at;
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Sms #".$id,
+                    'title'=> "Concession #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -187,7 +197,7 @@ class SmsController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update Sms #".$id,
+                    'title'=> "Update Concession #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -200,7 +210,7 @@ class SmsController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->sms_id]);
+                return $this->redirect(['view', 'id' => $model->concession_id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,
@@ -210,7 +220,7 @@ class SmsController extends Controller
     }
 
     /**
-     * Delete an existing Sms model.
+     * Delete an existing Concession model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -238,7 +248,7 @@ class SmsController extends Controller
     }
 
      /**
-     * Delete multiple existing Sms model.
+     * Delete multiple existing Concession model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -269,23 +279,18 @@ class SmsController extends Controller
     }
 
     /**
-     * Finds the Sms model based on its primary key value.
+     * Finds the Concession model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Sms the loaded model
+     * @return Concession the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Sms::findOne($id)) !== null) {
+        if (($model = Concession::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionAbsentSms()
-    {
-        return $this->render('absent-sms');
     }
 }
