@@ -115,10 +115,11 @@ class BranchesController extends Controller
         
                 ];         
             }else if($model->load($request->post())){
-                        $model->created_by = Yii::$app->user->identity->id; 
-                        $model->created_at = new \yii\db\Expression('NOW()');
-                        $model->updated_by = '0'; 
-                        $model->save();
+                $model->created_by = Yii::$app->user->identity->id; 
+                $model->created_at = new \yii\db\Expression('NOW()');
+                $model->updated_by = '0';
+                $model->updated_at = '0'; 
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new Branches",
@@ -180,11 +181,11 @@ class BranchesController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
-                        $model->updated_by = Yii::$app->user->identity->id;
-                        $model->updated_at = new \yii\db\Expression('NOW()');
-                        $model->created_by = $model->created_by;
-                        $model->save();
-
+                $model->updated_by = Yii::$app->user->identity->id;
+                $model->updated_at = new \yii\db\Expression('NOW()');
+                $model->created_by = $model->created_by;
+                $model->created_at = $model->created_at;
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Branches #".$id,
@@ -228,12 +229,7 @@ class BranchesController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        
-        $model = Branches::findOne($id);
-        $model->delete_status = 0;
-        $model->updated_by = Yii::$app->user->identity->id;
-        $model->updated_at = new \yii\db\Expression('NOW()');
-        $model->update();
+        $this->findModel($id)->delete();
 
         if($request->isAjax){
             /*
@@ -247,6 +243,8 @@ class BranchesController extends Controller
             */
             return $this->redirect(['index']);
         }
+
+
     }
 
      /**
@@ -261,11 +259,8 @@ class BranchesController extends Controller
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
-            $model = Branches::findOne($pk);
-            $model->delete_status = 0;
-            $model->updated_by = Yii::$app->user->identity->id;
-            $model->updated_at = new \yii\db\Expression('NOW()');
-            $model->update();
+            $model = $this->findModel($pk);
+            $model->delete();
         }
 
         if($request->isAjax){

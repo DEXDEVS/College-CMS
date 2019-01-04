@@ -18,7 +18,7 @@ class SmsSearch extends Sms
     public function rules()
     {
         return [
-            [['sms_id', 'created_by', 'updted_at'], 'integer'],
+            [['sms_id', 'created_by', 'updated_by'], 'integer'],
             [['sms_name', 'sms_template', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -60,7 +60,7 @@ class SmsSearch extends Sms
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
-            'updted_at' => $this->updted_at,
+            'updated_by' => $this->updated_by,
         ]);
 
         $query->andFilterWhere(['like', 'sms_name', $this->sms_name])
