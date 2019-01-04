@@ -11,6 +11,7 @@ use yii\helpers\Html;
     <?= $this->render('_form', [
         'model' => $model,
         'stdGuardianInfo' => $stdGuardianInfo,
+        'stdIceInfo' => $stdIceInfo,
         'stdAcademicInfo' => $stdAcademicInfo,
         'stdFeeDetails' => $stdFeeDetails,
     ]) ?>
