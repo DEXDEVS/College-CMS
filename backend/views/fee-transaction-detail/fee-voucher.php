@@ -21,7 +21,7 @@
                     <label>Select Class</label>
                     <select class="form-control" name="classid" id="classId">
 							<?php 
-								$className = Yii::$app->db->createCommand("SELECT * FROM std_class_name")->queryAll();
+								$className = Yii::$app->db->createCommand("SELECT * FROM std_class_name where delete_status=1")->queryAll();
 								
 								  	foreach ($className as  $value) { ?>	
 									<option value="<?php echo $value["class_name_id"]; ?>">
@@ -36,7 +36,7 @@
                     <label>Select Session</label>
                     <select class="form-control" name="sessionid" id="sessionId">
 							<?php 
-								$sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions")->queryAll();
+								$sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1")->queryAll();
 								
 								  	foreach ($sessionName as  $value) { ?>	
 									<option value="<?php echo $value["session_id"]; ?>">

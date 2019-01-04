@@ -15,6 +15,7 @@ use common\models\Institute;
 
     <div class="row">
         <div class="col-md-6">
+            <span style="color:red; position: absolute; left: 120px"><b>*</b></span>
             <?= $form->field($model, 'institute_id')->dropDownList(
                     ArrayHelper::map(Institute::find()->all(),'institute_id','institute_name'),
                     ['prompt'=>'']
