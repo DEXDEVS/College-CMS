@@ -14,41 +14,52 @@ use common\models\Branches;
 <div class="emp-info-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <h3 style="color: #337AB7; margin-top: -10px"> Employee Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
     <div class="row">
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 125px; top: 6px"></i>
             <?= $form->field($model, 'emp_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 101px; top: 6px"></i>
             <?= $form->field($model, 'emp_father_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 129px; top: 6px"></i>
             <?= $form->field($model, 'emp_cnic')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '99999-9999999-9', ]) ?>
         </div>
     </div>    
     <div class="row">
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 162px; top: 6px"></i>
             <?= $form->field($model, 'emp_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
         </div>
         <div class="col-md-4">
+            <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 55px; top: 6px"></i> -->
             <?= $form->field($model, 'emp_email')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 66px; top: 6px"></i>
             <?= $form->field($model, 'emp_gender')->dropDownList([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => 'Select Gender']) ?>
         </div>
     </div>
     <div class="row">        
         <div class="col-md-4">
+            <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 56px; top: 6px"></i> -->
             <?= $form->field($model, 'emp_photo')->fileInput() ?>
         </div>
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 148px; top: 6px"></i>
             <?= $form->field($model, 'emp_perm_address')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
+            <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 148px; top: 6px"></i> -->
             <?= $form->field($model, 'emp_temp_address')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 108px; top: 6px"></i>
             <?= $form->field($model, 'emp_marital_status')->dropDownList([ 'Single' => 'Single', 'Married' => 'Married', ], ['prompt' => 'Select Merital Status']) ?>
         </div>
         <div class="col-md-4">
