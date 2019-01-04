@@ -20,6 +20,15 @@ Thumbs.db
 # composer vendor dir
 #vendor
 
+# local uploads directory
+#backend/config
+
+# local uploads directory
+#common/config
+
+# local uploads directory
+#frontend/config
+
 # composer itself is not needed
 composer.phar
 

@@ -98,7 +98,7 @@ use common\models\Concession;
                 <?= $form->field($stdGuardianInfo, 'guardian_relation')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-4">
-                <?= $form->field($stdGuardianInfo, 'guardian_cnic')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($stdGuardianInfo, 'guardian_cnic')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '99999-9999999-9', ]) ?>
             </div>
         </div>
         <div class="row">
@@ -119,7 +119,21 @@ use common\models\Concession;
             <div class="col-md-4">
                 <?= $form->field($stdGuardianInfo, 'guardian_occupation')->textInput(['maxlength' => true]) ?>
             </div>
-        </div>  
+        </div><hr>
+        
+        <h3 style="color: #5FDAF4; margin-top: -10px"> ICE Info </h3>
+
+        <div class="row">
+            <div class="col-md-4">
+                <?= $form->field($stdIceInfo, 'std_ice_name')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-4">
+                <?= $form->field($stdIceInfo, 'std_ice_relation')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-4">
+                <?= $form->field($stdIceInfo, 'std_ice_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+            </div>
+        </div> 
     </div>
     <hr>
     <!-- Guardian Info end -->
