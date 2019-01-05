@@ -26,7 +26,9 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'system-settings', 
+                            'system-configuration', 'students', 'employees', 
+                            'communication', 'fee'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -95,10 +97,41 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
-
+    // actionSendSms.....
     public function actionSendSms()
     {
         return $this->render('send-sms');
     }
+    //  actionSystemSettings.... 
+    public function actionSystemSettings()
+    {
+        return $this->render('system-settings');
+    }
+    // actionSystemConfiguration
+    public function actionSystemConfiguration()
+    {
+        return $this->render('system-configuration');
+    }
+    // actionStudents...
+    public function actionStudents()
+    {
+        return $this->render('students');
+    }
+    // actionEmployee
+    public function actionEmployees()
+    {
+        return $this->render('employees');
+    }
+    // actionCommunication...
+    public function actionCommunication()
+    {
+        return $this->render('communication');
+    }
+    // actionFee...
+    public function actionFee()
+    {
+        return $this->render('fee');
+    }
+    
 
 }

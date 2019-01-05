@@ -38,9 +38,10 @@
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     // ------------------------------------------------
+                    // System Sesstings start...
                     [
-                        'label' => 'System Setting',
-                        'icon' => 'cogs',
+                        'label' => 'System Settings',
+                        'icon' => 'cog',
                         'url' => '#',
                         'items' => [
                             ['label' => 'Class Name', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class-name',],
@@ -51,6 +52,8 @@
                             ['label' => 'Fee Type', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-type',],
                         ],
                     ],
+                    // System Settings close...
+                    // ------------------------------------------------
                     // System Configuration start...
                     [
                         'label' => 'System Configuration',
