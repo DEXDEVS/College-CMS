@@ -99,7 +99,7 @@ use common\models\Branches;
 
     <!-- Form of Employee Reference -->
     <div id="referenceshow" style="display: none;">
-        <h3>Emp Reference</h3>
+        <h3>Employee Reference</h3>
         <div class="row">
             <div class="col-md-4">
                 <?= $form->field($empRefModel, 'ref_name')->textInput(['maxlength' => true]) ?>

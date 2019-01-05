@@ -38,6 +38,19 @@
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     // ------------------------------------------------
+                    [
+                        'label' => 'System Setting',
+                        'icon' => 'cogs',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Class Name', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class-name',],
+                            ['label' => 'Subjects', 'icon' => 'caret-right', 'url' => 'index.php?r=subjects',],
+                            ['label' => 'Subjects Combination', 'icon' => 'caret-right', 'url' => 'index.php?r=std-subjects',],
+                            ['label' => 'Employee Designation', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-designation',],
+                            ['label' => 'Employee Type', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-type',],
+                            ['label' => 'Fee Type', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-type',],
+                        ],
+                    ],
                     // System Configuration start...
                     [
                         'label' => 'System Configuration',
@@ -48,8 +61,6 @@
                             ['label' => 'Branches', 'icon' => 'caret-right', 'url' => 'index.php?r=branches',],
                             ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sessions',],
                             ['label' => 'Sections', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sections',],
-                            ['label' => 'Class Name', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class-name',],
-                            ['label' => 'Subjects', 'icon' => 'caret-right', 'url' => 'index.php?r=subjects',],
                             ['label' => 'Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
                             ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => 'index.php?r=std-enrollment-detail',],
                             ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-detail',],
@@ -67,8 +78,6 @@
                             ['label' => 'Student Guardian Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-guardian-info',],
                             ['label' => 'Student Academic Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-academic-info',],
                             ['label' => 'Student Fee Details', 'icon' => 'caret-right', 'url' => 'index.php?r=std-fee-details',],
-                            ['label' => 'Student Enrollment', 'icon' => 'caret-right', 'url' => 'index.php?r=std-enrollment-detail',]
-                            
                         ],
                     ],
                     // Student Registration close...
@@ -80,8 +89,6 @@
                         'url' => '#',
                         'items' => [
                             ['label' => 'Employee Personal Info', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-info',],
-                            ['label' => 'Employee Designation', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-designation',],
-                            ['label' => 'Employee Type', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-type',],
                             ['label' => 'Employee Reference', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-reference',]
                         ],
                     ],
@@ -94,7 +101,6 @@
                         'icon' => 'credit-card',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Fee Type', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-type',],
                             ['label' => 'Manage Fee Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail',],
                             ['label' => 'Generate Student Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/fee-voucher',],
                             ['label' => 'Collect Student Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/collect-voucher',]

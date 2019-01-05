@@ -3,6 +3,8 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use common\models\StdSessions;
+use common\models\StdSubjects;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StdSections */
@@ -24,7 +26,17 @@ use common\models\StdSessions;
         </div>
         <div class="row">
             <div class="col-md-6">
+                <?= $form->field($model, 'section_description')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
                 <?= $form->field($model, 'section_intake')->input('number') ?>
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-md-12">
+                <?= $form->field($model, 'section_subjects')->dropDownList(
+                    ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name')
+                )?>
             </div>
         </div>
   

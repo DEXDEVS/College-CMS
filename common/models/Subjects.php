@@ -7,19 +7,21 @@ use Yii;
 /**
  * This is the model class for table "subjects".
  *
- * @property integer $subject_id
+ * @property int $subject_id
  * @property string $subject_name
+ * @property string $subject_description
  * @property string $created_at
  * @property string $updated_at
- * @property integer $created_by
- * @property integer $updated_by
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int $delete_status
  *
  * @property TeacherSubjectAssignDetail[] $teacherSubjectAssignDetails
  */
 class Subjects extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -27,30 +29,33 @@ class Subjects extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['subject_name'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
-            [['created_by', 'updated_by'], 'integer'],
+            [['subject_name', 'subject_description', 'created_by', 'updated_by'], 'required'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['created_by', 'updated_by', 'delete_status'], 'integer'],
             [['subject_name'], 'string', 'max' => 32],
+            [['subject_description'], 'string', 'max' => 100],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
             'subject_id' => 'Subject ID',
             'subject_name' => 'Subject Name',
+            'subject_description' => 'Subject Description',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'delete_status' => 'Delete Status',
         ];
     }
 

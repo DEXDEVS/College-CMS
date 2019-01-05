@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Subjects;
+use common\models\StdSubjects;
 
 /**
- * SubjectsSearch represents the model behind the search form about `common\models\Subjects`.
+ * StdSubjectsSearch represents the model behind the search form about `common\models\StdSubjects`.
  */
-class SubjectsSearch extends Subjects
+class StdSubjectsSearch extends StdSubjects
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class SubjectsSearch extends Subjects
     public function rules()
     {
         return [
-            [['subject_id', 'created_by', 'updated_by'], 'integer'],
-            [['subject_name', 'subject_description', 'created_at', 'updated_at', 'delete_status'], 'safe'],
+            [['std_subject_id'], 'integer'],
+            [['std_subject_name'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class SubjectsSearch extends Subjects
      */
     public function search($params)
     {
-        $query = Subjects::find();
+        $query = StdSubjects::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,16 +56,10 @@ class SubjectsSearch extends Subjects
         }
 
         $query->andFilterWhere([
-            'subject_id' => $this->subject_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
+            'std_subject_id' => $this->std_subject_id,
         ]);
 
-        $query->andFilterWhere(['like', 'subject_name', $this->subject_name])
-            ->andFilterWhere(['like', 'subject_description', $this->subject_description])
-            ->andFilterWhere(['like', 'delete_status', $this->delete_status]);
+        $query->andFilterWhere(['like', 'std_subject_name', $this->std_subject_name]);
 
         return $dataProvider;
     }

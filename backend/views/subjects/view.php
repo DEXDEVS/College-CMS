@@ -12,6 +12,7 @@ use yii\widgets\DetailView;
         'attributes' => [
             'subject_id',
             'subject_name',
+            'subject_description',
             'created_at',
             'updated_at',
             'created_by',

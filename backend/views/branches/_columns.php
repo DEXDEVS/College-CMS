@@ -31,10 +31,10 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'branch_type',
     ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'branch_location',
-    // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'branch_location',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'branch_contact_no',
