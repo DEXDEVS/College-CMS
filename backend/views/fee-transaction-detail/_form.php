@@ -19,13 +19,15 @@ use dosamigos\datetimepicker\DateTimePicker;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
             <div class="col-md-4">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 115px; top: 6px"></i>
                 <?= $form->field($feeTransactionHead, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
                     ['prompt'=>'Select Class',
                     'id' => 'classId',
                 ])?> 
             </div>
-            <div class="col-md-4">     
+            <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 90px; top: 6px"></i>     
                 <?= $form->field($feeTransactionHead, 'session_id')->dropDownList(
                     ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name'),
                     [
@@ -38,6 +40,7 @@ use dosamigos\datetimepicker\DateTimePicker;
                     ]);?>
             </div>
             <div class="col-md-4">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 86px; top: 6px"></i> 
                 <?= $form->field($feeTransactionHead, 'section_id')->dropDownList(
                     ArrayHelper::map(StdSections::find()->all(),'section_id','section_name'),
                     ['prompt'=>'Select Section',
@@ -46,6 +49,7 @@ use dosamigos\datetimepicker\DateTimePicker;
             </div>
 
             <div class="col-md-4">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 58px; top: 6px"></i> 
                 <?= $form->field($feeTransactionHead, 'std_id')->dropDownList(
                     ArrayHelper::map(StdPersonalInfo::find()->all(),'std_id','std_name'),
                     ['prompt'=>'Select Student',
@@ -53,9 +57,11 @@ use dosamigos\datetimepicker\DateTimePicker;
                 ])?>
             </div>
             <div class="col-md-4">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 60px; top: 6px"></i>
                 <?= $form->field($feeTransactionHead, 'month')->dropDownList([ '1' => 'January', '2' => 'Fabruary', '3' => 'March', '4' => 'April', '5' => 'May', '6' => 'June', '7' => 'July', '8' => 'August', '9' => 'September', '10' => 'October', '11' => 'November', '12' => 'December', ], ['prompt' => 'Select Month','id'=>'month']) ?>
             </div>
             <div class="col-md-4">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 130px; top: 6px"></i>
                 <label>Transaction Date</label>
                 <?= DateTimePicker::widget([
                     'model' => $feeTransactionHead,
@@ -74,15 +80,18 @@ use dosamigos\datetimepicker\DateTimePicker;
         <!-- Fee Transaction Detail-->
         <div class="row">
             <div class="col-md-3">
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 119px; top: 6px"></i> -->
                 <?= $form->field($model, 'fee_type_id')->dropDownList(
                     ArrayHelper::map(FeeType::find()->all(),'fee_type_id','fee_type_name'),
                     ['prompt'=>'Select FeeType','id'=>'feeType']
                 )?>  
             </div>
             <div class="col-md-3">
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 99px; top: 6px"></i> -->
                 <?= $form->field($model, 'fee_amount')->textInput(['id'=>'feeAmount']) ?>
             </div>
             <div class="col-md-3">
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 105px; top: 6px"></i> -->
                 <?= $form->field($model, 'fee_discount')->textInput(['id'=> 'feeDiscount']) ?>
             </div>
             <div class="col-md-3">
