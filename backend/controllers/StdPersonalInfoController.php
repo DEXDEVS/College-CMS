@@ -36,7 +36,7 @@ class StdPersonalInfoController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','fetch-fee'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -104,9 +104,9 @@ class StdPersonalInfoController extends Controller
     {
         $request = Yii::$app->request;
         $model = new StdPersonalInfo();  
-        $stdGuardianInfo = new StdGuardianInfo;
-        $stdIceInfo = new StdIceInfo;
-        $stdAcademicInfo = new StdAcademicInfo;
+        $stdGuardianInfo = new StdGuardianInfo();
+        $stdIceInfo = new StdIceInfo(); 
+        $stdAcademicInfo = new StdAcademicInfo();
         $stdFeeDetails = new StdFeeDetails();
 
         if($request->isAjax){
@@ -160,7 +160,6 @@ class StdPersonalInfoController extends Controller
                         $stdIceInfo->save();
 
                         $stdAcademicInfo->std_id = $model->std_id;
-                        $stdAcademicInfo->delete_status = 1;
                         $stdAcademicInfo->created_by = Yii::$app->user->identity->id; 
                         $stdAcademicInfo->created_at = new \yii\db\Expression('NOW()');
                         $stdAcademicInfo->updated_by = '0'; 
@@ -310,7 +309,10 @@ class StdPersonalInfoController extends Controller
 
     }
 
-    
+    public function actionFetchFee()
+    {   
+        return $this->render('fetch-fee');
+    }
 
      /**
      * Delete multiple existing StdPersonalInfo model.

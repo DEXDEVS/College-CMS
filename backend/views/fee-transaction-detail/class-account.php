@@ -35,6 +35,7 @@
                 <div class="form-group">
                     <label>Select Session</label>
                     <select class="form-control" name="sessionid" id="sessionId">
+                            <option value="">Select Section</option>
                             <?php 
                                 $sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1")->queryAll();
                                 
@@ -136,8 +137,12 @@
                         <th>Net</th>
                     </tr>
                     <?php 
+                        $length = count($student);
                         foreach ($student as $id =>$value) {
-                            $stdInfo = Yii::$app->db->createCommand("SELECT std_name , std_father_name  FROM std_personal_info WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
+                            $stdId = $student[$id]['std_enroll_detail_std_id'];
+                            $studentId[$id] = $stdId;
+                            $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll();
+                            $studentName[$id] = $stdName[0]['std_name'];
                             $fee = Yii::$app->db->createCommand("SELECT net_addmission_fee , net_tuition_fee  FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll(); 
                     ?>
                     <tr>
@@ -145,16 +150,16 @@
                             <p style="margin-top: 8px"><?php echo $id+1; ?></p>
                         </td>
                         <td>
-                            <p style="margin-top: 8px">001</p>
+                            <p style="margin-top: 8px"><?php echo $stdId;?></p>
                         </td>
                         <td>
-                            <p style="margin-top: 8px"><?php echo $stdInfo[0]['std_name'];?></p>
+                            <p style="margin-top: 8px"><?php echo $stdName[0]['std_name'];?></p>
                          </td>
                         <td align="center">
-                            <input class="form-control" type="number" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="admission_fee" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" style="width: 80px; border: none;">
                         </td>
                         <td align="center">
-                            <input class="form-control" type="number" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="tuition_fee" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" style="width: 80px; border: none;">
                         </td>
                         <td>
                             <input class="form-control" type="number" name="late_fee_fine" style="width: 80px; border: none;">
@@ -185,6 +190,20 @@
 		<div class="row">
 			<div class="col-md-4">
                 <div class="form-group">
+                    
+                        <?php foreach ($studentId as $value) {
+                            echo '<input type="hidden" name="studentId[]" value="'.$value.'">';
+                        }
+                        foreach ($studentName as $value) {
+                            echo '<input type="hidden" name="studentName[]" value="'.$value.'">';
+                        }
+                        ?>
+                        <input type="hidden" name="length" value="<?php echo $length; ?>">
+                        <input type="hidden" name="classid" value="<?php echo $classid; ?>">
+                        <input type="hidden" name="sessionid" value="<?php echo $sessionid; ?>">
+                        <input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
+                        <input type="hidden" name="month" value="<?php echo $month; ?>">
+                        <input type="hidden" name="date" value="<?php echo $date; ?>">
                     <button type="submit" name="save" class="btn btn-success">Submit</button>
                 </div>    
             </div>
@@ -194,7 +213,46 @@
 <?php
     }
 ?>
-</div>   
+</div> 
+<?php   
+        if (isset($_POST["save"])) {
+                $classid = $_POST["classid"];
+                $sessionid = $_POST["sessionid"];
+                $sectionid = $_POST["sectionid"];
+                $date = $_POST["date"];
+                $month = $_POST["month"];
+                $length = $_POST["length"];
+                $studentId = $_POST["studentId"];
+                $studentName = $_POST["studentName"];
+                $admission_fee = $_POST["admission_fee"];
+                $tuition_fee = $_POST["tuition_fee"];
+                $late_fee_fine = $_POST["late_fee_fine"];
+                $absent_fine = $_POST["absent_fine"];
+                $library_dues = $_POST["library_dues"];
+                $transport_fee = $_POST["transport_fee"];
+                $total_amount = $_POST["total_amount"];
+                $discount_amount = $_POST["discount_amount"];
+                $net_total = $_POST["net_total"];
+
+                //var_dump($status);
+                for($i=0; $i<$length; $i++){
+                    $feeHead = Yii::$app->db->createCommand()->insert('fee_transaction_head',[
+                        'class_name_id' => $classid,
+                        'session_id'=> $sessionid,
+                        'section_id'=> $sectionid,
+                        'std_id' => $studentId[$i],
+                        'std_name' => $studentName[$i],
+                        'month'=> $month,
+                        'transaction_date' => $date,
+                        'total_amount'=> $net_total,
+                        'total_discount'=> $discount_amount,
+                        'status'=>'unpaid',
+                    ])->execute();
+                    var_dump($feeHead);
+                }
+
+        }
+     ?>  
 </body> 
 </html>
 
@@ -214,6 +272,7 @@ $('#sessionId').on('change',function(){
      
             var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
             var options = '';
+           
             for(var i=0; i<jsonResult.length; i++) { 
                 options += '<option value="'+jsonResult[i].section_id+'">'+jsonResult[i].section_name+'</option>';
             }

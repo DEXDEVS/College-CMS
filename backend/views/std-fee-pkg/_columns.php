@@ -17,10 +17,12 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'session_id',
+        'value'=> 'session.session_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'class_id',
+        'value' => 'class.class_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

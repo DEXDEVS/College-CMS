@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use common\models\Concession;
+use common\models\StdSessions
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StdFeeDetails */
@@ -17,6 +18,11 @@ use common\models\Concession;
         <div class="col-md-4">
             <?= $form->field($model, 'std_id')->textInput() ?>
         </div>  
+        <div class="col-md-6">
+                <?= $form->field($model, 'feeSession')->dropDownList(
+                    ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name')
+                )?>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-4">

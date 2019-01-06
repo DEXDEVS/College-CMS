@@ -19,7 +19,6 @@ use yii\widgets\DetailView;
             'created_by',
             'updated_at',
             'updated_by',
-            'delete_status',
         ],
     ]) ?>
 

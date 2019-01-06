@@ -60,7 +60,6 @@ class StdIceInfo extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
-            'delete_status' => 'Delete Status',
         ];
     }
 

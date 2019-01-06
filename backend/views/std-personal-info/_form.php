@@ -6,6 +6,7 @@ use yii\web\UploadedFile;
 use dosamigos\datetimepicker\DateTimePicker;
 use kartik\select2\Select2;
 use common\models\StdClassName;
+use common\models\StdSessions;
 use common\models\Concession;
 
 /* @var $this yii\web\View */
@@ -169,7 +170,7 @@ use common\models\Concession;
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i>
                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
                         ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
-                        ['prompt'=>'']
+                        ['prompt'=>'Select Class','id'=>'classId']
                     )?>
             </div>
             <div class="col-md-8">
@@ -223,6 +224,12 @@ use common\models\Concession;
             <!-- Fee detail start -->
         <h3 style="color: red; margin-top: -10px"> Fee Detail <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($stdFeeDetails, 'feeSession')->dropDownList(
+                    ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name'),
+                        ['prompt'=>'Select Session','id'=>'sessionId']
+                )?>
+            </div>
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 116px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'admission_fee')->textInput(['type' => 'number','id' => 'admissionFee']) ?>
@@ -325,5 +332,32 @@ $('#percentage').on('focus',function(){
    }
 
 });
+</script>
+<?php
+$url = \yii\helpers\Url::to("index.php?r=std-personal-info/fetch-fee");
+
+$script = <<< JS
+$('#sessionId').on('change',function(){
+   var classId = $('#classId').val();
+   var sessionId = $('#sessionId').val();
+   
+   $.ajax({
+        type:'post',
+        data:{class_Id:classId,session_Id:sessionId},
+        url: "$url",
+
+        success: function(result){
+            console.log(result);
+            var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
+            var addmissionFee = jsonResult['admission_fee'];
+            var monthlyFee = jsonResult['tutuion_fee'];
+            $('#admissionFee').val(addmissionFee);
+            $('#tuitionFee').val(monthlyFee);
+        }         
+    });       
+});
+JS;
+$this->registerJs($script);
+?>
 </script>
         
