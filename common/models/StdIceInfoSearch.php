@@ -18,8 +18,8 @@ class StdIceInfoSearch extends StdIceInfo
     public function rules()
     {
         return [
-            [['std_ice_id', 'std_id', 'created_by', 'updated_by'], 'integer'],
-            [['std_ice_name', 'std_ice_relation', 'std_ice_contact_no', 'created_at', 'updated_at', 'delete_status'], 'safe'],
+            [['std_ice_id', 'std_id'], 'integer'],
+            [['std_ice_name', 'std_ice_relation', 'std_ice_contact_no', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
         ];
     }
 
@@ -66,8 +66,7 @@ class StdIceInfoSearch extends StdIceInfo
 
         $query->andFilterWhere(['like', 'std_ice_name', $this->std_ice_name])
             ->andFilterWhere(['like', 'std_ice_relation', $this->std_ice_relation])
-            ->andFilterWhere(['like', 'std_ice_contact_no', $this->std_ice_contact_no])
-            ->andFilterWhere(['like', 'delete_status', $this->delete_status]);
+            ->andFilterWhere(['like', 'std_ice_contact_no', $this->std_ice_contact_no]);
 
         return $dataProvider;
     }

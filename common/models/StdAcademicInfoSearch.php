@@ -18,8 +18,8 @@ class StdAcademicInfoSearch extends StdAcademicInfo
     public function rules()
     {
         return [
-            [['academic_id', 'total_marks', 'obtained_marks', 'created_by', 'updated_by'], 'integer'],
-            [['std_id', 'class_name_id', 'previous_class', 'passing_year', 'grades', 'Institute', 'created_at', 'updated_at'], 'safe'],
+            [['academic_id', 'total_marks', 'obtained_marks'], 'integer'],
+            [['std_id', 'class_name_id', 'previous_class', 'passing_year', 'grades', 'Institute', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['percentage'], 'number'],
         ];
     }

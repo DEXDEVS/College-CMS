@@ -144,23 +144,23 @@ use common\models\Concession;
             </div>
         </div><hr>
         
-        <h3 style="color: #5FDAF4; margin-top: -10px"> ICE Info </h3>
-
-        <div class="row">
-            <div class="col-md-4">
-                <?= $form->field($stdIceInfo, 'std_ice_name')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-4">
-                <?= $form->field($stdIceInfo, 'std_ice_relation')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-4">
-                <?= $form->field($stdIceInfo, 'std_ice_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
-            </div>
-        </div> 
+    <!-- ICE Info Start -->
+    <h3 style="color: #5FDAF4; margin-top: -10px"> ICE Info </h3>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($stdIceInfo, 'std_ice_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($stdIceInfo, 'std_ice_relation')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($stdIceInfo, 'std_ice_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>  
+        </div>
     </div>
-    <hr>
+    <!-- ICE Info end -->
+    </div>
     <!-- Guardian Info end -->
-
+    <hr>
     
     <div style="border: 2px solid #EC971F; padding: 15px;">
         <!-- Aca demic Info -->

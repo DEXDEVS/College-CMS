@@ -104,9 +104,9 @@ class StdPersonalInfoController extends Controller
     {
         $request = Yii::$app->request;
         $model = new StdPersonalInfo();  
-        $stdGuardianInfo = new StdGuardianInfo();
-        $stdIceInfo = new StdIceInfo(); 
-        $stdAcademicInfo = new StdAcademicInfo();
+        $stdGuardianInfo = new StdGuardianInfo;
+        $stdIceInfo = new StdIceInfo;
+        $stdAcademicInfo = new StdAcademicInfo;
         $stdFeeDetails = new StdFeeDetails();
 
         if($request->isAjax){
@@ -189,6 +189,7 @@ class StdPersonalInfoController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
+        
                 ];         
             }
         }else{

@@ -10,14 +10,13 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-    //     [
+    // [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'std_ice_id',
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'std_id',
-        'value'=>'std.std_name',
+        'attribute'=>'std.std_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -46,10 +45,6 @@ return [
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'updated_by',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'delete_status',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

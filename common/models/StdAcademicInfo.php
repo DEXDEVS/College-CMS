@@ -7,20 +7,23 @@ use Yii;
 /**
  * This is the model class for table "std_academic_info".
  *
- * @property integer $academic_id
- * @property integer $std_id
- * @property integer $class_name_id
+ * @property int $academic_id
+ * @property int $std_id
+ * @property int $class_name_id
+ * @property string $subject_combination
  * @property string $previous_class
  * @property string $passing_year
- * @property integer $total_marks
- * @property integer $obtained_marks
+ * @property int $previous_class_rollno
+ * @property int $total_marks
+ * @property int $obtained_marks
  * @property string $grades
  * @property double $percentage
  * @property string $Institute
  * @property string $created_at
  * @property string $updated_at
- * @property integer $created_by
- * @property integer $updated_by
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int $delete_status
  *
  * @property StdPersonalInfo $std
  * @property StdClassName $className
@@ -28,7 +31,7 @@ use Yii;
 class StdAcademicInfo extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -36,16 +39,17 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['std_id', 'class_name_id', 'previous_class', 'passing_year', 'Institute'], 'required'],
-            [['std_id', 'class_name_id', 'total_marks', 'obtained_marks', 'created_by', 'updated_by'], 'integer'],
+            [['std_id', 'class_name_id', 'subject_combination', 'previous_class', 'passing_year', 'previous_class_rollno', 'Institute'], 'required'],
+            [['std_id', 'class_name_id', 'previous_class_rollno', 'total_marks', 'obtained_marks', 'created_by', 'updated_by', 'delete_status'], 'integer'],
             [['grades'], 'string'],
             [['percentage'], 'number'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by', 'total_marks', 'obtained_marks', 'grades', 'percentage'], 'safe'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['subject_combination'], 'string', 'max' => 100],
             [['previous_class', 'Institute'], 'string', 'max' => 50],
             [['passing_year'], 'string', 'max' => 32],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
@@ -54,16 +58,18 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
             'academic_id' => 'Academic ID',
-            'std_id' => 'Std Name',
-            'class_name_id' => 'Admission Class Name',
+            'std_id' => 'Std ID',
+            'class_name_id' => 'Class Name ID',
+            'subject_combination' => 'Subject Combination',
             'previous_class' => 'Previous Class',
             'passing_year' => 'Passing Year',
+            'previous_class_rollno' => 'Previous Class Rollno',
             'total_marks' => 'Total Marks',
             'obtained_marks' => 'Obtained Marks',
             'grades' => 'Grades',
@@ -73,6 +79,7 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'delete_status' => 'Delete Status',
         ];
     }
 
