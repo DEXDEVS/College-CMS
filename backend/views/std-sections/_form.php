@@ -15,7 +15,7 @@ use common\models\StdSessions;
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'session_id')->dropDownList(
-                    ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name')
+                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1])->all(),'session_id','session_name')
                 )?>
             </div>
             <div class="col-md-6">

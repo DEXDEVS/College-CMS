@@ -18,13 +18,13 @@ use common\models\Subjects;
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($teacherSubjectAssignHead, 'teacher_id')->dropDownList(
-                    ArrayHelper::map(EmpInfo::find()->where(['group_by' => 'Faculty'])->all(),'emp_id','emp_name'),
+                    ArrayHelper::map(EmpInfo::find()->where(['group_by' => 'Faculty', 'delete_status'=>1])->all(),'emp_id','emp_name'),
                     ['prompt'=>'Select Teacher']
                 )?>
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'class_id')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
+                    'data' => ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select'],
                     'pluginOptions' => [
@@ -38,7 +38,7 @@ use common\models\Subjects;
          <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'subject_id')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Subjects::find()->all(),'subject_id','subject_name'),
+                    'data' => ArrayHelper::map(Subjects::find()->where(['delete_status'=>1])->all(),'subject_id','subject_name'),
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select'],
                     'pluginOptions' => [

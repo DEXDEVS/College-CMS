@@ -20,14 +20,14 @@ use dosamigos\datetimepicker\DateTimePicker;
     <div class="row">
             <div class="col-md-4">
                 <?= $form->field($feeTransactionHead, 'class_name_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
+                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
                     ['prompt'=>'Select Class',
                     'id' => 'classId',
                 ])?> 
             </div>
             <div class="col-md-4">     
                 <?= $form->field($feeTransactionHead, 'session_id')->dropDownList(
-                    ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name'),
+                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1])->all(),'session_id','session_name'),
                     [
                         'prompt'=>'Select Session',
                         'id' => 'sessionId',
@@ -39,7 +39,7 @@ use dosamigos\datetimepicker\DateTimePicker;
             </div>
             <div class="col-md-4">
                 <?= $form->field($feeTransactionHead, 'section_id')->dropDownList(
-                    ArrayHelper::map(StdSections::find()->all(),'section_id','section_name'),
+                    ArrayHelper::map(StdSections::find()->where(['delete_status'=>1])->all(),'section_id','section_name'),
                     ['prompt'=>'Select Section',
                     'id'=>'sectionId',
                 ])?> 
@@ -47,7 +47,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 
             <div class="col-md-4">
                 <?= $form->field($feeTransactionHead, 'std_id')->dropDownList(
-                    ArrayHelper::map(StdPersonalInfo::find()->all(),'std_id','std_name'),
+                    ArrayHelper::map(StdPersonalInfo::find()->where(['delete_status'=>1])->all(),'std_id','std_name'),
                     ['prompt'=>'Select Student',
                     'id' => 'std',
                 ])?>
@@ -75,7 +75,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         <div class="row">
             <div class="col-md-3">
                 <?= $form->field($model, 'fee_type_id')->dropDownList(
-                    ArrayHelper::map(FeeType::find()->all(),'fee_type_id','fee_type_name'),
+                    ArrayHelper::map(FeeType::find()->where(['delete_status'=>1])->all(),'fee_type_id','fee_type_name'),
                     ['prompt'=>'Select FeeType','id'=>'feeType']
                 )?>  
             </div>

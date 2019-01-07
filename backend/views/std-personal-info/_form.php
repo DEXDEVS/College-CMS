@@ -131,7 +131,7 @@ use common\models\Concession;
         <div class="row">
             <div class="col-md-4">
                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
-                        ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
+                        ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
                         ['prompt'=>'']
                     )?>
             </div>
@@ -193,7 +193,7 @@ use common\models\Concession;
             </div>
             <div class="col-md-4">
                 <?= $form->field($stdFeeDetails, 'concession_id')->dropDownList(
-                        ArrayHelper::map(Concession::find()->all(),'concession_id','concession_name'),
+                        ArrayHelper::map(Concession::find()->where(['delete_status'=>1])->all(),'concession_id','concession_name'),
                         ['prompt'=>'Select Concession Type']
                     )?>
             </div>

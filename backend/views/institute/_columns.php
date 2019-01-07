@@ -10,7 +10,11 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
+
+    // [
+
     //     [
+
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'institute_id',
     // ],
@@ -18,10 +22,10 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'institute_name',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'institute_logo',
-    ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'institute_logo',
+    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'institute_account_no',

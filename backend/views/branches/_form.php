@@ -15,7 +15,7 @@ use common\models\Institute;
     <div class="row">
         <div class="col-md-4">
             <?= $form->field($model, 'institute_id')->dropDownList(
-                    ArrayHelper::map(Institute::find()->all(),'institute_id','institute_name'),
+                    ArrayHelper::map(Institute::find()->where(['delete_status'=>1])->all(),'institute_id','institute_name'),
                     ['prompt' => 'Select Institute']
                 )?>
         </div>
