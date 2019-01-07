@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model common\models\StdPersonalInfo */
 
 $photoInfo = $model->PhotoInfo;
-$photo = Html::img($photoInfo['url'],['height' => '250','width' => '250'],['alt'=>$photoInfo['alt']]);
+$photo = Html::img($photoInfo['url'],['height' => '250','width' => '250','class' => 'img-circle'],['alt'=>$photoInfo['alt']]);
 $options = ['data-lightbox'=>'profile image','data-title'=>$photoInfo['alt']];
 
 ?>

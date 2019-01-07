@@ -18,6 +18,10 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'subject_name',
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'subject_description',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',
@@ -33,6 +37,10 @@ return [
     // [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'updated_by',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'delete_status',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

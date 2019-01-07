@@ -30,6 +30,10 @@ class StdFeeDetails extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public $feeSession;
+    public $totalTuitionFee;
+
     public static function tableName()
     {
         return 'std_fee_details';
@@ -48,6 +52,7 @@ class StdFeeDetails extends \yii\db\ActiveRecord
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
             [['concession_id'], 'exist', 'skipOnError' => true, 'targetClass' => Concession::className(), 'targetAttribute' => ['concession_id' => 'concession_id']],
+            [['feeSession','totalTuitionFee'],'string', 'max' => 50],
         ];
     }
 
@@ -60,11 +65,11 @@ class StdFeeDetails extends \yii\db\ActiveRecord
             'fee_id' => 'Fee ID',
             'std_id' => 'Std ID',
             'admission_fee' => 'Admission Fee',
-            'addmission_fee_discount' => 'Addmission Fee Discount',
-            'net_addmission_fee' => 'Net Addmission Fee',
+            'addmission_fee_discount' => 'Admission Fee Discount',
+            'net_addmission_fee' => 'Net Admission Fee',
             'fee_category' => 'Fee Category',
-            'concession_id' => 'Concession ID',
-            'no_of_installment' => 'No Of Installment',
+            'concession_id' => 'Fee Concession',
+            'no_of_installment' => 'No of Installment',
             'tuition_fee' => 'Tuition Fee',
             'net_tuition_fee' => 'Tuition Fee Par Installment',
             'created_at' => 'Created At',

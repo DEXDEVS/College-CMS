@@ -27,6 +27,7 @@ class StdSessions extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
     public static function tableName()
     {
         return 'std_sessions';

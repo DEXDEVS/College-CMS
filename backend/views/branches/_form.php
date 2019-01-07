@@ -13,7 +13,12 @@ use common\models\Institute;
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
+<<<<<<< HEAD
+        <div class="col-md-6">
+            <span style="color:red; position: absolute; left: 120px"><b>*</b></span>
+=======
         <div class="col-md-4">
+>>>>>>> 0613f322eef98c7de920aa59129667d399336b18
             <?= $form->field($model, 'institute_id')->dropDownList(
                     ArrayHelper::map(Institute::find()->where(['delete_status'=>1])->all(),'institute_id','institute_name'),
                     ['prompt' => 'Select Institute']

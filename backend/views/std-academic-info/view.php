@@ -14,6 +14,7 @@ use yii\widgets\DetailView;
             'std_id',
             'class_name_id',
             'previous_class',
+            'subject_combination',
             'passing_year',
             'total_marks',
             'obtained_marks',

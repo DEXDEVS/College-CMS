@@ -19,7 +19,7 @@ class SubjectsSearch extends Subjects
     {
         return [
             [['subject_id', 'created_by', 'updated_by'], 'integer'],
-            [['subject_name', 'created_at', 'updated_at'], 'safe'],
+            [['subject_name', 'subject_description', 'created_at', 'updated_at', 'delete_status'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class SubjectsSearch extends Subjects
      */
     public function search($params)
     {
-        $query = Subjects::find()->where(['delete_status' => 1]);
+        $query = Subjects::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -63,7 +63,9 @@ class SubjectsSearch extends Subjects
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'subject_name', $this->subject_name]);
+        $query->andFilterWhere(['like', 'subject_name', $this->subject_name])
+            ->andFilterWhere(['like', 'subject_description', $this->subject_description])
+            ->andFilterWhere(['like', 'delete_status', $this->delete_status]);
 
         return $dataProvider;
     }

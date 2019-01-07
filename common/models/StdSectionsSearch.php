@@ -18,7 +18,7 @@ class StdSectionsSearch extends StdSections
     public function rules()
     {
         return [
-            [['section_id', 'session_id', 'section_intake', 'created_by', 'updated_by'], 'integer'],
+            [['section_id', 'session_id', 'section_intake', 'section_description','section_subjects','created_by', 'updated_by'], 'integer'],
             [['section_name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -58,6 +58,7 @@ class StdSectionsSearch extends StdSections
         $query->andFilterWhere([
             'section_id' => $this->section_id,
             'section_intake' => $this->section_intake,
+            'section_subjects' => $this->section_subjects,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
@@ -65,6 +66,7 @@ class StdSectionsSearch extends StdSections
         ]);
 
         $query->andFilterWhere(['like', 'section_name', $this->section_name])
+            ->andFilterWhere(['like', 'section_description', $this->section_description])
             ->andFilterWhere(['like', 'std_sessions.session_name', $this->session_id]);
 
         return $dataProvider;

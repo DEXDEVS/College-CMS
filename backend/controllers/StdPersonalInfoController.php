@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\StdPersonalInfo;
 use common\models\StdGuardianInfo;
+use common\models\StdIceInfo;
 use common\models\StdAcademicInfo;
 use common\models\StdFeeDetails;
 use common\models\StdPersonalInfoSearch;
@@ -35,7 +36,7 @@ class StdPersonalInfoController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','fetch-fee'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -104,6 +105,7 @@ class StdPersonalInfoController extends Controller
         $request = Yii::$app->request;
         $model = new StdPersonalInfo();  
         $stdGuardianInfo = new StdGuardianInfo;
+        $stdIceInfo = new StdIceInfo;
         $stdAcademicInfo = new StdAcademicInfo;
         $stdFeeDetails = new StdFeeDetails();
 
@@ -119,6 +121,7 @@ class StdPersonalInfoController extends Controller
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                         'stdGuardianInfo' => $stdGuardianInfo,
+                        'stdIceInfo' => $stdIceInfo,
                         'stdAcademicInfo' => $stdAcademicInfo,
                         'stdFeeDetails' => $stdFeeDetails,
                     ]),
@@ -126,7 +129,7 @@ class StdPersonalInfoController extends Controller
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $stdGuardianInfo->load($request->post()) && $stdAcademicInfo->load($request->post()) && $stdFeeDetails->load($request->post())){
+            }else if($model->load($request->post()) && $stdGuardianInfo->load($request->post()) && $stdIceInfo->load($request->post()) && $stdAcademicInfo->load($request->post()) && $stdFeeDetails->load($request->post())){
                         $model->std_photo = UploadedFile::getInstance($model,'std_photo');
                         if(!empty($model->std_photo)){
                             $imageName = $model->std_name.'_photo'; 
@@ -148,6 +151,13 @@ class StdPersonalInfoController extends Controller
                         $stdGuardianInfo->updated_by = '0'; 
                         $stdGuardianInfo->updated_at = '0';
                         $stdGuardianInfo->save();
+
+                        $stdIceInfo->std_id = $model->std_id;
+                        $stdIceInfo->created_by = Yii::$app->user->identity->id; 
+                        $stdIceInfo->created_at = new \yii\db\Expression('NOW()');
+                        $stdIceInfo->updated_by = '0'; 
+                        $stdIceInfo->updated_at = '0';
+                        $stdIceInfo->save();
 
                         $stdAcademicInfo->std_id = $model->std_id;
                         $stdAcademicInfo->created_by = Yii::$app->user->identity->id; 
@@ -300,7 +310,10 @@ class StdPersonalInfoController extends Controller
 
     }
 
-    
+    public function actionFetchFee()
+    {   
+        return $this->render('fetch-fee');
+    }
 
      /**
      * Delete multiple existing StdPersonalInfo model.
