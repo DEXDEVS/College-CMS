@@ -11,23 +11,16 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="row">
-        <div class="col-md-6">
-            <?= $form->field($model, 'std_id')->textInput() ?>
-        </div>
-        <div class="col-md-6">
-            <?= $form->field($model, 'std_ice_name')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <?= $form->field($model, 'std_ice_relation')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-md-6">
-            <?= $form->field($model, 'std_ice_contact_no')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
+    <?= $form->field($model, 'std_id')->textInput() ?>
 
+    
+
+    <?= $form->field($model, 'std_ice_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'std_ice_relation')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'std_ice_contact_no')->textInput(['maxlength' => true]) ?>
+  
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">
 	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
