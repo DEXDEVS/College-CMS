@@ -32,6 +32,7 @@ class StdFeeDetails extends \yii\db\ActiveRecord
      */
 
     public $feeSession;
+    public $totalTuitionFee;
 
     public static function tableName()
     {
@@ -51,7 +52,7 @@ class StdFeeDetails extends \yii\db\ActiveRecord
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
             [['concession_id'], 'exist', 'skipOnError' => true, 'targetClass' => Concession::className(), 'targetAttribute' => ['concession_id' => 'concession_id']],
-            [['feeSession'],'string', 'max' => 50],
+            [['feeSession','totalTuitionFee'],'string', 'max' => 50],
         ];
     }
 
