@@ -252,7 +252,7 @@ use common\models\Concession;
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 114px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'concession_id')->dropDownList(
                         ArrayHelper::map(Concession::find()->all(),'concession_id','concession_name'),
-                        ['prompt'=>'Select Concession Type']
+                        ['prompt'=>'Select Concession Type', 'id'=>'concession']
                     )?>
             </div>
             <div class="col-md-4">
@@ -356,8 +356,13 @@ $('#sessionId').on('change',function(){
         }         
     });       
 });
+
+$('#concession').on("change", function() {
+    var con = $("#concession").find("option:selected").text();
+    
+});
+
 JS;
 $this->registerJs($script);
 ?>
-</script>
-        
+</script>  
