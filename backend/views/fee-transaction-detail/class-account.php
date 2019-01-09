@@ -156,31 +156,31 @@
                             <p style="margin-top: 8px"><?php echo $stdName[0]['std_name'];?></p>
                          </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
                         </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="late_fee_fine[]" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="absent_fine[]" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="absentFine_<?php echo $id; ?>" name="absent_fine[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="library_dues[]" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="libraryDues_<?php echo $id; ?>" name="library_dues[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="transport_fee[]" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="total_amount[]" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name="total_amount[]" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="discount_amount[]" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="discountAmount_<?php echo $id; ?>" name="discount_amount[]" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="net_total[]" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="netTotal_<?php echo $id; ?>" readonly="" name="net_total[]" style="width: 80px; border: none;">
                         </td>
                     </tr>
                 <?php } ?>
@@ -214,7 +214,8 @@
     }
 ?>
 </div> 
-<?php   
+<?php  
+    global $length; 
         if (isset($_POST["save"])) {
                 $classid = $_POST["classid"];
                 $sessionid = $_POST["sessionid"];
@@ -328,6 +329,26 @@ $('#sessionId').on('change',function(){
         }         
     });       
 });
+for(var i=0;i<2;i++){
+    var sum = 0;
+    $('#totalAmount_'+i).on('click',function(){
+       var admissionFee = parseInt($('#admissionFee_'+i).val());
+       var tuitionFee = parseInt($('#tuitionFee_'+i).val());
+       var lateFeeFine = parseInt($('#lateFeeFine_'+i).val());
+       var absentFine = parseInt($('#absentFine_'+i).val());
+       var libraryDues = parseInt($('#libraryDues_'+i).val());
+       var transportFee = parseInt($('#transportFee_'+i).val());
+       
+       sum = (admissionFee + tuitionFee + lateFeeFine + absentFine + libraryDues + transportFee);
+       $('#totalAmount_'+i).val(sum);
+       $('#netTotal_'+i).val(sum);
+    });
+    $('#discountAmount_'+i).on('change',function(){
+        var discountAmount = parseInt($('#discountAmount_'+i).val());
+        var discount = sum - discountAmount
+        $('#netTotal_'+i).val(discount);
+    });
+}
 JS;
 $this->registerJs($script);
 ?>

@@ -360,14 +360,15 @@ $('#sessionId').on('change',function(){
         }         
     });       
 });
-
-$(document).ready(function(){ 
-  $('#concession').change(function(){ 
+$('#concession').change(function(){ 
     var concession = $('#concession :selected').text();
+    var n = concession.replace(" Concession","");
     var totalTuitionFee = $('#totalTuitionFee').val();
-  });
-});
+    if(n == 100%){
+        $('#tuitionFee').val(10);   
+    }
 
+});
 JS;
 $this->registerJs($script);
 ?>

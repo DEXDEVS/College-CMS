@@ -32,7 +32,7 @@ class FeeTransactionDetailController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index',  'create', 'view', 'update', 'delete', 'bulk-delete', 'fee-voucher', 'fetch-students', 'collect-voucher', 'update-voucher', 'generate-voucher', 'class-account','voucher'],
+                        'actions' => ['logout', 'index',  'create', 'view', 'update', 'delete', 'bulk-delete', 'fee-voucher', 'fetch-students', 'collect-voucher', 'update-voucher', 'generate-voucher', 'class-account','voucher','class-voucher'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -287,6 +287,11 @@ class FeeTransactionDetailController extends Controller
     public function actionVoucher()
     {
         return $this->render('voucher');
+    }
+
+    public function actionClassVoucher()
+    {
+        return $this->render('class-voucher');
     }
 
     /**

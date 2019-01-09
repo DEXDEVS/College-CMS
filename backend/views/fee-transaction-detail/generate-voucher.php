@@ -74,7 +74,6 @@
 				<span class="span">Phone No: <?php echo $branch[0]['branch_contact_no'] ?></span>
 			</div>
 		</div><br>
-
 		<div class="row">
 			<div class="col-md-4">
 				<div style="border: 1px solid; line-height: 2; height: 28px">
@@ -393,15 +392,8 @@
 	</div>
 	<!-- print-content close -->
 	<?php 
-		//ending of foreach loop
-		}
-	?>
-	
-<!-- 	<right style="float: right;">
-	    <button class="btn btn-warning hidden-print" id="btnprint" onclick="printContent('div1')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print </button>
-	</right> -->
-
-<?php
+	//ending of foreach loop
+	}
 	// ending of if statement
 	} else {
 		echo 
