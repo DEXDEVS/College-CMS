@@ -63,7 +63,7 @@
                     <select class="form-control" name="month">
                         <option value="">Select Month</option>
                             <?php 
-                                $month = Yii::$app->db->createCommand("SELECT month_name FROM month where delete_status=1")->queryAll();
+                                $month = Yii::$app->db->createCommand("SELECT * FROM month")->queryAll();
                                 
                                     foreach ($month as  $value) { ?>  
                                     <option value="<?php echo $value["month_id"]; ?>">
