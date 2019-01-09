@@ -18,7 +18,7 @@ nbproject
 Thumbs.db
 
 # composer vendor dir
-/vendor
+vendor
 
 # local uploads directory
 /backend/config
@@ -31,6 +31,9 @@ Thumbs.db
 
 # local uploads directory
 /backend/web/uploads
+
+# local uploads directory
+/backend/web/attachments
 
 # composer itself is not needed
 composer.phar
