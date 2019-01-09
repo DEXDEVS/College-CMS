@@ -31,7 +31,7 @@ class SmsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','sms','submit'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -45,6 +45,11 @@ class SmsController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 
     /**
@@ -288,4 +293,10 @@ class SmsController extends Controller
     {
         return $this->render('absent-sms');
     }
+
+    public function actionSms()
+    {
+        return $this->render('sms');
+    }
+
 }
