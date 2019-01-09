@@ -169,8 +169,13 @@ use common\models\Concession;
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i>
                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
+
+                        ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
+                        ['prompt'=>'']
+
                         ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
                         ['prompt'=>'Select Class','id'=>'classId']
+
                     )?>
             </div>
             <div class="col-md-8">
@@ -224,38 +229,47 @@ use common\models\Concession;
             <!-- Fee detail start -->
         <h3 style="color: red; margin-top: -10px"> Fee Detail <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <?= $form->field($stdFeeDetails, 'feeSession')->dropDownList(
                     ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name'),
                         ['prompt'=>'Select Session','id'=>'sessionId']
                 )?>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 116px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'admission_fee')->textInput(['type' => 'number','id' => 'admissionFee']) ?>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 190px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'addmission_fee_discount')->textInput(['type' => 'number','id' => 'admissionFeeDiscount']) ?>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 151px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'net_addmission_fee')->textInput(['type' => 'number', 'id' => 'netAdmissionFee', 'readonly'=> true, 'onfocus' => 'showNetAdmissionFee();' ]) ?>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 105px; top: 6px"></i>
                <?= $form->field($stdFeeDetails, 'fee_category')->dropDownList([ 'Annual' => 'Annual', 'Semester' => 'Semester', ], ['prompt' => 'Select Category']) ?> 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 92px; top: 6px"></i>
+                <?= $form->field($stdFeeDetails, 'totalTuitionFee')->textInput(['type' => 'number','id' => 'totalTuitionFee']) ?>
+            </div>
+            <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 114px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'concession_id')->dropDownList(
                         ArrayHelper::map(Concession::find()->all(),'concession_id','concession_name'),
                         ['prompt'=>'Select Concession Type', 'id'=>'concession']
+                        ArrayHelper::map(Concession::find()->where(['delete_status'=>1])->all(),'concession_id','concession_name'),
+                        ['prompt'=>'Select Concession Type']
+
+                        ArrayHelper::map(Concession::find()->all(),'concession_id','concession_name'),
+                        ['prompt'=>'Select Concession Type','id'=>'concession']
                     )?>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 92px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'tuition_fee')->textInput(['type' => 'number','id' => 'tuitionFee']) ?>
             </div>
@@ -352,16 +366,19 @@ $('#sessionId').on('change',function(){
             var addmissionFee = jsonResult['admission_fee'];
             var monthlyFee = jsonResult['tutuion_fee'];
             $('#admissionFee').val(addmissionFee);
-            $('#tuitionFee').val(monthlyFee);
+            $('#totalTuitionFee').val(monthlyFee);
         }         
     });       
 });
 
 $('#concession').on("change", function() {
     var con = $("#concession").find("option:selected").text();
-    
+    $(document).ready(function(){ 
+    $('#concession').change(function(){ 
+    var concession = $('#concession :selected').text();
+    var totalTuitionFee = $('#totalTuitionFee').val();
+  });
 });
-
 JS;
 $this->registerJs($script);
 ?>

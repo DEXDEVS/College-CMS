@@ -41,7 +41,7 @@ use common\models\StdSessions
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'concession_id')->dropDownList(
-                    ArrayHelper::map(Concession::find()->all(),'concession_id','concession_name'),
+                    ArrayHelper::map(Concession::find()->where(['delete_status'=>1])->all(),'concession_id','concession_name'),
                     ['prompt'=>'Select Concession Type']
                 )?>
         </div>

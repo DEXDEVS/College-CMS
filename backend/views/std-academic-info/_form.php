@@ -16,13 +16,13 @@ use common\models\StdClassName;
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'std_id')->dropDownList(
-                    ArrayHelper::map(StdPersonalInfo::find()->all(),'std_id','std_name'),
+                    ArrayHelper::map(StdPersonalInfo::find()->where(['delete_status'=>1])->all(),'std_id','std_name'),
                     ['prompt'=>'']
                 )?>
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'class_name_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
+                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
                     ['prompt'=>'']
                 )?>
             </div>

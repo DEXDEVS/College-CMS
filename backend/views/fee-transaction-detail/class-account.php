@@ -156,31 +156,31 @@
                             <p style="margin-top: 8px"><?php echo $stdName[0]['std_name'];?></p>
                          </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="admission_fee" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" style="width: 80px; border: none;">
                         </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="tuition_fee" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="late_fee_fine" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="late_fee_fine[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="absent_fine" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="absent_fine[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="library_dues" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="library_dues[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="transport_fee" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="transport_fee[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="total_amount" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="total_amount[]" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="discount_amount" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="discount_amount[]" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="net_total" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="net_total[]" style="width: 80px; border: none;">
                         </td>
                     </tr>
                 <?php } ?>
@@ -224,17 +224,18 @@
                 $length = $_POST["length"];
                 $studentId = $_POST["studentId"];
                 $studentName = $_POST["studentName"];
+                $total_amount = $_POST["total_amount"];
+                $discount_amount = $_POST["discount_amount"];
+                $net_total = $_POST["net_total"];
+                // detail values....
                 $admission_fee = $_POST["admission_fee"];
                 $tuition_fee = $_POST["tuition_fee"];
                 $late_fee_fine = $_POST["late_fee_fine"];
                 $absent_fine = $_POST["absent_fine"];
                 $library_dues = $_POST["library_dues"];
                 $transport_fee = $_POST["transport_fee"];
-                $total_amount = $_POST["total_amount"];
-                $discount_amount = $_POST["discount_amount"];
-                $net_total = $_POST["net_total"];
-
-                //var_dump($status);
+                $feeType = Array('1','2','3','4','5','6');
+                
                 for($i=0; $i<$length; $i++){
                     $feeHead = Yii::$app->db->createCommand()->insert('fee_transaction_head',[
                         'class_name_id' => $classid,
@@ -248,9 +249,55 @@
                         'total_discount'=> $discount_amount,
                         'status'=>'unpaid',
                     ])->execute();
-                    var_dump($feeHead);
                 }
-
+                for($i=0; $i<$length; $i++){
+                $headID = Yii::$app->db->createCommand("SELECT fee_trans_id FROM fee_transaction_head where class_name_id= '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND transaction_date = '$date'")->queryAll();
+                $headId = $headID[$i]['fee_trans_id'];
+                    for($j=0;$j<6;$j++){
+                                if($feeType[$j] == 1 && $admission_fee[$i] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $headId,
+                                    'fee_type_id'=> $feeType[$j],
+                                    'fee_amount'=> $admission_fee[$i], 
+                                    ])->execute();
+                                }
+                                if($feeType[$j] == 2 && $tuition_fee[$i] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $headId,
+                                    'fee_type_id'=> $feeType[$j],
+                                    'fee_amount'=> $tuition_fee[$i], 
+                                    ])->execute();
+                                }
+                                if($feeType[$j] == 3 && $late_fee_fine[$i] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $headId,
+                                    'fee_type_id'=> $feeType[$j],
+                                    'fee_amount'=> $late_fee_fine[$i],
+                                    ])->execute();
+                                }
+                                if($feeType[$j] == 4 && $absent_fine[$i] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $headId,
+                                    'fee_type_id'=> $feeType[$j],
+                                    'fee_amount'=> $absent_fine[$i], 
+                                    ])->execute();
+                                }
+                                if($feeType[$j] == 5 && $library_dues[$i] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $headId,
+                                    'fee_type_id'=> $feeType[$j],
+                                    'fee_amount'=> $library_dues[$i],
+                                    ])->execute();
+                                }
+                                if($feeType[$j] == 6 && $transport_fee[$i] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $headId, 
+                                    'fee_type_id'=> $feeType[$j],
+                                    'fee_amount'=> $transport_fee[$i], 
+                                    ])->execute();
+                                }
+                            }
+                }
         }
      ?>  
 </body> 
