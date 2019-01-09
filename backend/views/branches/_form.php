@@ -20,7 +20,7 @@ use common\models\Institute;
         <div class="col-md-4">
 >>>>>>> 0613f322eef98c7de920aa59129667d399336b18
             <?= $form->field($model, 'institute_id')->dropDownList(
-                    ArrayHelper::map(Institute::find()->all(),'institute_id','institute_name'),
+                    ArrayHelper::map(Institute::find()->where(['delete_status'=>1])->all(),'institute_id','institute_name'),
                     ['prompt' => 'Select Institute']
                 )?>
         </div>

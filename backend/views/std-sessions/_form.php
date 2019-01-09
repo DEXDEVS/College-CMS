@@ -16,7 +16,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'session_branch_id')->dropDownList(
-                    ArrayHelper::map(Branches::find()->all(),'branch_id','branch_name')
+                    ArrayHelper::map(Branches::find()->where(['delete_status'=>1])->all(),'branch_id','branch_name')
                 )?>
             </div>
             <div class="col-md-6">

@@ -16,8 +16,6 @@ dmstr\web\AdminLteAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="shortcut icon" href="images/logo.jpg" type="image/jpg">
-    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body class="login-page">
 

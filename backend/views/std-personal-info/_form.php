@@ -169,8 +169,8 @@ use common\models\Concession;
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i>
                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
-                        ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'),
-                        ['prompt'=>'Select Class','id'=>'classId']
+                        ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
+                        ['prompt'=>'']
                     )?>
             </div>
             <div class="col-md-8">
@@ -255,7 +255,7 @@ use common\models\Concession;
             <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 114px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'concession_id')->dropDownList(
-                        ArrayHelper::map(Concession::find()->all(),'concession_id','concession_name'),
+                        ArrayHelper::map(Concession::find()->where(['delete_status'=>1])->all(),'concession_id','concession_name'),
                         ['prompt'=>'Select Concession Type','id'=>'concession']
                     )?>
             </div>
@@ -360,17 +360,18 @@ $('#sessionId').on('change',function(){
         }         
     });       
 });
-$('#concession').change(function(){ 
+
+$('#concession').on("change", function() {
     var concession = $('#concession :selected').text();
     var n = concession.replace(" Concession","");
-    var totalTuitionFee = $('#totalTuitionFee').val();
-    if(n == 100%){
-        $('#tuitionFee').val(10);   
-    }
-
+    alert(n);
+    // var totalTuitionFee = $('#totalTuitionFee').val();
+    
+    // if(n == 100%){
+    //     $('#tuitionFee').val(10);   
+    // }
 });
 JS;
 $this->registerJs($script);
 ?>
-</script>
-        
+</script>  
