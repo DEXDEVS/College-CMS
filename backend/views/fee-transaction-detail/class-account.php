@@ -162,7 +162,7 @@
                             <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="lateFeeFines" name="late_fee_fine[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
                             <input class="form-control" type="number" id="absentFine_<?php echo $id; ?>" name="absent_fine[]" value="0" style="width: 80px; border: none;">

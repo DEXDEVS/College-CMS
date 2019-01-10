@@ -166,11 +166,11 @@
 							<td align="center"> <?php echo $remaining; ?> </td>
 						</tr>
 						<tr>
-							<th>Total Paymeny by Due Date</th>
+							<th>Total Paymeny by Due Date:</th>
 							<td align="center"><?php echo $paymentByDueDate; ?></td>
 						</tr>
 						<tr>
-							<th>Total Payment After Due Date</th>
+							<th>Total Payment After Due Date:</th>
 							<td align="center"><?php echo $paymentAFterDueDate; ?></td>
 						</tr>
 					</table>
@@ -206,14 +206,14 @@
 					<p align="center">STAMP</p>
 				</div>
 			</div>
-			<br><br>
+			<br><br><br><hr>
 
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<p style="border: 1px outset;">Devleoped By: <b><i>DEXTEROUS DEVELOPERS</i></b><br> (www.dexdevs.com)</p>
 				</div>
 			</div>
-			<hr><br><br>
+			<br><br><br>
 		</div>
 		<?php } ?>
 	</div>
@@ -226,7 +226,7 @@
 		echo 
 			"<div class='row' style='margin:0px -10px 0px 15px;'>
 				<div class='col-md-12 alert alert-warning' style='text-align: center'>
-					Please Select a valid month
+					<p>Please Select a valid month....!</p>
 				</div>
 			</div>";
 	}
