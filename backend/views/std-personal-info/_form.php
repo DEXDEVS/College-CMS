@@ -170,7 +170,7 @@ use common\models\Concession;
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i>
                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
                         ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
-                        ['prompt'=>'']
+                        ['prompt'=>'','id'=>'classId']
                     )?>
             </div>
             <div class="col-md-8">
@@ -392,7 +392,6 @@ $('#sessionId').on('change',function(){
         url: "$url",
 
         success: function(result){
-            console.log(result);
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
             var addmissionFee = jsonResult['admission_fee'];
             var monthlyFee = jsonResult['tutuion_fee'];
@@ -402,16 +401,7 @@ $('#sessionId').on('change',function(){
     });       
 });
 
-// $('#concession').on("change", function() {
-//     var concession = $('#concession :selected').text();
-//     var n = concession.replace(" Concession","");
-//     alert(n);
-//     // var totalTuitionFee = $('#totalTuitionFee').val();
-    
-//     // if(n == 100%){
-//     //     $('#tuitionFee').val(10);   
-//     // }
-// });
+
 JS;
 $this->registerJs($script);
 ?>

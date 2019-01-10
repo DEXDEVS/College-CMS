@@ -144,6 +144,9 @@
                             $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll();
                             $studentName[$id] = $stdName[0]['std_name'];
                             $fee = Yii::$app->db->createCommand("SELECT net_addmission_fee , net_tuition_fee  FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll(); 
+                            $admissionFee = $fee[0]['net_addmission_fee'];
+                            $tuitionFee = $fee[0]['net_tuition_fee'];
+                            $netTotal = $admissionFee + $tuitionFee;
                     ?>
                     <tr>
                         <td>
@@ -174,13 +177,13 @@
                             <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]" value="0" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name="total_amount[]" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name=" total_amount[]" value="<?php echo $netTotal ; ?>" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="discountAmount_<?php echo $id; ?>" name="discount_amount[]" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="discountAmount_<?php echo $id; ?>" name="discount_amount[]" onChange="totalDiscount(<?php echo $id; ?>)" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="netTotal_<?php echo $id; ?>" readonly="" name="net_total[]" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="netTotal_<?php echo $id; ?>" readonly="" name="net_total[]" value="<?php echo $netTotal; ?>" style="width: 80px; border: none;">
                         </td>
                     </tr>
                 <?php } ?>
@@ -329,27 +332,30 @@ $('#sessionId').on('change',function(){
         }         
     });       
 });
-for(var i=0;i<2;i++){
-    var sum = 0;
-    $('#totalAmount_'+i).on('click',function(){
-       var admissionFee = parseInt($('#admissionFee_'+i).val());
-       var tuitionFee = parseInt($('#tuitionFee_'+i).val());
-       var lateFeeFine = parseInt($('#lateFeeFine_'+i).val());
-       var absentFine = parseInt($('#absentFine_'+i).val());
-       var libraryDues = parseInt($('#libraryDues_'+i).val());
-       var transportFee = parseInt($('#transportFee_'+i).val());
-       
-       sum = (admissionFee + tuitionFee + lateFeeFine + absentFine + libraryDues + transportFee);
-       $('#totalAmount_'+i).val(sum);
-       $('#netTotal_'+i).val(sum);
-    });
-    $('#discountAmount_'+i).on('change',function(){
-        var discountAmount = parseInt($('#discountAmount_'+i).val());
-        var discount = sum - discountAmount
-        $('#netTotal_'+i).val(discount);
-    });
-}
 JS;
 $this->registerJs($script);
 ?>
+</script>
+<<script>
+// var sum = 0;
+// function totalAmount(i) {
+    
+//        var admissionFee = parseInt($('#admissionFee_'+i).val());
+//        var tuitionFee = parseInt($('#tuitionFee_'+i).val());
+//        var lateFeeFine = parseInt($('#lateFeeFine_'+i).val());
+//        var absentFine = parseInt($('#absentFine_'+i).val());
+//        var libraryDues = parseInt($('#libraryDues_'+i).val());
+//        var transportFee = parseInt($('#transportFee_'+i).val());
+       
+//        sum = (admissionFee + tuitionFee + lateFeeFine + absentFine + libraryDues + transportFee);
+//        $('#totalAmount_'+i).val(sum);
+//        $('#netTotal_'+i).val(sum);
+// }
+function totalDiscount(i) {
+        var discountAmount = parseInt($('#discountAmount_'+i).val());
+        var totalAmount = parseInt($('#totalAmount_'+i).val());
+        var discount = totalAmount - discountAmount;
+        $('#netTotal_'+i).val(discount);
+}
+
 </script>
