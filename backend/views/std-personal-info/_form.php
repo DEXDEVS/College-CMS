@@ -339,44 +339,53 @@ use common\models\Concession;
 
 	});
 
-	// calculate concession....
-	$('#concession').on('click',function(){
+	// calculate concession start....
+	$('#concession').on('change',function(){
 		var concession = $('#concession :selected').text();
-	   	//var concession = $('#concession').val();
+		var totalTuitionFee = $('#totalTuitionFee').val();
+		var fee;
 	   	var con = parseInt(concession);
-	   	if (con == '100' ) {
-	   		$('#tuitionFee').val(10); 
+	   	if (con == '100') {
+	   		$('#tuitionFee').val(10);
 	   	}
-	   	else if(con=='90'){
-	   		($('#tuitionFee').val()*90)/100;
+	   	else if(con == '90'){
+	   		fee = (totalTuitionFee*90)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
-	   	else if(con=='80'){
-	   		($('#tuitionFee').val()*80)/100;
+	   	else if(con == '80'){
+	   		fee = (totalTuitionFee*80)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
-	   	else if(con=='70'){
-	   		($('#tuitionFee').val()*70)/100;
+	   	else if(con == '70'){
+	   		fee = (totalTuitionFee*70)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
-	   	else if(con=='60'){
-	   		($('#tuitionFee').val()*60)/100;
+	   	else if(con == '60'){
+	   		fee = (totalTuitionFee*60)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
-	   	else if(con=='50'){
-	   		($('#tuitionFee').val()*50)/100;
+	   	else if(con == '50'){
+	   		fee = (totalTuitionFee*50)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
-	   	else if(con=='40'){
-	   		($('#tuitionFee').val()*40)/100;
+	   	else if(con == '40'){
+	   		fee = (totalTuitionFee*40)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
-	   	else if(con=='30'){
-	   		($('#tuitionFee').val()*30)/100;
+	   	else if(con == '30'){
+	   		fee = (totalTuitionFee*30)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
-	   	else if(con=='25'){
-	   		($('#tuitionFee').val()*25)/100;
+	   	else if(con == '25'){
+	   		fee = (totalTuitionFee*25)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
 	   	else{
-	   		($('#tuitionFee').val()*50)/100;
+	   		fee = (totalTuitionFee*50)/100;
+	   		$('#tuitionFee').val(fee);
 	   	}
-	   // console.log(percent);
-	   // alert(percent);
 	});
+	// calculate concession end....
 </script>
 <?php
 $url = \yii\helpers\Url::to("index.php?r=std-personal-info/fetch-fee");
@@ -400,8 +409,6 @@ $('#sessionId').on('change',function(){
         }         
     });       
 });
-
-
 JS;
 $this->registerJs($script);
 ?>
