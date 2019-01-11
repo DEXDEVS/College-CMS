@@ -12,8 +12,8 @@ use yii\widgets\DetailView;
         'attributes' => [
             'branch_id',
             'institute_id',
-            'branch_code',
             'branch_name',
+            'branch_code',
             'branch_type',
             'branch_location',
             'branch_contact_no',
@@ -22,7 +22,6 @@ use yii\widgets\DetailView;
             'branch_head_name',
             'branch_head_contact_no',
             'branch_head_email:email',
-            'delete_status',
             'created_at',
             'updated_at',
             'created_by',

@@ -18,8 +18,8 @@ class BranchesSearch extends Branches
     public function rules()
     {
         return [
-            [['branch_id', 'institute_id', 'created_by'], 'integer'],
-            [['branch_code', 'branch_name', 'branch_type', 'branch_location', 'branch_contact_no', 'branch_email', 'status', 'branch_head_name', 'branch_head_contact_no', 'branch_head_email', 'delete_status', 'created_at', 'updated_at', 'updated_by'], 'safe'],
+            [['branch_id', 'institute_id', 'created_by', 'updated_by'], 'integer'],
+            [['branch_code', 'branch_name', 'branch_type', 'branch_location', 'branch_contact_no', 'branch_email', 'status', 'branch_head_name', 'branch_head_contact_no', 'branch_head_email', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -61,6 +61,7 @@ class BranchesSearch extends Branches
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
         ]);
 
         $query->andFilterWhere(['like', 'branch_code', $this->branch_code])
@@ -72,9 +73,7 @@ class BranchesSearch extends Branches
             ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'branch_head_name', $this->branch_head_name])
             ->andFilterWhere(['like', 'branch_head_contact_no', $this->branch_head_contact_no])
-            ->andFilterWhere(['like', 'branch_head_email', $this->branch_head_email])
-            ->andFilterWhere(['like', 'delete_status', $this->delete_status])
-            ->andFilterWhere(['like', 'updated_by', $this->updated_by]);
+            ->andFilterWhere(['like', 'branch_head_email', $this->branch_head_email]);
 
         return $dataProvider;
     }

@@ -46,6 +46,8 @@ use common\models\Concession;
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd HH:ii:ss',
+                        'startDate' => date('1960-01-01'),
+                        'endDate' => date(''),
                         'todayBtn' => true
                     ]
                 ]);?>

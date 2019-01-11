@@ -10,18 +10,13 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-    //     [
+    // [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'branch_id',
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'institute_id',
-        'value'=>'institute.institute_name',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'branch_code',
+        'attribute'=>'institute.institute_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -33,8 +28,12 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'branch_location',
+        'attribute'=>'branch_code',
     ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'branch_location',
+    // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'branch_contact_no',
@@ -58,10 +57,6 @@ return [
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'branch_head_email',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'delete_status',
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
