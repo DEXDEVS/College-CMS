@@ -18,22 +18,22 @@ nbproject
 Thumbs.db
 
 # composer vendor dir
-vendor
+#vendor
 
 # local uploads directory
-/backend/config
+backend/config
 
 # local uploads directory
-/common/config
+common/config
 
 # local uploads directory
-/frontend/config
+frontend/config
 
 # local uploads directory
-/backend/web/uploads
+backend/web/uploads
 
 # local uploads directory
-/backend/web/attachments
+backend/web/attachments
 
 # composer itself is not needed
 composer.phar

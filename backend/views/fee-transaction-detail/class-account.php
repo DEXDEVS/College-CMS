@@ -3,6 +3,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<title>Fee Vocher</title>
+    <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid" style="margin-top: -30px;">
@@ -165,16 +172,18 @@
                             <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]"  onChange="lateFeeFine(<?php echo $id; ?>)"  style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="absentFine_<?php echo $id; ?>" name="absent_fine[]" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="absentFine_<?php echo $id; ?>" name="absent_fine[]"  onChange="absentFine(<?php echo $id; ?>)" style="width: 80px; border: none;">
+                        </td>
+
+
+                        <td>
+                            <input class="form-control" type="number" id="libraryDues_<?php echo $id; ?>" name="library_dues[]"  onChange="libraryDues(<?php echo $id; ?>)" style="width: 80px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="libraryDues_<?php echo $id; ?>" name="library_dues[]" value="0" style="width: 80px; border: none;">
-                        </td>
-                        <td>
-                            <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]"  onChange="transportationFee(<?php echo $id; ?>)" style="width: 80px; border: none;">
                         </td>
                         <td>
                             <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name=" total_amount[]" value="<?php echo $netTotal ; ?>" style="width: 80px; border: none;">
@@ -336,26 +345,44 @@ JS;
 $this->registerJs($script);
 ?>
 </script>
-<<script>
-// var sum = 0;
-// function totalAmount(i) {
-    
-//        var admissionFee = parseInt($('#admissionFee_'+i).val());
-//        var tuitionFee = parseInt($('#tuitionFee_'+i).val());
-//        var lateFeeFine = parseInt($('#lateFeeFine_'+i).val());
-//        var absentFine = parseInt($('#absentFine_'+i).val());
-//        var libraryDues = parseInt($('#libraryDues_'+i).val());
-//        var transportFee = parseInt($('#transportFee_'+i).val());
-       
-//        sum = (admissionFee + tuitionFee + lateFeeFine + absentFine + libraryDues + transportFee);
-//        $('#totalAmount_'+i).val(sum);
-//        $('#netTotal_'+i).val(sum);
-// }
-function totalDiscount(i) {
-        var discountAmount = parseInt($('#discountAmount_'+i).val());
-        var totalAmount = parseInt($('#totalAmount_'+i).val());
-        var discount = totalAmount - discountAmount;
-        $('#netTotal_'+i).val(discount);
-}
-
+<script>
+    var totalAmount;
+    function lateFeeFine(i) {
+            var lateFeeFine = parseInt($('#lateFeeFine_'+i).val());
+            totalAmount = parseInt($('#totalAmount_'+i).val());
+            var sum = 0;
+            sum = totalAmount + lateFeeFine;
+            $('#totalAmount_'+i).val(sum);
+            $('#netTotal_'+i).val(sum);
+    }
+    function absentFine(i) {
+            var absentFine = parseInt($('#absentFine_'+i).val());
+            totalAmount = parseInt($('#totalAmount_'+i).val());
+            var sum = 0;
+            sum = totalAmount + absentFine;
+            $('#totalAmount_'+i).val(sum);
+            $('#netTotal_'+i).val(sum);
+    }
+    function libraryDues(i) {
+            var libraryDues = parseInt($('#libraryDues_'+i).val());
+            totalAmount = parseInt($('#totalAmount_'+i).val());
+            var sum = 0;
+            sum = totalAmount + libraryDues;
+            $('#totalAmount_'+i).val(sum);
+            $('#netTotal_'+i).val(sum);
+    }
+    function transportationFee(i) {
+            var transportFee = parseInt($('#transportFee_'+i).val());
+            totalAmount = parseInt($('#totalAmount_'+i).val());
+            var sum = 0;
+            sum = totalAmount + transportFee;
+            $('#totalAmount_'+i).val(sum);
+            $('#netTotal_'+i).val(sum);
+    }
+    function totalDiscount(i) {
+            var discountAmount = parseInt($('#discountAmount_'+i).val());
+            totalAmount = parseInt($('#totalAmount_'+i).val());
+            var discount = totalAmount - discountAmount;
+            $('#netTotal_'+i).val(discount);
+    }
 </script>

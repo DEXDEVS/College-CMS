@@ -46,6 +46,8 @@ use common\models\Concession;
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd HH:ii:ss',
+                        'startDate' => date('1960-01-01'),
+                        'endDate' => date(''),
                         'todayBtn' => true
                     ]
                 ]);?>
@@ -288,54 +290,104 @@ use common\models\Concession;
     
 </div>
 <script type="text/javascript">
-            // showNetMonthlyFee function...!
-            function showNetAdmissionFee() {
-                var value1 = document.getElementById('admissionFee').value;
-                var value2 = document.getElementById('admissionFeeDiscount').value;
-                document.getElementById('netAdmissionFee').value = value1 - value2 ;
-            }
-            // showNetTuitionFee function...!
-            function showNetTuitionFee() {
-                var value1 = document.getElementById('tuitionFee').value;
-                var value2 = document.getElementById('noOfInstallment').value;
-                document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
-            }
-$('#totalMarks').on('change',function(){
-   var totalMarks = $('#totalMarks').val();
-   var obtainedMarks = $('#obtainedMarks').val();
-   var percentage = ((parseInt(obtainedMarks) / parseInt(totalMarks))*100);
-   $('#percentage').val(percentage);
-   //$('#grade').val(percentage);
-});
+    // showNetMonthlyFee function...!
+    function showNetAdmissionFee() {
+        var value1 = document.getElementById('admissionFee').value;
+        var value2 = document.getElementById('admissionFeeDiscount').value;
+        document.getElementById('netAdmissionFee').value = value1 - value2 ;
+    }
+    // showNetTuitionFee function...!
+    function showNetTuitionFee() {
+        var value1 = document.getElementById('tuitionFee').value;
+        var value2 = document.getElementById('noOfInstallment').value;
+        document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
+    }
+    // calculate totalMarks....
+	$('#totalMarks').on('change',function(){
+   		var totalMarks = $('#totalMarks').val();
+	   	var obtainedMarks = $('#obtainedMarks').val();
+	   	var percentage = ((parseInt(obtainedMarks) / parseInt(totalMarks))*100);
+	   	$('#percentage').val(percentage);
+	   	//$('#grade').val(percentage);
+	});
 
-$('#percentage').on('focus',function(){
-   var percent = $('#percentage').val();
-   // console.log(percent);
-   // alert(percent);
+	// calculate percentage....
+	$('#percentage').on('focus',function(){
+	   var percent = $('#percentage').val();
+	   // console.log(percent);
+	   // alert(percent);
 
-   var percentage = parseInt(percent);
-   if (percentage>=90) {
-        $('#grade').val('A+');
-   }
-   else if (percentage>=80) {
-        $('#grade').val('A'); 
-   }
-   else if (percentage>=70){
-        $('#grade').val('B+');
-   }
-   else if (percentage>=60){
-        $('#grade').val('B');
-   }
-   else if (percentage>=50){
-        $('#grade').val('C');
-   }
-   else if (percentage>=40){
-        $('#grade').val('D');
-   }else{
-        $('#grade').val('F');
-   }
+	   var percentage = parseInt(percent);
+	   if (percentage>=90) {
+	        $('#grade').val('A+');
+	   }
+	   else if (percentage>=80) {
+	        $('#grade').val('A'); 
+	   }
+	   else if (percentage>=70){
+	        $('#grade').val('B+');
+	   }
+	   else if (percentage>=60){
+	        $('#grade').val('B');
+	   }
+	   else if (percentage>=50){
+	        $('#grade').val('C');
+	   }
+	   else if (percentage>=40){
+	        $('#grade').val('D');
+	   }else{
+	        $('#grade').val('F');
+	   }
 
-});
+	});
+
+	// calculate concession start....
+	$('#concession').on('change',function(){
+		var concession = $('#concession :selected').text();
+		var totalTuitionFee = $('#totalTuitionFee').val();
+		var fee;
+	   	var con = parseInt(concession);
+	   	if (con == '100') {
+	   		$('#tuitionFee').val(10);
+	   	}
+	   	else if(con == '90'){
+	   		fee = (totalTuitionFee*90)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	   	else if(con == '80'){
+	   		fee = (totalTuitionFee*80)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	   	else if(con == '70'){
+	   		fee = (totalTuitionFee*70)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	   	else if(con == '60'){
+	   		fee = (totalTuitionFee*60)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	   	else if(con == '50'){
+	   		fee = (totalTuitionFee*50)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	   	else if(con == '40'){
+	   		fee = (totalTuitionFee*40)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	   	else if(con == '30'){
+	   		fee = (totalTuitionFee*30)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	   	else if(con == '25'){
+	   		fee = (totalTuitionFee*25)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	   	else{
+	   		fee = (totalTuitionFee*50)/100;
+	   		$('#tuitionFee').val(fee);
+	   	}
+	});
+	// calculate concession end....
 </script>
 <?php
 $url = \yii\helpers\Url::to("index.php?r=std-personal-info/fetch-fee");
@@ -358,23 +410,6 @@ $('#sessionId').on('change',function(){
             $('#totalTuitionFee').val(monthlyFee);
         }         
     });       
-});
-$('#concession').on("change", function() {
-    var concession = $('#concession :selected').text();
-    var n = concession.replace(" Concession","");
-    var totalTuitionFee = $('#totalTuitionFee').val();
-    var TuitionFee = parseInt(totalTuitionFee);
-    
-    if(n == '100%'){
-        $('#tuitionFee').val(10);   
-    }else if(n == '50%'){
-        var amount = ( TuitionFee * 50);
-        console.log(amount);
-        // $('#tuitionFee').val(amount);
-        // $('#tuitionFee').val(10);  
-    }else if(n == 'kinship'){
-        $('#tuitionFee').val(10);
-    }
 });
 JS;
 $this->registerJs($script);
