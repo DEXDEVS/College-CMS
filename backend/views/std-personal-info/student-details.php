@@ -6,6 +6,29 @@
   </head>
   <body>
 
+  <?php 
+    
+    $id = $_GET['id'];
+    // Stduent Personal Info..... 
+    $stdPersonalInfo = Yii::$app->db->createCommand("SELECT * FROM std_personal_info WHERE std_id = '$id'")->queryAll();
+    // Stduent Guardian Info.....  
+    $stdGuardianInfo = Yii::$app->db->createCommand("SELECT * FROM std_guardian_info WHERE std_guardian_info_id = '$id'")->queryAll();
+    // Stduent ICE Info.....  
+    $stdICEInfo = Yii::$app->db->createCommand("SELECT * FROM std_ice_info WHERE std_ice_id = '$id'")->queryAll();
+    // Stduent Academic Info..... 
+    $stdAcademicInfo = Yii::$app->db->createCommand("SELECT * FROM std_academic_info WHERE academic_id = '$id'")->queryAll();
+    $stdAcademicClass = $stdAcademicInfo[0]['class_name_id'];    
+    $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$stdAcademicClass'")->queryAll();
+
+    // var_dump($className);  
+
+
+    // $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
+
+    // $sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
+
+  ?>
+
   <div class="container-fluid">
   	<section class="content-header">
         	<h1>
@@ -16,10 +39,8 @@
   	        <li><a href="index.php?r=std-personal-info">Back</a></li>
   	    </ol>
       </section>
-
       <!--  -->
   	<section class="content">
-
         <div class="row">
           <div class="col-md-3">
 
@@ -28,28 +49,28 @@
               <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="images/anas.jpg" alt="User profile picture">
 
-                <h3 class="profile-username text-center">Anas Shafqat</h3>
+                <h3 class="profile-username text-center"><?php echo $stdPersonalInfo[0]['std_name'] ?></h3>
 
                 <p class="text-muted text-center"><!-- Software Engineer --></p>
 
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
-                    <b>Roll #</b> <a class="pull-right">025</a>
+                    <b>Roll #:</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_id'] ?></a>
+                  </li>
+                  <li class="list-group-item" style="height: 80px;">
+                    <b>Class:</b><a class="pull-right"><?php echo $className[0]['class_name'] ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Class</b> <a class="pull-right">BSCS</a>
+                    <b>Section:</b> <a class="pull-right">One</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Section</b> <a class="pull-right">One</a>
+                    <b>Email</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_email'] ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Email</b> <a class="pull-right">nauman@gmail.com</a>
+                    <b>Contact #:</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_contact_no'] ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Contact</b> <a class="pull-right">0333-7486807</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Status</b> <a class="pull-right"><span class="label label-success">Active</span></a>
+                    <b>Status:</b> <a class="pull-right"><span class="label label-success">Active</span></a>
                   </li>
                 </ul>
 
@@ -88,34 +109,34 @@
                   <!-- student info start -->
 
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-6" style="border-right: 1px dashed;">
                         <table class="table table-striped table-hover">
                           <thead>
                             <tr>
                               <th>Student ID:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_id'] ?></td>
                             </tr>
                             <tr>
                               <th>Student Name:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_name'] ?></td>
                             </tr>
                             <tr>
                               <th>Student Father Name:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_father_name'] ?></td>
                             </tr>
                             <tr>
                               <th>Student Gender:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_gender'] ?></td>
                             </tr>
                             <tr>
                               <th>Student Date of Birth:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_DOB'] ?></td>
                             </tr>
                             <tr>
                               <th>Student Temporary Address:</th>
                             </tr>
                             <tr>
-                              <td>RYK</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_temporary_address'] ?></td>
                             </tr>
                           </thead>
                         </table>
@@ -125,29 +146,29 @@
                           <thead>
                             <tr>
                               <th>Student CNIC:</th>
-                              <td>31306789214557</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_b_form'] ?></td>
                             </tr>
                             <tr>
                               <th>Student District:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_district'] ?></td>
                             </tr>
                             <tr>
                               <th>Student Tehseel:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_tehseel'] ?></td>
                             </tr>
                             <tr>
                               <th>Student Religion:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_religion'] ?></td>
                             </tr>
                             <tr>
                               <th>Student Nationality:</th>
-                              <td>1</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_nationality'] ?></td>
                             </tr>
                             <tr>
-                              <th>Student Temporary Address:</th>
+                              <th>Student Permanent Address:</th>
                             </tr>
                             <tr>
-                              <td>RYK</td>
+                              <td><?php echo $stdPersonalInfo[0]['std_permanent_address'] ?></td>
                             </tr>
                           </thead>
                         </table>
@@ -180,23 +201,23 @@
                           <thead>
                             <tr>
                               <th>Guardian Name:</th>
-                              <td>Nauman</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_name'] ?></td>
                             </tr>
                             <tr>
                               <th>Guardian Relation:</th>
-                              <td>1</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_relation'] ?></td>
                             </tr>
                             <tr>
                               <th>Guardian CNIC:</th>
-                              <td>1</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_cnic'] ?></td>
                             </tr>
                             <tr>
                               <th>Gurdian Email:</th>
-                              <td>1</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_email'] ?></td>
                             </tr>
                             <tr>
                               <th>Guardian Monthly Income:</th>
-                              <td>1</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_monthly_income'] ?></td>
                             </tr>
                           </thead>
                         </table>
@@ -206,19 +227,19 @@
                           <thead>
                             <tr>
                               <th>Guardian Contact No. 1:</th>
-                              <td>1</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_contact_no_1'] ?></td>
                             </tr>
                             <tr>
                               <th>Guardian Contact No. 2:</th>
-                              <td>1</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_contact_no_2'] ?></td>
                             </tr>
                             <tr>
                               <th>Guardian Occupation:</th>
-                              <td>1</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_occupation'] ?></td>
                             </tr>
                              <tr>
                               <th>Guardian Designation:</th>
-                              <td>1</td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_occupation'] ?></td>
                             </tr>
                           </thead>
                         </table>
@@ -250,15 +271,23 @@
                           <thead>
                             <tr>
                               <th>ICE Name:</th>
-                              <td>Nauman</td>
+                              <td><?php if($stdICEInfo==0){
+                                echo "- - -";
+                              } ?></td>
                             </tr>
                             <tr>
                               <th>ICE Relation:</th>
-                              <td>1</td>
+                              <td>
+                                <?php if($stdICEInfo==0){
+                                echo "- - -";
+                              } ?></td>
                             </tr>
                             <tr>
                               <th>ICE Contact No:</th>
-                              <td>1</td>
+                              <td><?php if($stdICEInfo==0){
+                                echo "- - -";
+                              } ?>
+                              </td>
                             </tr>
                           </thead>
                         </table>
