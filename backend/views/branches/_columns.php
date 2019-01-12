@@ -14,7 +14,6 @@ return [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'branch_id',
     // ],
-<<<<<<< HEAD
     // [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'institute_id',
@@ -24,17 +23,14 @@ return [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'branch_code',
     // ],
-=======
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'institute.institute_name',
     ],
->>>>>>> 7c79cd6aeaceba559ca6cfe99c0942518630eb24
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'branch_name',
     ],
-<<<<<<< HEAD
     // [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'branch_type',
@@ -43,7 +39,6 @@ return [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'branch_location',
     // ],
-=======
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'branch_type',
@@ -52,7 +47,6 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'branch_code',
     ],
->>>>>>> 7c79cd6aeaceba559ca6cfe99c0942518630eb24
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'branch_location',

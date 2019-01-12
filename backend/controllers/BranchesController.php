@@ -281,10 +281,10 @@ class BranchesController extends Controller
     // {   
     //     return $this->render('branch-details');
     // }
+    
     public function actionView($id)
     { 
         return $this->render('branch-details');
-  
     }
 
     /**

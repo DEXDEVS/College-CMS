@@ -147,7 +147,7 @@ use yii\helpers\Html;
                 <li class="tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-th"></i>
-                        <span class="label label-danger">9</span>
+                        <!-- <span class="label label-danger">9</span> -->
                     </a>
                     <ul class="dropdown-menu" style="width: 340px; height: 400px;">
                         <li class="header"><p align="center"><b>Menus</b></p></li>

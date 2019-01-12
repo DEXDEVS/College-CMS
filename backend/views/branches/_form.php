@@ -15,10 +15,7 @@ use common\models\Institute;
 
     <div class="row">
         <div class="col-md-4">
-<<<<<<< HEAD
             <span style="color:red; position: absolute; left: 120px"><b>*</b></span>
-=======
->>>>>>> 7c79cd6aeaceba559ca6cfe99c0942518630eb24
             <?= $form->field($model, 'institute_id')->dropDownList(
                 ArrayHelper::map(Institute::find()->where(['delete_status'=>1])->all(),'institute_id','institute_name'),
                 ['prompt'=>'Select Institute',]
@@ -40,7 +37,7 @@ use common\models\Institute;
             <?= $form->field($model, 'branch_location')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'branch_contact_no')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'branch_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999-99-99999', ]) ?>
         </div>
     </div>
 
@@ -52,7 +49,7 @@ use common\models\Institute;
             <?= $form->field($model, 'branch_head_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'branch_head_contact_no')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'branch_head_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
         </div>
     </div>
 
