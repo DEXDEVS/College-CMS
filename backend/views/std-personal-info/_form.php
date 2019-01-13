@@ -307,7 +307,8 @@ use common\models\Concession;
    		var totalMarks = $('#totalMarks').val();
 	   	var obtainedMarks = $('#obtainedMarks').val();
 	   	var percentage = ((parseInt(obtainedMarks) / parseInt(totalMarks))*100);
-	   	$('#percentage').val(percentage);
+        var per = Math.round(percentage)+'%';
+	   	$('#percentage').val(per);
 	   	//$('#grade').val(percentage);
 	});
 
