@@ -1,11 +1,13 @@
 <?php  
   use yii\helpers\Html;
   use common\models\StdPersonalInfo;
+
     $id = $_GET['id'];
     // Stduent Personal Info..... 
     $stdPersonalInfo = Yii::$app->db->createCommand("SELECT * FROM std_personal_info WHERE std_id = '$id'")->queryAll();
     // Student Photo...
     $photo = $stdPersonalInfo[0]['std_photo'];
+    //echo $photo;
     // Stduent Guardian Info.....  
     $stdGuardianInfo = Yii::$app->db->createCommand("SELECT * FROM std_guardian_info WHERE std_id = '$id'")->queryAll();
     // Stduent ICE Info.....  
@@ -113,7 +115,7 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Personal Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                        <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-success fa fa-edit','role'=>'modal-remote']) ?>
                     </div>
                   </div><hr>
                   <!-- student info start -->
@@ -194,7 +196,11 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Guardian Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                      <button class="btn btn-primary"><i class="fa fa-edit"></i> <a href="index.php?r=std-guardian-info/update&id=<?php echo $id;?>">EDIT </a>
+                      </button>
+                      <button>
+                        <?=Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-success','role'=>'modal-remote']) ?>
+                      </button>
                     </div>
                   </div><hr>
                   <!-- guardian info start -->
