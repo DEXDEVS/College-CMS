@@ -45,7 +45,6 @@
                             <option value="">Select Section</option>
                             <?php 
                                 $sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1")->queryAll();
-                                
                                     foreach ($sessionName as  $value) { ?>  
                                     <option value="<?php echo $value["session_id"]; ?>">
                                         <?php echo $value["session_name"]; ?>   
@@ -80,7 +79,8 @@
                         <option value="10">October</option>
                         <option value="11">November</option>
                         <option value="12">December</option>
-                    </select>      
+                    </select>
+                    <input type="month" name="month" value="">      
                 </div>    
             </div>
             <div class="col-md-4">
