@@ -36,8 +36,8 @@ class Events extends \yii\db\ActiveRecord
         return [
             [['event_title', 'event_detail', 'event_start_datetime', 'event_end_datetime', 'created_at', 'created_by'], 'required'],
             [['event_detail'], 'string'],
-            [['event_start_datetime', 'event_end_datetime', 'created_at', 'updated_at'], 'safe'],
-            [['created_by', 'updated_by', 'is_status'], 'integer'],
+            [['event_start_datetime', 'event_end_datetime', 'created_at', 'updated_at', 'is_status'], 'safe'],
+            [['created_by', 'updated_by'], 'integer'],
             [['event_title'], 'string', 'max' => 80],
         ];
     }
