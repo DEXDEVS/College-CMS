@@ -131,7 +131,7 @@
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Personal Information</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
-                  <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                  <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
                 </div>
               </div><hr>
               <!-- Employee info start -->
