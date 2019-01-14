@@ -115,7 +115,7 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Personal Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                        <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-success fa fa-edit','role'=>'modal-remote']) ?>
+                        <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary fa fa-edit','role'=>'modal-remote']) ?>
                     </div>
                   </div><hr>
                   <!-- student info start -->
@@ -196,10 +196,7 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Guardian Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> <a href="index.php?r=std-guardian-info/update&id=<?php echo $id;?>">EDIT </a>
-                      </button>
-                      <button>
-                        <?=Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-success','role'=>'modal-remote']) ?>
+                      <button class="btn btn-primary fa fa-edit"><a href="index.php?r=std-guardian-info/update&id=<?php echo $id;?>" style='color: white;'> Edit </a>
                       </button>
                     </div>
                   </div><hr>
@@ -265,7 +262,9 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> ICE Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                      <button class="btn btn-primary fa fa-edit">
+                        <a href="index.php?r=std-ice-info/update&id=<?php echo $id;?>" style='color: white;'> Edit </a>
+                      </button>
                     </div>
                   </div><hr>
                   <!-- ICE info start -->
@@ -300,7 +299,7 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Academic Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                      <a href="index.php?r=std-academic-info/update&id=<?php echo $id;?>" class="btn btn-primary fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- Academic info start -->
@@ -373,7 +372,7 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Fee Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                      <a href="index.php?r=std-fee-details/update&id=<?php echo $id;?>" class="btn btn-primary fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- Fee info start -->

@@ -10,8 +10,8 @@ use yii\widgets\ActiveForm;
 <div class="std-ice-info-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'std_id')->textInput() ?>
+<!-- 
+    <?= $form->field($model, 'std_id')->textInput() ?> -->
 
     <?= $form->field($model, 'std_ice_name')->textInput(['maxlength' => true]) ?>
 
