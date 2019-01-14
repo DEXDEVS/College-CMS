@@ -50,7 +50,7 @@
 <div class="container-fluid">
   <div class="row">
   	<section class="content-header">
-        	<h1>
+        	<h1 style="color: #3C8DBC;">
           	<i class="fa fa-user"></i> Student Profile
         	</h1>
   	    <ol class="breadcrumb">
@@ -69,7 +69,7 @@
                 <div class="photo-edit text-center">
                   <a href="index.php?r=std-personal-info/std-photo&id=<?php echo $id; ?>"><i class="fa fa-pencil"></i></a>
                 </div>
-                <h3 class="profile-username text-center"><?php echo $stdPersonalInfo[0]['std_name'] ?></h3>
+                <h3 class="profile-username text-center" style="color: #3C8DBC;"><?php echo $stdPersonalInfo[0]['std_name'] ?></h3>
                 <p class="text-muted text-center"><!-- Software Engineer --></p>
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
@@ -101,21 +101,21 @@
           <div class="col-md-9">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#personal" data-toggle="tab"><i class="fa fa-user-circle"></i> Personal Info</a></li>
-                <li><a href="#guardian" data-toggle="tab"><i class="fa fa-user"></i> Guardian Info</a></li>
-                <li><a href="#ice" data-toggle="tab"><i class="fa fa-user-o"></i> ICE Info</a></li>
-                <li><a href="#academic" data-toggle="tab"><i class="fa fa-book"></i> Academic Info</a></li>
-                <li><a href="#fee" data-toggle="tab"><i class="fa fa-money"></i> Fee Details</a></li>
+                <li class="active"><a href="#personal" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-user-circle" ></i> Personal Info</a></li>
+                <li><a href="#guardian" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-user"></i> Guardian Info</a></li>
+                <li><a href="#ice" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-user-o"></i> ICE Info</a></li>
+                <li><a href="#academic" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-book"></i> Academic Info</a></li>
+                <li><a href="#fee" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-money"></i> Fee Details</a></li>
               </ul>
               <!-- student personal info Tab start -->
               <div class="tab-content">
                 <div class="active tab-pane" id="personal">
                   <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Personal Information</p>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Personal Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                        <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary fa fa-edit','role'=>'modal-remote']) ?>
+                        <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
                     </div>
                   </div><hr>
                   <!-- student info start -->
@@ -193,10 +193,10 @@
                 <div class="tab-pane" id="guardian">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Guardian Information</p>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Guardian Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="index.php?r=std-guardian-info/update&id=<?php echo $id;?>" class="btn btn-primary fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="index.php?r=std-guardian-info/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- guardian info start -->
@@ -258,10 +258,10 @@
                 <div class="tab-pane" id="ice">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> ICE Information</p>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> ICE Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="index.php?r=std-ice-info/update&id=<?php echo $id;?>" class="btn btn-primary fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="index.php?r=std-ice-info/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- ICE info start -->
@@ -293,10 +293,10 @@
                 <div class="tab-pane" id="academic">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Academic Information</p>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Academic Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="index.php?r=std-academic-info/update&id=<?php echo $id;?>" class="btn btn-primary fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="index.php?r=std-academic-info/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- Academic info start -->
@@ -366,10 +366,10 @@
                 <div class="tab-pane" id="fee">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Fee Information</p>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Fee Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="index.php?r=std-fee-details/update&id=<?php echo $id;?>" class="btn btn-primary fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="index.php?r=std-fee-details/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- Fee info start -->
