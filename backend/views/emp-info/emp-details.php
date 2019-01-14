@@ -37,10 +37,13 @@
   }else if ($empInfo[0]['group_by']=='Non-Faculty') {
     $empGroup = "Non-Faculty";
   }
-  //var_dump($empInfo);
   // Employee Photo...
   $photo = $empInfo[0]['emp_photo'];
   //echo $photo;
+  // Employee Reference info....
+  $empReference = Yii::$app->db->createCommand("SELECT * FROM emp_reference WHERE emp_id = '$id'")->queryAll();
+  //var_dump($empReference);
+
 ?>
 <div class="container-fluid">
 	<section class="content-header">
@@ -79,7 +82,7 @@
                 </a>
               </li>
               <li class="list-group-item">
-                <b>Group</b> <a class="pull-right">
+                <b>Member</b> <a class="pull-right">
                   <?php echo $empGroup; ?>
                 </a>
               </li>
@@ -96,7 +99,8 @@
                 </a>
               </li>
               <li class="list-group-item">
-                <b>Status</b> <a class="pull-right"><span class="label label-success">Active</span></a>
+                <b>Status</b>
+                <a class="pull-right"><span class="label label-success">Active</span></a>
               </li>
             </ul>
             <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
@@ -135,10 +139,6 @@
                   <div class="col-md-6">
                     <table class="table table-striped table-hover">
                       <thead>
-                        <!-- <tr>
-                          <th>Employee Name:</th>
-                          <td><?php echo $empInfo[0]['emp_name'] ?></td>
-                        </tr> -->
                         <tr>
                           <th>Employee Father Name:</th>
                           <td><?php echo $empInfo[0]['emp_father_name'] ?></td>
@@ -217,24 +217,20 @@
                     <table class="table table-striped table-hover">
                       <thead>
                         <tr>
-                          <th>Refrence ID:</th>
-                          <td>1</td>
-                        </tr>
-                        <tr>
                           <th>Refrence Name:</th>
-                          <td>1</td>
+                          <td><?php echo $empReference[0]['ref_name'] ?></td>
                         </tr>
                         <tr>
                           <th>Refrence Contact No:</th>
-                          <td>1</td>
+                          <td><?php echo $empReference[0]['ref_contact_no'] ?></td>
                         </tr>
                         <tr>
                           <th>Refrence CNIC:</th>
-                          <td>1</td>
+                          <td><?php echo $empReference[0]['ref_cnic'] ?></td>
                         </tr>
                         <tr>
                           <th>Refrence Designation:</th>
-                          <td>1</td>
+                          <td><?php echo $empReference[0]['ref_designation'] ?></td>
                         </tr>
                       </thead>
                     </table>
@@ -265,8 +261,10 @@
                     <table class="table table-striped table-hover">
                       <thead>
                         <tr>
-                          <th>Documents</th>
-                          <td>If any</td>
+                          <th>Degree Copy</th>
+                        </tr>
+                        <tr>
+                          <td><img src="<?php echo $empInfo[0]['degree_scan_copy'] ?>"></td>
                         </tr>
                       </thead>
                     </table>
