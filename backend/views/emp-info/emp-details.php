@@ -42,6 +42,35 @@
   //echo $photo;
   // Employee Reference info....
   $empReference = Yii::$app->db->createCommand("SELECT * FROM emp_reference WHERE emp_id = '$id'")->queryAll();
+  // refName...
+  if($empReference==null){
+    $refName = 'Not updated...';
+  }
+  else{
+    $refName = $empReference[0]['ref_name'];  
+  }
+  // refName...
+  if($empReference==null){
+    $refContact = 'Not updated...';
+  }
+  else{
+    $refContact = $empReference[0]['ref_contact_no'];  
+  }
+
+  // refName...
+  if($empReference==null){
+    $refCnic = 'Not updated...';
+  }
+  else{
+    $refCnic = $empReference[0]['ref_cnic'];  
+  }
+  // refName...
+  if($empReference==null){
+    $refDesignation = 'Not updated...';
+  }
+  else{
+    $refDesignation = $empReference[0]['ref_designation'];  
+  }
   //var_dump($empReference);
 
 ?>
@@ -88,9 +117,11 @@
               </li>
               <li class="list-group-item">
                 <b>Email</b> 
-                <a class="pull-right">
+              </li>
+              <li class="list-group-item">
+                <a class="">
                   <?php echo $empInfo[0]['emp_email'] ?>
-                </a>
+                </a> 
               </li>
               <li class="list-group-item">
                 <b>Contact #</b> 
@@ -208,7 +239,7 @@
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Refrence Information</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
-                  <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                  <a href="index.php?r=emp-reference/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                 </div>
               </div><hr>
               <!-- Employee refrence info start -->
@@ -218,19 +249,19 @@
                       <thead>
                         <tr>
                           <th>Refrence Name:</th>
-                          <td><?php echo $empReference[0]['ref_name'] ?></td>
+                          <td><?php echo $refName ?></td>
                         </tr>
                         <tr>
                           <th>Refrence Contact No:</th>
-                          <td><?php echo $empReference[0]['ref_contact_no'] ?></td>
+                          <td><?php echo $refContact ?></td>
                         </tr>
                         <tr>
                           <th>Refrence CNIC:</th>
-                          <td><?php echo $empReference[0]['ref_cnic'] ?></td>
+                          <td><?php echo $refCnic ?></td>
                         </tr>
                         <tr>
                           <th>Refrence Designation:</th>
-                          <td><?php echo $empReference[0]['ref_designation'] ?></td>
+                          <td><?php echo $refDesignation ?></td>
                         </tr>
                       </thead>
                     </table>
@@ -257,14 +288,14 @@
               <!-- Employee Document info start -->
 
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <table class="table table-striped table-hover">
                       <thead>
                         <tr>
                           <th>Degree Copy</th>
                         </tr>
                         <tr>
-                          <td><img src="<?php echo $empInfo[0]['degree_scan_copy'] ?>"></td>
+                          <td><img src="<?php echo $empInfo[0]['degree_scan_copy'] ?>" width="50%"></td>
                         </tr>
                       </thead>
                     </table>
