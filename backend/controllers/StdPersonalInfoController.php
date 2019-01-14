@@ -234,7 +234,9 @@ class StdPersonalInfoController extends Controller
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
-                $stdPersonalInfo = Yii::$app->db->createCommand("SELECT * FROM std_personal_info where std_id = $id")->queryAll();
+                $stdPersonalInfo = Yii::$app->db->createCommand("SELECT std_photo FROM std_personal_info where std_id = $id")->queryAll();
+                var_dump($stdPersonalInfo);
+                die();
                 $model->std_photo = UploadedFile::getInstance($model,'std_photo');
                 if(!empty($model->std_photo)){
                     $imageName = $model->std_name.'_photo'; 
@@ -252,7 +254,7 @@ class StdPersonalInfoController extends Controller
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "<b>Student Personal Info: </b>".$id,
-                    'content'=>$this->renderAjax('view', [
+                    'content'=>$this->renderAjax('student-details', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
@@ -272,7 +274,22 @@ class StdPersonalInfoController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post())) {
+                 $stdPersonalInfo = Yii::$app->db->createCommand("SELECT std_photo FROM std_personal_info where std_id = $id")->queryAll();
+                $model->std_photo = UploadedFile::getInstance($model,'std_photo');
+                if(!empty($model->std_photo)){
+                    $imageName = $model->std_name.'_photo'; 
+                    $model->std_photo->saveAs('uploads/'.$imageName.'.'.$model->std_photo->extension);
+                    //save the path in the db column
+                    $model->std_photo = 'uploads/'.$imageName.'.'.$model->std_photo->extension;
+                } else {
+                   $model->std_photo = $stdPersonalInfo[0]['std_photo']; 
+                }
+                $model->updated_by = Yii::$app->user->identity->id;
+                $model->updated_at = new \yii\db\Expression('NOW()');
+                $model->created_by = $model->created_by;
+                $model->created_at = $model->created_at;
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->std_id]);
             } else {
                 return $this->render('update', [
