@@ -36,7 +36,7 @@ class StdPersonalInfoController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','fetch-fee','student-details'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','fetch-fee','student-details','std-photo'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -318,6 +318,11 @@ class StdPersonalInfoController extends Controller
     public function actionView($id)
     { 
         return $this->render('student-details');
+    }
+
+    public function actionStdPhoto($id)
+    { 
+        return $this->render('std-photo');
     }
 
      /**

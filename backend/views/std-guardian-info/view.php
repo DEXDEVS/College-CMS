@@ -20,6 +20,7 @@ use yii\widgets\DetailView;
             'guardian_contact_no_2',
             'guardian_monthly_income',
             'guardian_occupation',
+            'guardian_designation',
             'created_at',
             'updated_at',
             'created_by',

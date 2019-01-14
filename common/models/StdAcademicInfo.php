@@ -10,7 +10,7 @@ use Yii;
  * @property int $academic_id
  * @property int $std_id
  * @property int $class_name_id
- * @property string $subject_combination
+ * @property int $subject_combination
  * @property string $previous_class
  * @property string $passing_year
  * @property int $previous_class_rollno
@@ -27,6 +27,7 @@ use Yii;
  *
  * @property StdPersonalInfo $std
  * @property StdClassName $className
+ * @property StdSubjects $subjectCombination
  */
 class StdAcademicInfo extends \yii\db\ActiveRecord
 {
@@ -44,16 +45,16 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_id', 'class_name_id', 'subject_combination', 'previous_class', 'passing_year', 'previous_class_rollno', 'Institute'], 'required'],
-            [['std_id', 'class_name_id', 'previous_class_rollno', 'total_marks', 'obtained_marks', 'created_by', 'updated_by', 'delete_status'], 'integer'],
+            [['std_id', 'class_name_id', 'subject_combination', 'previous_class', 'passing_year', 'previous_class_rollno', 'Institute', ], 'required'],
+            [['std_id', 'class_name_id', 'subject_combination', 'previous_class_rollno', 'total_marks', 'obtained_marks', 'created_by', 'updated_by', 'delete_status'], 'integer'],
             [['grades'], 'string'],
             [['percentage'], 'number'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
-            [['subject_combination'], 'string', 'max' => 100],
+            [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['previous_class', 'Institute'], 'string', 'max' => 50],
             [['passing_year'], 'string', 'max' => 32],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
             [['class_name_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdClassName::className(), 'targetAttribute' => ['class_name_id' => 'class_name_id']],
+            [['subject_combination'], 'exist', 'skipOnError' => true, 'targetClass' => StdSubjects::className(), 'targetAttribute' => ['subject_combination' => 'std_subject_id']],
         ];
     }
 
@@ -97,5 +98,13 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
     public function getClassName()
     {
         return $this->hasOne(StdClassName::className(), ['class_name_id' => 'class_name_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSubjectCombination()
+    {
+        return $this->hasOne(StdSubjects::className(), ['std_subject_id' => 'subject_combination']);
     }
 }

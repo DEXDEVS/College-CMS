@@ -1,14 +1,15 @@
-<?php
-
+<?php  
+  use yii\helpers\Html;
+  use common\models\StdPersonalInfo;
     $id = $_GET['id'];
     // Stduent Personal Info..... 
     $stdPersonalInfo = Yii::$app->db->createCommand("SELECT * FROM std_personal_info WHERE std_id = '$id'")->queryAll();
     // Student Photo...
     $photo = $stdPersonalInfo[0]['std_photo'];
     // Stduent Guardian Info.....  
-    $stdGuardianInfo = Yii::$app->db->createCommand("SELECT * FROM std_guardian_info WHERE std_guardian_info_id = '$id'")->queryAll();
+    $stdGuardianInfo = Yii::$app->db->createCommand("SELECT * FROM std_guardian_info WHERE std_id = '$id'")->queryAll();
     // Stduent ICE Info.....  
-    $stdICEInfo = Yii::$app->db->createCommand("SELECT * FROM std_ice_info WHERE std_ice_id = '$id'")->queryAll();
+    $stdICEInfo = Yii::$app->db->createCommand("SELECT * FROM std_ice_info WHERE std_id = '$id'")->queryAll();
     // student ICE Name.... 
     if($stdICEInfo==null){
       $stdICEName = 'Not updated...';
@@ -31,7 +32,7 @@
       $stdICEContact = $stdICEInfo[0]['std_ice_contact_no'];  
     }
     // Stduent Academic Info..... 
-    $stdAcademicInfo = Yii::$app->db->createCommand("SELECT * FROM std_academic_info WHERE academic_id = '$id'")->queryAll();
+    $stdAcademicInfo = Yii::$app->db->createCommand("SELECT * FROM std_academic_info WHERE std_id = '$id'")->queryAll();
     $stdAcademicClass = $stdAcademicInfo[0]['class_name_id'];    
     $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$stdAcademicClass'")->queryAll();
     // Stduent Fee Info..... 
@@ -63,6 +64,9 @@
             <div class="box box-primary">
               <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="<?php echo $photo; ?>" alt="User profile picture">
+                <div class="photo-edit text-center">
+                  <a href="index.php?r=std-personal-info/std-photo&id=<?php echo $id; ?>"><i class="fa fa-pencil"></i></a>
+                </div>
                 <h3 class="profile-username text-center"><?php echo $stdPersonalInfo[0]['std_name'] ?></h3>
                 <p class="text-muted text-center"><!-- Software Engineer --></p>
                 <ul class="list-group list-group-unbordered">
@@ -238,7 +242,7 @@
                             </tr>
                              <tr>
                               <th>Guardian Designation:</th>
-                              <td><?php echo $stdGuardianInfo[0]['guardian_occupation'] ?></td>
+                              <td><?php echo $stdGuardianInfo[0]['guardian_designation'] ?></td>
                             </tr>
                           </thead>
                         </table>

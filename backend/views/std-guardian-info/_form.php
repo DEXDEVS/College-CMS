@@ -42,6 +42,12 @@ use yii\widgets\ActiveForm;
         <div class="col-md-4">
             <?= $form->field($model, 'guardian_occupation')->textInput(['maxlength' => true]) ?>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'guardian_designation')->textInput(['maxlength' => true]) ?>
+        </div>
     </div>  
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

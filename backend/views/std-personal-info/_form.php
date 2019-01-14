@@ -5,21 +5,33 @@ use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use dosamigos\datetimepicker\DateTimePicker;
 use kartik\select2\Select2;
+use common\models\StdPersonalInfo;
 use common\models\StdClassName;
 use common\models\StdSessions;
 use common\models\Concession;
+use common\models\StdSubjects;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StdPersonalInfo */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="std-personal-info-form">
+<?php 
+    $stdPersonalInfo = StdPersonalInfo::find()->orderBy(['std_id'=> SORT_DESC])->one();
+    $id = $stdPersonalInfo['std_id']+1;
+    $year = date('y');
+?>
 
+<div class="std-personal-info-form">
     <?php $form = ActiveForm::begin(); ?>
-    
-    <div style="border: 2px solid #337AB7; padding: 15px;">    
+    <div style="border: 2px solid #337AB7; padding: 15px;">       
         <h3 style="color: #337AB7; margin-top: -10px"> Personal Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i> -->
+                <?= $form->field($model, 'std_reg_no')->textInput(['maxlength' => true,'value'=> 'REG-Y'.$year.'-'.$id, 'readonly'=> true]) ?>
+            </div>
+        </div> 
         <div class="row">
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i>
@@ -143,6 +155,9 @@ use common\models\Concession;
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 159px; top: 6px"></i>
                 <?= $form->field($stdGuardianInfo, 'guardian_occupation')->textInput(['maxlength' => true]) ?>
+            </div>        
+            <div class="col-md-4">
+                <?= $form->field($stdGuardianInfo, 'guardian_designation')->textInput(['maxlength' => true]) ?>
             </div>
         </div><hr>
         
@@ -170,14 +185,17 @@ use common\models\Concession;
         <div class="row">
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i>
-                <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
-                        ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
-                        ['prompt'=>'','id'=>'classId']
-                    )?>
+                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
+                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
+                    ['prompt'=>'']
+                )?>
             </div>
             <div class="col-md-8">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 158px; top: 6px"></i>
-                <?= $form->field($stdAcademicInfo, 'subject_combination')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($stdAcademicInfo, 'subject_combination')->dropDownList(
+                        ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name'),
+                        ['prompt'=>'Select Subject combination']
+                    )?>
             </div>
         </div>
         <div class="row">
@@ -186,12 +204,12 @@ use common\models\Concession;
                 <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 106px; top: 6px"></i>
-               <?= $form->field($stdAcademicInfo, 'passing_year')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i> -->
                 <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput() ?>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 106px; top: 6px"></i>
+               <?= $form->field($stdAcademicInfo, 'passing_year')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
         <div class="row">
