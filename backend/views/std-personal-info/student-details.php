@@ -426,6 +426,10 @@
         <!-- /.row -->
       </section>
       <!--  -->
+  </div>	
+  </body>
+  </html>
+
   </div>
 </div>
 <!-- row close -->
@@ -433,3 +437,4 @@
 <!-- contatiner-fluid close -->
 </body>
 </html>
+
