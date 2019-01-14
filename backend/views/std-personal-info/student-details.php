@@ -50,14 +50,14 @@
 <div class="container-fluid">
   <div class="row">
   	<section class="content-header">
-        	<h1 style="color: #3C8DBC;">
-          	<i class="fa fa-user"></i> Student Profile
-        	</h1>
-  	    <ol class="breadcrumb">
-  	        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-  	        <li><a href="index.php?r=std-personal-info">Back</a></li>
-  	    </ol>
-    </section>
+    	<h1 style="color: #3C8DBC;">
+      	<i class="fa fa-user"></i> Student Profile
+    	</h1>
+	    <ol class="breadcrumb">
+	        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+	        <li><a href="index.php?r=std-personal-info">Back</a></li>
+	    </ol>
+  </section>
     <!-- Content Start -->
   	<section class="content">
         <div class="row">
@@ -424,17 +424,10 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
-      </section>
+    </section>
       <!--  -->
-  </div>	
-  </body>
-  </html>
-
   </div>
 </div>
-<!-- row close -->
-</div>	
-<!-- contatiner-fluid close -->
-</body>
-</html>
-
+</section>
+</div>
+</div>
