@@ -10,9 +10,8 @@ use dosamigos\datetimepicker\DateTimePicker;
 ?>
 
 <div class="std-personal-info-form">
-
+    <h3 class="well well-sm label-primary" style="margin-top: -10px;">Update Stduent Personal Info</h3>
     <?php $form = ActiveForm::begin(); ?>
-
     <div class="row">
         <div class="col-md-4">
             <?= $form->field($model, 'std_name')->textInput(['maxlength' => true]) ?>
@@ -80,9 +79,14 @@ use dosamigos\datetimepicker\DateTimePicker;
     </div>
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	    </div>
+	  	<div class="row">
+            <div class="col-md-1">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : ' Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary btn-sm fa fa-edit']) ?>
+            </div>
+            <div class="col-md-1">
+                <a href="index.php?r=std-personal-info/view&id=<?php echo $model->std_id; ?>" class="btn btn-warning btn-sm fa fa-step-backward"> Back</a>
+            </div>
+        </div> 
 	<?php } ?>
 
     <?php ActiveForm::end(); ?>

@@ -209,7 +209,7 @@ class StdIceInfoController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->std_ice_id]);
+                return $this->redirect(['std-personal-info/view', 'id' => $model->std_ice_id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,
