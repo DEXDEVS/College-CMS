@@ -196,8 +196,7 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Guardian Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary fa fa-edit"><a href="index.php?r=std-guardian-info/update&id=<?php echo $id;?>" style='color: white;'> Edit </a>
-                      </button>
+                      <a href="index.php?r=std-guardian-info/update&id=<?php echo $id;?>" class="btn btn-primary fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- guardian info start -->
@@ -262,9 +261,7 @@
                       <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> ICE Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary fa fa-edit">
-                        <a href="index.php?r=std-ice-info/update&id=<?php echo $id;?>" style='color: white;'> Edit </a>
-                      </button>
+                      <a href="index.php?r=std-ice-info/update&id=<?php echo $id;?>" class="btn btn-primary fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- ICE info start -->
