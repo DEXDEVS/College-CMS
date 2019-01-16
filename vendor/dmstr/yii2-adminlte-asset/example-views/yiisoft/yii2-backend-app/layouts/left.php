@@ -1,3 +1,10 @@
+<?php 
+    // Stduent Personal Info..... 
+    $stdPersonalInfo = Yii::$app->db->createCommand("SELECT * FROM std_personal_info WHERE std_id = 7")->queryAll();
+    // Student Photo...
+    $photo = $stdPersonalInfo[0]['std_photo'];
+    //echo $photo;
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -5,7 +12,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="images/anas.jpg" class="img-circle" alt="User Image"/>
+                <img src="<?php echo $photo ?>" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
                 <p>
