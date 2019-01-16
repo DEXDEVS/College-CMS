@@ -34,6 +34,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
+        <link rel="shortcut icon" href="images/brookfield_logo.jpg" type="image/jpg">
         <?php $this->head() ?>
     </head>
     <body class="hold-transition skin-blue-light sidebar-mini" >
