@@ -22,23 +22,14 @@
 	$countSections = count($sections);
   // classes query...
 	$classes = Yii::$app->db->createCommand("SELECT * FROM std_class_name WHERE delete_status = 1")->queryAll();
-	$countclasses = count($classes);
-	
-	
-		// $students = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_std_id  
-		// 	FROM std_enrollment_detail as sed 
-		// 	INNER JOIN std_enrollment_head as seh 
-		// 	ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
-		// 	WHERE seh.section_id = '$sectionId'")->queryAll();
-			
-		// 	$studentCount = count($students);
-		// 	echo $studentCount;
-
+	$countclasses = count($classes);  
   // employee query...
 	$employees = Yii::$app->db->createCommand("SELECT * FROM emp_info WHERE delete_status = 1")->queryAll();
   $teacher = Yii::$app->db->createCommand("SELECT * FROM emp_info WHERE emp_designation_id = 4 AND delete_status = 1")->queryAll();
-  // $count = count($teacher);  
-  // var_dump($count);
+  // Employee Designation...
+  $empDesignation = Yii::$app->db->createCommand("SELECT * FROM emp_designation WHERE delete_status = 1")->queryAll();
+  $empDesignationCount = count($empDesignation);  
+  //var_dump($empDesignationCount);
 	$employeeCount = count($employees);
 
 	?>
@@ -101,17 +92,50 @@
           <div class="col-md-9">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs" style="color: #3C8DBC;">
-                <li class="active"><a href="#branch" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-bold"></i> Branch</a></li>
-                <li>
-                	<a href="#sessions" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-scribd"></i> Sessions <span class="label label-success" style="border-radius: 50%;"><?php echo $countSessions;?></span></a>
+                <!-- Branches -->
+                <li class="active">
+                  <a href="#branch" data-toggle="tab" style="color: #3C8DBC;">
+                    <i class="fa fa-bold"></i> Branch
+                  </a>
                 </li>
+                <!-- Sessions -->
                 <li>
-                	<a href="#sections" data-toggle="tab" style="color: #3C8DBC;"><i class="glyphicon glyphicon-link"></i> Sections <span class="label label-primary" style="border-radius: 50%;"><?php echo $countSections;?></span></a>
+                	<a href="#sessions" data-toggle="tab" style="color: #3C8DBC;">
+                    <i class="fa fa-scribd"></i> Sessions 
+                    <span class="label label-success" style="border-radius: 50%;">
+                      <?php echo $countSessions;?>
+                    </span>
+                  </a>
                 </li>
-                <li><a href="#classes" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-copyright"></i> Classes <span class="label label-info" style="border-radius: 50%;"><?php echo $countclasses;?></span></a></li>
-                <li><a href="#teachers" data-toggle="tab" style="color: #3C8DBC;"><i class="fa fa-users"></i> Employees <span class="label label-warning" style="border-radius: 50%;"><?php echo $employeeCount;?></span></a></li>
+                <!-- Classes -->
+                <li>
+                  <a href="#classes" data-toggle="tab" style="color: #3C8DBC;">
+                    <i class="fa fa-copyright"></i> Classes 
+                    <span class="label label-info" style="border-radius: 50%;">
+                      <?php echo $countclasses;?>
+                    </span>
+                  </a>
+                </li>
+                <!-- Sections -->
+                <li>
+                	<a href="#sections" data-toggle="tab" style="color: #3C8DBC;">
+                    <i class="glyphicon glyphicon-link"></i> Sections 
+                    <span class="label label-primary" style="border-radius: 50%;">
+                      <?php echo $countSections;?>
+                    </span>
+                  </a>
+                </li>
+                <!-- Employees -->
+                <li>
+                  <a href="#employees" data-toggle="tab" style="color: #3C8DBC;">
+                    <i class="fa fa-users"></i> Employees 
+                    <span class="label label-warning" style="border-radius: 50%;">
+                      <?php echo $employeeCount;?>
+                    </span>
+                  </a>
+                </li>
               </ul>
-
+              <!-- ************************************************************* -->
               <!-- Branch Tab start -->
               <div class="tab-content">
                 <div class="active tab-pane" id="branch">
@@ -123,12 +147,10 @@
                       <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                   </div><hr>
-
                   <!-- Branch info start -->
-
                     <div class="row">
                       <div class="col-md-6" style="border-right: 1px dashed;">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover table-responsive">
                           <thead>
                             <tr>
                               <th>Branch Code:</th>
@@ -153,7 +175,7 @@
                         </table>
                       </div>
                       <div class="col-md-6">
-                          <table class="table table-stripped">
+                          <table class="table table-stripped table-hover table-responsive">
                           <thead>
                             <tr>
                               <th>Branch Status:</th>
@@ -175,15 +197,11 @@
                         </table>
                       </div>
                     </div>
-
                   <!-- Branch info close -->
-
                 </div>
                 <!-- Branch Tab close -->
-
-
+                <!-- ********************** -->
                 <!-- Session tab start here -->
-
                 <div class="tab-pane" id="sessions">
                  <div class="row">
                     <div class="col-md-5">
@@ -193,41 +211,42 @@
                       <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                   </div><hr>
-
                   <!-- Sessions info start -->
-
                     <div class="row">
                       <div class="col-md-12">
-                        <table class="table table-striped table-hover" style="width: 100%;">
+                        <table class="table table-striped table-hover table-responsive" style="width: 100%;">
                           <thead>
-                           <tr>
+                           <tr class="label-primary">
                           		<th>Sr #:</th>
                           		<th>Session Name:</th>
                           		<th>Session Start Date</th>
                           		<th>Session End Date</th>
                           		<th>Status</th>
                           	</tr>
+                          </thead>
+                          <tbody>  
                           	<?php foreach ($sessions as $key => $val){  ?>
                             <tr>
                               <td><?php echo $key+1; ?></td>
                               <td><?php echo $val['session_name'];?></td>
                               <td><?php echo $val['session_start_date'];?></td>
                               <td><?php echo $val['session_end_date'];?></td>
-                              <td><?php echo $val['status'];?></td>
+                              <td>
+                                <span class="label label-success">
+                                  <?php echo $val['status'];?>
+                                </span>
+                              </td>
                             </tr>
                         	<?php } ?>
-                          </thead>
+                          </tbody>
                         </table>
                       </div>
                     </div>
                   <!-- Sessions info close -->
                 </div>
-                
                 <!-- Sessions tab close here -->
-
-
-                <!-- Section tab start here -->
-
+                <!-- *********************** -->
+                <!-- Section tab start here --->
                 <div class="tab-pane" id="sections">
                  <div class="row">
                     <div class="col-md-5">
@@ -237,187 +256,133 @@
                       <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                   </div><hr>
-
                   <!-- Sections info start -->
-
                     <div class="row">
                       <div class="col-md-12">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover table-responsive table-condensed">
                           <thead>
-                          	<tr>
+                          	<tr class="label-primary">
                           		<th>Sr #:</th>
                           		<th>Section Name:</th>
                           		<th>Section Description</th>
                           		<th>Section Intake</th>
                           		<th>Total Students</th>
                           	</tr>
-                          	<?php foreach ($sections as $key => $val){  ?>
+                          </thead>
+                          <tbody>  
+                          	<?php foreach ($sections as $key => $val){ 
+                              $students = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_std_id  
+                                FROM std_enrollment_detail as sed 
+                                INNER JOIN std_enrollment_head as seh 
+                                ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
+                                WHERE seh.section_id = $key+1")->queryAll();
+                                $studentCount = count($students);
+                            ?>  
                             <tr>
                               <td><?php echo $key+1; ?></td>
                               <td><?php echo $val['section_name'];?></td>
                               <td><?php echo $val['section_description'];?></td>
-                              <td><?php echo $val['section_intake'];?></td>
-
+                              <td align="center">
+                                <span class="label label-primary" style="border-radius: 50%; padding: 5px;"><?php echo $val['section_intake'];?></span>
+                              </td>
+                              <td align="center">
+                                <span class="label label-warning" style="border-radius: 50%; padding: 5px 7px"><b><?php echo $studentCount; ?></b></span>
+                              </td>
                             </tr>
-                        	<?php } ?>
-                          </thead>
+                        	  <?php } ?>
+                          </tbody>
                         </table>
                       </div>
                       <div class="col-md-6">
-                          
                       </div>
                     </div>
                   <!-- Sections info close -->
                 </div>
-                
                 <!-- Sections tab close here -->
-
-
-                 <!-- Teachers tab start here -->
-
-                <div class="tab-pane" id="teachers">
+                <!-- ************************ -->
+                <!-- Classes  tab start here -->
+                <div class="tab-pane" id="classes">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Teachers Information</p>
+                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Classes Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
                       <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                   </div><hr>
-
-                  <!-- Teachers info start -->
-
+                  <!-- Classes info start -->
                     <div class="row">
-                      <div class="col-md-6" style="border-right:1px dashed; ">
-                        <table class="table table-striped table-hover">
+                      <div class="col-md-12">
+                        <table class="table table-striped table-hover table-responsive table-condensed">
                           <thead>
-                            <tr>
-                              <th>Current Class:</th>
-                              <td>BSCS</td>
-                            </tr>
-                            <tr>
-                              <th>Subject Combination:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Session:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Section:</th>
-                              <td>1</td>
+                            <tr class="label-primary">
+                              <th>Sr #.</th>
+                              <th>Class Name</th>
+                              <th>Class Description</th>
                             </tr>
                           </thead>
+                          <tbody>
+                            <tr>
+                            <?php foreach ($classes as $key => $val){ ?>
+                              <td><?php echo $key+1;?></td>
+                              <td><?php echo $val['class_name'];?></td>
+                              <td><?php echo $val['class_name_description'];?></td>
+                            </tr>
+                            <?php } ?>
+                          </tbody>  
                         </table>
                       </div>
-                      <div class="col-md-6">
-                         <table class="table table-striped table-hover">
-                          <thead>
-                            <tr>
-                              <th>Previous Class:</th>
-                              <td>BSCS</td>
-                            </tr>
-                            <tr>
-                              <th>Previous Class Roll No:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Passing Year:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Obtained Marks:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Total Marks:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Grades:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Percentage:</th>
-                              <td>1</td>
-                            </tr>
-                          </thead>
-                        </table> 
-                      </div>
                     </div>
-                  <!-- Teachers info close -->
+                  <!-- Classes info close -->
                 </div>
-                
-                <!-- Teachers tab close here -->
-
-                <!-- Fee tab start here -->
-
-                <div class="tab-pane" id="fee">
+                <!-- Classes tab close here -->
+                <!-- Employees  tab start here -->
+                <div class="tab-pane" id="employees">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Fee Information</p>
+                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Employees Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
                       <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                   </div><hr>
-
-                  <!-- Fee info start -->
-
+                  <!-- Employees info start -->
                     <div class="row">
-                      <div class="col-md-6" style="border-right:1px dashed; ">
-                        <table class="table table-striped table-hover">
+                      <div class="col-md-12">
+                        <table class="table table-striped table-hover table-responsive table-condensed">
                           <thead>
-                            <tr>
-                              <th>Fee Category:</th>
-                              <td>Annual</td>
-                            </tr>
-                            <tr>
-                              <th>Admission Fee:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Admission Fee Discount:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Net Admission Fee:</th>
-                              <td>1</td>
+                            <tr class="label-primary">
+                              <th>Sr #.</th>
+                              <th>Employee Designation</th>
+                              <th>Total</th>
                             </tr>
                           </thead>
+                          <tbody>  
+                            <tr>
+                              <?php foreach ($empDesignation as $key => $value) {
+                                $emp = Yii::$app->db->createCommand("SELECT emp.emp_designation_id 
+                                FROM emp_info as emp 
+                                INNER JOIN emp_designation as emInfo 
+                                ON emInfo.emp_designation_id = emp.emp_designation_id 
+                                WHERE emInfo.emp_designation_id = $key+1")->queryAll();
+                                $empCount = count($emp);
+                              ?>
+                                <td><?php echo $key+1; ?></td>
+                                <td><?php echo $value['emp_designation'] ?></td>
+                                <td>
+                                  <span class="label-info" style="border-radius: 50%; padding: 3px 7px">
+                                    <?php echo $empCount ?>
+                                  </span>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                          </tbody>
                         </table>
                       </div>
-                      <div class="col-md-6">
-                         <table class="table table-striped table-hover">
-                          <thead>
-                            <tr>
-                              <th>Tuition Fee:</th>
-                              <td>Annual</td>
-                            </tr>
-                            <tr>
-                              <th>Fee Concession:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Net Tuition Fee:</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>Number Of Installments:</th>
-                              <td>1</td>
-                            </tr>
-                          </thead>
-                        </table> 
-                      </div>
                     </div>
-                  <!-- Fee info close -->
+                  <!-- Employees info close -->
                 </div>
-                
-                <!-- Fee tab close here -->
-
-
-               
-            
+                <!-- Employees tab close here -->
             </div>
             <!-- /.nav-tabs-custom -->
           </div>
