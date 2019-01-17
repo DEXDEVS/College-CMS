@@ -1,9 +1,10 @@
 <?php 
-    // Stduent Personal Info..... 
-    $stdPersonalInfo = Yii::$app->db->createCommand("SELECT * FROM std_personal_info WHERE std_id = 7")->queryAll();
+
+    $userID = Yii::$app->user->id;
+    $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
     // Student Photo...
-    $photo = $stdPersonalInfo[0]['std_photo'];
-    //echo $photo;
+    $userPhoto = $user[0]['user_photo'];
+    // echo $userPhoto;  
 ?>
 <aside class="main-sidebar">
 
@@ -12,13 +13,14 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?php echo $photo ?>" class="img-circle" alt="User Image"/>
+                <img src="images/anas.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
                 <p>
                     <?= Yii::$app->user->identity->username ?>
                     <!--  -->
                 </p>
+
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -29,6 +31,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
+                <?= Yii::$app->user->identity->email ?>
                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
