@@ -83,26 +83,33 @@
 
       <!-- Message of the day start -->
       <div class="row">
-        <div class="col-md-12">
-          <div class="callout callout-warning">
-            <div class="row">
-              <div class="col-md-6">
-                <h4><span class="fa fa-comments-o fa-1x"></span> Message of the day!</h4>  
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          <div class="info-box bg-yellow callout-warning">
+            <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+
+            <div class="info-box-content">
+              <h4 style="float: left;">Message of the day!</h4>  
+              <h4 style="float:right"><?php echo date('D d-M-Y');?></h4>
+              <br><br>
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
               </div>
-              <div class="col-md-6">
-                <h4 style="float:right"><?php echo date('D d-M-Y');?></h4>
-              </div>
+                <span class="progress-description">
+                  <?php 
+                    $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
+                    $msg = $message[0]['msg_details'];
+                  ?>
+                    <marquee onmouseover="this.stop();" onmouseout="this.start();">
+                      <?php echo $msg; ?>
+                    </marquee>
+                </span>
             </div>
-            <?php 
-              $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
-              $msg = $message[0]['msg_details'];
-            ?>
-              <marquee onmouseover="this.stop();" onmouseout="this.start();">
-                <p><?php echo $msg; ?></p>
-              </marquee>
+            <!-- /.info-box-content -->
           </div>
+          <!-- /.info-box -->
         </div>
       </div>
+
       <!-- Message of the day close -->
 
       <!-- Main row -->
