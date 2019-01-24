@@ -80,6 +80,31 @@
         <!-- ./col -->
       </div>
       <!-- /.row -->
+
+      <!-- Message of the day start -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="callout callout-warning">
+            <div class="row">
+              <div class="col-md-6">
+                <h4><span class="fa fa-comments-o fa-1x"></span> Message of the day!</h4>  
+              </div>
+              <div class="col-md-6">
+                <h4 style="float:right"><?php echo date('D d-M-Y');?></h4>
+              </div>
+            </div>
+            <?php 
+              $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
+              $msg = $message[0]['msg_details'];
+            ?>
+              <marquee onmouseover="this.stop();" onmouseout="this.start();">
+                <p><?php echo $msg; ?></p>
+              </marquee>
+          </div>
+        </div>
+      </div>
+      <!-- Message of the day close -->
+
       <!-- Main row -->
     </section>
     <!-- /.content -->
