@@ -141,12 +141,9 @@
                 <div class="active tab-pane" id="branch">
                   <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Branch Information</p>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Branch Information</p>
                     </div>
-                    <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
-                    </div>
-                  </div><hr>
+                  </div><hr style="margin-top: 10px;">
                   <!-- Branch info start -->
                     <div class="row">
                       <div class="col-md-6" style="border-right: 1px dashed;">
@@ -205,19 +202,16 @@
                 <div class="tab-pane" id="sessions">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Sessions Information</p>
-                    </div>
-                    <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Sessions Information</p>
                     </div>
                   </div><hr>
                   <!-- Sessions info start -->
                     <div class="row">
                       <div class="col-md-12">
-                        <table class="table table-striped table-hover table-responsive" style="width: 100%;">
+                        <table class="table table-striped table-hover table-responsive table-bordered table-condensed" style="width: 100%;">
                           <thead>
                            <tr class="label-primary">
-                          		<th>Sr #:</th>
+                          		<th class="text-center">Sr #:</th>
                           		<th>Session Name:</th>
                           		<th>Session Start Date</th>
                           		<th>Session End Date</th>
@@ -227,7 +221,7 @@
                           <tbody>  
                           	<?php foreach ($sessions as $key => $val){  ?>
                             <tr>
-                              <td><?php echo $key+1; ?></td>
+                              <td class="text-center"><?php echo $key+1; ?></td>
                               <td><?php echo $val['session_name'];?></td>
                               <td><?php echo $val['session_start_date'];?></td>
                               <td><?php echo $val['session_end_date'];?></td>
@@ -250,23 +244,20 @@
                 <div class="tab-pane" id="sections">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Sections Information</p>
-                    </div>
-                    <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Sections Information</p>
                     </div>
                   </div><hr>
                   <!-- Sections info start -->
                     <div class="row">
                       <div class="col-md-12">
-                        <table class="table table-striped table-hover table-responsive table-condensed">
+                        <table class="table table-striped table-hover table-responsive table-condensed table-bordered">
                           <thead>
                           	<tr class="label-primary">
-                          		<th>Sr #:</th>
+                          		<th class="text-center">Sr #:</th>
                           		<th>Section Name:</th>
                           		<th>Section Description</th>
-                          		<th>Section Intake</th>
-                          		<th>Total Students</th>
+                          		<th class="text-center">Section Intake</th>
+                          		<th class="text-center">Total Students</th>
                           	</tr>
                           </thead>
                           <tbody>  
@@ -279,7 +270,7 @@
                                 $studentCount = count($students);
                             ?>  
                             <tr>
-                              <td><?php echo $key+1; ?></td>
+                              <td class="text-center"><?php echo $key+1; ?></td>
                               <td><?php echo $val['section_name'];?></td>
                               <td><?php echo $val['section_description'];?></td>
                               <td align="center">
@@ -304,19 +295,16 @@
                 <div class="tab-pane" id="classes">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Classes Information</p>
-                    </div>
-                    <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Classes Information</p>
                     </div>
                   </div><hr>
                   <!-- Classes info start -->
                     <div class="row">
                       <div class="col-md-12">
-                        <table class="table table-striped table-hover table-responsive table-condensed">
+                        <table class="table table-striped table-hover table-responsive table-condensed table-bordered">
                           <thead>
                             <tr class="label-primary">
-                              <th>Sr #.</th>
+                              <th class="text-center">Sr #.</th>
                               <th>Class Name</th>
                               <th>Class Description</th>
                             </tr>
@@ -324,7 +312,7 @@
                           <tbody>
                             <tr>
                             <?php foreach ($classes as $key => $val){ ?>
-                              <td><?php echo $key+1;?></td>
+                              <td class="text-center"><?php echo $key+1;?></td>
                               <td><?php echo $val['class_name'];?></td>
                               <td><?php echo $val['class_name_description'];?></td>
                             </tr>
@@ -340,21 +328,18 @@
                 <div class="tab-pane" id="employees">
                  <div class="row">
                     <div class="col-md-5">
-                      <p style="font-size: 20px;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Employees Information</p>
-                    </div>
-                    <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                      <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Employees Information</p>
                     </div>
                   </div><hr>
                   <!-- Employees info start -->
                     <div class="row">
                       <div class="col-md-12">
-                        <table class="table table-striped table-hover table-responsive table-condensed">
+                        <table class="table table-striped table-hover table-responsive table-condensed table-bordered">
                           <thead>
                             <tr class="label-primary">
-                              <th>Sr #.</th>
+                              <th class="text-center">Sr #.</th>
                               <th>Employee Designation</th>
-                              <th>Total</th>
+                              <th class="text-center">Designation Vice Employees</th>
                             </tr>
                           </thead>
                           <tbody>  
@@ -367,10 +352,10 @@
                                 WHERE emInfo.emp_designation_id = $key+1")->queryAll();
                                 $empCount = count($emp);
                               ?>
-                                <td><?php echo $key+1; ?></td>
+                                <td class="text-center"><?php echo $key+1; ?></td>
                                 <td><?php echo $value['emp_designation'] ?></td>
-                                <td>
-                                  <span class="label-info" style="border-radius: 50%; padding: 3px 7px">
+                                <td align="center">
+                                  <span class="label-warning" style="border-radius: 50%; padding: 3px 7px">
                                     <?php echo $empCount ?>
                                   </span>
                                 </td>
