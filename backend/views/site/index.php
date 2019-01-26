@@ -84,7 +84,7 @@
       <!-- Message of the day start -->
       <div class="row">
         <div class="col-md-12 col-sm-6 col-xs-12">
-          <div class="info-box bg-yellow callout-warning">
+          <div class="info-box bg-navy callout-warning">
             <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
 
             <div class="info-box-content">
@@ -114,9 +114,9 @@
       <!-- Notice Row Start -->
       <div class="row">
         <!-- Notice Panel Start -->
-        <div class="col-md-7">
+        <div class="col-md-6">
           <!-- Custom Tabs (Pulled to the right) -->
-          <div class="nav-tabs-custom">
+          <div class="nav-tabs-custom" style="height: 250px">
             <ul class="nav nav-tabs pull-right">
               <li>
                 <a href="#parents" data-toggle="tab">
@@ -130,15 +130,10 @@
                   Employees
                 </a>
               </li>
-              <li>
+              <li class="active">
                 <a href="#student" data-toggle="tab">
                   <i class="fa fa-users" style="color: #00A65A;"></i>
                   Students
-                </a>
-              </li>
-              <li class="active">
-                <a href="#general" data-toggle="tab">
-                  <i class="fa fa-american-sign-language-interpreting" style="color: #00C0EF;"></i> General
                 </a>
               </li>
               <!-- <li class="dropdown">
@@ -155,31 +150,71 @@
               </li> -->
               <li class="pull-left header"><i class="fa fa-inbox" style="color: #3C8DBC;"></i><span style="color: #3C8DBC;">Notice Board</span></li>
             </ul>
+            <?php 
+
+            ?>
             <!-- tab-content start -->
             <div class="tab-content">
-              <!-- general tab start -->
-              <div class="tab-pane active" id="general">
-                <div class="alert bg-info text-info marginTop">
-                  <i class="fa fa-warning"></i> 
-                  No record found. 
-                </div>
-              </div>
-              <!-- general tab close -->
-              <!-- ***************** -->
               <!-- student tab start -->
-              <div class="tab-pane" id="student">
-                <div class="alert bg-success text-success marginTop">
-                  <i class="fa fa-warning"></i> 
-                  No record found. 
+              <div class="tab-pane active" id="student">
+                <div class="alert bg-success text-success">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="label label-success" style="padding: 3px;">
+                        <i class="fa fa-calendar"></i>
+                        <?php echo date('D d-M-Y'); ?>
+                      </span>
+                    </div>
+                    <div class="col-md-10">
+                      <h4 style="margin: 3px 20px"> Final Term Exams</h4>
+                    </div>
+                  </div>
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <span>Exams Description Exams Description Exams Description</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alert bg-success text-success">
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <i class="fa fa-warning"></i> 
+                      No record found. 
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- students tab close -->
               <!-- ***************** -->
               <!-- employees tab start -->
               <div class="tab-pane" id="employees">
-                <div class="alert bg-warning text-warning marginTop">
-                  <i class="fa fa-warning"></i> 
-                  No record found. 
+                <div class="alert bg-warning text-warning">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="label label-warning" style="padding: 3px;">
+                        <i class="fa fa-calendar"></i>
+                        <?php echo date('D d-M-Y'); ?>
+                      </span>
+                    </div>
+                    <div class="col-md-10">
+                      <h4 style="margin: 3px 20px"> Final Term Exams</h4>
+                    </div>
+                  </div>
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <span>Exams Description Exams Description Exams Description</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alert bg-warning text-warning">
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <i class="fa fa-warning"></i> 
+                      No record found. 
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- employees tab close -->
@@ -187,11 +222,34 @@
               <!-- parents tab start -->
               <!-- /.tab-pane -->
               <div class="tab-pane" id="parents">
-                <div class="alert bg-teal text-warning marginTop">
-                  <i class="fa fa-warning"></i> 
-                  No record found. 
+                <div class="alert bg-info text-info">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="label label-info" style="padding: 3px;">
+                        <i class="fa fa-calendar"></i>
+                        <?php echo date('D d-M-Y'); ?>
+                      </span>
+                    </div>
+                    <div class="col-md-10">
+                      <h4 style="margin: 3px 20px"> Final Term Exams</h4>
+                    </div>
+                  </div>
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <span>Exams Description Exams Description Exams Description</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+
+                <div class="alert bg-info text-info">
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <i class="fa fa-warning"></i> 
+                      No record found. 
+                    </div>
+                  </div>
+                </div>
+              </div> 
               <!-- parents tab close -->
             </div>
             <!-- tab-content close -->
@@ -201,9 +259,9 @@
         <!-- Notice Panel CLose -->
 
         <!-- Notice Panel Start -->
-        <div class="col-md-5">
+        <div class="col-md-6">
           <!-- Custom Tabs (Pulled to the right) -->
-          <div class="nav-tabs-custom">
+          <div class="nav-tabs-custom" style="height: 250px">
             <ul class="nav nav-tabs pull-right">
               <li>
                 <a href="#upcoming" data-toggle="tab">
@@ -234,19 +292,65 @@
             <!-- tab-content start -->
             <div class="tab-content">
               <!-- general tab start -->
-              <div class="tab-pane active" id="todays">
-                <div class="alert bg-warning text-warning marginTop">
-                  <i class="fa fa-warning"></i> 
-                  No record found. 
+              <div class="tab-pane active" id="today">
+                <div class="alert bg-info text-info">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="label label-info" style="padding: 3px;">
+                        <i class="fa fa-calendar"></i>
+                        <?php echo date('D d-M-Y'); ?>
+                      </span>
+                    </div>
+                    <div class="col-md-10">
+                      <h4 style="margin: 3px 20px"> Gala Night!</h4>
+                    </div>
+                  </div>
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <span>Gala Night Description Gala Night Description</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alert bg-info text-info">
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <i class="fa fa-warning"></i> 
+                      No record found. 
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- general tab close -->
               <!-- ***************** -->
               <!-- student tab start -->
               <div class="tab-pane" id="upcoming">
-                <div class="alert bg-warning text-warning marginTop">
-                  <i class="fa fa-warning"></i> 
-                  No record found. 
+                <div class="alert bg-info text-info">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="label label-info" style="padding: 3px;">
+                        <i class="fa fa-calendar"></i>
+                        <?php echo date('D d-M-Y'); ?>
+                      </span>
+                    </div>
+                    <div class="col-md-10">
+                      <h4 style="margin: 3px 20px"> Gala Night!</h4>
+                    </div>
+                  </div>
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <span>Gala Night Description Gala Night Description Gala Night Description</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alert bg-info text-info">
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <i class="fa fa-warning"></i> 
+                      No record found. 
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- students tab close -->
