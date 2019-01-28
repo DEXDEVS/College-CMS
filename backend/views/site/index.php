@@ -1,9 +1,14 @@
 <?php
 
+use yii\bootstrap\Modal;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 
 //$this->title = 'SMART EDUCATION';
 ?>
+
 <div class="site-index">
     <!-- Main content -->
     <section class="content">
@@ -166,7 +171,13 @@
                       </span>
                     </div>
                     <div class="col-md-10">
-                      <h4 style="margin: 3px 20px"> Final Term Exams</h4>
+                      <h4 style="margin: 0px 20px">
+                        <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalButton" data-toggle="tooltip" title="Click me for event details!">
+                          <span>
+                            <h4 style="color: #00A65A;">Final Term Exams</h4>
+                          </span>   
+                        </button>
+                      </h4>
                     </div>
                   </div>
                   <div class="row">  
@@ -198,7 +209,13 @@
                       </span>
                     </div>
                     <div class="col-md-10">
-                      <h4 style="margin: 3px 20px"> Final Term Exams</h4>
+                      <h4 style="margin: 0px 20px">
+                        <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalButton1" data-toggle="tooltip" title="Click me for event details!">
+                          <span>
+                            <h4 style="color: #F39C12;">Final Term Exams</h4>
+                          </span>   
+                        </button>
+                      </h4>
                     </div>
                   </div>
                   <div class="row">  
@@ -231,7 +248,7 @@
                       </span>
                     </div>
                     <div class="col-md-10">
-                      <h4 style="margin: 3px 20px"> Final Term Exams</h4>
+                      <h4 style="margin: 3px 25px"> Final Term Exams</h4>
                     </div>
                   </div>
                   <div class="row">  
@@ -302,7 +319,7 @@
                       </span>
                     </div>
                     <div class="col-md-10">
-                      <h4 style="margin: 3px 20px"> Gala Night!</h4>
+                      <h4 style="margin: 3px 25px"> Gala Night!</h4>
                     </div>
                   </div>
                   <div class="row">  
@@ -334,7 +351,7 @@
                       </span>
                     </div>
                     <div class="col-md-10">
-                      <h4 style="margin: 3px 20px"> Gala Night!</h4>
+                      <h4 style="margin: 3px 25px"> Gala Night!</h4>
                     </div>
                   </div>
                   <div class="row">  
@@ -362,6 +379,128 @@
         <!-- Notice Panel CLose -->
       </div>
       <!-- Notice Row CLose -->
+
+  <!-- Calendar Start -->
+  
+  <!-- Calendar Close -->
+
     </section>
     <!-- /.content -->
 </div>
+<!-- Students Notice Modal Start -->
+<?php Modal::begin([
+  'header'=> '<i class="fa fa-eye text-success" style="float:left;margin:12px 1px;"></i><h4 style="float:left;" class="text-success"> <b>View Notice Details</b></h4>',
+  "id"=>"modal",
+  "footer"=>"",// always need it for jquery plugin
+]);
+// modal content start.....
+echo "<div id='modalContent'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <table class='table table-responsive table-hover'>
+        <thead>
+          <tr>
+            <td><b>Title</b></td>
+            <td>Final Term Exams</td>
+          </tr>
+          <tr>
+            <td><b>Description</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><b>Notice For</b></td>
+            <td></td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>";
+Modal::end();
+// modal content close.....
+?>
+<!-- Students Notice Modal Close -->
+<!-- *************************** -->
+<!-- Employee Notice Modal Start -->
+<?php Modal::begin([
+  'header'=> '<i class="fa fa-eye text-primary" style="float:left;margin:12px 1px;"></i><h4 style="float:left;" class="text-primary"> View Notice Details</h4>',
+  "id"=>"modal1",
+  "footer"=>"",// always need it for jquery plugin
+]);
+
+echo "<div id='modalContent1'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <table class='table table-responsive table-hover'>
+        <thead>
+          <tr>
+            <td><b>Title</b></td>
+            <td>Final Term Exams</td>
+          </tr>
+          <tr>
+            <td><b>Description</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><b>Notice For</b></td>
+            <td></td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>";
+Modal::end();
+// modal content close.....
+?>
+<!-- Employees Notice Modal Close -->
+<!-- **************************** -->
+<!-- Parents Notice Modal Start ---->
+<?php Modal::begin([
+  'header'=> '<i class="fa fa-eye text-info" style="float:left;margin:12px 1px;"></i><h4 style="float:left;" class="text-info"> View Notice Details</h4>',
+  "id"=>"modal1",
+  "footer"=>"",// always need it for jquery plugin
+]);
+
+echo "<div id='modalContent1'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <table class='table table-responsive table-hover'>
+        <thead>
+          <tr>
+            <td><b>Title</b></td>
+            <td>Final Term Exams</td>
+          </tr>
+          <tr>
+            <td><b>Description</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><b>Notice For</b></td>
+            <td></td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>";
+Modal::end();
+// modal content close.....
+?>
+<!-- Parents Notice Modal Close -->
+<!-- **************************** -->
+<!-- Script for tooltip -->
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+  });
+</script>
+
+<style type="text/css">
+  #modalButton{
+    text-decoration: none;
+  }
+  #modalButton1{
+    text-decoration: none;
+  }
+</style>

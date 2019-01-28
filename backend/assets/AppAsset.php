@@ -20,6 +20,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/bootstrap3-wysihtml5.all.min.js',
+        'js/main.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
