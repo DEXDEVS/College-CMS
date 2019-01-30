@@ -100,14 +100,16 @@ use yii\helpers\Url;
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
                 <span class="progress-description">
-                  <?php 
-                    $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
-                    $msg = $message[0]['msg_details'];
-                  ?>
                     <marquee onmouseover="this.stop();" onmouseout="this.start();">
-                      <?php echo $msg; ?>
+                      <?php 
+                        $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
+                        $date = 2;
+                         $msg = $message[$date]['msg_details'];
+                        echo $msg;
+                      ?>
                     </marquee>
                 </span>
+
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -121,7 +123,7 @@ use yii\helpers\Url;
         <!-- Notice Panel Start -->
         <div class="col-md-6">
           <!-- Custom Tabs (Pulled to the right) -->
-          <div class="nav-tabs-custom" style="height: 250px">
+          <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
               <li>
                 <a href="#parents" data-toggle="tab">
@@ -156,37 +158,41 @@ use yii\helpers\Url;
               <li class="pull-left header"><i class="fa fa-inbox" style="color: #3C8DBC;"></i><span style="color: #3C8DBC;">Notice Board</span></li>
             </ul>
             <?php 
-
+            $date = date('Y-m-d');
+            $studentNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Students' AND is_status ='Active' AND CAST(created_at AS DATE) =  '$date'")->queryAll();
             ?>
             <!-- tab-content start -->
             <div class="tab-content">
               <!-- student tab start -->
               <div class="tab-pane active" id="student">
-                <div class="alert bg-success text-success">
-                  <div class="row">
-                    <div class="col-md-2">
-                      <span class="label label-success" style="padding: 3px;">
-                        <i class="fa fa-calendar"></i>
-                        <?php echo date('D d-M-Y'); ?>
-                      </span>
+                <?php if(!empty($studentNotice)) { ?>
+                  <div class="alert bg-success text-success">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <span class="label label-success" style="padding: 3px;">
+                          <i class="fa fa-calendar"></i>
+                          <?php echo date('D d-M-Y'); ?>
+                        </span>
+                      </div>
+                      <div class="col-md-10">
+                        <h4 style="margin: 0px 20px">
+                          <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalStudents" data-toggle="tooltip" title="Click me for event details!">
+                            <span>
+                              <h4 style="color: #00A65A;"><?php echo $studentNotice[0]['notice_title']; ?></h4>
+                            </span>   
+                          </button>
+                        </h4>
+                      </div>
                     </div>
-                    <div class="col-md-10">
-                      <h4 style="margin: 0px 20px">
-                        <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalStudents" data-toggle="tooltip" title="Click me for event details!">
-                          <span>
-                            <h4 style="color: #00A65A;">Final Term Exams</h4>
-                          </span>   
-                        </button>
-                      </h4>
+                    <div class="row">  
+                      <div class="col-md-12">
+                        <span><?php echo $studentNotice[0]['notice_description']; ?></span>
+                      </div>
                     </div>
                   </div>
-                  <div class="row">  
-                    <div class="col-md-12">
-                      <span>Exams Description Exams Description Exams Description</span>
-                    </div>
-                  </div>
-                </div>
-
+                <?php } 
+                  else {
+                ?>  
                 <div class="alert bg-success text-success">
                   <div class="row">  
                     <div class="col-md-12">
@@ -194,7 +200,8 @@ use yii\helpers\Url;
                       No notice for today! 
                     </div>
                   </div>
-                </div>
+                 </div>
+                <?php } ?>
               </div>
               <!-- students tab close -->
               <!-- ***************** -->
@@ -418,29 +425,32 @@ use yii\helpers\Url;
   "id"=>"modalStudent",
   "footer"=>"",// always need it for jquery plugin
 ]);
+
 // modal content start.....
-echo "<div id='studentContent'>
+?>
+<div id='studentContent'>
   <div class='row'>
     <div class='col-md-12'>
       <table class='table table-responsive table-hover'>
         <thead>
           <tr>
             <td><b>Title</b></td>
-            <td>Final Term Exams</td>
+            <td><?php echo $studentNotice[0]['notice_title']; ?></td>
           </tr>
           <tr>
             <td><b>Description</b></td>
-            <td></td>
+            <td><?php echo $studentNotice[0]['notice_description']; ?></td>
           </tr>
           <tr>
             <td><b>Notice For</b></td>
-            <td></td>
+            <td><?php echo $studentNotice[0]['notice_user_type']; ?></td>
           </tr>
         </thead>
       </table>
     </div>
   </div>
-</div>";
+</div>
+<?php
 Modal::end();
 // modal content close.....
 ?>
@@ -452,29 +462,30 @@ Modal::end();
   "id"=>"modalEmployee",
   "footer"=>"",// always need it for jquery plugin
 ]);
-
-echo "<div id='employeeContent'>
+?>
+<div id='employeeContent'>
   <div class='row'>
     <div class='col-md-12'>
       <table class='table table-responsive table-hover'>
         <thead>
           <tr>
             <td><b>Title</b></td>
-            <td>Final Term Exams</td>
+            <td><?php echo $studentNotice[0]['notice_title']; ?></td>
           </tr>
           <tr>
             <td><b>Description</b></td>
-            <td></td>
+            <td><?php echo $studentNotice[0]['notice_description']; ?></td>
           </tr>
           <tr>
             <td><b>Notice For</b></td>
-            <td></td>
+            <td><?php echo $studentNotice[0]['notice_user_type']; ?></td>
           </tr>
         </thead>
       </table>
     </div>
   </div>
-</div>";
+</div>
+<?php
 Modal::end();
 // modal content close.....
 ?>
