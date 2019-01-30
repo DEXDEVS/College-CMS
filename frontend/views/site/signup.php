@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 
+                <?= $form->field($model, 'user_photo')->fileInput(['maxlength' => true, 'class' => 'btn btn-default btn-block paperclip']) ?>
+
                 <div class="form-group">
                     <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>

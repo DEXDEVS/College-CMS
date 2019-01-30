@@ -260,7 +260,30 @@ class EmpInfoController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post())) {
+                $model->emp_photo = UploadedFile::getInstance($model,'emp_photo');
+                        if(!empty($model->emp_photo)){
+                            $imageName = $model->emp_name.'_emp_photo'; 
+                            $model->emp_photo->saveAs('uploads/'.$imageName.'.'.$model->emp_photo->extension);
+                            //save the path in the db column
+                            $model->emp_photo = 'uploads/'.$imageName.'.'.$model->emp_photo->extension;
+                        } else {
+                           $model->emp_photo = $emp_info[0]['emp_photo'];  
+                        }
+                        $model->degree_scan_copy = UploadedFile::getInstance($model,'degree_scan_copy');
+                        if(!empty($model->degree_scan_copy)){
+                            $imageName = $model->emp_name.'_degree_scan_copy'; 
+                            $model->degree_scan_copy->saveAs('uploads/'.$imageName.'.'.$model->degree_scan_copy->extension);
+                            //save the path in the db column
+                            $model->degree_scan_copy = 'uploads/'.$imageName.'.'.$model->degree_scan_copy->extension;
+                        } else {
+                           $model->degree_scan_copy = $emp_info[0]['degree_scan_copy'];  
+                        }
+                        $model->updated_by = Yii::$app->user->identity->id;
+                        $model->updated_at = new \yii\db\Expression('NOW()');
+                        $model->created_by = $model->created_by;
+                        $model->created_at = $model->created_at;
+                        $model->save();
                 return $this->redirect(['view', 'id' => $model->emp_id]);
             } else {
                 return $this->render('update', [

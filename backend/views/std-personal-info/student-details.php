@@ -35,8 +35,13 @@
     }
     // Stduent Academic Info..... 
     $stdAcademicInfo = Yii::$app->db->createCommand("SELECT * FROM std_academic_info WHERE std_id = '$id'")->queryAll();
-    $stdAcademicClass = $stdAcademicInfo[0]['class_name_id'];    
+    $stdAcademicClass = $stdAcademicInfo[0]['class_name_id'];  
+    $stdSubjectID = $stdAcademicInfo[0]['subject_combination']; 
+    $stdSubject = Yii::$app->db->createCommand("SELECT std_subject_name FROM std_subjects WHERE std_subject_id = '$stdSubjectID'")->queryAll();
+    $stdSubjects = $stdSubject[0]['std_subject_name'];
+    //var_dump($stdSubjects); 
     $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$stdAcademicClass'")->queryAll();
+
     // Stduent Fee Info..... 
     $stdFeeInfo = Yii::$app->db->createCommand("SELECT * FROM std_fee_details WHERE fee_id = '$id'")->queryAll();
     // var_dump($className);  
@@ -50,14 +55,14 @@
 <div class="container-fluid">
   <div class="row">
   	<section class="content-header">
-        	<h1 style="color: #3C8DBC;">
-          	<i class="fa fa-user"></i> Student Profile
-        	</h1>
-  	    <ol class="breadcrumb">
-  	        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-  	        <li><a href="index.php?r=std-personal-info">Back</a></li>
-  	    </ol>
-    </section>
+    	<h1 style="color: #3C8DBC;">
+      	<i class="fa fa-user"></i> Student Profile
+    	</h1>
+	    <ol class="breadcrumb">
+	        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+	        <li><a href="index.php?r=std-personal-info">Back</a></li>
+	    </ol>
+  </section>
     <!-- Content Start -->
   	<section class="content">
         <div class="row">
@@ -305,20 +310,22 @@
                         <table class="table table-striped table-hover">
                           <thead>
                             <tr>
-                              <th>Current Class:</th>
-                              <td><?php echo $className[0]['class_name']; ?></td>
-                            </tr>
-                            <tr>
-                              <th>Subject Combination:</th>
-                              <td><?php echo $stdAcademicInfo[0]['subject_combination'] ?></td>
-                            </tr>
-                            <tr>
                               <th>Session:</th>
                               <td></td>
                             </tr>
                             <tr>
                               <th>Section:</th>
-                              <td>1</td>
+                              <td></td>
+                            </tr>
+                            <tr  colspan="2">
+                              <th>Class:</th>
+                              <td><?php echo $className[0]['class_name']; ?></td>
+                            </tr>
+                            <tr>
+                              <th>Subject Combination:</th>
+                            </tr>
+                            <tr>
+                              <td colspan="2"><?php echo $stdSubjects ?></td>
                             </tr>
                           </thead>
                         </table>
@@ -424,17 +431,10 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
-      </section>
+    </section>
       <!--  -->
-  </div>	
-  </body>
-  </html>
-
   </div>
 </div>
-<!-- row close -->
-</div>	
-<!-- contatiner-fluid close -->
-</body>
-</html>
-
+</section>
+</div>
+</div>

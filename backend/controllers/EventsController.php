@@ -31,7 +31,7 @@ class EventsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete', 'view-event-popup'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -86,6 +86,11 @@ class EventsController extends Controller
                 'model' => $this->findModel($id),
             ]);
         }
+    }
+
+    public function actionViewEventPopup($id)
+    { 
+        return $this->render('view-event-popup');
     }
 
     /**

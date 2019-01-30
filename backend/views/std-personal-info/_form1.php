@@ -10,7 +10,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 ?>
 
 <div class="std-personal-info-form">
-    <h3 class="well well-sm label-primary" style="margin-top: -10px;">Update Stduent Personal Info</h3>
+    <h3 class="well well-sm label-primary" style="margin-top: -10px;">Update Student Personal Info</h3>
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-md-4">

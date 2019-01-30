@@ -5,6 +5,14 @@ use yii\helpers\Html;
 /* @var $content string */
 ?>
 
+<?php 
+    // $userID = Yii::$app->user->id;
+    // $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
+    // // Student Photo...
+    // $userPhoto = $user[0]['user_photo'];
+    //echo $photo;
+?>
+
 <header class="main-header">
 
     <?= Html::a('<span class="logo-mini"><b>SE</b></span><span class="logo-lg">' . "<b>SMART EDUCATION</b>" . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
@@ -199,18 +207,20 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="images/anas.jpg" class="user-image" alt="User Image"/>
+                        <img src="<?php // echo $userPhoto ?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs">
+                            <?php //Yii::$app->user->identity->username;  ?>
                             <!--  -->
                         </span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header" style="height: 200px">
-                            <img src="images/anas.jpg" class="img-circle"
+                            <img src="<?php // echo $userPhoto ?>" class="img-circle"
                                  alt="User Image"/>
                             <p>
                                 <label for="">Contact Info</label><br>
+
                                 <!-- user_phone_no -->
 
                                 <!-- email -->

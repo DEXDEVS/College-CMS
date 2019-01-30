@@ -1,3 +1,11 @@
+<?php 
+
+    $userID = Yii::$app->user->id;
+    $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
+    // Student Photo...
+    $userPhoto = $user[0]['user_photo'];
+    // echo $userPhoto;  
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -13,6 +21,7 @@
                     <!--  -->
                 </p>
 
+
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -22,6 +31,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
+                <?= Yii::$app->user->identity->email ?>
                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>

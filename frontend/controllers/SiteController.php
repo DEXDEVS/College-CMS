@@ -12,6 +12,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\UploadedFile;
+use yii\helpers\Url;
 
 /**
  * Site controller
@@ -146,10 +148,21 @@ class SiteController extends Controller
      *
      * @return mixed
      */
+
+
     public function actionSignup()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
+            $model->user_photo = UploadedFile::getInstance($model,'user_photo');
+            if(!empty($model->user_photo)){
+                $imageName = $model->username.'_photo'; 
+                $model->user_photo->saveAs('suserphotos/'.$imageName.'.'.$model->user_photo->extension);
+                //save the path in the db column
+                $model->user_photo = 'backend/web/userphotos/'.$imageName.'.'.$model->user_photo->extension;
+            } else {
+               $model->user_photo = '0'; 
+            }
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();

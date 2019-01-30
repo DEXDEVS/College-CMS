@@ -19,13 +19,15 @@ $fieldOptions2 = [
 ];
 ?>
 
-<div class="login-box">
-    <div class="login-logo">
-        <a href="#"><b>Admin</b>LTE</a>
+<div class="login-box" style="margin-top: 30px; background-color: #183663; margin: 25px auto; color: white;">
+    <div class="login-logo" style="padding-top: 20px">
+        <a href="#" style="color: white; border-bottom: 2px solid #28C0CE;"><b>DEXDEVS</b><small> - CMS</small></a>
+        <p style="font-size: 20px;">College Management System</p>
     </div>
     <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+    <div class="login-box-body" style=" border-top: 3px solid #1A3562;">
+        <img src="images/logo.jpg" width="100%" style="border: 1px solid #28C0CE; border-radius: 5px 25px 5px 25px; padding:10px"><br>
+        <p class="login-box-msg" style="color: #183663;"><b>Sign in to start your session</b></p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
@@ -43,9 +45,12 @@ $fieldOptions2 = [
             <div class="col-xs-8">
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
             </div>
+        </div>
+
+        <div class="row">
             <!-- /.col -->
-            <div class="col-xs-4">
-                <?= Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+            <div class="col-xs-12">
+                <?= Html::submitButton('Sign in', ['class' => 'btn btn-success btn-block btn-flat', 'name' => 'login-button']) ?>
             </div>
             <!-- /.col -->
         </div>
@@ -53,17 +58,17 @@ $fieldOptions2 = [
 
         <?php ActiveForm::end(); ?>
 
-        <div class="social-auth-links text-center">
+        <!-- <div class="social-auth-links text-center">
             <p>- OR -</p>
             <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in
                 using Facebook</a>
             <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign
                 in using Google+</a>
-        </div>
+        </div> -->
         <!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+<!--         <a href="#">I forgot my password</a><br>
+        <a href="register.html" class="text-center">Register a new membership</a> -->
 
     </div>
     <!-- /.login-box-body -->
