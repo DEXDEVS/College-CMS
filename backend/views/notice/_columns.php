@@ -24,8 +24,16 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'notice_user_type',
+        'attribute'=>'notice_start',
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'notice_end',
+    ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'notice_user_type',
+    // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',

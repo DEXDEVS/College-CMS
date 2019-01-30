@@ -10,13 +10,14 @@ use Yii;
  * @property int $event_id
  * @property string $event_title
  * @property string $event_detail
+ * @property string $event_venue
  * @property string $event_start_datetime
  * @property string $event_end_datetime
  * @property string $created_at
  * @property int $created_by
  * @property string $updated_at
  * @property int $updated_by
- * @property int $is_status
+ * @property string $is_status
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -34,11 +35,12 @@ class Events extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_title', 'event_detail', 'event_start_datetime', 'event_end_datetime', 'created_at', 'created_by'], 'required'],
-            [['event_detail'], 'string'],
-            [['event_start_datetime', 'event_end_datetime', 'created_at', 'updated_at'], 'safe'],
-            [['created_by', 'updated_by', 'is_status'], 'integer'],
+            [['event_title', 'event_detail', 'event_venue', 'event_start_datetime', 'event_end_datetime', 'is_status'], 'required'],
+            [['event_detail', 'is_status'], 'string'],
+            [['event_start_datetime', 'event_end_datetime', 'created_at', 'created_by'], 'safe'],
+            [['created_by', 'updated_by'], 'integer'],
             [['event_title'], 'string', 'max' => 80],
+            [['event_venue'], 'string', 'max' => 100],
         ];
     }
 
@@ -51,6 +53,7 @@ class Events extends \yii\db\ActiveRecord
             'event_id' => 'Event ID',
             'event_title' => 'Event Title',
             'event_detail' => 'Event Detail',
+            'event_venue' => 'Event Venue',
             'event_start_datetime' => 'Event Start Datetime',
             'event_end_datetime' => 'Event End Datetime',
             'created_at' => 'Created At',

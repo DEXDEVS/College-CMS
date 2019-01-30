@@ -13,6 +13,7 @@ use yii\widgets\DetailView;
             'event_id',
             'event_title',
             'event_detail:ntext',
+            'event_venue',
             'event_start_datetime',
             'event_end_datetime',
             'created_at',

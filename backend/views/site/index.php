@@ -178,7 +178,9 @@ use yii\helpers\Url;
                         <h4 style="margin: 0px 20px">
                           <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalStudents" data-toggle="tooltip" title="Click me for event details!">
                             <span>
-                              <h4 style="color: #00A65A;"><?php echo $studentNotice[0]['notice_title']; ?></h4>
+                              <h4 style="color: #00A65A;">
+                                <?php echo $studentNotice[0]['notice_title']; ?>
+                              </h4>
                             </span>   
                           </button>
                         </h4>
@@ -206,7 +208,12 @@ use yii\helpers\Url;
               <!-- students tab close -->
               <!-- ***************** -->
               <!-- employees tab start -->
+              <?php 
+              $date = date('Y-m-d');
+              $employeeNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Employees' AND is_status ='Active' AND CAST(created_at AS DATE) =  '$date'")->queryAll();
+              ?>
               <div class="tab-pane" id="employees">
+                <?php if(!empty($employeeNotice)) { ?>
                 <div class="alert bg-warning text-warning">
                   <div class="row">
                     <div class="col-md-2">
@@ -219,7 +226,9 @@ use yii\helpers\Url;
                       <h4 style="margin: 0px 20px">
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalEmployees" data-toggle="tooltip" title="Click me for event details!">
                           <span>
-                            <h4 style="color: #F39C12;">Final Term Exams</h4>
+                            <h4 style="color: #F39C12;">
+                              <?php echo $employeeNotice[0]['notice_title']; ?>
+                            </h4>
                           </span>   
                         </button>
                       </h4>
@@ -227,11 +236,15 @@ use yii\helpers\Url;
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span>Exams Description Exams Description Exams Description</span>
+                      <span><?php echo $employeeNotice[0]['notice_description']; ?></span>
                     </div>
                   </div>
                 </div>
-
+                <?php 
+                  }
+                  // end of if....
+                  else {
+                ?>
                 <div class="alert bg-warning text-warning">
                   <div class="row">  
                     <div class="col-md-12">
@@ -240,12 +253,21 @@ use yii\helpers\Url;
                     </div>
                   </div>
                 </div>
+                <?php 
+                  }
+                  // end of else
+                ?>
               </div>
               <!-- employees tab close -->
               <!-- ***************** -->
               <!-- parents tab start -->
               <!-- /.tab-pane -->
+              <?php 
+                $date = date('Y-m-d');
+                $parentNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Parents' AND is_status ='Active' AND CAST(created_at AS DATE) =  '$date'")->queryAll();
+              ?> 
               <div class="tab-pane" id="parents">
+              <?php if(!empty($employeeNotice)) { ?>  
                 <div class="alert bg-info text-info">
                   <div class="row">
                     <div class="col-md-2">
@@ -258,7 +280,9 @@ use yii\helpers\Url;
                       <h4 style="margin: 0px 20px">
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalParents" data-toggle="tooltip" title="Click me for event details!">
                           <span>
-                            <h4 style="color: #00C0EF;">Final Term Exams</h4>
+                            <h4 style="color: #00C0EF;">
+                              <?php echo $parentNotice[0]['notice_title']; ?>
+                            </h4>
                           </span>   
                         </button>
                       </h4>
@@ -266,11 +290,15 @@ use yii\helpers\Url;
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span>Exams Description Exams Description Exams Description</span>
+                      <span><?php echo $parentNotice[0]['notice_description']; ?></span>
                     </div>
                   </div>
                 </div>
-
+                <?php 
+                    }
+                  // ending of if...
+                  else {
+                ?>
                 <div class="alert bg-info text-info">
                   <div class="row">  
                     <div class="col-md-12">
@@ -279,6 +307,10 @@ use yii\helpers\Url;
                     </div>
                   </div>
                 </div>
+                <?php 
+                  }
+                  // ending of else... 
+                ?>
               </div> 
               <!-- parents tab close -->
             </div>
@@ -291,7 +323,7 @@ use yii\helpers\Url;
         <!-- Notice Panel Start -->
         <div class="col-md-6">
           <!-- Custom Tabs (Pulled to the right) -->
-          <div class="nav-tabs-custom" style="height: 250px">
+          <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
               <li>
                 <a href="#upcoming" data-toggle="tab">
@@ -305,24 +337,17 @@ use yii\helpers\Url;
                   Today
                 </a>
               </li>
-              <!-- <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  Dropdown <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                </ul>
-              </li> -->
               <li class="pull-left header"><i class="fa fa-calendar" style="color: #3C8DBC;"></i><span style="color: #3C8DBC;">Events</span></li>
             </ul>
             <!-- tab-content start -->
             <div class="tab-content">
               <!-- general tab start -->
+              <?php 
+                $date = date('Y-m-d');
+                $todayEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) =  '$date'")->queryAll();
+              ?> 
               <div class="tab-pane active" id="today">
+              <?php if(!empty($todayEvent)) { ?> 
                 <div class="alert bg-info text-info">
                   <div class="row">
                     <div class="col-md-2">
@@ -335,7 +360,9 @@ use yii\helpers\Url;
                       <h4 style="margin: 0px 20px">
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalTodays" data-toggle="tooltip" title="Click me for event details!">
                           <span>
-                            <h4 style="color: #00C0EF;">Final Term Exams</h4>
+                            <h4 style="color: #00C0EF;">
+                              <?php echo $todayEvent[0]['event_title']; ?>
+                            </h4>
                           </span>   
                         </button>
                       </h4>
@@ -343,11 +370,15 @@ use yii\helpers\Url;
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span>Gala Night Description Gala Night Description</span>
+                      <span><?php echo $todayEvent[0]['event_detail']; ?></span>
                     </div>
                   </div>
                 </div>
-
+                <?php 
+                  }
+                  // ending of if...
+                  else {
+                ?>
                 <div class="alert bg-info text-info">
                   <div class="row">  
                     <div class="col-md-12">
@@ -356,11 +387,20 @@ use yii\helpers\Url;
                     </div>
                   </div>
                 </div>
+                <?php 
+                  }
+                  // ending of else...
+                ?>
               </div>
               <!-- general tab close -->
               <!-- ***************** -->
               <!-- student tab start -->
+              <?php 
+                $date = date('2019-01-31');
+                $upcomingEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) =  '$date'")->queryAll();
+              ?> 
               <div class="tab-pane" id="upcoming">
+              <?php if(!empty($upcomingEvent)) { ?> 
                 <div class="alert bg-success text-success">
                   <div class="row">
                     <div class="col-md-2">
@@ -373,7 +413,9 @@ use yii\helpers\Url;
                      <h4 style="margin: 0px 20px">
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalUpcomings" data-toggle="tooltip" title="Click me for event details!">
                           <span>
-                            <h4 style="color: #00A65A;">Final Term Exams</h4>
+                            <h4 style="color: #00A65A;">
+                              <?php echo $upcomingEvent[0]['event_title']; ?>
+                            </h4>
                           </span>   
                         </button>
                       </h4>
@@ -381,11 +423,15 @@ use yii\helpers\Url;
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span>Gala Night Description Gala Night Description Gala Night Description</span>
+                      <span><?php echo $upcomingEvent[0]['event_detail']; ?></span>
                     </div>
                   </div>
                 </div>
-
+                <?php 
+                  }
+                  // ending of if...
+                  else {
+                ?>
                 <div class="alert bg-success text-success">
                   <div class="row">  
                     <div class="col-md-12">
@@ -394,6 +440,10 @@ use yii\helpers\Url;
                     </div>
                   </div>
                 </div>
+                <?php 
+                  }
+                  // ending of else...
+                ?>
               </div>
               <!-- students tab close -->
             </div>
@@ -428,6 +478,7 @@ use yii\helpers\Url;
 
 // modal content start.....
 ?>
+<?php if(!empty($studentNotice)) { ?>
 <div id='studentContent'>
   <div class='row'>
     <div class='col-md-12'>
@@ -451,6 +502,7 @@ use yii\helpers\Url;
   </div>
 </div>
 <?php
+}
 Modal::end();
 // modal content close.....
 ?>
@@ -463,6 +515,7 @@ Modal::end();
   "footer"=>"",// always need it for jquery plugin
 ]);
 ?>
+<?php if(!empty($employeeNotice)) { ?>
 <div id='employeeContent'>
   <div class='row'>
     <div class='col-md-12'>
@@ -470,22 +523,23 @@ Modal::end();
         <thead>
           <tr>
             <td><b>Title</b></td>
-            <td><?php echo $studentNotice[0]['notice_title']; ?></td>
+            <td><?php echo $employeeNotice[0]['notice_title']; ?></td>
           </tr>
           <tr>
             <td><b>Description</b></td>
-            <td><?php echo $studentNotice[0]['notice_description']; ?></td>
+            <td><?php echo $employeeNotice[0]['notice_description']; ?></td>
           </tr>
           <tr>
             <td><b>Notice For</b></td>
-            <td><?php echo $studentNotice[0]['notice_user_type']; ?></td>
+            <td><?php echo $employeeNotice[0]['notice_user_type']; ?></td>
           </tr>
         </thead>
       </table>
     </div>
   </div>
 </div>
-<?php
+<?php 
+}
 Modal::end();
 // modal content close.....
 ?>
@@ -497,29 +551,32 @@ Modal::end();
   "id"=>"modalParent",
   "footer"=>"",// always need it for jquery plugin
 ]);
-
-echo "<div id='parentContent'>
+?>
+<?php if(!empty($parentNotice)) { ?>
+<div id='parentContent'>
   <div class='row'>
     <div class='col-md-12'>
       <table class='table table-responsive table-hover'>
         <thead>
           <tr>
             <td><b>Title</b></td>
-            <td>Final Term Exams</td>
+            <td><?php echo $parentNotice[0]['notice_title']; ?></td>
           </tr>
           <tr>
             <td><b>Description</b></td>
-            <td></td>
+            <td><?php echo $parentNotice[0]['notice_description']; ?></td>
           </tr>
           <tr>
             <td><b>Notice For</b></td>
-            <td></td>
+            <td><?php echo $parentNotice[0]['notice_user_type']; ?></td>
           </tr>
         </thead>
       </table>
     </div>
   </div>
-</div>";
+</div>
+<?php
+}
 Modal::end();
 ?>
 <!-- Parents Notice Modal Close -->
@@ -530,29 +587,36 @@ Modal::end();
   "id"=>"modalToday",
   "footer"=>"",// always need it for jquery plugin
 ]);
-
-echo "<div id='todayContent'>
+?>
+<?php if(!empty($todayEvent)) { ?>
+<div id='todayContent'>
   <div class='row'>
     <div class='col-md-12'>
       <table class='table table-responsive table-hover'>
         <thead>
           <tr>
             <td><b>Title</b></td>
-            <td>Final Term Exams</td>
+            <td><?php echo $todayEvent[0]['event_title']; ?></td>
           </tr>
           <tr>
             <td><b>Description</b></td>
-            <td></td>
+            <td><?php echo $todayEvent[0]['event_detail']; ?></td>
           </tr>
           <tr>
-            <td><b>Notice For</b></td>
-            <td></td>
+            <td><b>Start Date Time</b></td>
+            <td><?php echo $todayEvent[0]['event_start_datetime']; ?></td>
+          </tr>
+          <tr>
+            <td><b>End Date Time</b></td>
+            <td><?php echo $todayEvent[0]['event_end_datetime']; ?></td>
           </tr>
         </thead>
       </table>
     </div>
   </div>
-</div>";
+</div>
+<?php
+}
 Modal::end();
 ?>
 <!-- Todays Notice Modal Close -->
@@ -563,29 +627,40 @@ Modal::end();
   "id"=>"modalUpcoming",
   "footer"=>"",// always need it for jquery plugin
 ]);
-
-echo "<div id='upcomingContent'>
+?>
+<?php if(!empty($upcomingEvent)) { ?>
+<div id='todayContent'>
   <div class='row'>
     <div class='col-md-12'>
       <table class='table table-responsive table-hover'>
         <thead>
           <tr>
             <td><b>Title</b></td>
-            <td>Final Term Exams</td>
+            <td><?php echo $upcomingEvent[0]['event_title']; ?></td>
           </tr>
           <tr>
             <td><b>Description</b></td>
-            <td></td>
+            <td><?php echo $upcomingEvent[0]['event_detail']; ?></td>
           </tr>
           <tr>
-            <td><b>Notice For</b></td>
-            <td></td>
+            <td><b>Event Start Datetime</b></td>
+            <td><?php echo $upcomingEvent[0]['event_start_datetime']; ?></td>
+          </tr>
+          <tr>
+            <td><b>Event End Datetime</b></td>
+            <td><?php echo $upcomingEvent[0]['event_end_datetime']; ?></td>
+          </tr>
+          <tr>
+            <td><b>Event Venue</b></td>
+            <td><?php echo $upcomingEvent[0]['event_venue']; ?></td>
           </tr>
         </thead>
       </table>
     </div>
   </div>
-</div>";
+</div>
+<?php
+}
 Modal::end();
 ?>
 <!-- Upcomings Notice Modal Close -->
