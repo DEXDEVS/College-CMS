@@ -20,6 +20,9 @@ use common\models\StdSessions
                     ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name')
                 )?>
         </div>
+        <div class="col-md-4">
+                <?= $form->field($model, 'std_id')->textInput()?>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-4">
