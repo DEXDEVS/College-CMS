@@ -557,7 +557,7 @@ Modal::end();
   <div class='row'>
     <div class='col-md-12'>
       <table class='table table-responsive table-hover'>
-        <thead>
+        <tbody>
           <tr>
             <td><b>Title</b></td>
             <td><?php echo $parentNotice[0]['notice_title']; ?></td>
@@ -570,7 +570,7 @@ Modal::end();
             <td><b>Notice For</b></td>
             <td><?php echo $parentNotice[0]['notice_user_type']; ?></td>
           </tr>
-        </thead>
+        </tbody>
       </table>
     </div>
   </div>
@@ -593,7 +593,7 @@ Modal::end();
   <div class='row'>
     <div class='col-md-12'>
       <table class='table table-responsive table-hover'>
-        <thead>
+        <tbody>
           <tr>
             <td><b>Title</b></td>
             <td><?php echo $todayEvent[0]['event_title']; ?></td>
@@ -610,7 +610,11 @@ Modal::end();
             <td><b>End Date Time</b></td>
             <td><?php echo $todayEvent[0]['event_end_datetime']; ?></td>
           </tr>
-        </thead>
+          <tr>
+            <td><b>Event Venue</b></td>
+            <td><?php echo $upcomingEvent[0]['event_venue']; ?></td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -633,7 +637,7 @@ Modal::end();
   <div class='row'>
     <div class='col-md-12'>
       <table class='table table-responsive table-hover'>
-        <thead>
+        <tbody>
           <tr>
             <td><b>Title</b></td>
             <td><?php echo $upcomingEvent[0]['event_title']; ?></td>
@@ -654,7 +658,7 @@ Modal::end();
             <td><b>Event Venue</b></td>
             <td><?php echo $upcomingEvent[0]['event_venue']; ?></td>
           </tr>
-        </thead>
+        </tbody>
       </table>
     </div>
   </div>
