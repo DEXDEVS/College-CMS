@@ -104,7 +104,7 @@ use yii\helpers\Url;
                       <?php 
                         $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
                         $date = 2;
-                         $msg = $message[$date]['msg_details'];
+                        $msg = $message[$date]['msg_details'];
                         echo $msg;
                       ?>
                     </marquee>
@@ -277,7 +277,7 @@ use yii\helpers\Url;
                       </span>
                     </div>
                     <div class="col-md-10">
-                      <h4 style="margin: 0px 20px">
+                        <h4 style="margin: 0px 20px">
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalParents" data-toggle="tooltip" title="Click me for event details!">
                           <span>
                             <h4 style="color: #00C0EF;">
@@ -285,7 +285,7 @@ use yii\helpers\Url;
                             </h4>
                           </span>   
                         </button>
-                      </h4>
+                        </h4>
                     </div>
                   </div>
                   <div class="row">  
