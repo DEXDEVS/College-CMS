@@ -77,7 +77,7 @@
             </div> 
             <div class="col-md-2 col-md-offset-1">
                 <div class="form-group" style="margin-top: 24px;">
-                    <button type="submit" name="submit" class="btn btn-info btn-flat btn-block">Get Class</button>
+                    <button type="submit" name="submit" class="btn btn-info btn-flat btn-block"><i class="fa fa-check-square-o" aria-hidden="true"></i> Get Class</button>
                 </div>    
             </div>
         </div>
@@ -136,7 +136,7 @@
                             $studentId[$id] = $stdId;
                             $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll();
                             $studentName[$id] = $stdName[0]['std_name'];
-                            $fee = Yii::$app->db->createCommand("SELECT net_addmission_fee , net_tuition_fee  FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll(); 
+                            $fee = Yii::$app->db->createCommand("SELECT net_addmission_fee, net_tuition_fee FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll(); 
                             $admissionFee = $fee[0]['net_addmission_fee'];
                             $tuitionFee = $fee[0]['net_tuition_fee'];
                             $netTotal = $admissionFee + $tuitionFee;
@@ -152,10 +152,10 @@
                             <p style="margin-top: 8px"><?php echo $stdName[0]['std_name'];?></p>
                          </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $fee[0]['net_addmission_fee']; ?>"  id="admissionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
                         </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>"  id="tuitionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
                         </td>
                         <td>
                             <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]"  onChange="lateFeeFine(<?php echo $id; ?>)"  style="width: 80px; border: none;">
@@ -202,7 +202,7 @@
                         <input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
                         <input type="hidden" name="month" value="<?php echo $month; ?>">
                         <input type="hidden" name="date" value="<?php echo $date; ?>">
-                    <button type="submit" name="save" class="btn btn-success">Submit</button>
+                    <button type="submit" name="save" class="btn btn-success btn-flat"><i class="fa fa fa-sign-in" aria-hidden="true"></i> Submit</button>
                 </div>    
             </div>
 		</div>
@@ -377,7 +377,7 @@
                         for($m=0; $m < 6; $m++){
                             //admission_fee ..... 
                             if($feeType[$m] == 1){
-                                if($updateArray[$m] == $feeType[$m] && $admission_fee[$j] != 0){
+                                if($updateArray[$m] == $feeType[$m] && $admission_fee[$j] >= 0){
                                     $feeDette_ails = Yii::$app->db->createCommand()->update('fee_transaction_detail',[
                                     'fee_trans_detail_head_id' => $id,
                                     'fee_type_id'=> 1,
@@ -397,7 +397,7 @@
                             }
                             // tuition_fee ....
                             if($feeType[$m] == 2){
-                                if( $updateArray[$m] == $feeType[$m] && $tuition_fee[$j] != 0){
+                                if( $updateArray[$m] == $feeType[$m] && $tuition_fee[$j] >= 0){
                                     $feeDetails = Yii::$app->db->createCommand()->update('fee_transaction_detail',[
                                     'fee_trans_detail_head_id' => $id,
                                     'fee_type_id'=> 2,
@@ -417,7 +417,7 @@
                             }
                             // late fee fine ....
                             if($feeType[$m] == 3){ 
-                                if($updateArray[$m] == $feeType[$m] && $late_fee_fine[$j] != 0){
+                                if($updateArray[$m] == $feeType[$m] && $late_fee_fine[$j] >= 0){
                                     $feeDetails = Yii::$app->db->createCommand()->update('fee_transaction_detail',[
                                     'fee_trans_detail_head_id' => $id,
                                     'fee_type_id'=> 3,
@@ -437,7 +437,7 @@
                             }
                             // absent_fine ....
                             if($feeType[$m] == 4){
-                                if( $updateArray[$m] == $feeType[$m] && $absent_fine[$j] != 0){
+                                if( $updateArray[$m] == $feeType[$m] && $absent_fine[$j] >= 0){
                                     $feeDetails = Yii::$app->db->createCommand()->update('fee_transaction_detail',[
                                     'fee_trans_detail_head_id' => $id,
                                     'fee_type_id'=> 4,
@@ -457,7 +457,7 @@
                             }
                             // library_dues ....
                             if($feeType[$m] == 5){
-                                if($updateArray[$m] == $feeType[$m] && $library_dues[$j] != 0){
+                                if($updateArray[$m] == $feeType[$m] && $library_dues[$j] >= 0){
                                     $feeDetails = Yii::$app->db->createCommand()->update('fee_transaction_detail',[
                                     'fee_trans_detail_head_id' => $id,
                                     'fee_type_id'=> 5,
@@ -477,7 +477,7 @@
                             }
                             // transport_fee ....
                             if($feeType[$m] == 6){
-                                if($updateArray[$m] == $feeType[$m] && $transport_fee[$j] != 0){
+                                if($updateArray[$m] == $feeType[$m] && $transport_fee[$j] >= 0){
                                     $feeDetails = Yii::$app->db->createCommand()->update('fee_transaction_detail',[
                                     'fee_trans_detail_head_id' => $id,
                                     'fee_type_id'=> 6,
@@ -499,10 +499,20 @@
                         }
                     // end of j loop    
                 }          
-                echo "<b>Successfully</b> Updated the Class Account....";
+                echo 
+                    "<div class='row' style='margin:0px -10px 0px 15px;'>
+                        <div class='col-md-12 alert alert-warning' style='text-align: center'>
+                            <p>You have <b>Successfully </b>update this class account....!</p>
+                        </div>
+                    </div>";
             }
             if($updateStatus == '0'){
-                echo "YOur have all ready maintain this class account"; 
+                echo
+                    "<div class='row' style='margin:0px -10px 0px 15px;'>
+                        <div class='col-md-12 alert alert-warning' style='text-align: center'>
+                            </p>You have <b>already maintain</b> this class account....!</p>
+                        </div>
+                    </div>";
             }
         //end of isset
         }
