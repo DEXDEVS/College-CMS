@@ -31,7 +31,7 @@ class BranchesController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','branch-details'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -68,25 +68,25 @@ class BranchesController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {   
-        $request = Yii::$app->request;
-        if($request->isAjax){
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return [
-                    'title'=> "Branches #".$id,
-                    'content'=>$this->renderAjax('view', [
-                        'model' => $this->findModel($id),
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];    
-        }else{
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
-        }
-    }
+    // public function actionView($id)
+    // {   
+    //     $request = Yii::$app->request;
+    //     if($request->isAjax){
+    //         Yii::$app->response->format = Response::FORMAT_JSON;
+    //         return [
+    //                 'title'=> "Branches #".$id,
+    //                 'content'=>$this->renderAjax('view', [
+    //                     'model' => $this->findModel($id),
+    //                 ]),
+    //                 'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+    //                         Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+    //             ];    
+    //     }else{
+    //         return $this->render('view', [
+    //             'model' => $this->findModel($id),
+    //         ]);
+    //     }
+    // }
 
     /**
      * Creates a new Branches model.
@@ -276,6 +276,15 @@ class BranchesController extends Controller
             return $this->redirect(['index']);
         }
        
+    }
+    // public function actionBranchDetails()
+    // {   
+    //     return $this->render('branch-details');
+    // }
+    
+    public function actionView($id)
+    { 
+        return $this->render('branch-details');
     }
 
     /**

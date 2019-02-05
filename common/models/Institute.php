@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "institute".
@@ -66,4 +67,21 @@ class Institute extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Branches::className(), ['institute_id' => 'institute_id']);
     }
+
+    public function getPhotoInfo(){
+        $path = Url::to('@web/uploads/');
+        $url = Url::to('@web/uploads/');
+        $filename = $this->institute_name.'_photo'.'.jpg';
+        $alt = $this->institute_name."'s image not exist!";
+
+        $imageInfo = ['alt'=>$alt];
+
+        if(file_exists($path.$filename)){
+            $imageInfo['url'] = $url.'default.jpg';
+        }  else {
+            $imageInfo['url'] = $url.$filename; 
+        }
+        return $imageInfo;
+    }
+
 }

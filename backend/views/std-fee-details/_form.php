@@ -14,11 +14,8 @@ use common\models\StdSessions
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="row">
+    <div class="row">  
         <div class="col-md-4">
-            <?= $form->field($model, 'std_id')->textInput() ?>
-        </div>  
-        <div class="col-md-6">
                 <?= $form->field($model, 'feeSession')->dropDownList(
                     ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name')
                 )?>
@@ -68,16 +65,16 @@ use common\models\StdSessions
     
 </div>
 <script type="text/javascript">
-            // showNetAdmissionFee function...!
-            function showNetAdmissionFee() {
-                var value1 = document.getElementById('admissionFee').value;
-                var value2 = document.getElementById('admissionFeeDiscount').value;
-                document.getElementById('netAdmissionFee').value = value1 - value2 ;
-            }
-            // showNetTuitionFee function...!
-            function showNetTuitionFee() {
-                var value1 = document.getElementById('tuitionFee').value;
-                var value2 = document.getElementById('noOfInstallment').value;
-                document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
-            }
+    // showNetAdmissionFee function...!
+    function showNetAdmissionFee() {
+        var value1 = document.getElementById('admissionFee').value;
+        var value2 = document.getElementById('admissionFeeDiscount').value;
+        document.getElementById('netAdmissionFee').value = value1 - value2 ;
+    }
+    // showNetTuitionFee function...!
+    function showNetTuitionFee() {
+        var value1 = document.getElementById('tuitionFee').value;
+        var value2 = document.getElementById('noOfInstallment').value;
+        document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
+    }
 </script>

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 ?>
 <div class="std-fee-details-update">
 
-    <?= $this->render('_form', [
+    <?= $this->render('_form1', [
         'model' => $model,
     ]) ?>
 

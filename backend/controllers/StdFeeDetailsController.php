@@ -200,7 +200,7 @@ class StdFeeDetailsController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->fee_id]);
+                return $this->redirect(['std-personal-info/view', 'id' => $model->fee_id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,

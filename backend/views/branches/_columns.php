@@ -10,31 +10,47 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-    //     [
+    // [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'branch_id',
     // ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'institute_id',
+    //     'value'=>'institute.institute_name',
+    // ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'branch_code',
+    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'institute_id',
-        'value'=>'institute.institute_name',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'branch_code',
+        'attribute'=>'institute.institute_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'branch_name',
     ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'branch_type',
+    // ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'branch_location',
+    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'branch_type',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'branch_location',
+        'attribute'=>'branch_code',
     ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'branch_location',
+    // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'branch_contact_no',
@@ -61,10 +77,6 @@ return [
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'delete_status',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',
     // ],
     // [
@@ -86,7 +98,7 @@ return [
         'urlCreator' => function($action, $model, $key, $index) { 
                 return Url::to([$action,'id'=>$key]);
         },
-        'viewOptions'=>['role'=>'modal-remote','title'=>'View','data-toggle'=>'tooltip'],
+        'viewOptions'=>['role'=>'','title'=>'View','data-toggle'=>'tooltip'],
         'updateOptions'=>['role'=>'modal-remote','title'=>'Update', 'data-toggle'=>'tooltip'],
         'deleteOptions'=>['role'=>'modal-remote','title'=>'Delete', 
                           'data-confirm'=>false, 'data-method'=>false,// for overide yii data api

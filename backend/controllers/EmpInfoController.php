@@ -33,7 +33,7 @@ class EmpInfoController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','emp-details'],
                         'allow' => true,
                         'roles' => ['@','view'],
                     ],
@@ -70,26 +70,32 @@ class EmpInfoController extends Controller
      * @param integer $id
      * @return mixed
      */
+    // public function actionView($id)
+    // {   
+    //     $request = Yii::$app->request;
+    //     if($request->isAjax){
+    //         Yii::$app->response->format = Response::FORMAT_JSON;
+    //         return [
+    //                 'title'=> "EmpInfo #".$id,
+    //                 'content'=>$this->renderAjax('view', [
+    //                     'model' => $this->findModel($id),
+    //                 ]),
+    //                 'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+    //                         Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+    //             ];    
+    //     }else{
+    //         return $this->render('view', [
+    //             'model' => $this->findModel($id),
+    //         ]);
+    //     }
+    // }
+
     public function actionView($id)
-    {   
-        $request = Yii::$app->request;
-        if($request->isAjax){
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return [
-                    'title'=> "EmpInfo #".$id,
-                    'content'=>$this->renderAjax('view', [
-                        'model' => $this->findModel($id),
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];    
-        }else{
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
-        }
+    {
+       return $this->render('emp-details'); 
     }
 
+   
     /**
      * Creates a new EmpInfo model.
      * For ajax request will return json object

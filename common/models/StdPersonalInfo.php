@@ -3,12 +3,12 @@
 namespace common\models;
 
 use Yii;
-use yii\helpers\Url;
 
 /**
  * This is the model class for table "std_personal_info".
  *
- * @property integer $std_id
+ * @property int $std_id
+ * @property string $std_reg_no
  * @property string $std_name
  * @property string $std_father_name
  * @property string $std_contact_no
@@ -25,18 +25,22 @@ use yii\helpers\Url;
  * @property string $std_tehseel
  * @property string $created_at
  * @property string $updated_at
- * @property integer $created_by
- * @property integer $updated_by
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int $delete_status
  *
+ * @property FeeTransactionHead[] $feeTransactionHeads
  * @property StdAcademicInfo[] $stdAcademicInfos
+ * @property StdAttendance[] $stdAttendances
  * @property StdEnrollmentDetail[] $stdEnrollmentDetails
  * @property StdFeeDetails[] $stdFeeDetails
  * @property StdGuardianInfo[] $stdGuardianInfos
+ * @property StdIceInfo[] $stdIceInfos
  */
 class StdPersonalInfo extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -44,50 +48,59 @@ class StdPersonalInfo extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['std_name', 'std_father_name','std_DOB', 'std_gender', 'std_permanent_address', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel'], 'required'],
-            [['std_DOB', 'std_contact_no', 'std_email', 'std_b_form',  'std_photo', 'std_temporary_address','created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
+            [['std_name', 'std_father_name', 'std_contact_no', 'std_DOB', 'std_gender', 'std_permanent_address', 'std_temporary_address', 'std_email', 'std_photo', 'std_b_form', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel', 'created_by', 'updated_by'], 'required'],
+            [['std_DOB', 'created_at', 'updated_at'], 'safe'],
             [['std_gender'], 'string'],
-            [['created_by', 'updated_by'], 'integer'],
-            [['std_name', 'std_father_name' , 'std_district', 'std_religion', 'std_nationality', 'std_tehseel'], 'string', 'max' => 50],
+            [['created_by', 'updated_by', 'delete_status'], 'integer'],
+            [['std_reg_no', 'std_name', 'std_father_name', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel'], 'string', 'max' => 50],
             [['std_contact_no'], 'string', 'max' => 15],
             [['std_permanent_address', 'std_temporary_address', 'std_b_form'], 'string', 'max' => 255],
             [['std_email'], 'string', 'max' => 84],
-            [['std_email'],'email'],
             [['std_photo'], 'string', 'max' => 200],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            'std_id' => 'Student ID',
-            'std_name' => 'Student Name',
-            'std_father_name' => 'Student Father Name',
-            'std_contact_no' => 'Student Contact No',
-            'std_DOB' => 'Student DOB',
-            'std_gender' => 'Student Gender',
-            'std_permanent_address' => 'Student Permanent Address',
-            'std_temporary_address' => 'Student Temporary Address',
-            'std_email' => 'Student Email',
-            'std_photo' => 'Student Photo',
-            'std_b_form' => 'Student B-Form',
-            'std_district' => 'Student District',
-            'std_religion' => 'Student Religion',
-            'std_nationality' => 'Student Nationality',
-            'std_tehseel' => 'Student Tehseel',
+            'std_id' => 'Std ID',
+            'std_reg_no' => 'Std Reg No',
+            'std_name' => 'Std Name',
+            'std_father_name' => 'Std Father Name',
+            'std_contact_no' => 'Std Contact No',
+            'std_DOB' => 'Std  Dob',
+            'std_gender' => 'Std Gender',
+            'std_permanent_address' => 'Std Permanent Address',
+            'std_temporary_address' => 'Std Temporary Address',
+            'std_email' => 'Std Email',
+            'std_photo' => 'Std Photo',
+            'std_b_form' => 'Std B Form',
+            'std_district' => 'Std District',
+            'std_religion' => 'Std Religion',
+            'std_nationality' => 'Std Nationality',
+            'std_tehseel' => 'Std Tehseel',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'delete_status' => 'Delete Status',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFeeTransactionHeads()
+    {
+        return $this->hasMany(FeeTransactionHead::className(), ['std_id' => 'std_id']);
     }
 
     /**
@@ -96,6 +109,14 @@ class StdPersonalInfo extends \yii\db\ActiveRecord
     public function getStdAcademicInfos()
     {
         return $this->hasMany(StdAcademicInfo::className(), ['std_id' => 'std_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStdAttendances()
+    {
+        return $this->hasMany(StdAttendance::className(), ['student_id' => 'std_id']);
     }
 
     /**
@@ -122,20 +143,11 @@ class StdPersonalInfo extends \yii\db\ActiveRecord
         return $this->hasMany(StdGuardianInfo::className(), ['std_id' => 'std_id']);
     }
 
-    public function getPhotoInfo(){
-        $path = Url::to('@web/uploads/');
-        $url = Url::to('@web/uploads/');
-        $filename = $this->std_name.'_photo'.'.jpg';
-        $alt = $this->std_name."'s image not exist!";
-
-        $imageInfo = ['alt'=>$alt];
-
-        if(file_exists($path.$filename)){
-            $imageInfo['url'] = $url.'default.jpg';
-        }  else {
-            $imageInfo['url'] = $url.$filename; 
-        }
-        return $imageInfo;
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStdIceInfos()
+    {
+        return $this->hasMany(StdIceInfo::className(), ['std_id' => 'std_id']);
     }
-
 }

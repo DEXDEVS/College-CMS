@@ -31,7 +31,7 @@ class StdAttendanceController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','attendance','view','update','delete','attendance','fetch-section'],
+                        'actions' => ['logout', 'index','attendance','view','update','delete','attendance','fetch-section','view-class-attendance'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -63,8 +63,8 @@ class StdAttendanceController extends Controller
     }
 
     public function beforeAction($action) {
-    $this->enableCsrfValidation = false;
-    return parent::beforeAction($action);
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 
     /**
@@ -217,9 +217,15 @@ class StdAttendanceController extends Controller
     {
         return $this->render('attendance');
     }
+
     public function actionFetchSection()
     {   
         return $this->render('fetch-section');
+    }
+
+    public function actionViewClassAttendance()
+    {   
+        return $this->render('view-class-attendance');
     }
 
     /**

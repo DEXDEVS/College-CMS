@@ -13,8 +13,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'std_id')->textInput() ?>
 
-    
-
     <?= $form->field($model, 'std_ice_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'std_ice_relation')->textInput(['maxlength' => true]) ?>

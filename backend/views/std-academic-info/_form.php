@@ -4,6 +4,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use common\models\StdPersonalInfo;
 use common\models\StdClassName;
+use common\models\StdSubjects;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StdAcademicInfo */
@@ -25,6 +26,18 @@ use common\models\StdClassName;
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
                     ['prompt'=>'']
                 )?>
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-md-8">
+                <?= $form->field($model, 'subject_combination')->dropDownList(
+                        ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name'),
+                        ['prompt'=>'Select Subject combination']
+                    )?>
+            </div>
+            <div class="col-md-4">
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i> -->
+                <?= $form->field($model, 'previous_class_rollno')->textInput() ?>
             </div>
         </div>
         <div class="row">
