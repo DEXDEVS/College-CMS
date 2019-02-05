@@ -5,6 +5,15 @@ use yii\helpers\Html;
 /* @var $content string */
 ?>
 
+<?php 
+
+    $userID = Yii::$app->user->id;
+    $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
+    // Student Photo...
+    $userPhoto = $user[0]['user_photo'];
+    //echo $photo;
+?>
+
 <header class="main-header">
 
     <?= Html::a('<span class="logo-mini"><b>SE</b></span><span class="logo-lg">' . "<b>SMART EDUCATION</b>" . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>

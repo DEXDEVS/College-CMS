@@ -19,7 +19,7 @@ class NoticeSearch extends Notice
     {
         return [
             [['notice_id', 'created_by', 'updated_by'], 'integer'],
-            [['notice_title', 'notice_description', 'notice_user_type', 'created_at', 'updated_at', 'is_status'], 'safe'],
+            [['notice_title', 'notice_description', 'notice_start', 'notice_end', 'notice_user_type', 'created_at', 'updated_at', 'is_status'], 'safe'],
         ];
     }
 
@@ -57,6 +57,8 @@ class NoticeSearch extends Notice
 
         $query->andFilterWhere([
             'notice_id' => $this->notice_id,
+            'notice_start' => $this->notice_start,
+            'notice_end' => $this->notice_end,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,

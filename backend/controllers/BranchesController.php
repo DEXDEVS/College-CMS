@@ -229,7 +229,12 @@ class BranchesController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+    //  $this->findModel($id)->delete();
+        $model = Branches::findOne($id);
+        $model->delete_status = 0;
+        $model->updated_by = Yii::$app->user->identity->id;
+        $model->updated_at = new \yii\db\Expression('NOW()');
+        $model->update();
 
         if($request->isAjax){
             /*
@@ -243,8 +248,6 @@ class BranchesController extends Controller
             */
             return $this->redirect(['index']);
         }
-
-
     }
 
      /**

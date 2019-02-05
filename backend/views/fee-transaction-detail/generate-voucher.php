@@ -35,14 +35,15 @@
 		$sessionid = $_POST["sessionid"];
 		$sectionid = $_POST["sectionid"];
 		$month = $_POST["month"];
-		$months = Yii::$app->db->createCommand("SELECT * FROM month as m RIGHT JOIN fee_transaction_head as fth ON m.month_id = fth.month WHERE fth.month = '$month'")->queryAll();
-		if(!empty($months)){
-			$monthId = $months[0]["month_id"];
-		}
-		if(!empty($months) && $month == $monthId){
 
-			$institue = Yii::$app->db->createCommand("SELECT * FROM institute ")->queryAll();
-			$branch = Yii::$app->db->createCommand("SELECT * FROM branches WHERE branch_code = 002 ")->queryAll();
+		// $months = Yii::$app->db->createCommand("SELECT * FROM month as m RIGHT JOIN fee_transaction_head as fth ON m.month_id = fth.month WHERE fth.month = '$month'")->queryAll();
+		// if(!empty($months)){
+		// 	$monthId = $months[0]["month_id"];
+		// }
+		if(!empty($month)){
+
+			$institue = Yii::$app->db->createCommand("SELECT * FROM institute")->queryAll();
+			$branch = Yii::$app->db->createCommand("SELECT * FROM branches WHERE branch_code = 001")->queryAll();
 			$className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
 			$sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
 			$sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
@@ -56,19 +57,19 @@
 	<div id="div1">
 		<div class="row">
 			<div class="col-md-4 image">
-				<img src="images/school_logo.jpg" class="image img-circle" width="65" height="65">
+				<img src="images/brookfield_logo.jpg" class="image img-circle" width="65" height="65">
 				<h2 class="h2"><?php echo $institue[0]['institute_name'] ?></h2>
 				<h4 class="h4"><?php echo $branch[0]['branch_location'] ?> | Rahim Yar Khan</h4>
 				<span class="span">Phone No: <?php echo $branch[0]['branch_contact_no'] ?></span>
 			</div>
 			<div class="col-md-4 image">
-				<img src="images/school_logo.jpg" class="image img-circle" width="65" height="65">
+				<img src="images/brookfield_logo.jpg" class="image img-circle" width="65" height="65">
 				<h2 class="h2"><?php echo $institue[0]['institute_name'] ?></h2>
 				<h4 class="h4"><?php echo $branch[0]['branch_location'] ?> | Rahim Yar Khan</h4>
 				<span class="span">Phone No: <?php echo $branch[0]['branch_contact_no'] ?></span>
 			</div>
 			<div class="col-md-4 image">
-				<img src="images/school_logo.jpg" class="image img-circle" width="65" height="65">
+				<img src="images/brookfield_logo.jpg" class="image img-circle" width="65" height="65">
 				<h2 class="h2"><?php echo $institue[0]['institute_name'] ?></h2>
 				<h4 class="h4"><?php echo $branch[0]['branch_location'] ?> | Rahim Yar Khan</h4>
 				<span class="span">Phone No: <?php echo $branch[0]['branch_contact_no'] ?></span>
@@ -78,7 +79,7 @@
 			<div class="col-md-4">
 				<div style="border: 1px solid; line-height: 2; height: 28px">
 					<p align="center">
-						<b><?php echo $months[0]["month_name"] ." - ". date('Y'); ?></b>
+						<b><?php echo $feeDetail[0]['month']; ?></b>
 					</p>
 				</div>
 				<p style="background-color: black; color: white; padding: 5px"><b>Fee Receipt / Student Copy <span style="float: right;">Voucher # <?php echo $feeDetail[0]['fee_trans_detail_head_id'] ?></span></b></p>
@@ -92,26 +93,26 @@
 			<div class="col-md-4">
 				<div style="border: 1px solid; line-height: 2; height: 28px">
 					<p align="center">
-						<b><?php echo $months[0]["month_name"] ." - ". date('Y'); ?></b>
+						<b><?php echo $feeDetail[0]['month']; ?></b>
 					</p>
 				</div>
 				<p style="background-color: black; color: white; padding: 5px"><b>Fee Receipt / Institue Copy <span style="float: right;">Voucher # <?php echo $feeDetail[0]['fee_trans_detail_head_id'] ?></span></b></p>
 				<div style="border: 1px solid; line-height: 2; padding: 5px; height: 28px; margin-top: -10px">
 					<p style="font-size: 9px;">
-						<b>The Bank of Punjab, Abu Dhabi Road RYK. &nbsp;|&nbsp;&nbsp;Account Number: <?php echo $institue[0]['institute_account_no'] ?></b>
+						<b>Account Number: <?php echo $institue[0]['institute_account_no'] ?></b>
 					</p>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div style="border: 1px solid; line-height: 2; height: 28px">
 					<p align="center">
-						<b><?php echo $months[0]["month_name"] ." - ". date('Y'); ?></b>
+						<b><?php $feeDetail[0]['month']; ?></b>
 					</p>
 				</div>
 				<p style="background-color: black; color: white; padding: 5px"><b>Fee Receipt / Bank Copy <span style="float: right;">Voucher # <?php echo $feeDetail[0]['fee_trans_detail_head_id'] ?></span></b></p>
 				<div style="border: 1px solid; line-height: 2; padding: 5px; height: 28px; margin-top: -10px">
 					<p style="font-size: 9px;">
-						<b>The Bank of Punjab, Abu Dhabi Road RYK. &nbsp;|&nbsp;&nbsp;Account Number: <?php echo $institue[0]['institute_account_no'] ?></b>
+						<b>Account Number: <?php echo $institue[0]['institute_account_no'] ?></b>
 					</p>
 				</div>
 			</div>

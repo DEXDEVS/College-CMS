@@ -10,8 +10,9 @@ use Yii;
  * @property int $notice_id
  * @property string $notice_title
  * @property string $notice_description
+ * @property string $notice_start
+ * @property string $notice_end
  * @property string $notice_user_type
- * @property string $notice_date
  * @property string $created_at
  * @property int $created_by
  * @property string $updated_at
@@ -34,9 +35,9 @@ class Notice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['notice_title', 'notice_user_type', 'is_status'], 'required'],
+            [['notice_title', 'notice_start', 'notice_end', 'notice_user_type', 'is_status'], 'required'],
             [['notice_description', 'notice_user_type', 'is_status'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['notice_start', 'notice_end', 'created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'integer'],
             [['notice_title'], 'string', 'max' => 25],
         ];
@@ -51,6 +52,8 @@ class Notice extends \yii\db\ActiveRecord
             'notice_id' => 'Notice ID',
             'notice_title' => 'Notice Title',
             'notice_description' => 'Notice Description',
+            'notice_start' => 'Notice Start',
+            'notice_end' => 'Notice End',
             'notice_user_type' => 'Notice User Type',
             'created_at' => 'Created At',
             'created_by' => 'Created By',

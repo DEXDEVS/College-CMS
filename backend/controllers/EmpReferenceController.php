@@ -200,7 +200,7 @@ class EmpReferenceController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->emp_ref_id]);
+                return $this->redirect(['emp-info/view', 'id' => $model->emp_ref_id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,

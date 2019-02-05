@@ -24,12 +24,16 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'event_start_datetime',
+        'attribute'=>'event_venue',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'event_end_datetime',
+        'attribute'=>'event_start_datetime',
     ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'event_end_datetime',
+    // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',

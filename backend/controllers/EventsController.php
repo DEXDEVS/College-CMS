@@ -8,7 +8,6 @@ use common\models\EventsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use \yii\web\Response;
 use yii\helpers\Html;
 
@@ -23,20 +22,6 @@ class EventsController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -78,7 +63,7 @@ class EventsController extends Controller
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
                 ];    
         }else{
@@ -110,22 +95,27 @@ class EventsController extends Controller
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
             }else if($model->load($request->post())){
                 $model->created_by = Yii::$app->user->identity->id; 
                 $model->created_at = new \yii\db\Expression('NOW()');
+<<<<<<< HEAD
                 $model->updated_by = '0';
                 $model->updated_at = '0'; 
+=======
+                $model->updated_by = '0'; 
+                $model->updated_at = '0';
+>>>>>>> dd7a2057189860c208d096ee448a4fa90ed03cca
                 $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new Events",
                     'content'=>'<span class="text-success">Create Events success</span>',
-                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-success','role'=>'modal-remote'])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
@@ -134,8 +124,8 @@ class EventsController extends Controller
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
             }
@@ -177,14 +167,21 @@ class EventsController extends Controller
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
+<<<<<<< HEAD
                 $model->created_by = Yii::$app->user->identity->id; 
                 $model->created_at = new \yii\db\Expression('NOW()');
                 $model->updated_by = '0';
                 $model->updated_at = '0'; 
+=======
+                $model->updated_by = Yii::$app->user->identity->id;
+                $model->updated_at = new \yii\db\Expression('NOW()');
+                $model->created_by = $model->created_by;
+                $model->created_at = $model->created_at;
+>>>>>>> dd7a2057189860c208d096ee448a4fa90ed03cca
                 $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
@@ -192,8 +189,8 @@ class EventsController extends Controller
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-success','role'=>'modal-remote'])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
                 ];    
             }else{
                  return [
@@ -201,8 +198,8 @@ class EventsController extends Controller
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];        
             }
         }else{

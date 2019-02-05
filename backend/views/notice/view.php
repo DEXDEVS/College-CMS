@@ -13,6 +13,8 @@ use yii\widgets\DetailView;
             'notice_id',
             'notice_title',
             'notice_description:ntext',
+            'notice_start',
+            'notice_end',
             'notice_user_type',
             'created_at',
             'created_by',

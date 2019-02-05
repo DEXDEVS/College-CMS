@@ -8,7 +8,11 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="std-personal-info-form">
+<<<<<<< HEAD
 
+=======
+    <h3 class="well well-sm label-primary" style="margin-top: -10px;">Update Student Personal Info</h3>
+>>>>>>> dd7a2057189860c208d096ee448a4fa90ed03cca
     <?php $form = ActiveForm::begin(); ?>
 
 <!-- personal info -->
