@@ -102,8 +102,13 @@ class EventsController extends Controller
             }else if($model->load($request->post())){
                 $model->created_by = Yii::$app->user->identity->id; 
                 $model->created_at = new \yii\db\Expression('NOW()');
+<<<<<<< HEAD
+                $model->updated_by = '0';
+                $model->updated_at = '0'; 
+=======
                 $model->updated_by = '0'; 
                 $model->updated_at = '0';
+>>>>>>> dd7a2057189860c208d096ee448a4fa90ed03cca
                 $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
@@ -166,10 +171,17 @@ class EventsController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
+<<<<<<< HEAD
+                $model->created_by = Yii::$app->user->identity->id; 
+                $model->created_at = new \yii\db\Expression('NOW()');
+                $model->updated_by = '0';
+                $model->updated_at = '0'; 
+=======
                 $model->updated_by = Yii::$app->user->identity->id;
                 $model->updated_at = new \yii\db\Expression('NOW()');
                 $model->created_by = $model->created_by;
                 $model->created_at = $model->created_at;
+>>>>>>> dd7a2057189860c208d096ee448a4fa90ed03cca
                 $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',

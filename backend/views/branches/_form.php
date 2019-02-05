@@ -14,6 +14,8 @@ use common\models\Institute;
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="row">
+        <!-- <div class="col-md-6"> -->
+
         <div class="col-md-4">
             <span style="color:red; position: absolute; left: 120px"><b>*</b></span>
             <?= $form->field($model, 'institute_id')->dropDownList(
