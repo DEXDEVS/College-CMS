@@ -14,13 +14,16 @@
         $issueDate = $_POST["issue_date"];
         $dueDate   = $_POST["due_date"];
         $message   = $_POST["message"];
-
+        // change the format of dates....
+        $issueDate  = date('d-m-Y', strtotime($issueDate));
+        $dueDate  = date('d-m-Y', strtotime($dueDate)); 
+        
   //       $months = Yii::$app->db->createCommand("SELECT * FROM month as m RIGHT JOIN fee_transaction_head as fth ON m.month_id = fth.month WHERE fth.month = '$month'")->queryAll();
 		// if(!empty($months)){
 		// 	$monthId = $months[0]["month_id"];
 		// }
 		if(!empty($month)){
-        $institue = Yii::$app->db->createCommand("SELECT * FROM institute ")->queryAll();
+        $institue = Yii::$app->db->createCommand("SELECT * FROM institute WHERE institute_id = 2")->queryAll();
 		$branch = Yii::$app->db->createCommand("SELECT * FROM branches WHERE branch_code = 002 ")->queryAll();
         // Select CLass...
         $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();

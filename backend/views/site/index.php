@@ -3,9 +3,7 @@
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 /* @var $this yii\web\View */
-
 //$this->title = 'SMART EDUCATION';
 ?>
 
@@ -40,7 +38,6 @@ use yii\helpers\Url;
               $query = (new \yii\db\Query())->from('emp_info');
               $id = $query->count('emp_id'); ?>
               <h3><?php echo $id; ?> </h3>
-
               <p>Employee Registrations</p>
             </div>
             <div class="icon">
@@ -58,7 +55,6 @@ use yii\helpers\Url;
               $query = (new \yii\db\Query())->from('user');
               $id = $query->count('id'); ?>
               <h3><?php echo $id; ?> </h3>
-
               <p>User Registrations</p>
             </div>
             <div class="icon">
@@ -73,7 +69,6 @@ use yii\helpers\Url;
           <div class="small-box bg-red">
             <div class="inner">
               <h3>65</h3>
-
               <p>Unique Visitors</p>
             </div>
             <div class="icon">
@@ -91,7 +86,6 @@ use yii\helpers\Url;
         <div class="col-md-12 col-sm-6 col-xs-12">
           <div class="info-box bg-navy callout-warning">
             <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
-
             <div class="info-box-content">
               <h4 style="float: left;">Message of the day!</h4>  
               <h4 style="float:right"><?php echo date('D d-M-Y');?></h4>
@@ -109,7 +103,6 @@ use yii\helpers\Url;
                       ?>
                     </marquee>
                 </span>
-
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -143,18 +136,6 @@ use yii\helpers\Url;
                   Students
                 </a>
               </li>
-              <!-- <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  Dropdown <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                </ul>
-              </li> -->
               <li class="pull-left header"><i class="fa fa-inbox" style="color: #3C8DBC;"></i><span style="color: #3C8DBC;">Notice Board</span></li>
             </ul>
             <?php 
@@ -396,8 +377,8 @@ use yii\helpers\Url;
               <!-- ***************** -->
               <!-- student tab start -->
               <?php 
-                $date = date('2019-01-31');
-                $upcomingEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) =  '$date'")->queryAll();
+                $date = date('Y-m-d');
+                $upcomingEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) = '$date' OR CAST(event_end_datetime AS DATE) >= '$date'")->queryAll();
               ?> 
               <div class="tab-pane" id="upcoming">
               <?php if(!empty($upcomingEvent)) { ?> 

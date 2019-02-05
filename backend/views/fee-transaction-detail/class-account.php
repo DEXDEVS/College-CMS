@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container-fluid" style="margin-top: -30px;">
-	<h1 class="well well-sm" align="center">Manage Class Fee Accounts</h1>
+	<h1 class="well well-sm" align="center" style="color: #3C8DBC;">Manage Class Fee Accounts</h1>
     <form method="POST">
         <div class="row">
             <div class="col-md-4">
@@ -75,9 +75,9 @@
                     <input type="date" class="form-control" name="date">     
                 </div>    
             </div> 
-            <div class="col-md-2 col-md-offset-1">
+            <div class="col-md-4">
                 <div class="form-group" style="margin-top: 24px;">
-                    <button type="submit" name="submit" class="btn btn-info btn-flat btn-block"><i class="fa fa-check-square-o" aria-hidden="true"></i> Get Class</button>
+                    <button type="submit" name="submit" class="btn btn-success btn-flat btn-block"><i class="fa fa-check-square-o" aria-hidden="true"></i> Get Class</button>
                 </div>    
             </div>
         </div>
@@ -188,20 +188,20 @@
 		<div class="row">
 			<div class="col-md-4">
                 <div class="form-group">
-                    
-                        <?php foreach ($studentId as $value) {
+                    <?php 
+                        foreach ($studentId as $value) {
                             echo '<input type="hidden" name="studentId[]" value="'.$value.'">';
                         }
                         foreach ($studentName as $value) {
                             echo '<input type="hidden" name="studentName[]" value="'.$value.'">';
                         }
-                        ?>
-                        <input type="hidden" name="length" value="<?php echo $length; ?>">
-                        <input type="hidden" name="classid" value="<?php echo $classid; ?>">
-                        <input type="hidden" name="sessionid" value="<?php echo $sessionid; ?>">
-                        <input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
-                        <input type="hidden" name="month" value="<?php echo $month; ?>">
-                        <input type="hidden" name="date" value="<?php echo $date; ?>">
+                    ?>
+                    <input type="hidden" name="length" value="<?php echo $length; ?>">
+                    <input type="hidden" name="classid" value="<?php echo $classid; ?>">
+                    <input type="hidden" name="sessionid" value="<?php echo $sessionid; ?>">
+                    <input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
+                    <input type="hidden" name="month" value="<?php echo $month; ?>">
+                    <input type="hidden" name="date" value="<?php echo $date; ?>">
                     <button type="submit" name="save" class="btn btn-success btn-flat"><i class="fa fa fa-sign-in" aria-hidden="true"></i> Submit</button>
                 </div>    
             </div>
@@ -302,6 +302,12 @@
                                 }
                     //end of for loop
                     }
+                    echo 
+                        "<div class='row' style='margin:0px -10px 0px 15px;'>
+                            <div class='col-md-12 alert alert-success text-success' style='text-align: center'>
+                                <p>You have <b>Successfully </b>maintain this class account....!</p>
+                            </div>
+                        </div>";
                  // end of if
                 } else {
                     for ($i=0; $i <$length ; $i++) { 
