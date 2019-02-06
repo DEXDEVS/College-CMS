@@ -7,7 +7,7 @@
 <body>
 <div class="container-fluid" style="margin-top: -30px;">
 	<h1 class="well well-sm" align="center">Generate Voucher</h1>
-    <form  action = "index.php?r=fee-transaction-detail/generate-voucher" method="POST">
+    <form  action = "index.php?r=fee-transaction-detail/voucher" method="POST">
     	<div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -16,14 +16,13 @@
             </div>    
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Class</label>
                     <select class="form-control" name="classid" id="classId">
 							<?php 
 								$className = Yii::$app->db->createCommand("SELECT * FROM std_class_name where delete_status=1")->queryAll();
-								
-								  	foreach ($className as  $value) { ?>	
+								    foreach ($className as  $value) { ?>	
 									<option value="<?php echo $value["class_name_id"]; ?>">
 										<?php echo $value["class_name"]; ?>	
 									</option>
@@ -31,7 +30,7 @@
 					</select>      
                 </div>    
             </div>  
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Session</label>
                     <select class="form-control" name="sessionid" id="sessionId">
@@ -46,18 +45,22 @@
 					</select>      
                 </div>    
             </div>  
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Section</label>
                     <select class="form-control" name="sectionid" id="section" >
                     		<option value="">Select Section</option>
 					</select>      
                 </div>    
-            </div>              
-            <div class="col-md-3">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Month</label>
-                    <select class="form-control" name="month">
+                    <input type="month" class="form-control" name="month">
+                    <!-- <select class="form-control" name="month">
 						<option value="1">January</option>
 						<option value="2">Fabruary</option>
 						<option value="3">March</option>
@@ -70,14 +73,37 @@
 						<option value="10">October</option>
 						<option value="11">November</option>
 						<option value="12">December</option>
-					</select>      
+					</select>   -->    
                 </div>    
             </div>    
-        </div>
-		<div class="row">
-			<div class="col-md-4">
+            
+            <div class="col-md-4">
                 <div class="form-group">
-                    <button type="submit" name="submit" class="btn btn-info">Submit</button>
+                    <label>Issue Date</label>
+                    <input type="date" name="issue_date" class="form-control">
+                </div>    
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Issue Date</label>
+                    <input type="date" name="due_date" class="form-control">
+                </div>    
+            </div>
+
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="1" name="message" class="form-control"></textarea>
+                </div>    
+            </div>
+		
+			<div class="col-md-4" style="margin-top: 25px;">
+                <div class="form-group">
+                    <button type="submit" name="submit" class="btn btn-success btn-block btn-flat">
+                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                        Generate Voucher
+                    </button>
                 </div>    
             </div>
 		</div>

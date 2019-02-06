@@ -35,9 +35,9 @@ class Events extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_title', 'event_detail', 'event_venue', 'event_start_datetime', 'event_end_datetime', 'is_status'], 'required'],
-            [['event_detail', 'is_status'], 'string'],
-            [['event_start_datetime', 'event_end_datetime', 'created_at', 'created_by'], 'safe'],
+            [['event_title', 'event_detail', 'event_start_datetime', 'event_end_datetime', 'created_at', 'created_by'], 'required'],
+            [['event_detail'], 'string'],
+            [['event_start_datetime', 'event_end_datetime', 'created_at', 'updated_at', 'is_status'], 'safe'],
             [['created_by', 'updated_by'], 'integer'],
             [['event_title'], 'string', 'max' => 80],
             [['event_venue'], 'string', 'max' => 100],

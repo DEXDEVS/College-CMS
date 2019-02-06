@@ -179,20 +179,20 @@ use common\models\StdSubjects;
     <!-- Guardian Info end -->
     <hr>
     
+    <!-- Academic Info -->
     <div style="border: 2px solid #EC971F; padding: 15px;">
-        <!-- Aca demic Info -->
         <h3 style="color: #EC971F; margin-top: -10px"> Academic Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i>
-                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i> -->
+                    <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
                     ['prompt'=>'' , 'id'=> 'classId']
                 )?>
             </div>
             <div class="col-md-8">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 158px; top: 6px"></i>
-                <?= $form->field($stdAcademicInfo, 'subject_combination')->dropDownList(
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 158px; top: 6px"></i> -->
+                    <?= $form->field($stdAcademicInfo, 'subject_combination')->dropDownList(
                         ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name'),
                         ['prompt'=>'Select Subject combination']
                     )?>
@@ -200,16 +200,16 @@ use common\models\StdSubjects;
         </div>
         <div class="row">
             <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 118px; top: 6px"></i>
-                <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true]) ?>
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 118px; top: 6px"></i> -->
+                    <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput() ?>
+                    <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput() ?>
             </div>
             <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 106px; top: 6px"></i>
-               <?= $form->field($stdAcademicInfo, 'passing_year')->textInput(['maxlength' => true]) ?>
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 106px; top: 6px"></i> -->
+                    <?= $form->field($stdAcademicInfo, 'passing_year')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
         <div class="row">
@@ -223,25 +223,26 @@ use common\models\StdSubjects;
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 94px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'percentage')->textInput() ?>    
+                <?= $form->field($stdAcademicInfo, 'percentage')->textInput() ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 66px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'grades')->textInput() ?>  
+                <?= $form->field($stdAcademicInfo, 'grades')->textInput() ?>
             </div>
             <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 71px; top: 6px"></i>
-                <?= $form->field($stdAcademicInfo, 'Institute')->textInput(['maxlength' => true]) ?>
+                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 71px; top: 6px"></i> -->
+                    <?= $form->field($stdAcademicInfo, 'Institute')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
     </div>
     <hr>
-        <!-- Academic Info end -->
+    <!-- Academic Info end -->
 
-        <div style="border: 2px solid red; padding: 15px;">
-            <!-- Fee detail start -->
+    <!-- Fee detail start -->
+    <div style="border: 2px solid red; padding: 15px;">
+    
         <h3 style="color: red; margin-top: -10px"> Fee Detail <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-3">
@@ -294,8 +295,8 @@ use common\models\StdSubjects;
                 <?= $form->field($stdFeeDetails, 'net_tuition_fee')->textInput(['type' => 'number','id' => 'netTuitionFee','readonly'=> true, 'onfocus' => 'showNetTuitionFee();' ]) ?>
             </div>
         </div>
-        <!-- Fee detail end -->
     </div>
+    <!-- Fee detail end -->
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

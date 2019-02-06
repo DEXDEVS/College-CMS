@@ -45,7 +45,7 @@
                 'items' => [
                     ['label' => 'Menus', 'options' => ['class' => 'header center']],
                     ['label' => 'Home', 'icon' => 'dashboard', 'url' => 'index.php'],
-                    ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
+                    //['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     // ------------------------------------------------
                     // System Sesstings start...
@@ -76,7 +76,7 @@
                             ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sessions',],
                             ['label' => 'Sections', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sections',],
                             ['label' => 'Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
-                            ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => 'index.php?r=std-enrollment-head',],
+                            ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => 'index.php?r=std-enrollment-detail',],
                             ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-detail',],
                         ],
                     ],

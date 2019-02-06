@@ -11,14 +11,19 @@
         $sessionid = $_POST["sessionid"];
         $sectionid = $_POST["sectionid"];
         $month     = $_POST["month"];
-        $date      = $_POST["date"];
-
-        $months = Yii::$app->db->createCommand("SELECT * FROM month as m RIGHT JOIN fee_transaction_head as fth ON m.month_id = fth.month WHERE fth.month = '$month'")->queryAll();
-		if(!empty($months)){
-			$monthId = $months[0]["month_id"];
-		}
-		if(!empty($months) && $month == $monthId){
-        $institue = Yii::$app->db->createCommand("SELECT * FROM institute ")->queryAll();
+        $issueDate = $_POST["issue_date"];
+        $dueDate   = $_POST["due_date"];
+        $message   = $_POST["message"];
+        // change the format of dates....
+        $issueDate  = date('d-m-Y', strtotime($issueDate));
+        $dueDate  = date('d-m-Y', strtotime($dueDate)); 
+        
+  //       $months = Yii::$app->db->createCommand("SELECT * FROM month as m RIGHT JOIN fee_transaction_head as fth ON m.month_id = fth.month WHERE fth.month = '$month'")->queryAll();
+		// if(!empty($months)){
+		// 	$monthId = $months[0]["month_id"];
+		// }
+		if(!empty($month)){
+        $institue = Yii::$app->db->createCommand("SELECT * FROM institute WHERE institute_id = 2")->queryAll();
 		$branch = Yii::$app->db->createCommand("SELECT * FROM branches WHERE branch_code = 002 ")->queryAll();
         // Select CLass...
         $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
@@ -30,7 +35,7 @@
         $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
         foreach ($student as $id =>$value) {
 				$stdInfo = Yii::$app->db->createCommand("SELECT std_name , std_father_name  FROM std_personal_info WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
-				$feeDetail = Yii::$app->db->createCommand("SELECT *  FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$value[std_enroll_detail_std_id]' AND fth.month = '$month'")->queryAll();
+				$feeDetail = Yii::$app->db->createCommand("SELECT * FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$value[std_enroll_detail_std_id]' AND fth.month = '$month'")->queryAll();
 				$feeType = Yii::$app->db->createCommand("SELECT fee_type_id,fee_type_name  FROM fee_type")->queryAll();
     ?>
 
@@ -44,7 +49,7 @@
 		<div class="col-md-<?php echo $j; ?>" style="border-right: black dotted 1px;">
 			<div class="row">
 				<div class="col-md-3">
-					<img src="images/brookfield_logo.jpg" class="img-circle img-responsive" style="float: left;" height="110px" width="130px" >
+					<img src="images/brookfield_logo.jpg" class="img-circle img-responsive" style="float: left;" width="100px" >
 				</div>
 				<div class="col-md-9">
 					<h3>
@@ -69,7 +74,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b style="float: left;">Voucher # : </b><?php echo $feeDetail[0]['fee_trans_detail_head_id'] ?>
+						<b style="float: left;">Voucher # : </b><?php // echo $feeDetail[0]['fee_trans_detail_head_id'] ?>
 						<span style="float: right;"><b>Session: </b><?php echo $sessionName[0]['session_name'];?></span>
 					</p>
 				</div>
@@ -78,8 +83,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b style="float: left;">Issue Date: </b><?php echo $date; ?>
-						<span style="float: right"><b>Due Date: </b>10-Jan-2019</span>
+						<b style="float: left;">Issue Date: &nbsp;</b><?php echo $issueDate; ?>
+						<span style="float: right"><b>Due Date: </b><?php echo $dueDate; ?></span>
 					</p>
 				</div>
 			</div>
@@ -87,7 +92,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b>Voucher Month: </b><?php echo $months[0]["month_name"] ." - ". date('Y'); ?>
+						<b>Voucher Month: </b><?php // echo $months[0]["month_name"] ." - ". date('Y'); ?>
 					</p>
 				</div>
 			</div>
@@ -180,7 +185,7 @@
 			<div class="row">
 				<div class="col-md-12" style="margin-top: -25px;">
 					<h6><b>MESSAGE:</b></h6>
-					<textarea class="form-control border-dark" rows="2"></textarea>
+					<textarea class="form-control border-dark" rows="2"><?php echo $message; ?></textarea>
 				</div>
 			</div>
 
@@ -213,7 +218,7 @@
 					<p style="border: 1px outset;">Devleoped By: <b><i>DEXTEROUS DEVELOPERS</i></b><br> (www.dexdevs.com)</p>
 				</div>
 			</div>
-			<br><br><br>
+			<br>
 		</div>
 		<?php } ?>
 	</div>

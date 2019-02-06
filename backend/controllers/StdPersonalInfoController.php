@@ -104,9 +104,9 @@ class StdPersonalInfoController extends Controller
     {
         $request = Yii::$app->request;
         $model = new StdPersonalInfo();  
-        $stdGuardianInfo = new StdGuardianInfo;
-        $stdIceInfo = new StdIceInfo;
-        $stdAcademicInfo = new StdAcademicInfo;
+        $stdGuardianInfo = new StdGuardianInfo();
+        $stdIceInfo = new StdIceInfo();
+        $stdAcademicInfo = new StdAcademicInfo();
         $stdFeeDetails = new StdFeeDetails();
 
         if($request->isAjax){

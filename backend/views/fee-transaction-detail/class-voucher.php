@@ -22,7 +22,6 @@
                     <select class="form-control" name="classid" id="classId">
                             <?php 
                                 $className = Yii::$app->db->createCommand("SELECT * FROM std_class_name where delete_status=1")->queryAll();
-                                
                                     foreach ($className as  $value) { ?>    
                                     <option value="<?php echo $value["class_name_id"]; ?>">
                                         <?php echo $value["class_name"]; ?> 
