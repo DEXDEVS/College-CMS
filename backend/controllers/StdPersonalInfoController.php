@@ -126,7 +126,7 @@ class StdPersonalInfoController extends Controller
                         'stdFeeDetails' => $stdFeeDetails,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
+                                Html::button('Save',['class'=>'btn btn-info','type'=>"submit",'id'=>'save'])
         
                 ];         
             }else if($model->load($request->post()) && $stdGuardianInfo->load($request->post()) && $stdIceInfo->load($request->post()) && $stdAcademicInfo->load($request->post()) && $stdFeeDetails->load($request->post())){
@@ -160,6 +160,7 @@ class StdPersonalInfoController extends Controller
                         $stdIceInfo->save();
 
                         $stdAcademicInfo->std_id = $model->std_id;
+                        $stdAcademicInfo->std_enroll_status = 'unsign'; 
                         $stdAcademicInfo->created_by = Yii::$app->user->identity->id; 
                         $stdAcademicInfo->created_at = new \yii\db\Expression('NOW()');
                         $stdAcademicInfo->updated_by = '0'; 
@@ -231,7 +232,7 @@ class StdPersonalInfoController extends Controller
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
+                                Html::button('Save',['class'=>'btn btn-info','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
                 $stdPersonalInfo = Yii::$app->db->createCommand("SELECT std_photo FROM std_personal_info where std_id = $id")->queryAll();

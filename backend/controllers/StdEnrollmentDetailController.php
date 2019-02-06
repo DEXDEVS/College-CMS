@@ -32,7 +32,7 @@ class StdEnrollmentDetailController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete','bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete','bulk-delete','fetch-students'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -118,35 +118,61 @@ class StdEnrollmentDetailController extends Controller
         
                 ];         
             }else if($stdEnrollmentHead->load($request->post()) && $model->load($request->post())){
+                $std_enrollment_head = Yii::$app->db->createCommand("SELECT * FROM std_enrollment_head where class_name_id = $stdEnrollmentHead->class_name_id AND session_id = $stdEnrollmentHead->session_id AND section_id = $stdEnrollmentHead->section_id")->queryAll();
+                if(!empty($std_enrollment_head)){
+                    $std_enrollment_head_id = $std_enrollment_head[0]['std_enroll_head_id'];
+                    // select2 add multiple students start...!
+                    $array = $model->std_enroll_detail_std_id;
+                    foreach ($array as  $value) {
+                        $model = new StdEnrollmentDetail();
+                        $model->std_enroll_detail_head_id = $std_enrollment_head_id;
+                        $model->std_enroll_detail_std_id = $value;
+                        $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info WHERE std_id = '$value'")->queryAll();
+                        $model->std_enroll_detail_std_name = $stdName[0]['std_name'];
 
-                $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name where class_name_id = $stdEnrollmentHead->class_name_id")->queryAll();
-                $session = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions where session_id = $stdEnrollmentHead->session_id")->queryAll();
-                $section = Yii::$app->db->createCommand("SELECT section_name FROM std_sections where section_id = $stdEnrollmentHead->section_id")->queryAll();
-                                    
-                $stdEnrollmentHead->std_enroll_head_name = $className[0]['class_name'].'-'.$session[0]['session_name'].'-'.$section[0]['section_name'];
-                $stdEnrollmentHead->created_by = Yii::$app->user->identity->id; 
-                $stdEnrollmentHead->created_at = new \yii\db\Expression('NOW()');
-                $stdEnrollmentHead->updated_by = '0';
-                $stdEnrollmentHead->updated_at = '0'; 
-                $stdEnrollmentHead->save();
+                        // select2 add multiple students end...!    
+                        $std_enroll_status = 'signed';
+                        $updateStdAcademicInfo = Yii::$app->db->createCommand()->update('std_academic_info', ['std_enroll_status' => $std_enroll_status])->execute();
+                        // created and updated values...
+                        $model->created_by = Yii::$app->user->identity->id; 
+                        $model->created_at = new \yii\db\Expression('NOW()');
+                        $model->updated_by = '0';
+                        $model->updated_at = '0'; 
+                        $model->save();
+                    }    
+                }
+                else {
+                    $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name where class_name_id = $stdEnrollmentHead->class_name_id")->queryAll();
 
-                // select2 add multiple students start...!
-                $array = $model->std_enroll_detail_std_id;
-                foreach ($array as  $value) {
-                    $model = new StdEnrollmentDetail();
-                    $model->std_enroll_detail_head_id = $stdEnrollmentHead->std_enroll_head_id;
-                    $model->std_enroll_detail_std_id = $value;
-                    $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info WHERE std_id = '$value'")->queryAll();
-                    $model->std_enroll_detail_std_name = $stdName[0]['std_name'];
+                    $session = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions where session_id = $stdEnrollmentHead->session_id")->queryAll();
+                    $section = Yii::$app->db->createCommand("SELECT section_name FROM std_sections where section_id = $stdEnrollmentHead->section_id")->queryAll();
+                                        
+                    $stdEnrollmentHead->std_enroll_head_name = $className[0]['class_name'].'-'.$session[0]['session_name'].'-'.$section[0]['section_name'];
+                    $stdEnrollmentHead->created_by = Yii::$app->user->identity->id; 
+                    $stdEnrollmentHead->created_at = new \yii\db\Expression('NOW()');
+                    $stdEnrollmentHead->updated_by = '0';
+                    $stdEnrollmentHead->updated_at = '0'; 
+                    $stdEnrollmentHead->save();
 
-                // select2 add multiple students end...!    
+                    // select2 add multiple students start...!
+                    $array = $model->std_enroll_detail_std_id;
+                    foreach ($array as  $value) {
+                        $model = new StdEnrollmentDetail();
+                        $model->std_enroll_detail_head_id = $stdEnrollmentHead->std_enroll_head_id;
+                        $model->std_enroll_detail_std_id = $value;
+                        $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info WHERE std_id = '$value'")->queryAll();
+                        $model->std_enroll_detail_std_name = $stdName[0]['std_name'];
 
-                    // created and updated values...
-                    $model->created_by = Yii::$app->user->identity->id; 
-                    $model->created_at = new \yii\db\Expression('NOW()');
-                    $model->updated_by = '0';
-                    $model->updated_at = '0'; 
-                    $model->save();
+                        // select2 add multiple students end...!    
+                        $std_enroll_status = 'signed';
+                        $updateStdAcademicInfo = Yii::$app->db->createCommand()->update('std_academic_info', ['std_enroll_status' => $std_enroll_status])->execute();
+                        // created and updated values...
+                        $model->created_by = Yii::$app->user->identity->id; 
+                        $model->created_at = new \yii\db\Expression('NOW()');
+                        $model->updated_by = '0';
+                        $model->updated_at = '0'; 
+                        $model->save();
+                    }
                 }
                 
                 return [
@@ -281,6 +307,12 @@ class StdEnrollmentDetailController extends Controller
      * @param integer $id
      * @return mixed
      */
+
+    public function actionFetchStudents()
+    {   
+        return $this->render('fetch-students');
+    }
+
     public function actionDelete($id)
     {
         $request = Yii::$app->request;

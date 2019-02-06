@@ -115,6 +115,7 @@ class StdAcademicInfoController extends Controller
         
                 ];         
             }else if($model->load($request->post())){
+                $model->std_enroll_status = 'unsign'; 
                 $model->created_by = Yii::$app->user->identity->id; 
                 $model->created_at = new \yii\db\Expression('NOW()');
                 $model->updated_by = '0';
@@ -181,6 +182,7 @@ class StdAcademicInfoController extends Controller
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
+                $model->std_enroll_status = $model->std_enroll_status; 
                 $model->updated_by = Yii::$app->user->identity->id;
                 $model->updated_at = new \yii\db\Expression('NOW()');
                 $model->created_by = $model->created_by;

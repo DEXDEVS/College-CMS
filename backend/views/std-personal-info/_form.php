@@ -187,7 +187,7 @@ use common\models\StdSubjects;
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i>
                  <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
-                    ['prompt'=>'']
+                    ['prompt'=>'' , 'id'=> 'classId']
                 )?>
             </div>
             <div class="col-md-8">
@@ -215,21 +215,21 @@ use common\models\StdSubjects;
         <div class="row">
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 122px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>
+                <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput() ?>
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 95px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'total_marks')->textInput(['id'=>'totalMarks']) ?> 
+                <?= $form->field($stdAcademicInfo, 'total_marks')->textInput() ?> 
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 94px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'percentage')->textInput(['id'=>'percentage', 'readonly' => true]) ?>    
+                <?= $form->field($stdAcademicInfo, 'percentage')->textInput() ?>    
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 66px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'grades')->textInput(['id'=>'grade', 'readonly' => true]) ?>  
+                <?= $form->field($stdAcademicInfo, 'grades')->textInput() ?>  
             </div>
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 71px; top: 6px"></i>
@@ -327,7 +327,6 @@ use common\models\StdSubjects;
 	   	var percentage = ((parseInt(obtainedMarks) / parseInt(totalMarks))*100);
         var per = Math.round(percentage)+'%';
 	   	$('#percentage').val(per);
-	   	//$('#grade').val(percentage);
 	});
 
 	// calculate percentage....
@@ -422,6 +421,7 @@ $('#sessionId').on('change',function(){
         url: "$url",
 
         success: function(result){
+            
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
             var addmissionFee = jsonResult['admission_fee'];
             var monthlyFee = jsonResult['tutuion_fee'];
@@ -430,6 +430,18 @@ $('#sessionId').on('change',function(){
         }         
     });       
 });
+// $('#sessionId').on('click',function(){
+// var totalMarks = $('#totalMarks').val();
+// var obtainedMarks = $('#obtainedMarks').val(); 
+// var percentage = $('#percentage').val();
+// var grade = $('#grade').val(); 
+
+  
+// alert(totalMarks);
+//    alert(obtainedMarks);
+//    alert(percentage);
+//    alert(grade);
+// });
 JS;
 $this->registerJs($script);
 ?>
