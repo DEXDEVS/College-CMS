@@ -132,7 +132,7 @@ class StdEnrollmentDetailController extends Controller
 
                         // select2 add multiple students end...!    
                         $std_enroll_status = 'signed';
-                        $updateStdAcademicInfo = Yii::$app->db->createCommand()->update('std_academic_info', ['std_enroll_status' => $std_enroll_status])->execute();
+                        $updateStdAcademicInfo = Yii::$app->db->createCommand()->update('std_academic_info', ['std_enroll_status' => $std_enroll_status, 'std_id' = $value])->execute();
                         // created and updated values...
                         $model->created_by = Yii::$app->user->identity->id; 
                         $model->created_at = new \yii\db\Expression('NOW()');
@@ -165,7 +165,7 @@ class StdEnrollmentDetailController extends Controller
 
                         // select2 add multiple students end...!    
                         $std_enroll_status = 'signed';
-                        $updateStdAcademicInfo = Yii::$app->db->createCommand()->update('std_academic_info', ['std_enroll_status' => $std_enroll_status])->execute();
+                        $updateStdAcademicInfo = Yii::$app->db->createCommand()->update('std_academic_info', ['std_enroll_status' => $std_enroll_status, 'std_id' = $value])->execute();
                         // created and updated values...
                         $model->created_by = Yii::$app->user->identity->id; 
                         $model->created_at = new \yii\db\Expression('NOW()');
