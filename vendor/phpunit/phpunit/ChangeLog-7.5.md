@@ -2,6 +2,16 @@
 
 All notable changes of the PHPUnit 7.5 release series are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [7.5.3] - 2019-02-01
+
+### Fixed
+
+* Fixed [#3490](https://github.com/sebastianbergmann/phpunit/pull/3490): Exceptions in `tearDownAfterClass()` kill PHPUnit
+
+### Deprecated
+
+* The method `assertArraySubset()` is now deprecated. There is no behavioral change in this version of PHPUnit. Using this method will trigger a deprecation warning in PHPUnit 8 and in PHPUnit 9 this method will be removed.
+
 ## [7.5.2] - 2019-01-15
 
 ### Fixed
@@ -40,6 +50,7 @@ All notable changes of the PHPUnit 7.5 release series are documented in this fil
 * Fixed [#3429](https://github.com/sebastianbergmann/phpunit/pull/3429): Inefficient loop in `getHookMethods()`
 * Fixed [#3437](https://github.com/sebastianbergmann/phpunit/pull/3437): JUnit logger skips PHPT tests
 
+[7.5.3]: https://github.com/sebastianbergmann/phpunit/compare/7.5.2...7.5.3
 [7.5.2]: https://github.com/sebastianbergmann/phpunit/compare/7.5.1...7.5.2
 [7.5.1]: https://github.com/sebastianbergmann/phpunit/compare/7.5.0...7.5.1
 [7.5.0]: https://github.com/sebastianbergmann/phpunit/compare/7.4.5...7.5.0

@@ -36,10 +36,12 @@ class Institute extends \yii\db\ActiveRecord
     {
         return [
             [['institute_name', 'institute_logo', 'institute_account_no', 'created_by', 'updated_by'], 'required'],
-            [['institute_account_no', 'created_by', 'updated_by'], 'integer'],
+
+            [['created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['institute_name'], 'string', 'max' => 65],
             [['institute_logo'], 'string', 'max' => 200],
+            [['institute_account_no'], 'string', 'max' => 200],
         ];
     }
 

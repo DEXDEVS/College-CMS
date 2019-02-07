@@ -18,8 +18,8 @@ class BranchesSearch extends Branches
     public function rules()
     {
         return [
-            [['branch_id', 'institute_id', 'created_by', 'updated_by'], 'integer'],
-            [['branch_code', 'branch_name', 'branch_type', 'branch_location', 'branch_contact_no', 'branch_email', 'status', 'branch_head_name', 'branch_head_contact_no', 'branch_head_email', 'created_at', 'updated_at'], 'safe'],
+            [['branch_id', 'created_by', 'updated_by'], 'integer'],
+            [['branch_code', 'institute_id', 'branch_name', 'branch_type', 'branch_location', 'branch_contact_no', 'branch_email', 'status', 'branch_head_name', 'branch_head_contact_no', 'branch_head_email', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -55,8 +55,13 @@ class BranchesSearch extends Branches
             return $dataProvider;
         }
 
-        // $query->joinWith('institute');
-        // $query->andFilterWhere([
+         $query->with('institute');
+
+
+        //  ('Left Outter Join', 
+        //                 'institute',
+        //                 'institute.institute_id =Branches.institute_id');
+        // // $query->andFilterWhere([
         //     'branch_id' => $this->branch_id,
         //     'institute.institute_name' => $this->institute_id,
         //     'created_at' => $this->created_at,
@@ -66,6 +71,7 @@ class BranchesSearch extends Branches
         // ]);
 
         $query->andFilterWhere(['like', 'branch_code', $this->branch_code])
+            //->andFilterWhere(['like', 'institute.institute_id', $this->institute_id])
             ->andFilterWhere(['like', 'branch_name', $this->branch_name])
             ->andFilterWhere(['like', 'branch_type', $this->branch_type])
             ->andFilterWhere(['like', 'branch_location', $this->branch_location])
@@ -74,8 +80,8 @@ class BranchesSearch extends Branches
             ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'branch_head_name', $this->branch_head_name])
             ->andFilterWhere(['like', 'branch_head_contact_no', $this->branch_head_contact_no])
-            ->andFilterWhere(['like', 'branch_head_email', $this->branch_head_email]);
-    //->andFilterWhere(['like', 'institute.institute_name', $this->institute_id]);
+            ->andFilterWhere(['like', 'branch_head_email', $this->branch_head_email])
+            ->andFilterWhere(['like', 'institute.institute_name', $this->institute_id]);
         return $dataProvider;
     }
 }
