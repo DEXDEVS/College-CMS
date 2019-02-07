@@ -19,6 +19,7 @@ use Yii;
  * @property string $grades
  * @property double $percentage
  * @property string $Institute
+ * @property string $std_enroll_status
  * @property string $created_at
  * @property string $updated_at
  * @property int $created_by
@@ -45,12 +46,13 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_id', 'class_name_id', 'subject_combination', 'previous_class', 'passing_year', 'previous_class_rollno', 'Institute', ], 'required'],
+            [['std_id', 'class_name_id', 'subject_combination', 'previous_class', 'passing_year', 'previous_class_rollno', 'grades', 'Institute', 'std_enroll_status', 'created_by', 'updated_by'], 'required'],
             [['std_id', 'class_name_id', 'subject_combination', 'previous_class_rollno', 'total_marks', 'obtained_marks', 'created_by', 'updated_by', 'delete_status'], 'integer'],
             [['grades'], 'string', 'max' => 10],
             [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['previous_class', 'Institute', 'percentage'], 'string', 'max' => 50],
             [['passing_year'], 'string', 'max' => 32],
+            [['std_enroll_status'], 'string', 'max' => 6],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
             [['class_name_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdClassName::className(), 'targetAttribute' => ['class_name_id' => 'class_name_id']],
             [['subject_combination'], 'exist', 'skipOnError' => true, 'targetClass' => StdSubjects::className(), 'targetAttribute' => ['subject_combination' => 'std_subject_id']],
@@ -75,6 +77,7 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
             'grades' => 'Grades',
             'percentage' => 'Percentage',
             'Institute' => 'Institute',
+            'std_enroll_status' => 'Std Enroll Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

@@ -21,7 +21,7 @@ use kartik\select2\Select2;
             <div class="col-md-6">
                 <?= $form->field($stdEnrollmentHead, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
-                    ['prompt'=>'']
+                    ['prompt'=>'','id'=>'classId']
                 )?>
             </div>
             <div class="col-md-6">
@@ -48,7 +48,7 @@ use kartik\select2\Select2;
                 <?= $form->field($model, 'std_enroll_detail_std_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(StdPersonalInfo::find()->all(),'std_id','std_name'),
                     'language' => 'en',
-                    'options' => ['placeholder' => 'Select'],
+                    'options' => ['placeholder' => 'Select' , 'id'=>'std'],
                     'pluginOptions' => [
                         'allowClear' => true,
                         'multiple' => true
@@ -67,3 +67,38 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
     
 </div>
+<?php
+$url = \yii\helpers\Url::to("index.php?r=std-enrollment-detail/fetch-students");
+
+$script = <<< JS
+$('#classId').on('change',function(){
+   var classId = $('#classId').val();
+   
+   $.ajax({
+        type:'post',
+        data:{class_Id:classId},
+        url: "$url",
+
+        success: function(result){
+            console.log(result);
+            var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
+            
+            var len =jsonResult[0].length;
+            var html = "";
+            $('#std').empty();
+            $('#std').append("<option>"+"Select Student.."+"</option>");
+            for(var i=0; i<len; i++)
+            {
+            var stdId = jsonResult[0][i];
+            var stdName = jsonResult[1][i];
+            html += "<option value="+ stdId +">"+stdName+"</option>";
+            }
+            $(".field-std select").append(html);
+
+        }         
+    });       
+});
+JS;
+$this->registerJs($script);
+?>
+</script>

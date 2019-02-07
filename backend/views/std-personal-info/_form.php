@@ -188,6 +188,7 @@ use common\models\StdSubjects;
                     <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
                     ['prompt'=>'', 'id'=>'classId']
+
                 )?>
             </div>
             <div class="col-md-8">
@@ -425,6 +426,7 @@ $('#sessionId').on('change',function(){
         url: "$url",
 
         success: function(result){
+            
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
             var addmissionFee = jsonResult['admission_fee'];
             var monthlyFee = jsonResult['tutuion_fee'];
@@ -434,6 +436,18 @@ $('#sessionId').on('change',function(){
     }); 
 
 });
+// $('#sessionId').on('click',function(){
+// var totalMarks = $('#totalMarks').val();
+// var obtainedMarks = $('#obtainedMarks').val(); 
+// var percentage = $('#percentage').val();
+// var grade = $('#grade').val(); 
+
+  
+// alert(totalMarks);
+//    alert(obtainedMarks);
+//    alert(percentage);
+//    alert(grade);
+// });
 JS;
 $this->registerJs($script);
 ?>

@@ -134,3 +134,50 @@ if($updateStatus == '1'){
                                     ])->execute();
                                 }
                             } 
+
+                            if($updateArray[$m] == 0 AND $tuition_fee[$j] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $id,
+                                    'fee_type_id'=> 2,
+                                    'fee_amount'=> $tuition_fee[$j], 
+                                    ])->execute();
+                                }       
+                                if($updateArray[$m] == 0 AND $late_fee_fine[$j] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $id,
+                                    'fee_type_id'=> 3,
+                                    'fee_amount'=> $late_fee_fine[$j],
+                                    ])->execute();
+                                    echo '3';
+                                }
+                                
+                                if($updateArray[$m] == 0 AND $absent_fine[$j] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $id,
+                                    'fee_type_id'=> 4,
+                                    
+                                    'fee_amount'=> $absent_fine[$j], 
+                                    ])->execute();
+                                    echo '4';
+                                }
+                                
+                                if($updateArray[$m] == 0 AND $library_dues[$j] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $id,
+                                    'fee_type_id'=> 5,
+                                   
+                                    'fee_amount'=> $library_dues[$j],
+                                    ])->execute();
+                                     echo '5';
+                                }
+                                
+                                if($updateArray[$m] == 0 AND $transport_fee[$j] != 0){
+                                    $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
+                                    'fee_trans_detail_head_id' => $id, 
+                                    'fee_type_id'=> 6,
+                                    
+                                    'fee_amount'=> $transport_fee[$j], 
+                                    ])->execute();
+                                    echo '6';
+                                    echo '<br>';
+                                }
