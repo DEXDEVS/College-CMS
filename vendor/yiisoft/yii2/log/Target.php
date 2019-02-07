@@ -73,7 +73,32 @@ abstract class Target extends Component
      *
      * @see \yii\helpers\ArrayHelper::filter()
      */
-    public $logVars = ['_GET', '_POST', '_FILES', '_COOKIE', '_SESSION', '_SERVER'];
+    public $logVars = [
+        '_GET',
+        '_POST',
+        '_FILES',
+        '_COOKIE',
+        '_SESSION',
+        '_SERVER',
+    ];
+    /**
+     * @var array list of the PHP predefined variables that should NOT be logged "as is" and should always be replaced
+     * with a mask `***` before logging, when exist.
+     *
+     * Defaults to `[ '_SERVER.HTTP_AUTHORIZATION', '_SERVER.PHP_AUTH_USER', '_SERVER.PHP_AUTH_PW']`
+     *
+     * Each element could be specified as one of the following:
+     *
+     * - `var` - `var` will be logged as `***`
+     * - `var.key` - only `var[key]` will be logged as `***`
+     *
+     * @since 2.0.16
+     */
+    public $maskVars = [
+        '_SERVER.HTTP_AUTHORIZATION',
+        '_SERVER.PHP_AUTH_USER',
+        '_SERVER.PHP_AUTH_PW',
+    ];
     /**
      * @var callable a PHP callable that returns a string to be prefixed to every exported message.
      *
@@ -145,6 +170,11 @@ abstract class Target extends Component
     protected function getContextMessage()
     {
         $context = ArrayHelper::filter($GLOBALS, $this->logVars);
+        foreach ($this->maskVars as $var) {
+            if (ArrayHelper::getValue($context, $var) !== null) {
+                ArrayHelper::setValue($context, $var, '***');
+            }
+        }
         $result = [];
         foreach ($context as $key => $value) {
             $result[] = "\${$key} = " . VarDumper::dumpAsString($value);
@@ -364,8 +394,8 @@ abstract class Target extends Component
      */
     protected function getTime($timestamp)
     {
-        $parts = explode('.', StringHelper::floatToString($timestamp));
+        $parts = explode('.', sprintf('%F', $timestamp));
 
-        return date('Y-m-d H:i:s', $parts[0]) . ($this->microtime && isset($parts[1]) ? ('.' . $parts[1]) : '');
+        return date('Y-m-d H:i:s', $parts[0]) . ($this->microtime ? ('.' . $parts[1]) : '');
     }
 }

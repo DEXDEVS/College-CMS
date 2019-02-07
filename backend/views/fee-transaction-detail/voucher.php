@@ -18,10 +18,8 @@
         $issueDate  = date('d-m-Y', strtotime($issueDate));
         $dueDate  = date('d-m-Y', strtotime($dueDate)); 
         
-  //       $months = Yii::$app->db->createCommand("SELECT * FROM month as m RIGHT JOIN fee_transaction_head as fth ON m.month_id = fth.month WHERE fth.month = '$month'")->queryAll();
-		// if(!empty($months)){
-		// 	$monthId = $months[0]["month_id"];
-		// }
+        $months = Yii::$app->db->createCommand("SELECT month FROM fee_transaction_head WHERE month = '$month'")->queryAll();
+		
 		if(!empty($month)){
         $institue = Yii::$app->db->createCommand("SELECT * FROM institute WHERE institute_id = 2")->queryAll();
 		$branch = Yii::$app->db->createCommand("SELECT * FROM branches WHERE branch_code = 002 ")->queryAll();
@@ -74,7 +72,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b style="float: left;">Voucher # : </b><?php // echo $feeDetail[0]['fee_trans_detail_head_id'] ?>
+						<b style="float: left;">Voucher # : </b><?php echo $feeDetail[0]['fee_trans_detail_head_id'] ?>
 						<span style="float: right;"><b>Session: </b><?php echo $sessionName[0]['session_name'];?></span>
 					</p>
 				</div>
@@ -92,7 +90,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b>Voucher Month: </b><?php // echo $months[0]["month_name"] ." - ". date('Y'); ?>
+						<b>Voucher Month: </b><?php echo date('F, Y', strtotime($months[0]["month"])); ?>
 					</p>
 				</div>
 			</div>

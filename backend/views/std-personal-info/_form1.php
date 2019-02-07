@@ -8,14 +8,12 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="std-personal-info-form">
-<<<<<<< HEAD
 
-=======
     <h3 class="well well-sm label-primary" style="margin-top: -10px;">Update Student Personal Info</h3>
->>>>>>> dd7a2057189860c208d096ee448a4fa90ed03cca
+
     <?php $form = ActiveForm::begin(); ?>
 
-<!-- personal info -->
+    <!-- personal info -->
     <?= $form->field($model, 'std_reg_no')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'std_name')->textInput(['maxlength' => true]) ?>
@@ -86,13 +84,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput() ?>
 
-    <?= $form->field($stdAcademicInfo, 'total_marks')->textInput() ?>
+    <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>
 
-    <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput() ?>
+    <?= $form->field($stdAcademicInfo, 'total_marks')->textInput(['id'=>'totalMarks']) ?>
 
-    <?= $form->field($stdAcademicInfo, 'grades')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($stdAcademicInfo, 'percentage')->textInput(['id'=>'percentage', 'readonly' => true]) ?>
 
-    <?= $form->field($stdAcademicInfo, 'percentage')->textInput() ?>
+    <?= $form->field($stdAcademicInfo, 'grades')->textInput(['maxlength' => true, 'id'=>'grade', 'readonly' => true]) ?>
 
     <?= $form->field($stdAcademicInfo, 'Institute')->textInput(['maxlength' => true]) ?>
     <!-- Acadmic info -->
@@ -124,62 +122,10 @@ use yii\widgets\ActiveForm;
     
 </div>
 
+ 
 
 
 
-<h3 style="color: #EC971F; margin-top: -10px"> Academic Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
-        <div class="row">
-            <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i>
-                 <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
-                    ['prompt'=>'']
-                )?>
-            </div>
-            <div class="col-md-8">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 158px; top: 6px"></i>
-                <?= $form->field($stdAcademicInfo, 'subject_combination')->dropDownList(
-                        ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name'),
-                        ['prompt'=>'Select Subject combination']
-                    )?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 118px; top: 6px"></i>
-                <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-4">
-                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput() ?>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 106px; top: 6px"></i>
-               <?= $form->field($stdAcademicInfo, 'passing_year')->textInput(['maxlength' => true]) ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 122px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>
-            </div>
-            <div class="col-md-4">
-                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 95px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'total_marks')->textInput(['id'=>'totalMarks']) ?> 
-            </div>
-            <div class="col-md-4">
-                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 94px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'percentage')->textInput(['id'=>'percentage', 'readonly' => true]) ?>    
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 66px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'grades')->textInput(['id'=>'grade', 'readonly' => true]) ?>  
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 71px; top: 6px"></i>
-                <?= $form->field($stdAcademicInfo, 'Institute')->textInput(['maxlength' => true]) ?>
-            </div>
-        </div>
-    </div>
+
+
+    

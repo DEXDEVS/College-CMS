@@ -187,7 +187,8 @@ use common\models\StdSubjects;
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i> -->
                     <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
-                    ['prompt'=>'' , 'id'=> 'classId']
+                    ['prompt'=>'', 'id'=>'classId']
+
                 )?>
             </div>
             <div class="col-md-8">
@@ -215,21 +216,21 @@ use common\models\StdSubjects;
         <div class="row">
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 122px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput() ?>
+                    <?= $form->field($stdAcademicInfo, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 95px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'total_marks')->textInput() ?> 
-            </div>
+                    <?= $form->field($stdAcademicInfo, 'total_marks')->textInput(['id'=>'totalMarks']) ?>
+                \</div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 94px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'percentage')->textInput() ?>
+                    <?= $form->field($stdAcademicInfo, 'percentage')->textInput(['maxlength' => true, 'id'=>'percentage', 'readonly' => true]) ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 66px; top: 6px"></i> -->
-                <?= $form->field($stdAcademicInfo, 'grades')->textInput() ?>
+                    <?= $form->field($stdAcademicInfo, 'grades')->textInput(['maxlength' => true, 'id'=>'grade', 'readonly' => true]) ?>
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 71px; top: 6px"></i> -->
@@ -321,44 +322,6 @@ use common\models\StdSubjects;
         var value2 = document.getElementById('noOfInstallment').value;
         document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
     }
-    // calculate totalMarks....
-	$('#totalMarks').on('change',function(){
-   		var totalMarks = $('#totalMarks').val();
-	   	var obtainedMarks = $('#obtainedMarks').val();
-	   	var percentage = ((parseInt(obtainedMarks) / parseInt(totalMarks))*100);
-        var per = Math.round(percentage)+'%';
-	   	$('#percentage').val(per);
-	});
-
-	// calculate percentage....
-	$('#percentage').on('focus',function(){
-	   var percent = $('#percentage').val();
-	   // console.log(percent);
-	   // alert(percent);
-
-	   var percentage = parseInt(percent);
-	   if (percentage>=90) {
-	        $('#grade').val('A+');
-	   }
-	   else if (percentage>=80) {
-	        $('#grade').val('A'); 
-	   }
-	   else if (percentage>=70){
-	        $('#grade').val('B+');
-	   }
-	   else if (percentage>=60){
-	        $('#grade').val('B');
-	   }
-	   else if (percentage>=50){
-	        $('#grade').val('C');
-	   }
-	   else if (percentage>=40){
-	        $('#grade').val('D');
-	   }else{
-	        $('#grade').val('F');
-	   }
-
-	});
 
 	// calculate concession start....
 	$('#concession').on('change',function(){
@@ -412,6 +375,47 @@ use common\models\StdSubjects;
 $url = \yii\helpers\Url::to("index.php?r=std-personal-info/fetch-fee");
 
 $script = <<< JS
+
+// calculate totalMarks....
+    $('#totalMarks').on('change',function(){
+        var tMarks = $('#totalMarks').val();
+        var obtMarks = $('#obtainedMarks').val();
+        var percentage = ((parseInt(obtMarks) / parseInt(tMarks))*100);
+        var per = Math.round(percentage)+'%';
+        $('#percentage').val(per);
+        
+    });
+
+    // calculate percentage....
+    $('#percentage').on('focus',function(){
+       var percent = $('#percentage').val();
+       
+
+       var percentage = parseInt(percent);
+       if (percentage>=90){
+            $('#grade').val('A+');
+       }
+       else if (percentage>=80){
+            $('#grade').val('A'); 
+       }
+       else if (percentage>=70){
+            $('#grade').val('B+');
+       }
+       else if (percentage>=60){
+            $('#grade').val('B');
+       }
+       else if (percentage>=50){
+            $('#grade').val('C');
+       }
+       else if (percentage>=40){
+            $('#grade').val('D');
+       }else{
+            $('#grade').val('F');
+       }
+
+
+    });
+
 $('#sessionId').on('change',function(){
    var classId = $('#classId').val();
    var sessionId = $('#sessionId').val();
@@ -429,7 +433,8 @@ $('#sessionId').on('change',function(){
             $('#admissionFee').val(addmissionFee);
             $('#totalTuitionFee').val(monthlyFee);
         }         
-    });       
+    }); 
+
 });
 // $('#sessionId').on('click',function(){
 // var totalMarks = $('#totalMarks').val();

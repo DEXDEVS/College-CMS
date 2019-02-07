@@ -17,7 +17,7 @@ use yii\web\UploadedFile;
             <?= $form->field($model, 'institute_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'institute_account_no')->textInput(['type' => 'number',]) ?>
+            <?= $form->field($model, 'institute_account_no')->textInput(['maxlength' => true]) ?>
         </div>        
     </div>
 
