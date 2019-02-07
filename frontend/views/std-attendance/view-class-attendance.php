@@ -21,21 +21,21 @@
 					<th rowspan="2">Roll<br>#</th>
 					<th rowspan="2">Student<br>Name</th>
 					<?php 
-						for ($i=1; $i <=31 ; $i++) { 
+						for ($i=1; $i <=7 ; $i++) { 
 							echo "<th colspan='6' style='text-align: center;'>$i-01-2019</th>";
 						} 
 					?>
                 </tr>
                 <tr>
                 	<?php 
-                		for ($i=1; $i <=31 ; $i++) { 
+                		for ($i=1; $i <=7 ; $i++) { 
 						echo 
-							"<th>P</th>
-		                	<th>C</th>
-		                	<th>M</th>
-		                	<th>E</th>
-		                	<th>U</th>
-		                	<th>I</th>";
+							"<th style='padding: 1px 5px'>P</th>
+		                	<th style='padding: 1px 5px'>C</th>
+		                	<th style='padding: 1px 5px'>M</th>
+		                	<th style='padding: 1px 5px'>E</th>
+		                	<th style='padding: 1px 5px'>U</th>
+		                	<th style='padding: 1px 7.6px'>I</th>";
 						} 
                 	?>
                 </tr>
