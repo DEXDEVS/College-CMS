@@ -48,10 +48,6 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
         return [
             [['std_id', 'class_name_id', 'subject_combination', 'previous_class', 'passing_year', 'previous_class_rollno', 'grades', 'Institute', 'std_enroll_status', 'created_by', 'updated_by'], 'required'],
             [['std_id', 'class_name_id', 'subject_combination', 'previous_class_rollno', 'total_marks', 'obtained_marks', 'created_by', 'updated_by', 'delete_status'], 'integer'],
-<<<<<<< HEAD
-=======
-            [['grades'], 'string', 'max' => 10],
->>>>>>> 1f70a8d870a84c110aa2a6a8b56a1e6fd6af610b
             [['percentage'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
             [['previous_class', 'Institute'], 'string', 'max' => 50],
