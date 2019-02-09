@@ -42,7 +42,10 @@
               <?php foreach ($stdEnrollmentDetail as $key => $value){  ?>
               <tr>
                 <td align="center"><b><?php echo $key+1; ?></b></td>
+<<<<<<< HEAD
+=======
                 <td><?php echo $value['std_reg_no']; ?></td>
+>>>>>>> df114bf8d42beefc65b30a9620316e0387770686
                 <td><?php echo $value['std_roll_no']; ?></td>
                 <td><?php echo $value['std_enroll_detail_std_name'];?></td>
               </tr>
