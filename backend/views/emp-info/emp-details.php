@@ -34,8 +34,16 @@
   // Employee Group Type...
   if ($empInfo[0]['group_by']=="Faculty") {
     $empGroup = "Faculty";
-  }else if ($empInfo[0]['group_by']=='Non-Faculty') {
-    $empGroup = "Non-Faculty";
+  }else if ($empInfo[0]['group_by'] == "Management") {
+    $empGroup = "Management";
+  }
+  else if ($empInfo[0]['group_by'] == "Clerical Staff") {
+    $empGroup = "Clerical Staff";
+  }else if ($empInfo[0]['group_by'] == "Office Boys") {
+    $empGroup = "Office Boys";
+  }
+  else if ($empInfo[0]['group_by'] == "Security Guard") {
+    $empGroup = "Security Guard";
   }
   // Employee Photo...
   $photo = $empInfo[0]['emp_photo'];
@@ -116,23 +124,21 @@
                 </a>
               </li>
               <li class="list-group-item">
-                <b>Email</b> 
-              </li>
-              <li class="list-group-item">
-                <a class="">
-                  <?php echo $empInfo[0]['emp_email'] ?>
-                </a> 
-              </li>
-              <li class="list-group-item">
                 <b>Contact #</b> 
                 <a class="pull-right">
                   <?php echo $empInfo[0]['emp_contact_no'] ?>
                 </a>
               </li>
               <li class="list-group-item">
+                <b>Email</b> <br>
+                <a class="">
+                  <?php echo $empInfo[0]['emp_email'] ?>
+                </a>
+              </li>
+              <!-- <li class="list-group-item">
                 <b>Status</b>
                 <a class="pull-right"><span class="label label-success">Active</span></a>
-              </li>
+              </li> -->
             </ul>
             <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
           </div>
@@ -170,6 +176,10 @@
                   <div class="col-md-6">
                     <table class="table table-striped table-hover">
                       <thead>
+                        <tr>
+                          <th>Employee Registration No:</th>
+                          <td><?php echo $empInfo[0]['emp_reg_no'] ?></td>
+                        </tr>
                         <tr>
                           <th>Employee Father Name:</th>
                           <td><?php echo $empInfo[0]['emp_father_name'] ?></td>
@@ -280,9 +290,9 @@
                 <div class="col-md-5">
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Document Information</p>
                 </div>
-                <div class="col-md-2 col-md-offset-5">
+                <!-- <div class="col-md-2 col-md-offset-5">
                   <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
-                </div>
+                </div> -->
               </div><hr>
 
               <!-- Employee Document info start -->

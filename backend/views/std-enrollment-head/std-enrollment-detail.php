@@ -41,7 +41,7 @@
               <?php foreach ($stdEnrollmentDetail as $key => $value){  ?>
               <tr>
                 <td align="center"><b><?php echo $key+1; ?></b></td>
-                <td><?php echo "ICS-CB-2-00"; echo $key+1; ?></td>
+                <td><?php echo $value['std_roll_no']; ?></td>
                 <td><?php echo $value['std_enroll_detail_std_name'];?></td>
               </tr>
               <?php } ?>

@@ -82,7 +82,7 @@ use common\models\Branches;
             <?= $form->field($model, 'degree_scan_copy')->fileInput() ?>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 97px; top: 6px"></i>
             <?= $form->field($model, 'emp_designation_id')->dropDownList(
@@ -115,7 +115,7 @@ use common\models\Branches;
            <?= $form->field($model,'reference')->dropDownList([ 'Yes' => 'Yes', 'No' => 'No', ], 
            ['prompt' => 'Select Group', 'id' => 'reference']) ?> 
         </div>
-    </div>
+    </div> -->
     
     <?php if (!Yii::$app->request->isAjax){ ?>
         <div class="row">

@@ -9,6 +9,7 @@ use yii\helpers\Url;
  * This is the model class for table "emp_info".
  *
  * @property integer $emp_id
+ * @property string $emp_reg_no
  * @property string $emp_name
  * @property string $emp_father_name
  * @property string $emp_cnic
@@ -59,12 +60,12 @@ class EmpInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_gender', 'emp_photo', 'emp_designation_id', 'emp_type_id', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary'], 'safe'],
+            [['emp_reg_no','emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_gender', 'emp_photo', 'emp_designation_id', 'emp_type_id', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary'], 'safe'],
             [['emp_marital_status', 'emp_gender', 'group_by'], 'string'],
             [['emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by'], 'integer'],
             [['emp_salary'], 'number'],
             [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
-            [['emp_name', 'emp_father_name', 'emp_qualification', 'emp_institute_name'], 'string', 'max' => 50],
+            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_qualification', 'emp_institute_name'], 'string', 'max' => 50],
             [['emp_cnic', 'emp_contact_no'], 'string', 'max' => 15],
             [['emp_perm_address', 'emp_temp_address', 'emp_photo', 'degree_scan_copy'], 'string', 'max' => 200],
             [['emp_email'], 'string', 'max' => 84],
@@ -84,6 +85,7 @@ class EmpInfo extends \yii\db\ActiveRecord
     {
         return [
             'emp_id' => 'Emp ID',
+            'emp_reg_no' => 'Emp Reg No',
             'emp_name' => 'Employee Name',
             'emp_father_name' => 'Father Name',
             'emp_cnic' => 'Employee CNIC#',

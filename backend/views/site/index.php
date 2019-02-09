@@ -114,7 +114,7 @@ use yii\helpers\Url;
       <!-- Notice Row Start -->
       <div class="row">
         <!-- Notice Panel Start -->
-        <div class="col-md-6">
+        <div class="col-md-7">
           <!-- Custom Tabs (Pulled to the right) -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
@@ -140,7 +140,7 @@ use yii\helpers\Url;
             </ul>
             <?php 
             $date = date('Y-m-d');
-            $studentNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Students' AND is_status ='Active' AND CAST(created_at AS DATE) =  '$date'")->queryAll();
+            $studentNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Students' AND is_status ='Active' AND CAST(notice_start AS DATE) >= '$date'")->queryAll();
             ?>
             <!-- tab-content start -->
             <div class="tab-content">
@@ -302,7 +302,7 @@ use yii\helpers\Url;
         <!-- Notice Panel CLose -->
 
         <!-- Notice Panel Start -->
-        <div class="col-md-6">
+        <div class="col-md-5">
           <!-- Custom Tabs (Pulled to the right) -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
