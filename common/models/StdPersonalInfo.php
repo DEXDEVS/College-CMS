@@ -61,6 +61,7 @@ class StdPersonalInfo extends \yii\db\ActiveRecord
             [['std_contact_no'], 'string', 'max' => 15],
             [['std_permanent_address', 'std_temporary_address', 'std_b_form'], 'string', 'max' => 255],
             [['std_email'], 'string', 'max' => 84],
+            [['std_email'],'email'],
             [['std_photo'], 'string', 'max' => 200],
         ];
     }

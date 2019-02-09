@@ -21,6 +21,10 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'std_roll_no',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'std_enroll_detail_std_id',
         'value' => 'stdEnrollDetailStd.std_name'
     ],

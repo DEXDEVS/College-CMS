@@ -19,7 +19,7 @@ class StdEnrollmentDetailSearch extends StdEnrollmentDetail
     {
         return [
             [['std_enroll_detail_id', 'std_enroll_detail_head_id', 'std_enroll_detail_std_id', 'created_by', 'updated_by'], 'integer'],
-            [['std_roll_no', 'std_enroll_detail_std_name', 'created_at', 'updated_at', 'delete_status'], 'safe'],
+            [['std_reg_no', 'std_roll_no', 'std_enroll_detail_std_name', 'created_at', 'updated_at', 'delete_status'], 'safe'],
         ];
     }
 
@@ -65,7 +65,8 @@ class StdEnrollmentDetailSearch extends StdEnrollmentDetail
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'std_roll_no', $this->std_roll_no])
+        $query->andFilterWhere(['like', 'std_reg_no', $this->std_reg_no])
+            ->andFilterWhere(['like', 'std_roll_no', $this->std_roll_no])
             ->andFilterWhere(['like', 'std_enroll_detail_std_name', $this->std_enroll_detail_std_name])
             ->andFilterWhere(['like', 'delete_status', $this->delete_status]);
 

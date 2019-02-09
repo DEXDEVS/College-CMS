@@ -30,7 +30,7 @@
        // Select Section...
         $sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
         // Select Students...
-        $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
+        $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id,sed.std_roll_no FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
         foreach ($student as $id =>$value) {
 				$stdInfo = Yii::$app->db->createCommand("SELECT std_name , std_father_name  FROM std_personal_info WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
 				$feeDetail = Yii::$app->db->createCommand("SELECT * FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$value[std_enroll_detail_std_id]' AND fth.month = '$month'")->queryAll();
@@ -72,7 +72,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b style="float: left;">Voucher # : </b><?php echo $feeDetail[0]['fee_trans_detail_head_id'] ?>
+						<b style="float: left;">Voucher # : </b><?php echo $feeDetail[0]['fee_trans_detail_head_id']; ?>
 						<span style="float: right;"><b>Session: </b><?php echo $sessionName[0]['session_name'];?></span>
 					</p>
 				</div>
@@ -109,7 +109,7 @@
 						<b>Name: </b><?php echo $stdInfo[0]['std_name'] ?>
 					</p>
 					<p style="float: right;">
-						<b>Roll No.: </b><?php echo $student[$id]['std_enroll_detail_id'] ?>
+						<b>Roll No.: </b><?php echo $student[$id]['std_roll_no'] ?>
 					</p>
 				</div>
 			</div>
