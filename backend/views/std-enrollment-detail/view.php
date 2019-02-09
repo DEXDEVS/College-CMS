@@ -13,6 +13,7 @@ use yii\widgets\DetailView;
             'std_enroll_detail_id',
             'std_enroll_detail_head_id',
             'std_enroll_detail_std_id',
+            'std_roll_no'
             'created_at',
             'updated_at',
             'created_by',

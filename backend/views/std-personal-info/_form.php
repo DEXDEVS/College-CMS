@@ -29,7 +29,7 @@ use common\models\StdSubjects;
         <div class="row">
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i> -->
-                <?= $form->field($model, 'std_reg_no')->textInput(['maxlength' => true,'value'=> 'REG-Y'.$year.'-'.$id, 'readonly'=> true]) ?>
+                <?= $form->field($model, 'std_reg_no')->textInput(['maxlength' => true,'value'=> 'STD-Y'.$year.'-'.$id, 'readonly'=> true]) ?>
             </div>
         </div> 
         <div class="row">

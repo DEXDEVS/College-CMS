@@ -19,7 +19,7 @@ class EmpInfoSearch extends EmpInfo
     {
         return [
             [['emp_id', 'emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by'], 'integer'],
-            [['emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_gender', 'emp_photo', 'group_by', 'emp_email', 'emp_qualification', 'emp_institute_name', 'degree_scan_copy', 'created_at', 'updated_at'], 'safe'],
+            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_gender', 'emp_photo', 'group_by', 'emp_email', 'emp_qualification', 'emp_institute_name', 'degree_scan_copy', 'created_at', 'updated_at'], 'safe'],
             [['emp_salary'], 'number'],
         ];
     }
@@ -69,7 +69,8 @@ class EmpInfoSearch extends EmpInfo
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'emp_name', $this->emp_name])
+        $query->andFilterWhere(['like', 'emp_reg_no', $this->emp_reg_no])
+            ->andFilterWhere(['like', 'emp_name', $this->emp_name])
             ->andFilterWhere(['like', 'emp_father_name', $this->emp_father_name])
             ->andFilterWhere(['like', 'emp_cnic', $this->emp_cnic])
             ->andFilterWhere(['like', 'emp_contact_no', $this->emp_contact_no])
