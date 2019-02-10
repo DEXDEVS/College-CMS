@@ -2,76 +2,29 @@
   use yii\helpers\Html;
   use common\models\StdPersonalInfo;
 
+  // Get `emp_id` from `emp_info` table
   $id = $_GET['id'];
+
   // Employee Personal Info..... 
   $empInfo = Yii::$app->db->createCommand("SELECT * FROM emp_info WHERE emp_id = '$id'")->queryAll();
-  // Employee Designation....
-  if ($empInfo[0]['emp_designation_id']==1) {
-    $empDesignation = "Principal";
-  }else if ($empInfo[0]['emp_designation_id']==2) {
-    $empDesignation = "Vise Principal";
-  }else if ($empInfo[0]['emp_designation_id']==3) {
-    $empDesignation = "Coordinator";
-  }else if ($empInfo[0]['emp_designation_id']==4) {
-    $empDesignation = "Teacher";
-  }else if ($empInfo[0]['emp_designation_id']==5) {
-    $empDesignation = "Security Gaurd";
-  }else if ($empInfo[0]['emp_designation_id']==6) {
-    $empDesignation = "Accountant";
-  }else if ($empInfo[0]['emp_designation_id']==7) {
-    $empDesignation = "Librarian";
-  }
-  // Employee Type...
-  if ($empInfo[0]['emp_type_id']==1) {
-    $empType = "Daily Wadges";
-  }else if ($empInfo[0]['emp_type_id']==2) {
-    $empType = "Weekly Wedges";
-  }else if ($empInfo[0]['emp_type_id']==3) {
-    $empType = "Contract Basis";
-  }else if ($empInfo[0]['emp_type_id']==4) {
-    $empType = "Permanent ";
-  }
-  // Employee Group Type...
-  if ($empInfo[0]['group_by']=="Faculty") {
-    $empGroup = "Faculty";
-  }else if ($empInfo[0]['group_by']=='Non-Faculty') {
-    $empGroup = "Non-Faculty";
-  }
-  // Employee Photo...
-  $photo = $empInfo[0]['emp_photo'];
-  //echo $photo;
-  // Employee Reference info....
-  $empReference = Yii::$app->db->createCommand("SELECT * FROM emp_reference WHERE emp_id = '$id'")->queryAll();
-  // refName...
-  if($empReference==null){
-    $refName = 'Not updated...';
-  }
-  else{
-    $refName = $empReference[0]['ref_name'];  
-  }
-  // refName...
-  if($empReference==null){
-    $refContact = 'Not updated...';
-  }
-  else{
-    $refContact = $empReference[0]['ref_contact_no'];  
-  }
 
-  // refName...
-  if($empReference==null){
-    $refCnic = 'Not updated...';
-  }
-  else{
-    $refCnic = $empReference[0]['ref_cnic'];  
-  }
-  // refName...
-  if($empReference==null){
-    $refDesignation = 'Not updated...';
-  }
-  else{
-    $refDesignation = $empReference[0]['ref_designation'];  
-  }
-  //var_dump($empReference);
+  // Get `emp_designation_id` from `emp_info` table
+  $empDesignationId = $empInfo[0]['emp_designation_id'];
+
+  // Employee `desigantion_name` from `emp_designation` table against `$empDesignationId`
+  $emp_designation = Yii::$app->db->createCommand("SELECT * FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
+  $empDesignationName = $emp_designation[0]['emp_designation'];
+
+  // Get `emp_type_id` from `emp_info` table
+  $empTypeId = $empInfo[0]['emp_type_id'];
+
+  // `emp_type` from `emp_type` table against `$empTypeId`
+  $emp_type = Yii::$app->db->createCommand("SELECT * FROM emp_type WHERE emp_type_id = '$empTypeId'")->queryAll();
+  $empType = $emp_type[0]['emp_type'];
+
+  // Employee refrence info from `emp_refrence` table againts `emp_id`
+  $empReference = Yii::$app->db->createCommand("SELECT * FROM emp_reference WHERE emp_id = '$id'")->queryAll();
+  
 
 ?>
 <div class="container-fluid">
@@ -91,10 +44,10 @@
         <!-- Profile Image Start -->
         <div class="box box-primary">
           <div class="box-body box-profile">
-            <img class="profile-user-img img-responsive img-circle" src="<?php echo $photo; ?>" alt="User profile picture" width="10%">
+            <img class="profile-user-img img-responsive img-circle" src="<?php echo $empInfo[0]['emp_photo']; ?>" alt="User profile picture" width="10%">
 
             <h3 class="profile-username text-center" style="color: #3C8DBC;">
-              <?php echo $empInfo[0]['emp_name'] ?>
+              <?php echo $empInfo[0]['emp_name']; ?>
             </h3>
 
             <p class="text-muted text-center"><!-- Software Engineer --></p>
@@ -102,7 +55,7 @@
             <ul class="list-group list-group-unbordered">
               <li class="list-group-item">
                 <b>Designation</b> <a class="pull-right">
-                  <?php echo $empDesignation; ?>
+                  <?php echo $empDesignationName; ?>
                 </a>
               </li>
               <li class="list-group-item">
@@ -112,7 +65,7 @@
               </li>
               <li class="list-group-item">
                 <b>Member</b> <a class="pull-right">
-                  <?php echo $empGroup; ?>
+                  <?php echo $empInfo[0]['group_by']; ?>
                 </a>
               </li>
               <li class="list-group-item">
@@ -249,19 +202,19 @@
                       <thead>
                         <tr>
                           <th>Refrence Name:</th>
-                          <td><?php echo $refName ?></td>
+                          <td><?php echo $empReference[0]['ref_name']; ?></td>
                         </tr>
                         <tr>
                           <th>Refrence Contact No:</th>
-                          <td><?php echo $refContact ?></td>
+                          <td><?php echo $empReference[0]['ref_contact_no']; ?></td>
                         </tr>
                         <tr>
                           <th>Refrence CNIC:</th>
-                          <td><?php echo $refCnic ?></td>
+                          <td><?php echo $empReference[0]['ref_cnic']; ?></td>
                         </tr>
                         <tr>
                           <th>Refrence Designation:</th>
-                          <td><?php echo $refDesignation ?></td>
+                          <td><?php echo $empReference[0]['ref_designation']; ?></td>
                         </tr>
                       </thead>
                     </table>
