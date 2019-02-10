@@ -18,9 +18,8 @@ $this->title = $name;
             <h3><?= $name ?></h3>
 
             <p>
-                <?= nl2br(Html::encode($message)) ?>
+                
             </p>
-
             <p>
                 The above error occurred while the Web server was processing your request.
                 Please contact us if you think this is a server error. Thank you.

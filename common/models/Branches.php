@@ -45,7 +45,7 @@ class Branches extends \yii\db\ActiveRecord
     {
         return [
             [['institute_id', 'branch_code', 'branch_name', 'branch_type', 'branch_location', 'branch_contact_no', 'branch_email', 'status', 'branch_head_name', 'branch_head_contact_no', 'branch_head_email', 'created_by', 'updated_by'], 'required'],
-            [['institute_id', 'created_by', 'updated_by'], 'integer'],
+            [['institute_id','created_by', 'updated_by'], 'integer'],
             [['branch_type', 'status'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['branch_code', 'branch_name', 'branch_contact_no'], 'string', 'max' => 32],

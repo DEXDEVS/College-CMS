@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "std_personal_info".
@@ -61,6 +62,7 @@ class StdPersonalInfo extends \yii\db\ActiveRecord
             [['std_contact_no'], 'string', 'max' => 15],
             [['std_permanent_address', 'std_temporary_address', 'std_b_form'], 'string', 'max' => 255],
             [['std_email'], 'string', 'max' => 84],
+            [['std_email'],'email'],
             [['std_photo'], 'string', 'max' => 200],
         ];
     }
@@ -150,4 +152,21 @@ class StdPersonalInfo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(StdIceInfo::className(), ['std_id' => 'std_id']);
     }
+
+    public function getPhotoInfo(){
+        $path = Url::to('@web/uploads/');
+        $url = Url::to('@web/uploads/');
+        $filename = $this->std_name.'_photo'.'.jpg';
+        $alt = $this->std_name."'s image not exist!";
+
+        $imageInfo = ['alt'=>$alt];
+
+        if(file_exists($path.$filename)){
+            $imageInfo['url'] = $url.'default.jpg';
+        }  else {
+            $imageInfo['url'] = $url.$filename; 
+        }
+        return $imageInfo;
+    }
+
 }

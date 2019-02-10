@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use common\models\EmpInfo;
 use common\models\EmpDesignation;
 use common\models\EmpType;
 use common\models\Branches;
@@ -11,11 +12,34 @@ use common\models\Branches;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php 
+<<<<<<< HEAD
+    $empInfo = EmpInfo::find()->orderBy(['emp_id'=> SORT_DESC])->one();
+    $id = $empInfo['emp_id']+1;
+    $year = date('y');
+?>
+=======
+    $EmpInfo = EmpInfo::find()->orderBy(['emp_id'=> SORT_DESC])->one();
+    $id = $EmpInfo['emp_id']+1;
+    $year = date('y');
+?>
+
+>>>>>>> df114bf8d42beefc65b30a9620316e0387770686
 <div class="emp-info-form">
 
     <?php $form = ActiveForm::begin(); ?>
     <h3 style="color: #337AB7; margin-top: -10px"> Employee Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
     <div class="row">
+        <div class="col-md-4">
+            <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i> -->
+            <?= $form->field($model, 'emp_reg_no')->textInput(['maxlength' => true,'value'=> 'EMP-Y'.$year.'-'.$id, 'readonly'=> true]) ?>
+        </div>
+<<<<<<< HEAD
+    </div>
+    <div class="row">
+=======
+    </div>    <div class="row">
+>>>>>>> df114bf8d42beefc65b30a9620316e0387770686
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 125px; top: 6px"></i>
             <?= $form->field($model, 'emp_name')->textInput(['maxlength' => true]) ?>
@@ -97,7 +121,7 @@ use common\models\Branches;
         </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 80px; top: 6px"></i>
-            <?= $form->field($model, 'group_by')->dropDownList([ 'Faculty' => 'Faculty', 'Non-Faculty' => 'Non-Faculty', ], ['prompt' => 'Select Group']) ?>
+            <?= $form->field($model, 'group_by')->dropDownList([ 'Faculty' => 'Faculty', 'Management' => 'Management', 'Clerical Staff' => 'Clerical Staff', 'Office Boys' => 'Office Boys', 'Security Guard' => 'Security Guard'], ['prompt' => 'Select Group']) ?>
         </div>
     </div>
     <div class="row">
@@ -153,15 +177,13 @@ use common\models\Branches;
 </div>
 <?php
 $script = <<< JS
-$('#reference').on('change',function(){
-        
+$('#reference').on('change',function(){ 
     if($("#reference").val() == 'Yes'){
         $("#referenceshow").show()
     } else {
         $("#referenceshow").hide()
     }
     });
-
 JS;
 $this->registerJs($script);
 ?> 

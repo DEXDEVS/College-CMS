@@ -25,7 +25,8 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'institute.institute_name',
+        'attribute'=>'institute_id',
+        'value'=>'institute.institute_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

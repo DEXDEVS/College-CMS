@@ -86,7 +86,7 @@ $('#classId').on('change',function(){
             var len =jsonResult[0].length;
             var html = "";
             $('#std').empty();
-            $('#std').append("<option>"+"Select Student.."+"</option>");
+            //$('#std').append("<option>"+"Select Student.."+"</option>");
             for(var i=0; i<len; i++)
             {
             var stdId = jsonResult[0][i];

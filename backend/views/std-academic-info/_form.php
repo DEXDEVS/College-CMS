@@ -50,18 +50,18 @@ use common\models\StdSubjects;
         </div>
         <div class="row">
             <div class="col-md-6">
-                <?= $form->field($model, 'total_marks')->textInput(['id'=>'totalMarks']) ?>
+                <?= $form->field($model, 'obtained_marks')->textInput(['id'=>'oM']) ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'obtained_marks')->textInput(['id'=>'obtainedMarks']) ?>
+                <?= $form->field($model, 'total_marks')->textInput(['id'=>'tM']) ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <?= $form->field($model, 'percentage')->textInput(['id'=>'percentage']) ?>
+                <?= $form->field($model, 'percentage')->textInput(['id'=>'perc']) ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'grades')->dropDownList([ 'A+' => 'A+', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'F' => 'F', ], ['prompt' => '']) ?>
+                <?= $form->field($model, 'grades')->textInput(['maxlength' => true, 'id'=>'grade']) ?>
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'Institute')->textInput(['maxlength' => true]) ?>
@@ -82,10 +82,57 @@ use common\models\StdSubjects;
     
 </div>
 <script type="text/javascript">
-$('#obtainedMarks').on('change',function(){
-   var totalMarks = $('#totalMarks').val();
-   var obtainedMarks = $('#obtainedMarks').val();
-   var percentage = ((parseInt(obtainedMarks) / parseInt(totalMarks))*100);
-   $('#percentage').val(percentage);
-});
+// calculate totalMarks....
+    $('#tM').on('change',function(){
+        var tMarks = $('#tM').val();
+        var obtMarks = $('#oM').val();
+        var percn = ((parseInt(obtMarks) / parseInt(tMarks))*100);
+        var per = Math.round(percn)+'%';
+        $('#perc').val(per);
+        
+    });
+
+    // calculate perc....
+    $('#perc').on('focus',function(){
+       var percent = $('#perc').val();
+       
+
+       var percentt = parseInt(percent);
+       if (percentt>=90){
+            $('#grade').val('A+');
+       }
+       else if (percentt>=80){
+            $('#grade').val('A'); 
+       }
+       else if (percentt>=70){
+            $('#grade').val('B+');
+       }
+       else if (percentt>=60){
+            $('#grade').val('B');
+       }
+       else if (percentt>=50){
+            $('#grade').val('C');
+       }
+       else if (percentt>=40){
+            $('#grade').val('D');
+       }else{
+            $('#grade').val('F');
+       }
+
+       
+
+
+    });
+
+// $('#grade').on('click',function(){
+//         var tMarks = $('#tM').val();
+//         var obtMarks = $('#oM').val();
+//         var percn = $('#perc').val();
+//         var grd = $('#grade').val();
+        
+//         alert(tMarks);
+//        alert(obtMarks);
+//        alert(perc.value);
+//        alert(grade.value);
+//     });
 </script>

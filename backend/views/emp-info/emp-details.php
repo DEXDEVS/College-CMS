@@ -7,6 +7,68 @@
 
   // Employee Personal Info..... 
   $empInfo = Yii::$app->db->createCommand("SELECT * FROM emp_info WHERE emp_id = '$id'")->queryAll();
+<<<<<<< HEAD
+=======
+  // Employee Designation....
+  if ($empInfo[0]['emp_designation_id']==1) {
+    $empDesignation = "Principal";
+  }else if ($empInfo[0]['emp_designation_id']==2) {
+    $empDesignation = "Vise Principal";
+  }else if ($empInfo[0]['emp_designation_id']==3) {
+    $empDesignation = "Coordinator";
+  }else if ($empInfo[0]['emp_designation_id']==4) {
+    $empDesignation = "Teacher";
+  }else if ($empInfo[0]['emp_designation_id']==5) {
+    $empDesignation = "Security Gaurd";
+  }else if ($empInfo[0]['emp_designation_id']==6) {
+    $empDesignation = "Accountant";
+  }else if ($empInfo[0]['emp_designation_id']==7) {
+    $empDesignation = "Librarian";
+  }
+  // Employee Type...
+  if ($empInfo[0]['emp_type_id']==1) {
+    $empType = "Daily Wadges";
+  }else if ($empInfo[0]['emp_type_id']==2) {
+    $empType = "Weekly Wedges";
+  }else if ($empInfo[0]['emp_type_id']==3) {
+    $empType = "Contract Basis";
+  }else if ($empInfo[0]['emp_type_id']==4) {
+    $empType = "Permanent ";
+  }
+  // Employee Group Type...
+  if ($empInfo[0]['group_by']=="Faculty") {
+    $empGroup = "Faculty";
+  }else if ($empInfo[0]['group_by'] == "Management") {
+    $empGroup = "Management";
+  }
+  else if ($empInfo[0]['group_by'] == "Clerical Staff") {
+    $empGroup = "Clerical Staff";
+  }else if ($empInfo[0]['group_by'] == "Office Boys") {
+    $empGroup = "Office Boys";
+  }
+  else if ($empInfo[0]['group_by'] == "Security Guard") {
+    $empGroup = "Security Guard";
+  }
+  // Employee Photo...
+  $photo = $empInfo[0]['emp_photo'];
+  //echo $photo;
+  // Employee Reference info....
+  $empReference = Yii::$app->db->createCommand("SELECT * FROM emp_reference WHERE emp_id = '$id'")->queryAll();
+  // refName...
+  if($empReference==null){
+    $refName = 'Not updated...';
+  }
+  else{
+    $refName = $empReference[0]['ref_name'];  
+  }
+  // refName...
+  if($empReference==null){
+    $refContact = 'Not updated...';
+  }
+  else{
+    $refContact = $empReference[0]['ref_contact_no'];  
+  }
+>>>>>>> aaa8f4f9ff964a013ccbb5a3e1bc84b30fae6469
 
   // Get `emp_designation_id` from `emp_info` table
   $empDesignationId = $empInfo[0]['emp_designation_id'];
@@ -69,23 +131,21 @@
                 </a>
               </li>
               <li class="list-group-item">
-                <b>Email</b> 
-              </li>
-              <li class="list-group-item">
-                <a class="">
-                  <?php echo $empInfo[0]['emp_email'] ?>
-                </a> 
-              </li>
-              <li class="list-group-item">
                 <b>Contact #</b> 
                 <a class="pull-right">
                   <?php echo $empInfo[0]['emp_contact_no'] ?>
                 </a>
               </li>
               <li class="list-group-item">
+                <b>Email</b> <br>
+                <a class="">
+                  <?php echo $empInfo[0]['emp_email'] ?>
+                </a>
+              </li>
+              <!-- <li class="list-group-item">
                 <b>Status</b>
                 <a class="pull-right"><span class="label label-success">Active</span></a>
-              </li>
+              </li> -->
             </ul>
             <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
           </div>
@@ -123,6 +183,10 @@
                   <div class="col-md-6">
                     <table class="table table-striped table-hover">
                       <thead>
+                        <tr>
+                          <th>Employee Registration No:</th>
+                          <td><?php echo $empInfo[0]['emp_reg_no'] ?></td>
+                        </tr>
                         <tr>
                           <th>Employee Father Name:</th>
                           <td><?php echo $empInfo[0]['emp_father_name'] ?></td>
@@ -233,9 +297,9 @@
                 <div class="col-md-5">
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Document Information</p>
                 </div>
-                <div class="col-md-2 col-md-offset-5">
+                <!-- <div class="col-md-2 col-md-offset-5">
                   <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
-                </div>
+                </div> -->
               </div><hr>
 
               <!-- Employee Document info start -->
