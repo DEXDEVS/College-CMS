@@ -63,19 +63,12 @@ class EmpInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-<<<<<<< HEAD
+
             [['emp_reg_no','emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_gender', 'emp_photo', 'emp_designation_id', 'emp_type_id', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary'], 'safe'],
             [['emp_marital_status', 'emp_gender', 'group_by'], 'string'],
             [['emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by'], 'integer'],
             [['emp_salary'], 'number'],
             [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
-=======
-            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_gender', 'emp_photo', 'emp_designation_id', 'emp_type_id', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary'], 'required'],
-            [['emp_marital_status', 'emp_gender', 'group_by'], 'string'],
-            [['emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by'], 'integer'],
-            [['emp_salary'], 'number'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
->>>>>>> df114bf8d42beefc65b30a9620316e0387770686
             [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_qualification', 'emp_institute_name'], 'string', 'max' => 50],
             [['emp_cnic', 'emp_contact_no'], 'string', 'max' => 15],
             [['emp_perm_address', 'emp_temp_address', 'emp_photo', 'degree_scan_copy'], 'string', 'max' => 200],
@@ -98,7 +91,7 @@ class EmpInfo extends \yii\db\ActiveRecord
         return [
             'emp_id' => 'Emp ID',
             'emp_reg_no' => 'Emp Reg No',
-<<<<<<< HEAD
+
             'emp_name' => 'Employee Name',
             'emp_father_name' => 'Father Name',
             'emp_cnic' => 'Employee CNIC#',
@@ -110,19 +103,6 @@ class EmpInfo extends \yii\db\ActiveRecord
             'emp_photo' => 'Photo',
             'emp_designation_id' => 'Designation',
             'emp_type_id' => 'Type',
-=======
-            'emp_name' => 'Emp Name',
-            'emp_father_name' => 'Emp Father Name',
-            'emp_cnic' => 'Emp Cnic',
-            'emp_contact_no' => 'Emp Contact No',
-            'emp_perm_address' => 'Emp Perm Address',
-            'emp_temp_address' => 'Emp Temp Address',
-            'emp_marital_status' => 'Emp Marital Status',
-            'emp_gender' => 'Emp Gender',
-            'emp_photo' => 'Emp Photo',
-            'emp_designation_id' => 'Emp Designation ID',
-            'emp_type_id' => 'Emp Type ID',
->>>>>>> df114bf8d42beefc65b30a9620316e0387770686
             'group_by' => 'Group By',
             'emp_branch_id' => 'Emp Branch ID',
             'emp_email' => 'Emp Email',

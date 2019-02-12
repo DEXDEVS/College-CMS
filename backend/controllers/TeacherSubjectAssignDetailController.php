@@ -130,12 +130,15 @@ class TeacherSubjectAssignDetailController extends Controller
                         // select2 add multiple students start...!
                         $array = $model->class_id;
                         $sub = $model->subject_id;
+                        $lec = $model->no_of_lecture;
+
                         foreach ($sub as  $valu) {
                             foreach ($array as  $value) {
                                 $model = new TeacherSubjectAssignDetail();
                                 $model->teacher_subject_assign_detail_head_id = $teacherSubjectAssignHead->teacher_subject_assign_head_id;
                                 $model->class_id = $value;
                                 $model->subject_id = $valu;
+                                $model->no_of_lecture = $lec;
 
                                 // created and updated values...
                                 $model->created_by = Yii::$app->user->identity->id; 

@@ -19,7 +19,7 @@ class TeacherSubjectAssignDetailSearch extends TeacherSubjectAssignDetail
     {
         return [
             [['teacher_subject_assign_detail_id', 'teacher_subject_assign_detail_head_id', 'class_id', 'subject_id', 'created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['no_of_lecture', 'created_at', 'updated_at', 'delete_status'], 'safe'],
         ];
     }
 
@@ -65,6 +65,9 @@ class TeacherSubjectAssignDetailSearch extends TeacherSubjectAssignDetail
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
         ]);
+
+        $query->andFilterWhere(['like', 'no_of_lecture', $this->no_of_lecture])
+            ->andFilterWhere(['like', 'delete_status', $this->delete_status]);
 
         return $dataProvider;
     }
