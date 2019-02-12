@@ -55,9 +55,9 @@ class StdEnrollmentHead extends \yii\db\ActiveRecord
     {
         return [
             'std_enroll_head_id' => 'Std Enroll Head ID',
-            'class_name_id' => 'Class Name ID',
-            'session_id' => 'Session ID',
-            'section_id' => 'Section ID',
+            'class_name_id' => 'Class Name',
+            'session_id' => 'Session',
+            'section_id' => 'Section',
             'std_enroll_head_name' => 'Std Enroll Head Name',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

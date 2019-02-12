@@ -20,33 +20,37 @@
                     <input class="form-control" data-date-format="mm/dd/yyyy" type="date" name="date" required="">
                 </div>    
             </div>
+            <?php
+            	$techerEmail = Yii::$app->user->identity->email;
+            	$teacherId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$techerEmail'")->queryAll();
+            	$teacher_id = $teacherId[0]['emp_id'];
+				$classNameId = Yii::$app->db->createCommand("SELECT DISTINCT seh.class_name_id FROM teacher_subject_assign_detail as tsad INNER JOIN std_enrollment_head as seh ON tsad.class_id = seh.std_enroll_head_id WHERE tsad.teacher_subject_assign_detail_head_id = '$teacher_id'")->queryAll();
+				// $sessionName = Yii::$app->db->createCommand("SELECT tsad.session_id, sess.session_name FROM teacher_subject_assign_detail as tsad INNER JOIN std_sessions as sess ON tsad.session_id = sess.session_id WHERE ")->queryAll();
+
+            ?>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Class</label>
                     <select class="form-control" name="classid" id="classId">
-							<?php 
-								$className = Yii::$app->db->createCommand("SELECT * FROM std_class_name")->queryAll();
-								
-								  	foreach ($className as  $value) { ?>	
+                    	<option value="">Select Class </option>
+							<?php
+								foreach ($classNameId as  $value) { 
+									$class = $value["class_name_id"];
+									$className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$class'")->queryAll();
+									?>	
 									<option value="<?php echo $value["class_name_id"]; ?>">
-										<?php echo $value["class_name"]; ?>	
+										<?php echo $className[0]["class_name"]; ?>	
 									</option>
 							<?php } ?>
 					</select>      
                 </div>    
-            </div>  
+            </div>
+
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Session</label>
                     <select class="form-control" name="sessionid" id="sessionId">
-							<?php 
-								$sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions")->queryAll();
-								
-								  	foreach ($sessionName as  $value) { ?>	
-									<option value="<?php echo $value["session_id"]; ?>">
-										<?php echo $value["session_name"]; ?>	
-									</option>
-							<?php } ?>
+							<option value="">Select Session</option>
 					</select>      
                 </div>    
             </div>  
@@ -55,6 +59,22 @@
                     <label>Select Section</label>
                     <select class="form-control" name="sectionid" id="section" >
                     		<option value="">Select Section</option>
+					</select>      
+                </div>    
+            </div> 
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Select Subject</label>
+                    <select class="form-control" name="classid" id="">
+							<?php 
+								$className = Yii::$app->db->createCommand("SELECT * FROM std_class_name")->queryAll();
+								
+								  	foreach ($className as  $value) { ?>	
+									<option value="<?php echo $value["class_name_id"]; ?>">
+										<?php echo $value["class_name"]; ?>	
+									</option>
+							<?php } ?>
 					</select>      
                 </div>    
             </div>              
@@ -191,9 +211,7 @@
 					$std = "std".$q;
 					$status[$i] = $_POST["$std"];
 				}
-				$techerEmail = Yii::$app->user->identity->email;
-				$teacherId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$techerEmail'")->queryAll();
-
+				
 				//var_dump($status);
 				for($i=0; $i<$length; $i++){
 					$attendance = Yii::$app->db->createCommand()->insert('std_attendance',[
@@ -214,23 +232,30 @@
 $url = \yii\helpers\Url::to("index.php?r=std-attendance/fetch-section");
 
 $script = <<< JS
-$('#sessionId').on('change',function(){
-   var session_Id = $('#sessionId').val();
-  
+$('#classId').on('change',function(){
+   var classId = $('#classId').val();
+   
    $.ajax({
         type:'post',
-        data:{session_Id:session_Id},
+        data:{class_Id:classId},
         url: "$url",
 
         success: function(result){
-     
-            var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
-            var options = '';
-            for(var i=0; i<jsonResult.length; i++) { 
-		        options += '<option value="'+jsonResult[i].section_id+'">'+jsonResult[i].section_name+'</option>';
-		    }
-		    // Append to the html
-		    $('#section').append(options);
+            console.log(result);
+            var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
+            
+            var len =jsonResult[0].length;
+            var html = "";
+            $('#sessionId').empty();
+            $('#sessionId').append("<option>"+"Select Student.."+"</option>");
+            for(var i=0; i<len; i++)
+            {
+            var stdId = jsonResult[0][i];
+            var stdName = jsonResult[1][i];
+            html += "<option value="+ stdId +">"+stdName+"</option>";
+            }
+            $(".field-sessionId select").append(html);
+
         }         
     });       
 });

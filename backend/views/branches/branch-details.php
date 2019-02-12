@@ -339,7 +339,7 @@
                             <tr class="label-primary">
                               <th class="text-center">Sr #.</th>
                               <th>Employee Designation</th>
-                              <th class="text-center">Designation Vice Employees</th>
+                              <th class="text-center">Designation Wise Employees</th>
                             </tr>
                           </thead>
                           <tbody>  

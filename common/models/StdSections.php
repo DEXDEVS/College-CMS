@@ -59,7 +59,7 @@ class StdSections extends \yii\db\ActiveRecord
     {
         return [
             'section_id' => 'Section ID',
-            'session_id' => 'Session ID',
+            'session_id' => 'Session',
             'section_name' => 'Section Name',
             'section_description' => 'Section Description',
             'section_intake' => 'Section Intake',
