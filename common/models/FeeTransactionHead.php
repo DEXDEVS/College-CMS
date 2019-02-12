@@ -67,9 +67,9 @@ class FeeTransactionHead extends \yii\db\ActiveRecord
     {
         return [
             'fee_trans_id' => 'Fee Trans ID',
-            'class_name_id' => 'Class Name ID',
-            'session_id' => 'Session ID',
-            'section_id' => 'Section ID',
+            'class_name_id' => 'Class Name',
+            'session_id' => 'Session',
+            'section_id' => 'Section',
             'std_id' => 'Std ID',
             'std_name' => 'Std Name',
             'month' => 'Month',

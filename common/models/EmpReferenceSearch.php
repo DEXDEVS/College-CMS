@@ -18,8 +18,8 @@ class EmpReferenceSearch extends EmpReference
     public function rules()
     {
         return [
-            [['emp_ref_id', 'emp_id', 'ref_contact_no', 'ref_cnic'], 'integer'],
-            [['ref_name', 'ref_designation'], 'safe'],
+            [['emp_ref_id', 'ref_contact_no', 'ref_cnic'], 'integer'],
+            [['emp_id', 'ref_name', 'ref_designation'], 'safe'],
         ];
     }
 
@@ -54,16 +54,17 @@ class EmpReferenceSearch extends EmpReference
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        $query->joinWith('emp');
         $query->andFilterWhere([
             'emp_ref_id' => $this->emp_ref_id,
-            'emp_id' => $this->emp_id,
+            //'emp_id' => $this->emp_id,
             'ref_contact_no' => $this->ref_contact_no,
             'ref_cnic' => $this->ref_cnic,
         ]);
 
         $query->andFilterWhere(['like', 'ref_name', $this->ref_name])
-            ->andFilterWhere(['like', 'ref_designation', $this->ref_designation]);
+            ->andFilterWhere(['like', 'ref_designation', $this->ref_designation])
+            ->andFilterWhere(['like', 'emp_info.emp_name', $this->emp_id]);
 
         return $dataProvider;
     }

@@ -63,7 +63,7 @@ class StdFeeDetails extends \yii\db\ActiveRecord
     {
         return [
             'fee_id' => 'Fee ID',
-            'std_id' => 'Std ID',
+            'std_id' => 'Std Name',
             'admission_fee' => 'Admission Fee',
             'addmission_fee_discount' => 'Admission Fee Discount',
             'net_addmission_fee' => 'Net Admission Fee',
@@ -71,7 +71,7 @@ class StdFeeDetails extends \yii\db\ActiveRecord
             'concession_id' => 'Fee Concession',
             'no_of_installment' => 'No of Installment',
             'tuition_fee' => 'Tuition Fee',
-            'net_tuition_fee' => 'Tuition Fee Par Installment',
+            'net_tuition_fee' => 'Tuition Fee Per Installment',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

@@ -22,7 +22,7 @@ use Yii;
  * @property StdSessions $session
  * @property StdSections $section
  */
-class StdEnrollmentHead extends \yii\db\ActiveRecord
+class StdEnrollmentHead extends \yii\db\ActiveRecord 
 {
     /**
      * @inheritdoc
@@ -38,9 +38,9 @@ class StdEnrollmentHead extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['class_name_id', 'session_id', 'section_id', 'std_enroll_head_name', 'created_by', 'updated_by'], 'required'],
+            [['class_name_id', 'session_id', 'section_id', 'std_enroll_head_name'], 'required'],
             [['class_name_id', 'session_id', 'section_id', 'created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['std_enroll_head_name'], 'string', 'max' => 255],
             [['class_name_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdClassName::className(), 'targetAttribute' => ['class_name_id' => 'class_name_id']],
             [['session_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdSessions::className(), 'targetAttribute' => ['session_id' => 'session_id']],
@@ -55,9 +55,9 @@ class StdEnrollmentHead extends \yii\db\ActiveRecord
     {
         return [
             'std_enroll_head_id' => 'Std Enroll Head ID',
-            'class_name_id' => 'Class Name ID',
-            'session_id' => 'Session ID',
-            'section_id' => 'Section ID',
+            'class_name_id' => 'Class Name',
+            'session_id' => 'Session',
+            'section_id' => 'Section',
             'std_enroll_head_name' => 'Std Enroll Head Name',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

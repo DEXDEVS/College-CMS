@@ -51,7 +51,7 @@ class StdIceInfo extends \yii\db\ActiveRecord
     {
         return [
             'std_ice_id' => 'Std Ice ID',
-            'std_id' => 'Std ID',
+            'std_id' => 'Std Name',
             'std_ice_name' => 'Std Ice Name',
             'std_ice_relation' => 'Std Ice Relation',
             'std_ice_contact_no' => 'Std Ice Contact No',
