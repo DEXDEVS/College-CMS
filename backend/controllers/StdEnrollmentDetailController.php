@@ -136,6 +136,11 @@ class StdEnrollmentDetailController extends Controller
                     foreach ($array as  $value) {
                         $model = new StdEnrollmentDetail();
                         $model->std_enroll_detail_head_id = $std_enrollment_head_id;
+                        $stdName = Yii::$app->db->createCommand("SELECT std_reg_no , std_name FROM std_personal_info WHERE std_id = '$value'")->queryAll();
+                        //assign registration no
+                        $model->std_reg_no =$stdName[0]['std_reg_no'];
+
+                        //assign roll no
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $std_enrollment_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
                         if(empty($StdEnrollmentDetail)){
                             $rollNo = 001;
@@ -145,7 +150,6 @@ class StdEnrollmentDetailController extends Controller
                         } 
                         $model->std_roll_no = $class."-".$sectionString.$sessionString."-".$rollNo;
                         $model->std_enroll_detail_std_id = $value;
-                        $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info WHERE std_id = '$value'")->queryAll();
                         $model->std_enroll_detail_std_name = $stdName[0]['std_name'];
 
                         // select2 add multiple students end...!    
@@ -172,6 +176,10 @@ class StdEnrollmentDetailController extends Controller
                     foreach ($array as  $value) {
                         $model = new StdEnrollmentDetail();
                         $model->std_enroll_detail_head_id = $stdEnrollmentHead->std_enroll_head_id;
+                        $stdName = Yii::$app->db->createCommand("SELECT std_reg_no ,std_name FROM std_personal_info WHERE std_id = '$value'")->queryAll();
+                        // assihn registration no
+                        $model->std_reg_no =$stdName[0]['std_reg_no'];
+                        // assign roll no 
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $stdEnrollmentHead->std_enroll_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
                         if(empty($StdEnrollmentDetail)){
                             $rollNo = 001;
@@ -181,7 +189,6 @@ class StdEnrollmentDetailController extends Controller
                         } 
                         $model->std_roll_no = $class."-".$sectionString.$sessionString."-".$rollNo;
                         $model->std_enroll_detail_std_id = $value;
-                        $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info WHERE std_id = '$value'")->queryAll();
                         $model->std_enroll_detail_std_name = $stdName[0]['std_name'];
 
                         // select2 add multiple students end...!    

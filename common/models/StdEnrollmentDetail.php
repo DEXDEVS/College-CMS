@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $std_enroll_detail_id
  * @property int $std_enroll_detail_head_id
+ * @property string $std_reg_no
  * @property string $std_roll_no
  * @property int $std_enroll_detail_std_id
  * @property string $std_enroll_detail_std_name
@@ -37,9 +38,10 @@ class StdEnrollmentDetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_enroll_detail_head_id', 'std_roll_no', 'std_enroll_detail_std_id', 'std_enroll_detail_std_name', 'created_by', 'updated_by'], 'required'],
+            [['std_enroll_detail_head_id', 'std_reg_no', 'std_roll_no', 'std_enroll_detail_std_id', 'std_enroll_detail_std_name', 'created_by', 'updated_by'], 'required'],
             [['std_enroll_detail_head_id', 'std_enroll_detail_std_id', 'created_by', 'updated_by', 'delete_status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
+            [['std_reg_no'], 'string', 'max' => 15],
             [['std_roll_no'], 'string', 'max' => 32],
             [['std_enroll_detail_std_name'], 'string', 'max' => 100],
             [['std_enroll_detail_head_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdEnrollmentHead::className(), 'targetAttribute' => ['std_enroll_detail_head_id' => 'std_enroll_head_id']],
@@ -54,6 +56,7 @@ class StdEnrollmentDetail extends \yii\db\ActiveRecord
     {
         return [
             'std_enroll_detail_id' => 'Std Enroll Detail ID',
+
             'std_enroll_detail_head_id' => 'Std Enroll Detail Head Name',
             'std_roll_no' => 'Std Roll No',
             'std_enroll_detail_std_id' => 'Std Enroll Detail Std ID',
