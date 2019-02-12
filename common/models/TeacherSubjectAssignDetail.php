@@ -55,9 +55,9 @@ class TeacherSubjectAssignDetail extends \yii\db\ActiveRecord
     {
         return [
             'teacher_subject_assign_detail_id' => 'Teacher Subject Assign Detail ID',
-            'teacher_subject_assign_detail_head_id' => 'Teacher Subject Assign Detail Head ID',
-            'class_id' => 'Class ID',
-            'subject_id' => 'Subject ID',
+            'teacher_subject_assign_detail_head_id' => 'Teacher Subject Assign Detail Head Name',
+            'class_id' => 'Class Name',
+            'subject_id' => 'Subject Name',
             'no_of_lecture' => 'No Of Lecture',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

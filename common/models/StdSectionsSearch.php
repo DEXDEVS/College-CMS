@@ -18,8 +18,8 @@ class StdSectionsSearch extends StdSections
     public function rules()
     {
         return [
-            [['section_id', 'session_id', 'section_intake', 'section_description','section_subjects','created_by', 'updated_by'], 'integer'],
-            [['section_name', 'created_at', 'updated_at'], 'safe'],
+            [['section_id', 'section_intake', 'section_description','section_subjects','created_by', 'updated_by'], 'integer'],
+            [['session_id', 'section_name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 

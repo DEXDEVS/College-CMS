@@ -57,21 +57,15 @@ class BranchesSearch extends Branches
 
          $query->with('institute');
 
-
-        //  ('Left Outter Join', 
-        //                 'institute',
-        //                 'institute.institute_id =Branches.institute_id');
-        // // $query->andFilterWhere([
-        //     'branch_id' => $this->branch_id,
-        //     'institute.institute_name' => $this->institute_id,
-        //     'created_at' => $this->created_at,
-        //     'updated_at' => $this->updated_at,
-        //     'created_by' => $this->created_by,
-        //     'updated_by' => $this->updated_by,
-        // ]);
+         $query->andFilterWhere([
+            'branch_id' => $this->branch_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+        ]);
 
         $query->andFilterWhere(['like', 'branch_code', $this->branch_code])
-            //->andFilterWhere(['like', 'institute.institute_id', $this->institute_id])
             ->andFilterWhere(['like', 'branch_name', $this->branch_name])
             ->andFilterWhere(['like', 'branch_type', $this->branch_type])
             ->andFilterWhere(['like', 'branch_location', $this->branch_location])
