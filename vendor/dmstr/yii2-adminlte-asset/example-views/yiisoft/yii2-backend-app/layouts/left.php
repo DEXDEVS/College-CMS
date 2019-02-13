@@ -77,7 +77,7 @@
                             ['label' => 'Sections', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sections',],
                             ['label' => 'Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
                             ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => 'index.php?r=std-enrollment-head',],
-                            ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-detail',],
+                            ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-head',],
                         ],
                     ],
                     // System Configuration close...
