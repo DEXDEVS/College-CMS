@@ -437,14 +437,14 @@ use yii\helpers\Url;
       <!-- Notice Row CLose -->
 
   <!-- Calendar Start -->
-  <div class="row container-fluid">
+  <!-- <div class="row container-fluid">
     <div class="col-md-8 bg-success bg-info well-info" style="color: #001F3F;">
       <?= \yii2fullcalendar\yii2fullcalendar::widget(array(
            // 'events'=> $events,
         ));
       ?>
     </div>
-  </div>
+  </div> -->
   <!-- Calendar Close -->
 
     </section>
