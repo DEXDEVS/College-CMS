@@ -13,13 +13,8 @@ use common\models\Branches;
 ?>
 
 <?php 
-<<<<<<< HEAD
-    $EmpInfo = EmpInfo::find()->orderBy(['emp_id'=> SORT_DESC])->one();
-    $id = $EmpInfo['emp_id']+1;
-=======
     $empInfo = EmpInfo::find()->orderBy(['emp_id'=> SORT_DESC])->one();
     $id = $empInfo['emp_id']+1;
->>>>>>> cc2a0f3913a718fc156d61fd94352851ce2a8a57
     $year = date('y');
 ?>
 
@@ -31,10 +26,6 @@ use common\models\Branches;
             <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i> -->
             <?= $form->field($model, 'emp_reg_no')->textInput(['maxlength' => true,'value'=> 'EMP-Y'.$year.'-'.$id, 'readonly'=> true]) ?>
         </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> cc2a0f3913a718fc156d61fd94352851ce2a8a57
     </div>
     <div class="row">
         <div class="col-md-4">

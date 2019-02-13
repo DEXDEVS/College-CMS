@@ -150,6 +150,10 @@ class EmpInfoController extends Controller
                         $model->save();
 
                         $empRefModel->emp_id = $model->emp_id;
+                        $empRefModel->created_by = Yii::$app->user->identity->id; 
+                        $empRefModel->created_at = new \yii\db\Expression('NOW()');
+                        $empRefModel->updated_by = '0'; 
+                        $empRefModel->updated_at = '0';
                         $empRefModel->save();
 
                 return [
