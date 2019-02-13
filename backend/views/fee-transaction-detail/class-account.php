@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container-fluid" style="margin-top: -30px;">
-	<h1 class="well well-sm" align="center" style="color: #3C8DBC;">Manage Class Fee Accounts</h1>
+	<h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC;">Manage Class Fee Accounts</h1>
     <form method="POST">
         <div class="row">
             <div class="col-md-4">

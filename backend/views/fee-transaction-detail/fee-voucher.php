@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="container-fluid" style="margin-top: -30px;">
-	<h1 class="well well-sm" align="center">Generate Voucher</h1>
+	<h1 class="well well-sm bg-navy" align="center">Generate Voucher</h1>
     <form  action = "index.php?r=fee-transaction-detail/voucher" method="POST">
     	<div class="row">
             <div class="col-md-4">

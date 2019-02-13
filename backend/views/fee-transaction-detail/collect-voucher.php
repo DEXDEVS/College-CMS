@@ -3,11 +3,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Collect Voucher</title>
+    <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
+    </style>
 </head>
 <body>
 
 <div class="container-fluid" style="margin-top: -30px;">
-	<h1 class="well well-sm" align="center">Voucher Collection</h1>
+	<h1 class="well well-sm bg-navy" align="center">Voucher Collection</h1>
     <form method="POST">
     	<div class="row">
             <div class="col-md-4">
@@ -24,7 +31,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <button type="submit" name="submit" class="btn btn-info"> Show Voucher Details</button>
+                    <button type="submit" name="submit" class="btn btn-success btn-flat"><i class="fa fa-sign-in"></i><b> Show Voucher Details</b></button>
                 </div>    
             </div>   
         </div>
@@ -66,43 +73,45 @@
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-bordered table-responsive" width="100%">
-				<tr>
-					<th>Student</th>
-					<th>Class</th>
-					<th>Month</th>
-					<th>Total Amount</th>
-					<th>Discount Amount</th>
-					<th>Paid Amount</th>
-					<th>Remaing Amount</th>
-					<th>Status</th>
+				<tr class="bg-navy">
+                    <th style="text-align:center; line-height: 2.7;">Voucher #</th>
+					<th style="text-align:center; line-height: 2.7;">Student</th>
+					<th style="text-align:center; line-height: 2.7;">Class</th>
+					<th style="text-align:center; line-height: 2.7;">Month</th>
+					<th style="text-align:center">Total Amount</th>
+					<th style="text-align:center">Discount Amount</th>
+					<th style="text-align:center">Paid Amount</th>
+					<th style="text-align:center">Remaing Amount</th>
+					<th style="text-align:center; line-height: 2.7;">Status</th>
 				</tr>
-				<tr>
+				<tr align="center">
+                    <td><b><?php echo $voucherNo; ?></b></td>
 					<td><?php echo $student[0]['std_name']; ?></td>
 					<td><?php echo $class[0]['class_name']; ?></td>
 					<td><?php echo date('F, Y', strtotime($month)); ?></td>
 					<?php
                         if ($remainingAmount==0) { ?>
-                            <td>
+                            <td width="90px">
                                 <input type="text" name="total_amount" class="form-control" id="total_amount" readonly="" value="<?php echo $transactionHead[0]['total_amount'] ?>" />
                             </td>
                     <?php 
                         } else{ ?>
-                            <td>
+                            <td width="90px">
                                 <input type="text" name="total_amount" class="form-control" id="total_amount" readonly="" value="<?php echo $transactionHead[0]['remaining'] ?>" />
                             </td>
                     <?php    
                         }
                     ?>
-					<td>
+					<td width="80px">
                         <input type="text" class="form-control" readonly="" value="<?php echo $transactionHead[0]['total_discount'] ?>"/>
                     </td>
-					<td>
+					<td width="90px">
                         <input type="number" class="form-control" id="paid_amount" name="paid_amount" onchange="setAmount()" required="" />
                     </td>
-					<td>
+					<td width="90px">
                         <input type="text" class="form-control" id="remaining_amount" name="remaining_amount" readonly="" />
                     </td>
-					<td>
+					<td width="90px">
                         <input type="text" class="form-control" id="status" name="status" readonly="" />
                     </td>
 				</tr>
