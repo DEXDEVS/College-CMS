@@ -22,7 +22,7 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'class_id',
-        'value'=>'class.class_name',
+        'value'=>'class.std_enroll_head_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

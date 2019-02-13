@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label>Select Session</label>
                     <select class="form-control" name="sessionid" id="sessionId">
-                            <option value="">Select Section</option>
+                            <option value="">Select Session</option>
                             <?php 
                                 $sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1")->queryAll();
                                     foreach ($sessionName as  $value) { ?>  

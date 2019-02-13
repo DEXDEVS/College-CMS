@@ -19,10 +19,10 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "johnitvn/yii2-ajaxcrud": "*",
-        "kartik-v/yii2-widget-select2": "@dev",
         "2amigos/yii2-date-time-picker-widget": "~1.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
-        "philippfrenzel/yii2fullcalendar":"*"
+        "philippfrenzel/yii2fullcalendar":"*",
+        "kartik-v/yii2-widget-select2": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

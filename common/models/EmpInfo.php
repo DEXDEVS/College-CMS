@@ -86,6 +86,7 @@ class EmpInfo extends \yii\db\ActiveRecord
         return [
             'emp_id' => 'Emp ID',
             'emp_name' => 'Emp Name',
+            'emp_reg_no' => 'Emp Reg No',
             'emp_father_name' => 'Emp Father Name',
             'emp_cnic' => 'Emp Cnic',
             'emp_contact_no' => 'Emp Contact No',

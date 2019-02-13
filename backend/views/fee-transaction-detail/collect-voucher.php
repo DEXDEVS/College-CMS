@@ -48,9 +48,7 @@
 
         $studentID = $transactionHead[0]['std_id'];
         $classID = $transactionHead[0]['class_name_id'];
-        $monthID = $transactionHead[0]['month'];  
-
-        $month = Yii::$app->db->createCommand("SELECT month_name FROM month WHERE month_id = '$monthID'")->queryAll();      
+        $month = $transactionHead[0]['month'];  
 
         $student = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info WHERE std_id = '$studentID'")->queryAll();        
 
@@ -81,7 +79,7 @@
 				<tr>
 					<td><?php echo $student[0]['std_name']; ?></td>
 					<td><?php echo $class[0]['class_name']; ?></td>
-					<td><?php echo $month[0]['month_name']; ?></td>
+					<td><?php echo date('F, Y', strtotime($month)); ?></td>
 					<?php
                         if ($remainingAmount==0) { ?>
                             <td>

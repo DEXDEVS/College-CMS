@@ -49,7 +49,7 @@ class TeacherSubjectAssignHead extends \yii\db\ActiveRecord
     {
         return [
             'teacher_subject_assign_head_id' => 'Teacher Subject Assign Head ID',
-            'teacher_id' => 'Teacher ID',
+            'teacher_id' => 'Teacher Name',
             'teacher_subject_assign_head_name' => 'Teacher Subject Assign Head Name',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

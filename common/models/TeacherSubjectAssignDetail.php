@@ -20,7 +20,7 @@ use Yii;
  *
  * @property Subjects $subject
  * @property TeacherSubjectAssignHead $teacherSubjectAssignDetailHead
- * @property StdClassName $class
+ * @property StdEnrollmentHead $class
  */
 class TeacherSubjectAssignDetail extends \yii\db\ActiveRecord
 {
@@ -44,7 +44,7 @@ class TeacherSubjectAssignDetail extends \yii\db\ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subjects::className(), 'targetAttribute' => ['subject_id' => 'subject_id']],
             [['teacher_subject_assign_detail_head_id'], 'exist', 'skipOnError' => true, 'targetClass' => TeacherSubjectAssignHead::className(), 'targetAttribute' => ['teacher_subject_assign_detail_head_id' => 'teacher_subject_assign_head_id']],
-            [['class_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdClassName::className(), 'targetAttribute' => ['class_id' => 'class_name_id']],
+            [['class_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdEnrollmentHead::className(), 'targetAttribute' => ['class_id' => 'std_enroll_head_id']],
         ];
     }
 
@@ -55,9 +55,9 @@ class TeacherSubjectAssignDetail extends \yii\db\ActiveRecord
     {
         return [
             'teacher_subject_assign_detail_id' => 'Teacher Subject Assign Detail ID',
-            'teacher_subject_assign_detail_head_id' => 'Teacher Subject Assign Detail Head ID',
-            'class_id' => 'Class ID',
-            'subject_id' => 'Subject ID',
+            'teacher_subject_assign_detail_head_id' => 'Teacher Name',
+            'class_id' => 'Class Name',
+            'subject_id' => 'Subject Name',
             'no_of_lecture' => 'No Of Lecture',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -88,6 +88,6 @@ class TeacherSubjectAssignDetail extends \yii\db\ActiveRecord
      */
     public function getClass()
     {
-        return $this->hasOne(StdClassName::className(), ['class_name_id' => 'class_id']);
+        return $this->hasOne(StdEnrollmentHead::className(), ['std_enroll_head_id' => 'class_id']);
     }
 }
