@@ -24,6 +24,15 @@
 
   // Employee refrence info from `emp_refrence` table againts `emp_id`
   $empReference = Yii::$app->db->createCommand("SELECT * FROM emp_reference WHERE emp_id = '$id'")->queryAll();
+  if (empty($empReference)) {
+    $empReference[0]['ref_name'] = 'No';
+    $empReference[0]['ref_contact_no'] = 'No';
+    $empReference[0]['ref_cnic'] = 'No';
+    $empReference[0]['ref_designation'] = 'No';
+  }
+  else{
+    $empReference == $empReference;
+  }
   
 
 ?>
@@ -69,23 +78,21 @@
                 </a>
               </li>
               <li class="list-group-item">
-                <b>Email</b> 
-              </li>
-              <li class="list-group-item">
-                <a class="">
-                  <?php echo $empInfo[0]['emp_email'] ?>
-                </a> 
-              </li>
-              <li class="list-group-item">
                 <b>Contact #</b> 
                 <a class="pull-right">
                   <?php echo $empInfo[0]['emp_contact_no'] ?>
                 </a>
               </li>
               <li class="list-group-item">
+                <b>Email</b><br>
+                <a class="">
+                  <?php echo $empInfo[0]['emp_email'] ?>
+                </a> 
+              </li>
+              <!-- <li class="list-group-item">
                 <b>Status</b>
                 <a class="pull-right"><span class="label label-success">Active</span></a>
-              </li>
+              </li> -->
             </ul>
             <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
           </div>
@@ -124,23 +131,23 @@
                     <table class="table table-striped table-hover">
                       <thead>
                         <tr>
-                          <th>Employee Father Name:</th>
+                          <th>Father Name:</th>
                           <td><?php echo $empInfo[0]['emp_father_name'] ?></td>
                         </tr>
                         <tr>
-                          <th>Employee Martial Status:</th>
+                          <th>Martial Status:</th>
                           <td><?php echo $empInfo[0]['emp_marital_status'] ?></td>
                         </tr>
                         <tr>
-                          <th>Employee Gender:</th>
+                          <th>Gender:</th>
                           <td><?php echo $empInfo[0]['emp_gender'] ?></td>
                         </tr>
                         <tr>
-                          <th>Employee Salary:</th>
+                          <th>Salary:</th>
                           <td><?php echo $empInfo[0]['emp_salary'] ?></td>
                         </tr>
                         <tr>
-                          <th>Employee Permanent Address:</th>
+                          <th>Permanent Address:</th>
                         </tr>
                         <tr>
                           <td><?php echo $empInfo[0]['emp_perm_address'] ?></td>
@@ -156,23 +163,23 @@
                           <td></td>
                         </tr> -->
                         <tr>
-                          <th>Employee CNIC:</th>
+                          <th>CNIC:</th>
                           <td><?php echo $empInfo[0]['emp_cnic'] ?></td>
                         </tr>
                         <tr>
-                          <th>Employee Qualification:</th>
+                          <th>Qualification:</th>
                           <td><?php echo $empInfo[0]['emp_qualification'] ?></td>
                         </tr>
                         <tr>
-                          <th>Employee Passing Year:</th>
+                          <th>Passing Year:</th>
                           <td><?php echo $empInfo[0]['emp_passing_year'] ?></td>
                         </tr>
                         <tr>
-                          <th>Employee Institute Name:</th>
+                          <th>Institute Name:</th>
                           <td><?php echo $empInfo[0]['emp_institute_name'] ?></td>
                         </tr>
                         <tr>
-                          <th>Employee Temporary Address:</th>
+                          <th>Temporary Address:</th>
                         </tr>
                         <tr>
                           <td><?php echo $empInfo[0]['emp_temp_address'] ?></td>
