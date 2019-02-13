@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset; 
 use johnitvn\ajaxcrud\BulkButtonWidget;
@@ -16,13 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 CrudAsset::register($this);
 
 ?>
+<?php Pjax::begin(); ?>
 <div class="std-personal-info-index">
     <div id="ajaxCrudDatatable">
         <?=GridView::widget([
             'id'=>'crud-datatable',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
-            'pjax'=>true,
+            'pjax' => true,
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
@@ -58,6 +60,7 @@ CrudAsset::register($this);
         ])?>
     </div>
 </div>
+<?php Pjax::end(); ?>
 <?php Modal::begin([
     "id"=>"ajaxCrudModal",
     "size"=>"modal-lg",

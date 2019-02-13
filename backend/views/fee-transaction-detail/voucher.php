@@ -2,8 +2,13 @@
 <html>
 <head>
 	<title>Voucher</title>
+	<style type="text/css">
+		/*td p{
+		font-size:16px;
+	}*/
+	</style>
 </head>
-<body>
+<body class="text">
 <?php 
 
     if(isset($_POST['submit'])){ 
@@ -16,7 +21,8 @@
         $message   = $_POST["message"];
         // change the format of dates....
         $issueDate  = date('d-m-Y', strtotime($issueDate));
-        $dueDate  = date('d-m-Y', strtotime($dueDate)); 
+        $dueDate  = date('d-m-Y', strtotime($dueDate));
+        $todayDate = date('d-m-Y'); 
         
         $months = Yii::$app->db->createCommand("SELECT month FROM fee_transaction_head WHERE month = '$month'")->queryAll();
 		
@@ -210,9 +216,10 @@
 				</div>
 			</div>
 			<br><br><br><hr>
-
+			
 			<div class="row">
 				<div class="col-md-12 text-center">
+					<p style="border: 1px"><?php echo "Print on: "."<b>".$todayDate."</b>"; ?></p>
 					<p style="border: 1px outset;">Devleoped By: <b><i>DEXTEROUS DEVELOPERS</i></b><br> (www.dexdevs.com)</p>
 				</div>
 			</div>
