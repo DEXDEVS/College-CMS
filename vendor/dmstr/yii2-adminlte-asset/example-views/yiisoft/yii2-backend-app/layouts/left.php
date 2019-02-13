@@ -82,6 +82,14 @@
                     ],
                     // System Configuration close...
                     // ------------------------------------------------
+                     // Student Inquiry start...
+                    [
+                        'label' => 'Student Inquiry',
+                        'icon' => 'user',
+                        'url' => 'index.php?r=std-inquiry',
+                    ],
+                    // Student Inquiry close...
+                    // ------------------------------------------------
                     // Student Registration start...
                     [
                         'label' => 'Student Registration',
