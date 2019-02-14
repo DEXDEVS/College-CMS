@@ -21,7 +21,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true,'value'=> 'STD-Y'.$year.'-'.'00'.$id, 'readonly'=> true]) ?>
+            <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true,'value'=> 'STD-Y'.$year.'-0'.$id, 'readonly'=> true]) ?>
         </div>
         <div class="col-md-4">
             <label>Date</label>
