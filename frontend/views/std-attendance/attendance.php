@@ -24,24 +24,27 @@
             	$techerEmail = Yii::$app->user->identity->email;
             	$teacherId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$techerEmail'")->queryAll();
             	$teacher_id = $teacherId[0]['emp_id'];
-				$classNameId = Yii::$app->db->createCommand("SELECT DISTINCT seh.class_name_id FROM teacher_subject_assign_detail as tsad INNER JOIN std_enrollment_head as seh ON tsad.class_id = seh.std_enroll_head_id WHERE tsad.teacher_subject_assign_detail_head_id = '$teacher_id'")->queryAll();
-				// $sessionName = Yii::$app->db->createCommand("SELECT tsad.session_id, sess.session_name FROM teacher_subject_assign_detail as tsad INNER JOIN std_sessions as sess ON tsad.session_id = sess.session_id WHERE ")->queryAll();
-
+				$classId = Yii::$app->db->createCommand("SELECT DISTINCT d.class_id FROM teacher_subject_assign_detail as d INNER JOIN teacher_subject_assign_head as h ON d.teacher_subject_assign_detail_head_id = h.teacher_subject_assign_head_id WHERE h.teacher_id = '$teacher_id'")->queryAll();
             ?>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Class</label>
                     <select class="form-control" name="classid" id="classId">
                     	<option value="">Select Class </option>
-							<?php
-								foreach ($classNameId as  $value) { 
-									$class = $value["class_name_id"];
-									$className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$class'")->queryAll();
-									?>	
-									<option value="<?php echo $value["class_name_id"]; ?>">
-										<?php echo $className[0]["class_name"]; ?>	
-									</option>
-							<?php } ?>
+						<?php
+						foreach ($classId as $key => $value) {
+							$id = $classId[$key]['class_id'];
+							$classNameId = Yii::$app->db->createCommand("SELECT class_name_id  FROM std_enrollment_head WHERE std_enroll_head_id = '$id'")->queryAll(); 
+							$name = $classNameId[0]['class_name_id'];
+							$className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$name'")->queryAll();
+							?>
+
+							<option value="<?php echo $classNameId[0]["class_name_id"]; ?>">
+									<?php echo $className[0]["class_name"]; ?>	
+							</option>
+							
+						<?php } ?>
+							
 					</select>      
                 </div>    
             </div>
@@ -234,7 +237,7 @@ $url = \yii\helpers\Url::to("index.php?r=std-attendance/fetch-section");
 $script = <<< JS
 $('#classId').on('change',function(){
    var classId = $('#classId').val();
-   
+   alert(classId);
    $.ajax({
         type:'post',
         data:{class_Id:classId},
@@ -242,20 +245,15 @@ $('#classId').on('change',function(){
 
         success: function(result){
             console.log(result);
-            var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
-            
-            var len =jsonResult[0].length;
-            var html = "";
+            var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
+            var options = '';
             $('#sessionId').empty();
-            $('#sessionId').append("<option>"+"Select Student.."+"</option>");
-            for(var i=0; i<len; i++)
-            {
-            var stdId = jsonResult[0][i];
-            var stdName = jsonResult[1][i];
-            html += "<option value="+ stdId +">"+stdName+"</option>";
-            }
-            $(".field-sessionId select").append(html);
-
+            $('#sessionId').append("<option>"+"Select Session"+"</option>");
+            for(var i=0; i<jsonResult.length; i++) { 
+		        options += '<option value="'+jsonResult[i].session_id+'">'+jsonResult[i].session_name+'</option>';
+		    }
+		    // Append to the html
+		    $('#sessionId').append(options);
         }         
     });       
 });
