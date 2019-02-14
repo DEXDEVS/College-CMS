@@ -85,7 +85,7 @@
                      // Student Inquiry start...
                     [
                         'label' => 'Student Inquiry',
-                        'icon' => 'user',
+                        'icon' => 'fa fa-user-circle-o',
                         'url' => 'index.php?r=std-inquiry',
                     ],
                     // Student Inquiry close...

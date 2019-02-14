@@ -84,11 +84,11 @@
 					<th style="text-align:center">Remaing Amount</th>
 					<th style="text-align:center; line-height: 2.7;">Status</th>
 				</tr>
-				<tr align="center">
-                    <td><b><?php echo $voucherNo; ?></b></td>
-					<td><?php echo $student[0]['std_name']; ?></td>
-					<td><?php echo $class[0]['class_name']; ?></td>
-					<td><?php echo date('F, Y', strtotime($month)); ?></td>
+				<tr align="center" class="bg-primary">
+                    <td style="line-height: 2.5; width: 84px;"><b><?php echo $voucherNo; ?></b></td>
+					<td style="line-height: 2.5"><b><?php echo $student[0]['std_name']; ?></b></td>
+					<td style="line-height: 2.5"><?php echo $class[0]['class_name']; ?></td>
+					<td style="line-height: 2.5; width: 115px;"><?php echo date('F, Y', strtotime($month)); ?></td>
 					<?php
                         if ($remainingAmount==0) { ?>
                             <td width="90px">
@@ -118,16 +118,17 @@
 			</table>
     	</div>
     </div>
+    
     <div class="row">
-        <div class="col-md-4 invisible">
-            <input type="number" name="voucherNo"  class="form-control" value="<?php echo $voucherNo; ?>">
+        <div class="col-md-2" style="float: right; margin-right: 5.1%;">
+            <div class="form-group">
+                <button type="submit" name="save" id="btn" class="btn btn-success btn-flat" style="padding: 5px 27px;"><span class="fa fa-check-square" aria-hidden="true"></span><b> Collect Voucher</b></button>
+            </div> 
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1" style="margin-left: 81%;">
-            <div class="form-group">
-                <button type="submit" name="save" id="btn" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Collect Voucher</button>
-            </div> 
+        <div class="col-md-4 invisible">
+            <input type="number" name="voucherNo"  class="form-control" value="<?php echo $voucherNo; ?>">
         </div>
     </div>
 </form>
@@ -136,9 +137,9 @@
     // if close...
     else{
         echo 
-            "<div class='row'>
+            "<br><div class='row container-fluid'>
                 <div class='col-md-12 alert alert-success'>
-                    <p style='text-align:center'><b>This voucher has been paid...!
+                    <p style='text-align:center'><b>This voucher has already paid...!
                     </b></p>
                 </div>
             </div>";
@@ -157,7 +158,7 @@ if(isset($_POST['save'])){
     $updateTransactionHead = Yii::$app->db->createCommand()->update('fee_transaction_head', ['paid_amount'=> $paidAmount, 'remaining'=> $remainingAmount , 'status' => $status], ['fee_trans_id' => $voucherNo])->execute();
     if ($updateTransactionHead) {
         //Success
-        echo "<div class='row'>
+        echo "<br><div class='row container-fluid'>
                 <div class='col-md-12 alert alert-success'>
                     <p style='text-align:center'><b>Voucher paid Successfully...!
                     </b></p>
@@ -165,7 +166,7 @@ if(isset($_POST['save'])){
             </div>";
         } else {
         //Failure
-        echo "<div class='row'>
+        echo "<br><div class='row container-fluid'>
                 <div class='col-md-12 alert alert-danger'>
                     <p style='text-align:center'><b>Voucher not paid...!
                     </b></p>
