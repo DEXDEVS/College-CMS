@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container-fluid" style="margin-top: -30px;">
-	<h1 class="well well-sm" align="center" style="color: #3C8DBC;">Manage Class Fee Accounts</h1>
+	<h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC;">Manage Class Fee Accounts</h1>
     <form method="POST">
         <div class="row">
             <div class="col-md-4">
@@ -77,7 +77,7 @@
             </div> 
             <div class="col-md-4">
                 <div class="form-group" style="margin-top: 24px;">
-                    <button type="submit" name="submit" class="btn btn-success btn-flat btn-block"><i class="fa fa-check-square-o" aria-hidden="true"></i> Get Class</button>
+                    <button type="submit" name="submit" class="btn btn-success btn-flat btn-block"><i class="fa fa-check-square-o" aria-hidden="true"></i><b> Get Class</b></button>
                 </div>    
             </div>
         </div>
@@ -111,74 +111,77 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered table-responsive table-hover table-condensed" border="1" style="text-align: center;">
-                    <tr class="label-primary">
-                        <th rowspan="2">Sr #</th>
-                        <th rowspan="2">Roll #</th>
-                        <th rowspan="2">Student<br> Name</th>
-                        <th rowspan="2">Admission<br> Fee</th>
-                        <th rowspan="2">Tuition<br> Fee</th>
-                        <th rowspan="2">Late Fee<br> Fine</th>
-                        <th rowspan="2">Absent<br> Fine</th>
-                        <th rowspan="2">Library<br> Dues</th>
-                        <th rowspan="2">Transportation<br> Fee</th>
+                <table class="table table-bordered table-responsive table-condensed" border="1" style="text-align: center;">
+                    <tr class="bg-navy">
+                        <th rowspan="2" style="text-align: center">Sr #</th>
+                        <th rowspan="2" style="text-align: center">Roll #</th>
+                        <th rowspan="2" style="text-align: center">Student Name</th>
+                        <th rowspan="2" style="text-align: center">Admission Fee</th>
+                        <th rowspan="2" style="text-align: center">Tuition Fee</th>
+                        <th rowspan="2" style="text-align: center">Late Fee Fine</th>
+                        <th rowspan="2" style="text-align: center">Absent Fine</th>
+                        <th rowspan="2" style="text-align: center">Library Dues</th>
+                        <th rowspan="2" style="text-align: center">Transportation Fee</th>
                         <th colspan="3" style="text-align: center;">Amount</th>
                     </tr>
                     <tr style="background-color: #87CEFA">
-                        <th>Total</th>
-                        <th>Discount</th>
-                        <th>Net</th>
+                        <th style="text-align: center">Total</th>
+                        <th style="text-align: center">Discount</th>
+                        <th style="text-align: center">Net</th>
                     </tr>
                     <?php 
                         $length = count($student);
                         foreach ($student as $id =>$value) {
                             $stdId = $student[$id]['std_enroll_detail_std_id'];
                             $studentId[$id] = $stdId;
-                            $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll();
+                            $stdName = Yii::$app->db->createCommand("SELECT std_reg_no,std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll();
                             $studentName[$id] = $stdName[0]['std_name'];
-                            $fee = Yii::$app->db->createCommand("SELECT net_addmission_fee, net_tuition_fee FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll(); 
+                            // getting student roll no...
+                            $stdRollNo = Yii::$app->db->createCommand("SELECT std_roll_no FROM  std_enrollment_detail WHERE std_enroll_detail_std_id = '$stdId'")->queryAll(); 
+                            // getting student fee...
+                            $fee = Yii::$app->db->createCommand("SELECT net_addmission_fee, net_tuition_fee FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
                             $admissionFee = $fee[0]['net_addmission_fee'];
                             $tuitionFee = $fee[0]['net_tuition_fee'];
                             $netTotal = $admissionFee + $tuitionFee;
                     ?>
                     <tr>
                         <td>
-                            <p style="margin-top: 8px"><?php echo $id+1; ?></p>
+                            <p style="margin-top: 8px"><b><?php echo $id+1; ?></b></p>
                         </td>
                         <td>
-                            <p style="margin-top: 8px"><?php echo $stdId;?></p>
+                            <p style="margin-top: 8px"><b><?php echo $stdRollNo[0]['std_roll_no'];?></b></p>
                         </td>
                         <td>
                             <p style="margin-top: 8px"><?php echo $stdName[0]['std_name'];?></p>
                          </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
                         </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]"  onChange="lateFeeFine(<?php echo $id; ?>)"  style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]"  onChange="lateFeeFine(<?php echo $id; ?>)"  style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="absentFine_<?php echo $id; ?>" name="absent_fine[]"  onChange="absentFine(<?php echo $id; ?>)" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="absentFine_<?php echo $id; ?>" name="absent_fine[]"  onChange="absentFine(<?php echo $id; ?>)" style="width: 70px; border: none;">
                         </td>
 
 
                         <td>
-                            <input class="form-control" type="number" id="libraryDues_<?php echo $id; ?>" name="library_dues[]"  onChange="libraryDues(<?php echo $id; ?>)" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="libraryDues_<?php echo $id; ?>" name="library_dues[]"  onChange="libraryDues(<?php echo $id; ?>)" style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]"  onChange="transportationFee(<?php echo $id; ?>)" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]"  onChange="transportationFee(<?php echo $id; ?>)" style="width: 100px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name=" total_amount[]" value="<?php echo $netTotal ; ?>"  style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name=" total_amount[]" value="<?php echo $netTotal ; ?>"  style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="discountAmount_<?php echo $id; ?>" name="discount_amount[]" onChange="totalDiscount(<?php echo $id; ?>)" value="0" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="discountAmount_<?php echo $id; ?>" name="discount_amount[]" onChange="totalDiscount(<?php echo $id; ?>)" value="0" style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="netTotal_<?php echo $id; ?>" readonly="" name="net_total[]" value="<?php echo $netTotal; ?>" style="width: 80px; border: none;">
+                            <input class="form-control" type="number" id="netTotal_<?php echo $id; ?>" readonly="" name="net_total[]" value="<?php echo $netTotal; ?>" style="width: 70px; border: none;">
                         </td>
                     </tr>
                 <?php } ?>
@@ -202,7 +205,7 @@
                     <input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
                     <input type="hidden" name="month" value="<?php echo $month; ?>">
                     <input type="hidden" name="date" value="<?php echo $date; ?>">
-                    <button type="submit" name="save" class="btn btn-success btn-flat"><i class="fa fa fa-sign-in" aria-hidden="true"></i> Submit</button>
+                    <button type="submit" name="save" class="btn btn-success btn-flat"><i class="fa fa fa-sign-in" aria-hidden="true"></i><b> Submit</b></button>
                 </div>    
             </div>
 		</div>
@@ -303,7 +306,7 @@
                     //end of for loop
                     }
                     echo 
-                        "<div class='row' style='margin:0px -10px 0px 15px;'>
+                        "<div class='row container-fluid' style='margin:0px -10px 0px 15px;'>
                             <div class='col-md-12 alert alert-success text-success' style='text-align: center'>
                                 <p>You have <b>Successfully </b>maintain this class account....!</p>
                             </div>
@@ -506,7 +509,7 @@
                     // end of j loop    
                 }          
                 echo 
-                    "<div class='row' style='margin:0px -10px 0px 15px;'>
+                    "<br><div class='row container-fluid' style='margin:0px 0px 0px 0px;'>
                         <div class='col-md-12 alert alert-warning' style='text-align: center'>
                             <p>You have <b>Successfully </b>update this class account....!</p>
                         </div>
@@ -514,7 +517,7 @@
             }
             if($updateStatus == '0'){
                 echo
-                    "<div class='row' style='margin:0px -10px 0px 15px;'>
+                    "<br><div class='row container-fluid' style='margin:0px 0px 0px 0px;'>
                         <div class='col-md-12 alert alert-warning' style='text-align: center'>
                             </p>You have <b>already maintain</b> this class account....!</p>
                         </div>

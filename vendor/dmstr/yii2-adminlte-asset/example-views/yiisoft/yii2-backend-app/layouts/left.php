@@ -77,10 +77,18 @@
                             ['label' => 'Sections', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sections',],
                             ['label' => 'Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
                             ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => 'index.php?r=std-enrollment-head',],
-                            ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-detail',],
+                            ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-head',],
                         ],
                     ],
                     // System Configuration close...
+                    // ------------------------------------------------
+                     // Student Inquiry start...
+                    [
+                        'label' => 'Student Inquiry',
+                        'icon' => 'fa fa-user-circle-o',
+                        'url' => 'index.php?r=std-inquiry',
+                    ],
+                    // Student Inquiry close...
                     // ------------------------------------------------
                     // Student Registration start...
                     [
@@ -101,10 +109,10 @@
                     [
                         'label' => 'Employee Registration',
                         'icon' => 'user-plus',
-                        'url' => '#',
+                        'url' => 'index.php?r=emp-info',
                         'items' => [
-                            ['label' => 'Employee Personal Info', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-info',],
-                            ['label' => 'Employee Reference', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-reference',]
+                            //['label' => 'Employee Personal Info', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-info',],
+                            // ['label' => 'Employee Reference', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-reference',]
                         ],
                     ],
                     // ------------------------------------------------
@@ -116,7 +124,7 @@
                         'icon' => 'credit-card',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Manage Fee Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail',],
+                            //['label' => 'Manage Fee Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail',],
                             ['label' => 'Manage Class Fee Accounts', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/class-account'],
                             ['label' => 'Generate Student Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/fee-voucher'],
                             ['label' => 'Collect Student Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/collect-voucher']

@@ -53,7 +53,7 @@ class StdFeePkg extends \yii\db\ActiveRecord
         return [
             'std_fee_id' => 'Std Fee ID',
             'session_id' => 'Session',
-            'class_id' => 'Class ID',
+            'class_id' => 'Class Group',
             'admission_fee' => 'Admission Fee',
             'tutuion_fee' => 'Tutuion Fee',
             'created_at' => 'Created At',

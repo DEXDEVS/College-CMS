@@ -2,8 +2,13 @@
 <html>
 <head>
 	<title>Voucher</title>
+	<style type="text/css">
+		/*td p{
+		font-size:16px;
+	}*/
+	</style>
 </head>
-<body>
+<body class="text">
 <?php 
 
     if(isset($_POST['submit'])){ 
@@ -16,7 +21,8 @@
         $message   = $_POST["message"];
         // change the format of dates....
         $issueDate  = date('d-m-Y', strtotime($issueDate));
-        $dueDate  = date('d-m-Y', strtotime($dueDate)); 
+        $dueDate  = date('d-m-Y', strtotime($dueDate));
+        $todayDate = date('d-m-Y'); 
         
         $months = Yii::$app->db->createCommand("SELECT month FROM fee_transaction_head WHERE month = '$month'")->queryAll();
 		
@@ -44,7 +50,7 @@
 			$copyName = Array('Student Copy','Account Copy','Bank Copy');
 			for ($i=0;$i<3;$i++){ 
 		?>
-		<div class="col-md-<?php echo $j; ?>" style="border-right: black dotted 1px;">
+		<div class="col-md-<?php echo $j; ?>" style="border-right: black dashed 2px;">
 			<div class="row">
 				<div class="col-md-3">
 					<img src="images/brookfield_logo.jpg" class="img-circle img-responsive" style="float: left;" width="100px" >
@@ -209,10 +215,11 @@
 					<p align="center">STAMP</p>
 				</div>
 			</div>
-			<br><br><br><hr>
-
+			<br><hr>
+			
 			<div class="row">
 				<div class="col-md-12 text-center">
+					<p style="border: 1px"><?php echo "Printed on: "."<b><i>".$todayDate."</i></b>"; ?></p>
 					<p style="border: 1px outset;">Devleoped By: <b><i>DEXTEROUS DEVELOPERS</i></b><br> (www.dexdevs.com)</p>
 				</div>
 			</div>

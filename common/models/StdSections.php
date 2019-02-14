@@ -61,7 +61,7 @@ class StdSections extends \yii\db\ActiveRecord
             'section_id' => 'Section ID',
             'session_id' => 'Session',
             'section_name' => 'Section Name',
-            'section_description' => 'Section Description',
+            'section_description' => 'Section Group',
             'section_intake' => 'Section Intake',
             'section_subjects' => 'Section Subjects',
             'created_at' => 'Created At',

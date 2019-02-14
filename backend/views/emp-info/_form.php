@@ -19,7 +19,6 @@ use common\models\Branches;
 ?>
 
 <div class="emp-info-form">
-
     <?php $form = ActiveForm::begin(); ?>
     <h3 style="color: #337AB7; margin-top: -10px"> Employee Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
     <div class="row">
@@ -27,7 +26,6 @@ use common\models\Branches;
             <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i> -->
             <?= $form->field($model, 'emp_reg_no')->textInput(['maxlength' => true,'value'=> 'EMP-Y'.$year.'-'.$id, 'readonly'=> true]) ?>
         </div>
-
     </div>
     <div class="row">
         <div class="col-md-4">
