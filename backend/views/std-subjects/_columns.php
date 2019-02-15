@@ -16,6 +16,11 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'class_id',
+        'value'=>'class.class_name',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'std_subject_name',
     ],
     [
