@@ -192,7 +192,7 @@ use common\models\StdSubjects;
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i> -->
                     <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
-                    ['prompt'=>'', 'id'=>'classId']
+                    ['prompt'=>'Select Class', 'id'=>'classId']
 
                 )?>
             </div>
@@ -200,7 +200,7 @@ use common\models\StdSubjects;
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 158px; top: 6px"></i> -->
                     <?= $form->field($stdAcademicInfo, 'subject_combination')->dropDownList(
                         ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name'),
-                        ['prompt'=>'Select Subject combination']
+                        ['prompt'=>'Select Subject combination', 'id'=>'subjectId']
                     )?>
             </div>
         </div>
@@ -417,8 +417,6 @@ $script = <<< JS
        }else{
             $('#grade').val('F');
        }
-
-
     });
 
 $('#sessionId').on('change',function(){
@@ -429,9 +427,7 @@ $('#sessionId').on('change',function(){
         type:'post',
         data:{class_Id:classId,session_Id:sessionId},
         url: "$url",
-
         success: function(result){
-            
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
             var addmissionFee = jsonResult['admission_fee'];
             var monthlyFee = jsonResult['tutuion_fee'];
@@ -439,20 +435,31 @@ $('#sessionId').on('change',function(){
             $('#totalTuitionFee').val(monthlyFee);
         }         
     }); 
-
 });
-// $('#sessionId').on('click',function(){
-// var totalMarks = $('#totalMarks').val();
-// var obtainedMarks = $('#obtainedMarks').val(); 
-// var percentage = $('#percentage').val();
-// var grade = $('#grade').val(); 
 
-  
-// alert(totalMarks);
-//    alert(obtainedMarks);
-//    alert(percentage);
-//    alert(grade);
-// });
+
+$('#classId').on('change',function(){
+   var classId = $('#classId').val();
+   
+   $.ajax({
+        type:'post',
+        data:{class_Id:classId},
+        url: "$url",
+        success: function(result){ 
+        console.log(result);  
+            var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
+            var options = '';
+            $('#subjectId').empty();
+            $('#subjectId').append("<option>"+"Select Subject combination"+"</option>");
+            for(var i=0; i<jsonResult.length; i++) { 
+                options += '<option value="'+jsonResult[i].std_subject_id+'">'+jsonResult[i].std_subject_name+'</option>';
+            }
+            // Append to the html
+            $('#subjectId').append(options);
+        }         
+    }); 
+});
+
 JS;
 $this->registerJs($script);
 ?>

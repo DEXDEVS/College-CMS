@@ -22,7 +22,7 @@
         "2amigos/yii2-date-time-picker-widget": "~1.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
         "philippfrenzel/yii2fullcalendar":"*",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev"          
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
