@@ -162,7 +162,7 @@ use common\models\StdSubjects;
         </div><hr>
         
     <!-- ICE Info Start -->
-    <h3 style="color: #5FDAF4; margin-top: -10px"> ICE Info </h3>
+    <h3 style="color: #5FDAF4; margin-top: -10px"> Incase of Emergency (ICE) Info </h3>
     <div class="row">
         <div class="col-md-4">
             <?= $form->field($stdIceInfo, 'std_ice_name')->textInput(['maxlength' => true]) ?>
@@ -172,6 +172,11 @@ use common\models\StdSubjects;
         </div>
         <div class="col-md-4">
             <?= $form->field($stdIceInfo, 'std_ice_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($stdIceInfo, 'std_ice_address')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
     <!-- ICE Info end -->

@@ -15,10 +15,12 @@ use yii\widgets\DetailView;
             'std_ice_name',
             'std_ice_relation',
             'std_ice_contact_no',
+            'std_ice_address',
             'created_at',
             'created_by',
             'updated_at',
             'updated_by',
+            'delete_status',
         ],
     ]) ?>
 

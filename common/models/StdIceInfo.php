@@ -12,10 +12,12 @@ use Yii;
  * @property string $std_ice_name
  * @property string $std_ice_relation
  * @property string $std_ice_contact_no
+ * @property string $std_ice_address
  * @property string $created_at
  * @property int $created_by
  * @property string $updated_at
  * @property int $updated_by
+ * @property int $delete_status
  *
  * @property StdPersonalInfo $std
  */
@@ -35,11 +37,12 @@ class StdIceInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_id', 'std_ice_name', 'std_ice_relation', 'std_ice_contact_no'], 'required'],
-            [['std_id', 'created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['std_id', 'std_ice_name', 'std_ice_relation', 'std_ice_contact_no', 'std_ice_address'], 'required'],
+            [['std_id', 'created_by', 'updated_by', 'delete_status'], 'integer'],
+            [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['std_ice_name', 'std_ice_relation'], 'string', 'max' => 64],
             [['std_ice_contact_no'], 'string', 'max' => 15],
+            [['std_ice_address'], 'string', 'max' => 100],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
         ];
     }
@@ -51,14 +54,16 @@ class StdIceInfo extends \yii\db\ActiveRecord
     {
         return [
             'std_ice_id' => 'Std Ice ID',
-            'std_id' => 'Std Name',
-            'std_ice_name' => 'Std Ice Name',
-            'std_ice_relation' => 'Std Ice Relation',
-            'std_ice_contact_no' => 'Std Ice Contact No',
+            'std_id' => 'Std ID',
+            'std_ice_name' => 'Name',
+            'std_ice_relation' => 'Relation',
+            'std_ice_contact_no' => 'Contact No',
+            'std_ice_address' => 'Address',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
+            'delete_status' => 'Delete Status',
         ];
     }
 
