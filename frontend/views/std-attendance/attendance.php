@@ -237,14 +237,14 @@ $url = \yii\helpers\Url::to("index.php?r=std-attendance/fetch-section");
 $script = <<< JS
 $('#classId').on('change',function(){
    var classId = $('#classId').val();
-   alert(classId);
+   //alert(classId);
    $.ajax({
         type:'post',
         data:{class_Id:classId},
         url: "$url",
 
         success: function(result){
-            console.log(result);
+            //console.log(result);
             var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
             var options = '';
             $('#sessionId').empty();
@@ -255,6 +255,22 @@ $('#classId').on('change',function(){
 		    // Append to the html
 		    $('#sessionId').append(options);
         }         
+    });       
+});
+
+$('#sessionId').on('change',function(){
+	var sessionId = $('#sessionId').val();
+	var classId = $('#classId').val();
+
+	$.ajax({
+        type:'post',
+        data:{class_Id:classId,sessionId:sessionId},
+        url: "$url",
+
+        success: function(result){
+        console.log(result);
+      
+         }         
     });       
 });
 JS;

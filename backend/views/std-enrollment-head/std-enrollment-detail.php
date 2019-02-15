@@ -6,7 +6,7 @@
 <body>
 <?php 
   $id = $_GET['id'];
-  $stdEnrollmentDetail = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name, sed.std_enroll_detail_std_name, sed.std_roll_no, sed.std_reg_no FROM std_enrollment_head as seh
+  $stdEnrollmentDetail = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name, sed.std_enroll_detail_std_name, sed.std_enroll_detail_std_id, sed.std_roll_no, sed.std_reg_no FROM std_enrollment_head as seh
     INNER JOIN std_enrollment_detail as sed
     ON seh. std_enroll_head_id = sed.std_enroll_detail_head_id 
     WHERE sed.std_enroll_detail_head_id = '$id'")->queryAll();
@@ -44,7 +44,11 @@
                 <td align="center"><b><?php echo $key+1; ?></b></td>
                 <td><?php echo $value['std_reg_no']; ?></td>
                 <td><?php echo $value['std_roll_no']; ?></td>
-                <td><?php echo $value['std_enroll_detail_std_name'];?></td>
+                <td>
+                  <a href="index.php?r=std-personal-info/view&id=<?php echo $value['std_enroll_detail_std_id'];?>">
+                    <?php echo $value['std_enroll_detail_std_name'];?>
+                  </a>
+                  </td>
               </tr>
               <?php } ?>
             </tbody>

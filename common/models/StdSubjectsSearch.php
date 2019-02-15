@@ -18,7 +18,7 @@ class StdSubjectsSearch extends StdSubjects
     public function rules()
     {
         return [
-            [['std_subject_id'], 'integer'],
+            [['std_subject_id', 'class_id'], 'integer'],
             [['std_subject_name'], 'safe'],
         ];
     }
@@ -57,6 +57,7 @@ class StdSubjectsSearch extends StdSubjects
 
         $query->andFilterWhere([
             'std_subject_id' => $this->std_subject_id,
+            'class_id' => $this->class_id,
         ]);
 
         $query->andFilterWhere(['like', 'std_subject_name', $this->std_subject_name]);

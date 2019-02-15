@@ -19,7 +19,7 @@ class StdInquirySearch extends StdInquiry
     {
         return [
             [['std_inquiry_id', 'std_obtained_marks', 'std_total_marks', 'created_by', 'updated_by'], 'integer'],
-            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_previous_class', 'std_roll_no', 'std_percentage', 'refrence_name', 'refrence_contact_no', 'refrence_designation', 'std_address', 'created_at', 'updated_at'], 'safe'],
+            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'std_roll_no', 'std_percentage', 'refrence_name', 'refrence_contact_no', 'refrence_designation', 'std_address', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -71,6 +71,7 @@ class StdInquirySearch extends StdInquiry
             ->andFilterWhere(['like', 'std_father_name', $this->std_father_name])
             ->andFilterWhere(['like', 'std_contact_no', $this->std_contact_no])
             ->andFilterWhere(['like', 'std_father_contact_no', $this->std_father_contact_no])
+            ->andFilterWhere(['like', 'std_intrested_class', $this->std_intrested_class])
             ->andFilterWhere(['like', 'std_previous_class', $this->std_previous_class])
             ->andFilterWhere(['like', 'std_roll_no', $this->std_roll_no])
             ->andFilterWhere(['like', 'std_percentage', $this->std_percentage])

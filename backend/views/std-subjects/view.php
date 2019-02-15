@@ -11,6 +11,7 @@ use yii\widgets\DetailView;
         'model' => $model,
         'attributes' => [
             'std_subject_id',
+            'class_id',
             'std_subject_name',
         ],
     ]) ?>

@@ -73,6 +73,7 @@ use common\models\Branches;
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 108px; top: 6px"></i>
             <?= $form->field($model, 'emp_marital_status')->dropDownList([ 'Single' => 'Single', 'Married' => 'Married', ], ['prompt' => 'Select Merital Status']) ?>
+            <?= $form->field($model, 'emp_fb_ID')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
             <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 102px; top: 6px"></i> -->
@@ -106,6 +107,8 @@ use common\models\Branches;
             <?= $form->field($model, 'emp_type_id')->dropDownList(
                     ArrayHelper::map(EmpType::find()->where(['delete_status'=>1])->all(),'emp_type_id','emp_type'), ['prompt'=>'Select Type']
                 )?>
+
+                 <?= $form->field($model, 'emp_salart_type')->dropDownList([ 'Salarid' => 'Salarid', 'Per Lecture' => 'Per Lecture', ], ['prompt' => '']) ?>
         </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 80px; top: 6px"></i>
@@ -154,11 +157,11 @@ use common\models\Branches;
         </div>
     </div>  
     
-	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	    </div>
-	<?php } ?>
+    <?php if (!Yii::$app->request->isAjax){ ?>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+    <?php } ?>
 
     <?php ActiveForm::end(); ?>
     
