@@ -2,14 +2,12 @@
 
 namespace common\models;
 
-
 use Yii;
-use yii\helpers\Url;
 
 /**
  * This is the model class for table "emp_info".
  *
- * @property integer $emp_id
+ * @property int $emp_id
  * @property string $emp_reg_no
  * @property string $emp_name
  * @property string $emp_father_name
@@ -18,10 +16,12 @@ use yii\helpers\Url;
  * @property string $emp_perm_address
  * @property string $emp_temp_address
  * @property string $emp_marital_status
+ * @property string $emp_fb_ID
  * @property string $emp_gender
  * @property string $emp_photo
  * @property int $emp_designation_id
  * @property int $emp_type_id
+ * @property string $emp_salart_type
  * @property string $group_by
  * @property int $emp_branch_id
  * @property string $emp_email
@@ -34,6 +34,7 @@ use yii\helpers\Url;
  * @property string $updated_at
  * @property int $created_by
  * @property int $updated_by
+ * @property int $delete_status
  *
  * @property EmpDesignation $empDesignation
  * @property Branches $empBranch
@@ -51,22 +52,22 @@ class EmpInfo extends \yii\db\ActiveRecord
     {
         return 'emp_info';
     }
-
-    public $reference;
+    public $refrence;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['emp_reg_no','emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_gender', 'emp_photo', 'emp_designation_id', 'emp_type_id', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary'], 'safe'],
-            [['emp_marital_status', 'emp_gender', 'group_by'], 'string'],
-            [['emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by'], 'integer'],
+            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_fb_ID', 'emp_gender', 'emp_photo', 'emp_designation_id', 'emp_type_id', 'emp_salart_type', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary'], 'required'],
+            [['emp_marital_status', 'emp_gender', 'emp_salart_type', 'group_by'], 'string'],
+            [['emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by', 'delete_status'], 'integer'],
             [['emp_salary'], 'number'],
             [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_qualification', 'emp_institute_name'], 'string', 'max' => 50],
             [['emp_cnic', 'emp_contact_no'], 'string', 'max' => 15],
             [['emp_perm_address', 'emp_temp_address', 'emp_photo', 'degree_scan_copy'], 'string', 'max' => 200],
+            [['emp_fb_ID'], 'string', 'max' => 30],
             [['emp_email'], 'string', 'max' => 84],
             [['emp_designation_id'], 'exist', 'skipOnError' => true, 'targetClass' => EmpDesignation::className(), 'targetAttribute' => ['emp_designation_id' => 'emp_designation_id']],
             [['emp_branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branches::className(), 'targetAttribute' => ['emp_branch_id' => 'branch_id']],
@@ -85,18 +86,20 @@ class EmpInfo extends \yii\db\ActiveRecord
     {
         return [
             'emp_id' => 'Emp ID',
-            'emp_name' => 'Emp Name',
             'emp_reg_no' => 'Emp Reg No',
+            'emp_name' => 'Emp Name',
             'emp_father_name' => 'Emp Father Name',
             'emp_cnic' => 'Emp Cnic',
             'emp_contact_no' => 'Emp Contact No',
             'emp_perm_address' => 'Emp Perm Address',
             'emp_temp_address' => 'Emp Temp Address',
             'emp_marital_status' => 'Emp Marital Status',
+            'emp_fb_ID' => 'Emp Fb I D',
             'emp_gender' => 'Emp Gender',
             'emp_photo' => 'Emp Photo',
             'emp_designation_id' => 'Emp Designation ID',
             'emp_type_id' => 'Emp Type ID',
+            'emp_salart_type' => 'Emp Salart Type',
             'group_by' => 'Group By',
             'emp_branch_id' => 'Emp Branch ID',
             'emp_email' => 'Emp Email',
@@ -109,6 +112,7 @@ class EmpInfo extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'delete_status' => 'Delete Status',
         ];
     }
 
