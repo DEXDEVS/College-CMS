@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2019 at 08:17 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.12
+-- Generation Time: Feb 15, 2019 at 07:15 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -288,10 +288,12 @@ CREATE TABLE `emp_info` (
   `emp_perm_address` varchar(200) NOT NULL,
   `emp_temp_address` varchar(200) NOT NULL,
   `emp_marital_status` enum('Single','Married') NOT NULL,
+  `emp_fb_ID` varchar(30) NOT NULL,
   `emp_gender` enum('Male','Female') NOT NULL,
   `emp_photo` varchar(200) NOT NULL,
   `emp_designation_id` int(11) NOT NULL,
   `emp_type_id` int(11) NOT NULL,
+  `emp_salary_type` enum('Salaried','Per Lecture') NOT NULL,
   `group_by` enum('Faculty','Management','Clerical Staff','Office Boys','Security Guard') NOT NULL,
   `emp_branch_id` int(11) NOT NULL,
   `emp_email` varchar(84) NOT NULL,
@@ -311,16 +313,16 @@ CREATE TABLE `emp_info` (
 -- Dumping data for table `emp_info`
 --
 
-INSERT INTO `emp_info` (`emp_id`, `emp_reg_no`, `emp_name`, `emp_father_name`, `emp_cnic`, `emp_contact_no`, `emp_perm_address`, `emp_temp_address`, `emp_marital_status`, `emp_gender`, `emp_photo`, `emp_designation_id`, `emp_type_id`, `group_by`, `emp_branch_id`, `emp_email`, `emp_qualification`, `emp_passing_year`, `emp_institute_name`, `degree_scan_copy`, `emp_salary`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(1, 'EMP-Y19-1', 'Nadia Gull', 'Iftikhar Ali', '31303-1234567-8', '+92-123-4567890', 'RYK', 'RYK', 'Single', 'Female', 'uploads/Nadia Gull_emp_photo.jpg', 4, 2, 'Faculty', 5, 'nadiagill285@gmail.com', 'BSCS', 2018, 'Superior College', '', 10000, '2019-02-08 11:20:07', '2018-12-15 13:43:37', 1, 1, 1),
-(2, 'EMP-Y19-2', 'Kinza Mustafa', 'Ghulam Mustafa', '45102-3456789-0', '+92-345-6789098', 'ryk', 'ryk', 'Single', 'Female', 'uploads/Kinza Mustafa_emp_photo.jpg', 1, 4, 'Faculty', 5, 'kinza.fatima.522@gmail.com', 'BSCS', 2017, 'IUB', 'uploads/Kinza Mustafa_degree_scan_copy.jpg', 30000, '2019-02-08 11:20:11', '2018-12-15 13:48:54', 1, 1, 1),
-(3, 'EMP-Y19-3', 'Asad Hussain', 'Muhammad Ali', '12345-6789987-6', '+92-331-7899876', 'RYK', 'RYK', 'Single', 'Male', 'uploads/Asad Hussain_emp_photo.jpg', 6, 4, 'Faculty', 5, 'asad@gmail.com', 'BSCS', 2015, 'Fast University', 'uploads/Asad Hussain_degree_scan_copy.jpg', 20000, '2019-02-08 11:21:03', '2019-01-14 19:38:33', 1, 1, 1),
-(4, 'EMP-Y19-4', 'Anas Shafqat', 'Shafqat Ali', '31303-0437738-3', '+92-331-7375027', 'Gulshan Iqbal', '', 'Single', 'Male', 'uploads/Anas Shafqat_emp_photo.jpg', 4, 4, 'Faculty', 5, 'anasshafqat01@gmail.com', 'BSCS', 2018, 'Superior Group of Colleges', 'uploads/Anas Shafqat_degree_scan_copy.jpg', 50000, '2019-02-08 11:20:21', '2019-01-14 20:01:35', 1, 1, 1),
-(5, 'EMP-Y19-5', 'Zeeshan', 'Ali', '12345-6898765-4', '+98-765-4328998', 'RYK', 'RYK', 'Single', 'Male', 'uploads/Zeeshan_emp_photo.jpg', 6, 4, 'Faculty', 5, 'zeeshan@gmail.com', 'BSCS', 2018, 'asdfghj', 'uploads/Zeeshan_degree_scan_copy.png', 15000, '2019-02-08 11:21:09', '0000-00-00 00:00:00', 9, 0, 1),
-(6, 'EMP-Y19-6', 'Sumair Maqbool', 'Moqbool Ahmed', '31303-8765434-5', '+92-334-3456789', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'Male', 'uploads/Sumair Maqbool_emp_photo.jpg', 3, 4, 'Faculty', 5, 'sumair@gmail.com', 'BSCS', 2018, 'Superior', 'uploads/Sumair Maqbool_degree_scan_copy.jpg', 20000, '2019-02-08 11:20:31', '0000-00-00 00:00:00', 9, 0, 1),
-(7, 'EMP-Y19-7', 'Qasim Khan', 'M. Ali Khan', '34887-6543898-7', '+92-345-6789098', 'Gulshan Iqbal', '', 'Married', 'Male', 'uploads/Qasim_emp_photo.jpg', 3, 4, 'Management', 5, 'qasiim@gmail.com', 'BSCS', 2018, 'Superior College', 'uploads/Qasim_degree_scan_copy.png', 25000, '2019-02-08 11:07:12', '2019-02-08 11:07:12', 9, 9, 1),
-(8, 'EMP-Y19-8', 'Farhan', 'Shahid', '31303-3488876-5', '+92-333-5678903', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'Male', 'uploads/Farhan_emp_photo.jpg', 6, 4, 'Clerical Staff', 5, 'farhan@gmail.com', 'MCS', 2018, 'Nice College', 'uploads/Farhan_degree_scan_copy.png', 15000, '2019-02-08 11:15:25', '0000-00-00 00:00:00', 9, 0, 1),
-(9, 'EMP-Y19-9', 'Saif-ur-Rehman', 'M. Ahmed Ali', '31303-3456789-8', '+92-334-5670987', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'Male', 'uploads/Saif-ur-Rehman_emp_photo.jpg', 4, 4, 'Faculty', 5, 'saif@gmail.com', 'BSCS', 2018, 'IUB', 'uploads/Saif-ur-Rehman_degree_scan_copy.jpg', 22000, '2019-02-11 06:12:29', '0000-00-00 00:00:00', 9, 0, 1);
+INSERT INTO `emp_info` (`emp_id`, `emp_reg_no`, `emp_name`, `emp_father_name`, `emp_cnic`, `emp_contact_no`, `emp_perm_address`, `emp_temp_address`, `emp_marital_status`, `emp_fb_ID`, `emp_gender`, `emp_photo`, `emp_designation_id`, `emp_type_id`, `emp_salary_type`, `group_by`, `emp_branch_id`, `emp_email`, `emp_qualification`, `emp_passing_year`, `emp_institute_name`, `degree_scan_copy`, `emp_salary`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'EMP-Y19-1', 'Nadia Gull', 'Iftikhar Ali', '31303-1234567-8', '+92-123-4567890', 'RYK', 'RYK', 'Single', '', 'Female', 'uploads/Nadia Gull_emp_photo.jpg', 4, 2, 'Salaried', 'Faculty', 5, 'nadiagill285@gmail.com', 'BSCS', 2018, 'Superior College', '', 10000, '2019-02-08 11:20:07', '2018-12-15 13:43:37', 1, 1, 1),
+(2, 'EMP-Y19-2', 'Kinza Mustafa', 'Ghulam Mustafa', '45102-3456789-0', '+92-345-6789098', 'ryk', 'ryk', 'Single', '', 'Female', 'uploads/Kinza Mustafa_emp_photo.jpg', 1, 4, 'Salaried', 'Faculty', 5, 'kinza.fatima.522@gmail.com', 'BSCS', 2017, 'IUB', 'uploads/Kinza Mustafa_degree_scan_copy.jpg', 30000, '2019-02-08 11:20:11', '2018-12-15 13:48:54', 1, 1, 1),
+(3, 'EMP-Y19-3', 'Asad Hussain', 'Muhammad Ali', '12345-6789987-6', '+92-331-7899876', 'RYK', 'RYK', 'Single', '', 'Male', 'uploads/Asad Hussain_emp_photo.jpg', 6, 4, 'Salaried', 'Faculty', 5, 'asad@gmail.com', 'BSCS', 2015, 'Fast University', 'uploads/Asad Hussain_degree_scan_copy.jpg', 20000, '2019-02-08 11:21:03', '2019-01-14 19:38:33', 1, 1, 1),
+(4, 'EMP-Y19-4', 'Anas Shafqat', 'Shafqat Ali', '31303-0437738-3', '+92-331-7375027', 'Gulshan Iqbal', '', 'Single', '', 'Male', 'uploads/Anas Shafqat_emp_photo.jpg', 4, 4, 'Salaried', 'Faculty', 5, 'anasshafqat01@gmail.com', 'BSCS', 2018, 'Superior Group of Colleges', 'uploads/Anas Shafqat_degree_scan_copy.jpg', 50000, '2019-02-08 11:20:21', '2019-01-14 20:01:35', 1, 1, 1),
+(5, 'EMP-Y19-5', 'Zeeshan', 'Ali', '12345-6898765-4', '+98-765-4328998', 'RYK', 'RYK', 'Single', '', 'Male', 'uploads/Zeeshan_emp_photo.jpg', 6, 4, 'Salaried', 'Faculty', 5, 'zeeshan@gmail.com', 'BSCS', 2018, 'asdfghj', 'uploads/Zeeshan_degree_scan_copy.png', 15000, '2019-02-08 11:21:09', '0000-00-00 00:00:00', 9, 0, 1),
+(6, 'EMP-Y19-6', 'Sumair Maqbool', 'Moqbool Ahmed', '31303-8765434-5', '+92-334-3456789', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', '', 'Male', 'uploads/Sumair Maqbool_emp_photo.jpg', 3, 4, 'Salaried', 'Faculty', 5, 'sumair@gmail.com', 'BSCS', 2018, 'Superior', 'uploads/Sumair Maqbool_degree_scan_copy.jpg', 20000, '2019-02-08 11:20:31', '0000-00-00 00:00:00', 9, 0, 1),
+(7, 'EMP-Y19-7', 'Qasim Khan', 'M. Ali Khan', '34887-6543898-7', '+92-345-6789098', 'Gulshan Iqbal', '', 'Married', '', 'Male', 'uploads/Qasim_emp_photo.jpg', 3, 4, 'Salaried', 'Management', 5, 'qasiim@gmail.com', 'BSCS', 2018, 'Superior College', 'uploads/Qasim_degree_scan_copy.png', 25000, '2019-02-08 11:07:12', '2019-02-08 11:07:12', 9, 9, 1),
+(8, 'EMP-Y19-8', 'Farhan', 'Shahid', '31303-3488876-5', '+92-333-5678903', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', '', 'Male', 'uploads/Farhan_emp_photo.jpg', 6, 4, 'Salaried', 'Clerical Staff', 5, 'farhan@gmail.com', 'MCS', 2018, 'Nice College', 'uploads/Farhan_degree_scan_copy.png', 15000, '2019-02-08 11:15:25', '0000-00-00 00:00:00', 9, 0, 1),
+(9, 'EMP-Y19-9', 'Saif-ur-Rehman', 'M. Ahmed Ali', '31303-3456789-8', '+92-334-5670987', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', '', 'Male', 'uploads/Saif-ur-Rehman_emp_photo.jpg', 4, 4, 'Salaried', 'Faculty', 5, 'saif@gmail.com', 'BSCS', 2018, 'IUB', 'uploads/Saif-ur-Rehman_degree_scan_copy.jpg', 22000, '2019-02-11 06:12:29', '0000-00-00 00:00:00', 9, 0, 1);
 
 -- --------------------------------------------------------
 

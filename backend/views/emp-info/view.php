@@ -24,7 +24,7 @@ use yii\widgets\DetailView;
             'emp_photo',
             'emp_designation_id',
             'emp_type_id',
-            'emp_salart_type',
+            'emp_salary_type',
             'group_by',
             'emp_branch_id',
             'emp_email:email',
