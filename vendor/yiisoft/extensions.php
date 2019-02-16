@@ -184,4 +184,13 @@ return array (
       '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap/src',
     ),
   ),
+  'perminder-klair/yii2-dropzone' => 
+  array (
+    'name' => 'perminder-klair/yii2-dropzone',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@kato' => $vendorDir . '/perminder-klair/yii2-dropzone',
+    ),
+  ),
 );
