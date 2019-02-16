@@ -14,5 +14,6 @@ use yii\helpers\Html;
         'stdIceInfo' => $stdIceInfo,
         'stdAcademicInfo' => $stdAcademicInfo,
         'stdFeeDetails' => $stdFeeDetails,
+        'stdFeeInstallments' => $stdFeeInstallments,
     ]) ?>
 </div>

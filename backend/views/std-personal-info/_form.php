@@ -301,9 +301,30 @@ use common\models\StdSubjects;
                 <?= $form->field($stdFeeDetails, 'net_tuition_fee')->textInput(['type' => 'number','id' => 'netTuitionFee','readonly'=> true, 'onfocus' => 'showNetTuitionFee();' ]) ?>
             </div>
         </div>
+        <!-- Fee Installments start -->
+        <div class="row" >
+            <div class="col-md-2">
+                <?= $form->field($stdFeeInstallments, 'amount1')->textInput() ?>               
+            </div>   
+            <div class="col-md-2">
+                <?= $form->field($stdFeeInstallments, 'amount2')->textInput() ?>
+            </div>
+            <div class="col-md-2">
+                <?= $form->field($stdFeeInstallments, 'amount3')->textInput() ?>
+            </div>
+            <div class="col-md-2">
+                <?= $form->field($stdFeeInstallments, 'amount4')->textInput() ?>
+            </div>
+            <div class="col-md-2">
+                <?= $form->field($stdFeeInstallments, 'amount5')->textInput() ?>
+            </div>
+            <div class="col-md-2">
+                <?= $form->field($stdFeeInstallments, 'amount6')->textInput() ?>
+            </div>     
+        </div>
+        <!-- Fee Installment end -->
     </div>
     <!-- Fee detail end -->
-
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

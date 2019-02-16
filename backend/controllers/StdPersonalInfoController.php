@@ -8,6 +8,7 @@ use common\models\StdGuardianInfo;
 use common\models\StdIceInfo;
 use common\models\StdAcademicInfo;
 use common\models\StdFeeDetails;
+use common\models\StdFeeInstallments;
 use common\models\StdPersonalInfoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -108,6 +109,7 @@ class StdPersonalInfoController extends Controller
         $stdIceInfo = new StdIceInfo();
         $stdAcademicInfo = new StdAcademicInfo();
         $stdFeeDetails = new StdFeeDetails();
+        $stdFeeInstallments = new StdFeeInstallments();
 
         if($request->isAjax){
             /*
@@ -124,12 +126,13 @@ class StdPersonalInfoController extends Controller
                         'stdIceInfo' => $stdIceInfo,
                         'stdAcademicInfo' => $stdAcademicInfo,
                         'stdFeeDetails' => $stdFeeDetails,
+                        'stdFeeInstallments' => $stdFeeInstallments,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-info','type'=>"submit",'id'=>'save'])
         
                 ];         
-            }else if($model->load($request->post()) && $stdGuardianInfo->load($request->post()) && $stdIceInfo->load($request->post()) && $stdAcademicInfo->load($request->post()) && $stdFeeDetails->load($request->post())){
+            }else if($model->load($request->post()) && $stdGuardianInfo->load($request->post()) && $stdIceInfo->load($request->post()) && $stdAcademicInfo->load($request->post()) && $stdFeeDetails->load($request->post()) && $stdFeeInstallments->load($request->post())){
                         $model->std_photo = UploadedFile::getInstance($model,'std_photo');
                         if(!empty($model->std_photo)){
                             $imageName = $model->std_name.'_photo'; 
@@ -167,12 +170,50 @@ class StdPersonalInfoController extends Controller
                         $stdAcademicInfo->updated_at = '0';
                         $stdAcademicInfo->save();
 
+                        $count = $stdFeeDetails->no_of_installment;
                         $stdFeeDetails->std_id = $model->std_id;
                         $stdFeeDetails->created_by = Yii::$app->user->identity->id; 
                         $stdFeeDetails->created_at = new \yii\db\Expression('NOW()');
                         $stdFeeDetails->updated_by = '0'; 
                         $stdFeeDetails->updated_at = '0';
                         $stdFeeDetails->save();
+
+                        $amounts[1] = $stdFeeInstallments->amount1;
+                        $amounts[2] = $stdFeeInstallments->amount2; 
+                        $amounts[3] = $stdFeeInstallments->amount3;
+                        $amounts[4] = $stdFeeInstallments->amount4;
+                        $amounts[5] = $stdFeeInstallments->amount5;
+                        $amounts[6] = $stdFeeInstallments->amount6;
+
+                        for ($i=1; $i <= $count ; $i++) { 
+                            $stdFeeInstallments = new StdFeeInstallments();
+
+                            $stdFeeInstallments->std_fee_id = $stdFeeDetails->fee_id;
+                            if($i == 1){
+                                $stdFeeInstallments->installment_no = '1st Installment';
+                            }
+                            else if($i == 2){
+                                $stdFeeInstallments->installment_no = '2nd Installment';
+                            }
+                            else if($i == 3){
+                                $stdFeeInstallments->installment_no = '3rd Installment';
+                            }
+                            else if($i == 4){
+                                $stdFeeInstallments->installment_no = '4th Installment';
+                            }
+                            else if($i == 5){
+                                $stdFeeInstallments->installment_no = '5th Installment';
+                            }
+                            else {
+                                $stdFeeInstallments->installment_no = '6th Installment';
+                            }
+                            $stdFeeInstallments->installment_amount = $amounts[$i];
+                            $stdFeeInstallments->created_by = Yii::$app->user->identity->id; 
+                            $stdFeeInstallments->created_at = new \yii\db\Expression('NOW()');
+                            $stdFeeInstallments->updated_by = '0'; 
+                            $stdFeeInstallments->updated_at = '0';
+                            $stdFeeInstallments->save();
+                        }
 
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
