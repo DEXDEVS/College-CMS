@@ -21,59 +21,15 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true,'value'=> 'STD-Y'.$year.'-'.'00'.$id, 'readonly'=> true]) ?>
+            <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true,'value'=> 'STD-Y'.$year.'-0'.$id, 'readonly'=> true]) ?>
         </div>
         <div class="col-md-4">
-             <?= $form->field($model, 'std_name')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-md-4">
-             <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'std_father_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'std_previous_class')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <?= $form->field($model, 'std_roll_no')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'std_obtained_marks')->textInput(['id' => 'obtainedMarks']) ?>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'std_total_marks')->textInput(['id' => 'totalMarks']) ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-           <?= $form->field($model, 'std_percentage')->textInput(['maxlength' => true, 'id'=> 'percentage', 'readonly'=> true]) ?> 
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'refrence_name')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-md-4">
-             <?= $form->field($model, 'refrence_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-             <?= $form->field($model, 'refrence_designation')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-md-4">
-            <label>Stdudent DOB</label>
+            <label>Date</label>
                 <?= DateTimePicker::widget([
                     'model' => $model,
                     'attribute' => 'std_inquiry_date',
                     'language' => 'en',
-                    'size' => 'ms',
+                    'size' => 'xs',
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd HH:ii:ss',
@@ -84,12 +40,59 @@ use dosamigos\datetimepicker\DateTimePicker;
                 ]);?>
         </div>
     </div>
+    <div class="row">    
+        <div class="col-md-4">
+             <?= $form->field($model, 'std_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+             <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
+            <?= $form->field($model, 'std_father_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'std_previous_class')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'std_roll_no')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'std_obtained_marks')->textInput(['id' => 'obtainedMarks']) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'std_total_marks')->textInput(['id' => 'totalMarks']) ?>
+        </div>
+        <div class="col-md-4">
+           <?= $form->field($model, 'std_percentage')->textInput(['maxlength' => true, 'id'=> 'percentage', 'readonly'=> true]) ?> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'std_intrested_class')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-8">
             <?= $form->field($model, 'std_address')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
- 
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'refrence_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+             <?= $form->field($model, 'refrence_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+        </div>
+        <div class="col-md-4">
+             <?= $form->field($model, 'refrence_designation')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
+    
     <?php if (!Yii::$app->request->isAjax){ ?>
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

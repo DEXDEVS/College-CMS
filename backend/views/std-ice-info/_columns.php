@@ -10,13 +10,13 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'std_ice_id',
-    // ],
+        [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'std_ice_id',
+    ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'std.std_name',
+        'attribute'=>'std_id',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -32,6 +32,10 @@ return [
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'std_ice_address',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',
     // ],
     // [
@@ -45,6 +49,10 @@ return [
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'updated_by',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'delete_status',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

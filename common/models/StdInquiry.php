@@ -14,6 +14,7 @@ use Yii;
  * @property string $std_contact_no
  * @property string $std_father_contact_no
  * @property string $std_inquiry_date
+ * @property string $std_intrested_class
  * @property string $std_previous_class
  * @property string $std_roll_no
  * @property int $std_obtained_marks
@@ -44,11 +45,11 @@ class StdInquiry extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_previous_class', 'std_roll_no', 'std_obtained_marks', 'std_total_marks', 'std_percentage', 'std_address'], 'required'],
-            [['std_inquiry_date', 'created_at', 'updated_at','created_by', 'updated_by', 'refrence_name', 'refrence_contact_no', 'refrence_designation'], 'safe'],
+            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'std_roll_no', 'std_obtained_marks', 'std_total_marks', 'std_percentage', 'refrence_name', 'refrence_contact_no', 'refrence_designation', 'std_address', 'created_by', 'updated_by'], 'required'],
+            [['std_inquiry_date', 'created_at', 'updated_at'], 'safe'],
             [['std_obtained_marks', 'std_total_marks', 'created_by', 'updated_by'], 'integer'],
             [['std_inquiry_no', 'std_contact_no', 'std_father_contact_no', 'refrence_contact_no'], 'string', 'max' => 15],
-            [['std_name', 'std_father_name', 'std_previous_class', 'refrence_name'], 'string', 'max' => 32],
+            [['std_name', 'std_father_name', 'std_intrested_class', 'std_previous_class', 'refrence_name'], 'string', 'max' => 32],
             [['std_roll_no'], 'string', 'max' => 10],
             [['std_percentage'], 'string', 'max' => 6],
             [['refrence_designation'], 'string', 'max' => 30],
@@ -62,22 +63,23 @@ class StdInquiry extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'std_inquiry_id' => 'Std Inquiry ID',
-            'std_inquiry_no' => 'Std Inquiry No',
-            'std_name' => 'Std Name',
-            'std_father_name' => 'Std Father Name',
-            'std_contact_no' => 'Std Contact No',
-            'std_father_contact_no' => 'Std Father Contact No',
-            'std_inquiry_date' => 'Std Inquiry Date',
-            'std_previous_class' => 'Std Previous Class',
-            'std_roll_no' => 'Std Roll No',
-            'std_obtained_marks' => 'Std Obtained Marks',
-            'std_total_marks' => 'Std Total Marks',
-            'std_percentage' => 'Std Percentage',
+            'std_inquiry_id' => 'Student Inquiry ID',
+            'std_inquiry_no' => 'Student Inquiry No',
+            'std_name' => 'Student Name',
+            'std_father_name' => 'Student Father Name',
+            'std_contact_no' => 'Student Contact No',
+            'std_father_contact_no' => 'Student Father Contact No',
+            'std_inquiry_date' => 'Student Inquiry Date',
+            'std_intrested_class' => 'Student Intrested Class',
+            'std_previous_class' => 'Student Previous Class',
+            'std_roll_no' => 'Student Roll No',
+            'std_obtained_marks' => 'Student Obtained Marks',
+            'std_total_marks' => 'Student Total Marks',
+            'std_percentage' => 'Student Percentage',
             'refrence_name' => 'Refrence Name',
             'refrence_contact_no' => 'Refrence Contact No',
             'refrence_designation' => 'Refrence Designation',
-            'std_address' => 'Std Address',
+            'std_address' => 'Student Address',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
