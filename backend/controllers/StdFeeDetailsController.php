@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\StdFeeDetails;
+use common\models\StdFeeInstallments;
 use common\models\StdFeeDetailsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -98,6 +99,7 @@ class StdFeeDetailsController extends Controller
     {
         $request = Yii::$app->request;
         $model = new StdFeeDetails();  
+        $stdFeeInstallments = new StdFeeInstallments();
 
         if($request->isAjax){
             /*
@@ -109,12 +111,34 @@ class StdFeeDetailsController extends Controller
                     'title'=> "Create new StdFeeDetails",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'stdFeeInstallments' => $stdFeeInstallments,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post()) && $stdFeeInstallments->load($request->post())){
+                        $count = $model->no_of_installment;
+                        $model->created_by = Yii::$app->user->identity->id; 
+                        $model->created_at = new \yii\db\Expression('NOW()');
+                        $model->updated_by = '0'; 
+                        $model->updated_at = '0';
+                        $model->save();
+
+                        for ($i=0; $i <$count ; $i++) { 
+                            $stdFeeInstallments = new StdFeeInstallments();
+
+                            $stdFeeInstallments->std_fee_id = $model->fee_id;
+                            $stdFeeInstallments->no_of_installment = $i;
+                            $stdFeeInstallments->installment_amount = $i;
+                            $stdFeeInstallments->created_by = Yii::$app->user->identity->id; 
+                            $stdFeeInstallments->created_at = new \yii\db\Expression('NOW()');
+                            $stdFeeInstallments->updated_by = '0'; 
+                            $stdFeeInstallments->updated_at = '0';
+                            $stdFeeInstallments->save();
+                        }
+                        
+
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new StdFeeDetails",

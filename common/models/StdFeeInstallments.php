@@ -28,6 +28,13 @@ class StdFeeInstallments extends \yii\db\ActiveRecord
         return 'std_fee_installments';
     }
 
+    public $amount1;
+    public $amount2;
+    public $amount3;
+    public $amount4;
+    public $amount5;
+    public $amount6;
+
     /**
      * {@inheritdoc}
      */
@@ -39,6 +46,7 @@ class StdFeeInstallments extends \yii\db\ActiveRecord
             [['installment_amount'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
             [['std_fee_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdFeeDetails::className(), 'targetAttribute' => ['std_fee_id' => 'fee_id']],
+            //[['amount1','amount2','amount3','amount4','amount5','amount6'],'number'],
         ];
     }
 
@@ -52,6 +60,12 @@ class StdFeeInstallments extends \yii\db\ActiveRecord
             'std_fee_id' => 'Std Fee ID',
             'no_of_installment' => 'No Of Installment',
             'installment_amount' => 'Installment Amount',
+            'amount1' => '1st Installment',
+            'amount2' => '2nd Installment',
+            'amount3' => '3rd Installment',
+            'amount4' => '4th Installment',
+            'amount5' => '5th Installment',
+            'amount6' => '6th Installment',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
