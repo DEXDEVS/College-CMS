@@ -20,7 +20,7 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'no_of_installment',
+        'attribute'=>'installment_no',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

@@ -125,12 +125,36 @@ class StdFeeDetailsController extends Controller
                         $model->updated_at = '0';
                         $model->save();
 
-                        for ($i=0; $i <$count ; $i++) { 
+                        $amounts[1] = $stdFeeInstallments->amount1;
+                        $amounts[2] = $stdFeeInstallments->amount2; 
+                        $amounts[3] = $stdFeeInstallments->amount3;
+                        $amounts[4] = $stdFeeInstallments->amount4;
+                        $amounts[5] = $stdFeeInstallments->amount5;
+                        $amounts[6] = $stdFeeInstallments->amount6;
+
+                        for ($i=1; $i <= $count ; $i++) { 
                             $stdFeeInstallments = new StdFeeInstallments();
 
                             $stdFeeInstallments->std_fee_id = $model->fee_id;
-                            $stdFeeInstallments->no_of_installment = $i;
-                            $stdFeeInstallments->installment_amount = $i;
+                            if($i == 1){
+                                $stdFeeInstallments->installment_no = '1st Installment';
+                            }
+                            else if($i == 2){
+                                $stdFeeInstallments->installment_no = '2nd Installment';
+                            }
+                            else if($i == 3){
+                                $stdFeeInstallments->installment_no = '3rd Installment';
+                            }
+                            else if($i == 4){
+                                $stdFeeInstallments->installment_no = '4th Installment';
+                            }
+                            else if($i == 5){
+                                $stdFeeInstallments->installment_no = '5th Installment';
+                            }
+                            else {
+                                $stdFeeInstallments->installment_no = '6th Installment';
+                            }
+                            $stdFeeInstallments->installment_amount = $amounts[$i];
                             $stdFeeInstallments->created_by = Yii::$app->user->identity->id; 
                             $stdFeeInstallments->created_at = new \yii\db\Expression('NOW()');
                             $stdFeeInstallments->updated_by = '0'; 

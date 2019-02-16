@@ -18,9 +18,9 @@ class StdFeeInstallmentsSearch extends StdFeeInstallments
     public function rules()
     {
         return [
-            [['fee_installment_id', 'std_fee_id', 'no_of_installment', 'created_by', 'updated_by'], 'integer'],
+            [['fee_installment_id', 'std_fee_id', 'created_by', 'updated_by'], 'integer'],
             [['installment_amount'], 'number'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['installment_no','created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -59,7 +59,7 @@ class StdFeeInstallmentsSearch extends StdFeeInstallments
         $query->andFilterWhere([
             'fee_installment_id' => $this->fee_installment_id,
             'std_fee_id' => $this->std_fee_id,
-            'no_of_installment' => $this->no_of_installment,
+            'installment_no' => $this->installment_no,
             'installment_amount' => $this->installment_amount,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

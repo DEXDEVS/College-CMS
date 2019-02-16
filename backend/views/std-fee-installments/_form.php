@@ -19,12 +19,33 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'no_of_installment')->textInput() ?>
+            <?= $form->field($model, 'installment_no')->textInput() ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'installment_amount')->textInput() ?>
         </div>
     </div>
+    <div class="row" >
+        <div class="col-md-2">
+            <?= $form->field($model, 'amount1')->textInput() ?>               
+        </div>   
+        <div class="col-md-2">
+            <?= $form->field($model, 'amount2')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'amount3')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'amount4')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'amount5')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'amount6')->textInput() ?>
+        </div>     
+    </div>
+    
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

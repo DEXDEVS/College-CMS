@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $fee_installment_id
  * @property int $std_fee_id
- * @property int $no_of_installment
+ * @property int $installment_no
  * @property double $installment_amount
  * @property string $created_at
  * @property string $updated_at
@@ -41,12 +41,13 @@ class StdFeeInstallments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_fee_id', 'no_of_installment', 'installment_amount', 'created_by', 'updated_by'], 'required'],
-            [['std_fee_id', 'no_of_installment', 'created_by', 'updated_by'], 'integer'],
+            [['std_fee_id', 'installment_no', 'installment_amount', 'created_by', 'updated_by'], 'required'],
+            [['std_fee_id', 'created_by', 'updated_by'], 'integer'],
             [['installment_amount'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
+            [['installment_no'],'string'],
             [['std_fee_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdFeeDetails::className(), 'targetAttribute' => ['std_fee_id' => 'fee_id']],
-            //[['amount1','amount2','amount3','amount4','amount5','amount6'],'number'],
+            [['amount1','amount2','amount3','amount4','amount5','amount6'],'number'],
         ];
     }
 
@@ -58,7 +59,7 @@ class StdFeeInstallments extends \yii\db\ActiveRecord
         return [
             'fee_installment_id' => 'Fee Installment ID',
             'std_fee_id' => 'Std Fee ID',
-            'no_of_installment' => 'No Of Installment',
+            'installment_no' => 'Installment No',
             'installment_amount' => 'Installment Amount',
             'amount1' => '1st Installment',
             'amount2' => '2nd Installment',

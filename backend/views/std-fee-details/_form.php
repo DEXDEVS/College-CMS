@@ -58,8 +58,28 @@ use common\models\StdSessions
         </div>
         
     </div>
+    <div class="row" >
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount1')->textInput() ?>               
+        </div>   
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount2')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount3')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount4')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount5')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount6')->textInput() ?>
+        </div>     
+    </div>
     
-    <div class="row">
+   <!--  <div class="row" >
         <?php for ($i=1; $i <= 3 ; $i++) {  ?> 
             <?php if ($i==1) { ?>
                 <div class="col-md-2">
@@ -93,7 +113,7 @@ use common\models\StdSessions
             <?php } ?>
         <?php } ?>  
     </div>
-        
+         -->
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">
@@ -117,11 +137,4 @@ use common\models\StdSessions
         var value2 = document.getElementById('noOfInstallment').value;
         document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
     }
-    
-    $('#noOfInstallment').on('change',function(){
-    var noOfInstallment = $('#noOfInstallment').val();
-    alert(noOfInstallment);
-
-    });
-
 </script>
