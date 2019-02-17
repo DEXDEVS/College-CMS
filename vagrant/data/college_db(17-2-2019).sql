@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2019 at 03:49 PM
+-- Generation Time: Feb 17, 2019 at 07:34 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -450,6 +450,20 @@ CREATE TABLE `fee_transaction_detail` (
   `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `fee_transaction_detail`
+--
+
+INSERT INTO `fee_transaction_detail` (`fee_trans_detail_id`, `fee_trans_detail_head_id`, `fee_type_id`, `fee_amount`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 5, 1, 9960, '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
+(2, 5, 2, 8000, '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
+(3, 6, 1, 5600, '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
+(4, 6, 2, 10000, '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
+(5, 7, 1, 9960, '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1),
+(6, 7, 2, 10000, '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1),
+(7, 8, 1, 5600, '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1),
+(8, 8, 2, 18000, '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -477,6 +491,16 @@ CREATE TABLE `fee_transaction_head` (
   `updated_by` int(11) NOT NULL,
   `delete_status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fee_transaction_head`
+--
+
+INSERT INTO `fee_transaction_head` (`fee_trans_id`, `class_name_id`, `session_id`, `section_id`, `std_id`, `std_name`, `month`, `installment_no`, `transaction_date`, `total_amount`, `total_discount`, `paid_amount`, `remaining`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(5, 1, 4, 1, 1, 'Kinza Mustafah', '2019-02', '1', '2019-02-17 00:00:00', 17960, 0, 10000, 7960, 'Unpaid', '2019-02-17 17:57:53', '0000-00-00 00:00:00', 0, 0, 1),
+(6, 1, 4, 1, 2, 'Nadia Gull', '2019-02', '1', '2019-02-17 00:00:00', 15600, 0, 0, 0, 'Unpaid', '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
+(7, 1, 4, 1, 1, 'Kinza Mustafah', '2019-04', '2', '2019-04-02 00:00:00', 19960, 0, 0, 0, 'Unpaid', '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1),
+(8, 1, 4, 1, 2, 'Nadia Gull', '2019-04', '2', '2019-04-02 00:00:00', 23600, 0, 0, 0, 'Unpaid', '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -509,6 +533,29 @@ INSERT INTO `fee_type` (`fee_type_id`, `fee_type_name`, `fee_type_description`, 
 (4, 'Absent Fine', 'pay fine when student is absent', 10, NULL, NULL, '2018-11-03 06:51:12', '0000-00-00 00:00:00', 1, 0, 1),
 (5, 'Library Fine', 'Pay fine in case of library rules voilation', 50, NULL, NULL, '2018-11-03 06:52:59', '0000-00-00 00:00:00', 1, 0, 1),
 (6, 'Transportation Fee', 'Pay when student take transportation service.', 500, '2015-03-01 11:50:03', '2016-01-01 11:55:03', '2018-11-03 06:54:41', '0000-00-00 00:00:00', 1, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `installment`
+--
+
+CREATE TABLE `installment` (
+  `installment_id` int(11) NOT NULL,
+  `installment_name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `installment`
+--
+
+INSERT INTO `installment` (`installment_id`, `installment_name`) VALUES
+(1, '1st Installment'),
+(2, '2nd Installment'),
+(3, '3rd Installment'),
+(4, '4th Installment'),
+(5, '5th Installment'),
+(6, '6th Installment');
 
 -- --------------------------------------------------------
 
@@ -878,7 +925,7 @@ INSERT INTO `std_fee_details` (`fee_id`, `std_id`, `admission_fee`, `addmission_
 CREATE TABLE `std_fee_installments` (
   `fee_installment_id` int(11) NOT NULL,
   `std_fee_id` int(11) NOT NULL,
-  `installment_no` varchar(20) NOT NULL,
+  `installment_no` int(11) NOT NULL,
   `installment_amount` double NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -891,13 +938,13 @@ CREATE TABLE `std_fee_installments` (
 --
 
 INSERT INTO `std_fee_installments` (`fee_installment_id`, `std_fee_id`, `installment_no`, `installment_amount`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(10, 27, '1st Installment', 10000, '2019-02-16 17:37:25', '0000-00-00 00:00:00', 3, 0),
-(11, 27, '2nd Installment', 18000, '2019-02-16 17:37:25', '0000-00-00 00:00:00', 3, 0),
-(12, 27, '3rd Installment', 14000, '2019-02-16 17:37:25', '0000-00-00 00:00:00', 3, 0),
-(13, 27, '4th Installment', 14000, '2019-02-16 17:37:25', '0000-00-00 00:00:00', 3, 0),
-(14, 28, '1st Installment', 8000, '2019-02-17 14:41:37', '0000-00-00 00:00:00', 3, 0),
-(15, 28, '2nd Installment', 10000, '2019-02-17 14:41:37', '0000-00-00 00:00:00', 3, 0),
-(16, 28, '3rd Installment', 12000, '2019-02-17 14:41:37', '0000-00-00 00:00:00', 3, 0);
+(10, 27, 1, 10000, '2019-02-17 17:31:55', '0000-00-00 00:00:00', 3, 0),
+(11, 27, 2, 18000, '2019-02-17 17:32:20', '0000-00-00 00:00:00', 3, 0),
+(12, 27, 3, 14000, '2019-02-17 17:32:31', '0000-00-00 00:00:00', 3, 0),
+(13, 27, 4, 14000, '2019-02-17 17:32:37', '0000-00-00 00:00:00', 3, 0),
+(14, 28, 1, 8000, '2019-02-17 17:32:44', '0000-00-00 00:00:00', 3, 0),
+(15, 28, 2, 10000, '2019-02-17 17:32:51', '0000-00-00 00:00:00', 3, 0),
+(16, 28, 3, 12000, '2019-02-17 17:32:57', '0000-00-00 00:00:00', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -1425,6 +1472,12 @@ ALTER TABLE `fee_type`
   ADD PRIMARY KEY (`fee_type_id`);
 
 --
+-- Indexes for table `installment`
+--
+ALTER TABLE `installment`
+  ADD PRIMARY KEY (`installment_id`);
+
+--
 -- Indexes for table `institute`
 --
 ALTER TABLE `institute`
@@ -1530,7 +1583,8 @@ ALTER TABLE `std_fee_details`
 --
 ALTER TABLE `std_fee_installments`
   ADD PRIMARY KEY (`fee_installment_id`),
-  ADD KEY `std_fee_id` (`std_fee_id`);
+  ADD KEY `std_fee_id` (`std_fee_id`),
+  ADD KEY `installment_no` (`installment_no`);
 
 --
 -- Indexes for table `std_fee_pkg`
@@ -1688,19 +1742,25 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `fee_transaction_detail`
 --
 ALTER TABLE `fee_transaction_detail`
-  MODIFY `fee_trans_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `fee_trans_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `fee_transaction_head`
 --
 ALTER TABLE `fee_transaction_head`
-  MODIFY `fee_trans_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `fee_trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `fee_type`
 --
 ALTER TABLE `fee_type`
   MODIFY `fee_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `installment`
+--
+ALTER TABLE `installment`
+  MODIFY `installment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `institute`
@@ -1949,7 +2009,8 @@ ALTER TABLE `std_fee_details`
 -- Constraints for table `std_fee_installments`
 --
 ALTER TABLE `std_fee_installments`
-  ADD CONSTRAINT `std_fee_installments_ibfk_1` FOREIGN KEY (`std_fee_id`) REFERENCES `std_fee_details` (`fee_id`);
+  ADD CONSTRAINT `std_fee_installments_ibfk_1` FOREIGN KEY (`std_fee_id`) REFERENCES `std_fee_details` (`fee_id`),
+  ADD CONSTRAINT `std_fee_installments_ibfk_2` FOREIGN KEY (`installment_no`) REFERENCES `installment` (`installment_id`);
 
 --
 -- Constraints for table `std_fee_pkg`

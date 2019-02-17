@@ -189,24 +189,7 @@ class StdPersonalInfoController extends Controller
                             $stdFeeInstallments = new StdFeeInstallments();
 
                             $stdFeeInstallments->std_fee_id = $stdFeeDetails->fee_id;
-                            if($i == 1){
-                                $stdFeeInstallments->installment_no = '1st Installment';
-                            }
-                            else if($i == 2){
-                                $stdFeeInstallments->installment_no = '2nd Installment';
-                            }
-                            else if($i == 3){
-                                $stdFeeInstallments->installment_no = '3rd Installment';
-                            }
-                            else if($i == 4){
-                                $stdFeeInstallments->installment_no = '4th Installment';
-                            }
-                            else if($i == 5){
-                                $stdFeeInstallments->installment_no = '5th Installment';
-                            }
-                            else {
-                                $stdFeeInstallments->installment_no = '6th Installment';
-                            }
+                            $stdFeeInstallments->installment_no = $i;
                             $stdFeeInstallments->installment_amount = $amounts[$i];
                             $stdFeeInstallments->created_by = Yii::$app->user->identity->id; 
                             $stdFeeInstallments->created_at = new \yii\db\Expression('NOW()');

@@ -74,12 +74,12 @@
                     <label>Installment No</label>
                     <select name="installment_no" class="form-control">
                         <option>Select Installment No</option>
-                        <option value="1st Installment">1st Installment</option>
-                        <option value="2nd Installment">2nd Installment</option>
-                        <option value="3rd Installment">3rd Installment</option>
-                        <option value="4th Installment">4th Installment</option>
-                        <option value="5th Installment">5th Installment</option>
-                        <option value="6th Installment">6th Installment</option>
+                        <option value="1">1st Installment</option>
+                        <option value="2">2nd Installment</option>
+                        <option value="3">3rd Installment</option>
+                        <option value="4">4th Installment</option>
+                        <option value="5">5th Installment</option>
+                        <option value="6">6th Installment</option>
                     </select>
                 </div>    
             </div>
@@ -228,6 +228,7 @@
                     <input type="hidden" name="sessionid" value="<?php echo $sessionid; ?>">
                     <input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
                     <input type="hidden" name="month" value="<?php echo $month; ?>">
+                    <input type="hidden" name="installment_no" value="<?php echo $installment_no; ?>">
                     <input type="hidden" name="date" value="<?php echo $date; ?>">
                     <button type="submit" name="save" class="btn btn-success btn-flat"><i class="fa fa fa-sign-in" aria-hidden="true"></i><b> Submit</b></button>
                 </div>    
@@ -247,6 +248,7 @@
                 $sectionid = $_POST["sectionid"];
                 $date = $_POST["date"];
                 $month = $_POST["month"];
+                $installmentNo    = $_POST["installment_no"];
                 $length = $_POST["length"];
                 $studentId = $_POST["studentId"];
                 $studentName = $_POST["studentName"];
@@ -263,7 +265,7 @@
                 $feeType = Array('1','2','3','4','5','6');
                 $updateStatus =-1;
                 
-                $headTransId = Yii::$app->db->createCommand("SELECT fee_trans_id FROM fee_transaction_head where class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND month = '$month'")->queryAll();
+                $headTransId = Yii::$app->db->createCommand("SELECT fee_trans_id FROM fee_transaction_head where class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND month = '$month' AND installment_no = '$installmentNo'")->queryAll();
                 if(empty($headTransId)){
                          for($i=0; $i<$length; $i++){
                         $feeHead = Yii::$app->db->createCommand()->insert('fee_transaction_head',[
@@ -273,6 +275,7 @@
                             'std_id' => $studentId[$i],
                             'std_name' => $studentName[$i],
                             'month'=> $month,
+                            'installment_no'=> $installmentNo,
                             'transaction_date' => $date,
                             'total_amount'=> $net_total[$i],
                             'total_discount'=> $discount_amount[$i],
@@ -338,7 +341,7 @@
                  // end of if
                 } else {
                     for ($i=0; $i <$length ; $i++) { 
-                        if($headTransId != null OR $discount_amount[$i] > 0 OR $late_fee_fine[$i] > 0  OR $absent_fine[$i] > 0 OR
+                        if($headTransId != null AND $discount_amount[$i] > 0 OR $late_fee_fine[$i] > 0  OR $absent_fine[$i] > 0 OR
                             $library_dues[$i] > 0 OR $transport_fee[$i] > 0 OR $discount_amount[$i] > 0){
                             $updateStatus = '1';
                             $i = $length + 1;
