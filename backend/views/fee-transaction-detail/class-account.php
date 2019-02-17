@@ -63,19 +63,33 @@
             </div>    
         </div>
         <div class="row">              
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Month</label>
                     <input type="month" class="form-control" name="monthYear">   
                 </div>    
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Installment No</label>
+                    <select name="installment_no" class="form-control">
+                        <option>Select Installment No</option>
+                        <option value="1st Installment">1st Installment</option>
+                        <option value="2nd Installment">2nd Installment</option>
+                        <option value="3rd Installment">3rd Installment</option>
+                        <option value="4th Installment">4th Installment</option>
+                        <option value="5th Installment">5th Installment</option>
+                        <option value="6th Installment">6th Installment</option>
+                    </select>
+                </div>    
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Date</label>
                     <input type="date" class="form-control" name="date">     
                 </div>    
             </div> 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group" style="margin-top: 24px;">
                     <button type="submit" name="submit" class="btn btn-success btn-flat btn-block"><i class="fa fa-check-square-o" aria-hidden="true"></i><b> Get Class</b></button>
                 </div>    
@@ -86,11 +100,12 @@
 <?php 
 
     if(isset($_POST['submit'])){ 
-        $classid   = $_POST["classid"];
-        $sessionid = $_POST["sessionid"];
-        $sectionid = $_POST["sectionid"];
-        $month     = $_POST["monthYear"];
-        $date      = $_POST["date"];
+        $classid        = $_POST["classid"];
+        $sessionid      = $_POST["sessionid"];
+        $sectionid      = $_POST["sectionid"];
+        $month          = $_POST["monthYear"];
+        $installment_no    = $_POST["installment_no"];
+        $date           = $_POST["date"];
         // Select CLass...
         $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
         // Select Session... 
@@ -139,9 +154,13 @@
                             // getting student roll no...
                             $stdRollNo = Yii::$app->db->createCommand("SELECT std_roll_no FROM  std_enrollment_detail WHERE std_enroll_detail_std_id = '$stdId'")->queryAll(); 
                             // getting student fee...
-                            $fee = Yii::$app->db->createCommand("SELECT net_addmission_fee, net_tuition_fee FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
-                            $admissionFee = $fee[0]['net_addmission_fee'];
-                            $tuitionFee = $fee[0]['net_tuition_fee'];
+                            $admission = Yii::$app->db->createCommand("SELECT net_addmission_fee , fee_id FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
+
+                            $feeId = $admission[0]['fee_id'];
+                            $installmentAmount = Yii::$app->db->createCommand("SELECT installment_amount FROM std_fee_installments  WHERE std_fee_id = '$feeId' AND installment_no = '$installment_no'")->queryAll();
+
+                            $admissionFee = $admission[0]['net_addmission_fee'];
+                            $tuitionFee = $installmentAmount[0]['installment_amount'];
                             $netTotal = $admissionFee + $tuitionFee;
                     ?>
                     <tr>
@@ -155,10 +174,10 @@
                             <p style="margin-top: 8px"><?php echo $stdName[0]['std_name'];?></p>
                          </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $fee[0]['net_addmission_fee']; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
+                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $admission[0]['net_addmission_fee']; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
                         </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $fee[0]['net_tuition_fee']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
+                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $installmentAmount[0]['installment_amount']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
                         </td>
                         <td>
                             <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]"  onChange="lateFeeFine(<?php echo $id; ?>)"  style="width: 70px; border: none;">

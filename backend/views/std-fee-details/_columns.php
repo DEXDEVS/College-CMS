@@ -48,11 +48,6 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'no_of_installment',
     ],
-    
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'net_tuition_fee',
-    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',

@@ -296,30 +296,26 @@ use common\models\StdSubjects;
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 133px; top: 6px"></i>
                 <?= $form->field($stdFeeDetails, 'no_of_installment')->textInput(['type' => 'number','id' => 'noOfInstallment']) ?>
             </div>
-            <div class="col-md-4">
-                <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 195px; top: 6px"></i>
-                <?= $form->field($stdFeeDetails, 'net_tuition_fee')->textInput(['type' => 'number','id' => 'netTuitionFee','readonly'=> true, 'onfocus' => 'showNetTuitionFee();' ]) ?>
-            </div>
         </div>
         <!-- Fee Installments start -->
         <div class="row" >
             <div class="col-md-2">
-                <?= $form->field($stdFeeInstallments, 'amount1')->textInput() ?>               
+                <?= $form->field($stdFeeInstallments, 'amount1')->textInput(['id'=>'amnt1']) ?>               
             </div>   
             <div class="col-md-2">
-                <?= $form->field($stdFeeInstallments, 'amount2')->textInput() ?>
+                <?= $form->field($stdFeeInstallments, 'amount2')->textInput(['id'=>'amnt2']) ?>
             </div>
             <div class="col-md-2">
-                <?= $form->field($stdFeeInstallments, 'amount3')->textInput() ?>
+                <?= $form->field($stdFeeInstallments, 'amount3')->textInput(['id'=>'amnt3']) ?>
             </div>
             <div class="col-md-2">
-                <?= $form->field($stdFeeInstallments, 'amount4')->textInput() ?>
+                <?= $form->field($stdFeeInstallments, 'amount4')->textInput(['id'=>'amnt4']) ?>
             </div>
             <div class="col-md-2">
-                <?= $form->field($stdFeeInstallments, 'amount5')->textInput() ?>
+                <?= $form->field($stdFeeInstallments, 'amount5')->textInput(['id'=>'amnt5']) ?>
             </div>
             <div class="col-md-2">
-                <?= $form->field($stdFeeInstallments, 'amount6')->textInput() ?>
+                <?= $form->field($stdFeeInstallments, 'amount6')->textInput(['id'=>'amnt6']) ?>
             </div>     
         </div>
         <!-- Fee Installment end -->
@@ -342,12 +338,19 @@ use common\models\StdSubjects;
         var value2 = document.getElementById('admissionFeeDiscount').value;
         document.getElementById('netAdmissionFee').value = value1 - value2 ;
     }
-    // showNetTuitionFee function...!
-    function showNetTuitionFee() {
-        var value1 = document.getElementById('tuitionFee').value;
-        var value2 = document.getElementById('noOfInstallment').value;
-        document.getElementById('netTuitionFee').value = parseInt(value1 / value2);
-    }
+    
+    $('#noOfInstallment').on('change',function(){
+        for (var i = 1 ; i<= 6; i++) {
+            $('#amnt'+i).val('');
+        }
+        var noOfInstallment = $('#noOfInstallment').val();
+        var tuitionFee = $('#tuitionFee').val();
+        var amountPerInstallment = parseInt(tuitionFee / noOfInstallment);
+
+        for (var i = 1 ; i<= noOfInstallment; i++) {
+            $('#amnt'+i).val(amountPerInstallment);
+        }
+    });
 
 	// calculate concession start....
 	$('#concession').on('change',function(){
