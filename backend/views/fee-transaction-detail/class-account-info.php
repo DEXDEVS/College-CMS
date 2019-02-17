@@ -1,110 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>Fee Vocher</title>
-    <style>
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-          -webkit-appearance: none; 
-          margin: 0; 
-        }
-    </style>
-</head>
-<body>
-<div class="container-fluid" style="margin-top: -30px;">
-	<h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC;">Manage Class Fee Accounts</h1>
-    <!-- action="index.php?r=fee-transaction-detail/class-account-info" -->
-    <form method="POST">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="hidden" name="_csrf" class="form-control" value="<?=Yii::$app->request->getCsrfToken()?>">          
-                </div>    
-            </div>    
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Select Class</label>
-                    <select class="form-control" name="classid" id="classId">
-                            <?php 
-                                $className = Yii::$app->db->createCommand("SELECT * FROM std_class_name where delete_status=1")->queryAll();
-                                
-                                    foreach ($className as  $value) { ?>    
-                                    <option value="<?php echo $value["class_name_id"]; ?>">
-                                        <?php echo $value["class_name"]; ?> 
-                                    </option>
-                            <?php } ?>
-                    </select>      
-                </div>    
-            </div>  
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Select Session</label>
-                    <select class="form-control" name="sessionid" id="sessionId">
-                            <option value="">Select Session</option>
-                            <?php 
-                                $sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1")->queryAll();
-                                    foreach ($sessionName as  $value) { ?>  
-                                    <option value="<?php echo $value["session_id"]; ?>">
-                                        <?php echo $value["session_name"]; ?>   
-                                    </option>
-                            <?php } ?>
-                    </select>      
-                </div>    
-            </div>  
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Select Section</label>
-                    <select class="form-control" name="sectionid" id="section" >
-                            <option value="">Select Section</option>
-                    </select>      
-                </div>    
-            </div>    
-        </div>
-        <div class="row">              
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Select Month</label>
-                    <input type="month" class="form-control" name="monthYear">   
-                </div>    
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Installment No</label>
-                    <select name="installment_no" class="form-control">
-                        <option>Select Installment No</option>
-                        <option value="1">1st Installment</option>
-                        <option value="2">2nd Installment</option>
-                        <option value="3">3rd Installment</option>
-                        <option value="4">4th Installment</option>
-                        <option value="5">5th Installment</option>
-                        <option value="6">6th Installment</option>
-                    </select>
-                </div>    
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" class="form-control" name="date">     
-                </div>    
-            </div> 
-            <div class="col-md-3">
-                <div class="form-group" style="margin-top: 24px;">
-                    <button type="submit" name="submit" class="btn btn-success btn-flat btn-block"><i class="fa fa-check-square-o" aria-hidden="true"></i><b> Get Class</b></button>
-                </div>    
-            </div>
-        </div>
-    </form>
-    <!-- Header Form Close-->
-<?php  
+<h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC; margin-top: -10px">Class Fee Account Information</h1>
+<ol class="breadcrumb" style="float: right;">
+    <li><a href="index.php" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="index.php?r=fee-transaction-detail/class-account" style="color: #3C8DBC;">Back</a></li>
+</ol>
+<?php 
     if(isset($_POST['submit'])){ 
         $classid        = $_POST["classid"];
         $sessionid      = $_POST["sessionid"];
         $sectionid      = $_POST["sectionid"];
         $month          = $_POST["monthYear"];
-        $installment_no    = $_POST["installment_no"];
+        $installment_no = $_POST["installment_no"];
         $date           = $_POST["date"];
         // Select CLass...
         $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
@@ -128,16 +33,16 @@
             <div class="col-md-12">
                 <table class="table table-bordered table-responsive table-condensed" border="1" style="text-align: center;">
                     <tr class="bg-navy">
-                        <th rowspan="2" style="text-align: center; padding-top: 10px;">Sr #</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 20px;">Roll #</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 20px;">Installment</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 10px;">Student Name</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 10px;">Admission Fee</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 10px;">Tuition Fee</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 10px;">Late Fee Fine</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 10px;">Absent Fine</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 10px;">Library Dues</th>
-                        <th rowspan="2" style="text-align: center; padding-top: 10px;">Transportation Fee</th>
+                        <th rowspan="2" style="text-align: center">Sr #</th>
+                        <th rowspan="2" style="text-align: center">Roll #</th>
+                        <th rowspan="2" style="text-align: center">Installment</th>
+                        <th rowspan="2" style="text-align: center">Student Name</th>
+                        <th rowspan="2" style="text-align: center">Admission Fee</th>
+                        <th rowspan="2" style="text-align: center">Tuition Fee</th>
+                        <th rowspan="2" style="text-align: center">Late Fee Fine</th>
+                        <th rowspan="2" style="text-align: center">Absent Fine</th>
+                        <th rowspan="2" style="text-align: center">Library Dues</th>
+                        <th rowspan="2" style="text-align: center">Transportation Fee</th>
                         <th colspan="3" style="text-align: center;">Amount</th>
                     </tr>
                     <tr style="background-color: #87CEFA">
@@ -580,39 +485,7 @@
             }
         //end of isset
         }
-    ?>  
-</body> 
-</html>
-
-<?php
-$url = \yii\helpers\Url::to("index.php?r=fee-transaction-detail/fetch-students");
-
-$script = <<< JS
-$('#sessionId').on('change',function(){
-   var session_Id = $('#sessionId').val();
-  
-   $.ajax({
-        type:'post',
-        data:{session_Id:session_Id},
-        url: "$url",
-
-        success: function(result){
-     
-            var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
-            var options = '';
-           
-            for(var i=0; i<jsonResult.length; i++) { 
-                options += '<option value="'+jsonResult[i].section_id+'">'+jsonResult[i].section_name+'</option>';
-            }
-            // Append to the html
-            $('#section').append(options);
-        }         
-    });       
-});
-JS;
-$this->registerJs($script);
-?>
-</script>
+     ?>
 <script>
     var totalAmount;
     function lateFeeFine(i) {
