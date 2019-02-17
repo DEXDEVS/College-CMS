@@ -23,7 +23,8 @@
         "dmstr/yii2-adminlte-asset": "^2.1",
         "philippfrenzel/yii2fullcalendar":"*",
         "kartik-v/yii2-widget-select2": "@dev",
-        "perminder-klair/yii2-dropzone": "dev-master"          
+        "perminder-klair/yii2-dropzone": "dev-master",
+        "cenotia/yii2-calculator-widget": "dev-master"          
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

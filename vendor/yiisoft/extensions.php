@@ -193,4 +193,13 @@ return array (
       '@kato' => $vendorDir . '/perminder-klair/yii2-dropzone',
     ),
   ),
+  'cenotia/yii2-calculator-widget' => 
+  array (
+    'name' => 'cenotia/yii2-calculator-widget',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@cenotia/components/calculatorWidget' => $vendorDir . '/cenotia/yii2-calculator-widget',
+    ),
+  ),
 );

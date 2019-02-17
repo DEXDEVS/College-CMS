@@ -160,7 +160,12 @@
                             $installmentAmount = Yii::$app->db->createCommand("SELECT installment_amount FROM std_fee_installments  WHERE std_fee_id = '$feeId' AND installment_no = '$installment_no'")->queryAll();
 
                             $admissionFee = $admission[0]['net_addmission_fee'];
-                            $tuitionFee = $installmentAmount[0]['installment_amount'];
+                            if(empty($installmentAmount)){
+                                $tuitionFee = 0;
+                            }
+                            else{
+                                $tuitionFee = $installmentAmount[0]['installment_amount'];
+                            }
                             $netTotal = $admissionFee + $tuitionFee;
                     ?>
                     <tr>
@@ -177,7 +182,7 @@
                             <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $admission[0]['net_addmission_fee']; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
                         </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $installmentAmount[0]['installment_amount']; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
+                            <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $tuitionFee; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
                         </td>
                         <td>
                             <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]"  onChange="lateFeeFine(<?php echo $id; ?>)"  style="width: 70px; border: none;">

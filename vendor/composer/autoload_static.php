@@ -62,6 +62,7 @@ class ComposerStaticInit0c51b51caa7b76089a6868de9dd1f3ad
         ),
         'c' => 
         array (
+            'cenotia\\components\\calculatorWidget\\' => 36,
             'cebe\\markdown\\' => 14,
         ),
         'W' => 
@@ -214,6 +215,10 @@ class ComposerStaticInit0c51b51caa7b76089a6868de9dd1f3ad
         'dmstr\\' => 
         array (
             0 => __DIR__ . '/..' . '/dmstr/yii2-adminlte-asset',
+        ),
+        'cenotia\\components\\calculatorWidget\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cenotia/yii2-calculator-widget',
         ),
         'cebe\\markdown\\' => 
         array (
