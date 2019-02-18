@@ -1,8 +1,12 @@
 <h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC; margin-top: -10px">Class Fee Account Information</h1>
-<ol class="breadcrumb" style="float: right;">
-    <li><a href="index.php" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="index.php?r=fee-transaction-detail/class-account" style="color: #3C8DBC;">Back</a></li>
-</ol>
+
+<style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
+    </style>
 <?php 
     if(isset($_POST['submit'])){ 
         $classid        = $_POST["classid"];
@@ -12,16 +16,32 @@
         $installment_no = $_POST["installment_no"];
         $date           = $_POST["date"];
         // Select CLass...
-        $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
+        $class = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
+        $className = $class[0]['class_name'];
         // Select Session... 
         $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
        // Select Section...
         $sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
+       // Installment Name...
+        $installment = Yii::$app->db->createCommand("SELECT installment_name FROM installment WHERE installment_id = '$installment_no'")->queryAll();
+        $installmentName = $installment[0]['installment_name'];
         // Select Students...
         $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
     ?>
 
     <form method="POST">
+
+        <div class="row">
+            <div class="col-md-6">
+                <?php echo "<h3>".$className." - ".$installmentName."</h3>"; ?>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb" style="float: right;">
+                    <li><a href="index.php" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="index.php?r=fee-transaction-detail/class-account" style="color: #3C8DBC;">Back</a></li>
+                </ol>
+            </div>
+        </div>
     	<div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -35,7 +55,6 @@
                     <tr class="bg-navy">
                         <th rowspan="2" style="text-align: center">Sr #</th>
                         <th rowspan="2" style="text-align: center">Roll #</th>
-                        <th rowspan="2" style="text-align: center">Installment</th>
                         <th rowspan="2" style="text-align: center">Student Name</th>
                         <th rowspan="2" style="text-align: center">Admission Fee</th>
                         <th rowspan="2" style="text-align: center">Tuition Fee</th>
@@ -82,33 +101,6 @@
                             <p style="margin-top: 8px"><b><?php echo $stdRollNo[0]['std_roll_no'];?></b></p>
                         </td>
                         <td>
-                            <p style="margin-top: 8px">
-                                <b>
-                                    <?php 
-                                    if ($installment_no == 1) {
-                                        $installment_no = '1st Installment';
-                                    }
-                                    else if ($installment_no == 2) {
-                                        $installment_no = '2nd Installment';
-                                    }
-                                    else if ($installment_no == 3) {
-                                        $installment_no = '3rd Installment';
-                                    }
-                                    else if ($installment_no == 4) {
-                                        $installment_no = '4th Installment';
-                                    }
-                                    else if ($installment_no == 5) {
-                                        $installment_no = '5th Installment';
-                                    }
-                                    else {
-                                        $installment_no = '6th Installment';
-                                    }
-                                    echo $installment_no; 
-                                    ?>
-                                </b>
-                            </p>
-                        </td>
-                        <td>
                             <p style="margin-top: 8px"><?php echo $stdName[0]['std_name'];?></p>
                          </td>
                         <td align="center">
@@ -132,13 +124,13 @@
                             <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]"  onChange="transportationFee(<?php echo $id; ?>)" style="width: 100px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name=" total_amount[]" value="<?php echo $netTotal ; ?>"  style="width: 70px; border: none;">
+                            <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name=" total_amount[]" value="<?php echo $netTotal ; ?>"  style="width: 80px; border: none;">
                         </td>
                         <td>
                             <input class="form-control" type="number" id="discountAmount_<?php echo $id; ?>" name="discount_amount[]" onChange="totalDiscount(<?php echo $id; ?>)" value="0" style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="netTotal_<?php echo $id; ?>" readonly="" name="net_total[]" value="<?php echo $netTotal; ?>" style="width: 70px; border: none;">
+                            <input class="form-control" type="number" id="netTotal_<?php echo $id; ?>" readonly="" name="net_total[]" value="<?php echo $netTotal; ?>" style="width: 80px; border: none;">
                         </td>
                     </tr>
                 <?php } ?>
@@ -197,10 +189,11 @@
                 $transport_fee = $_POST["transport_fee"];
                 $feeType = Array('1','2','3','4','5','6');
                 $updateStatus =-1;
-                
-                $headTransId = Yii::$app->db->createCommand("SELECT fee_trans_id FROM fee_transaction_head where class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND month = '$month' AND installment_no = '$installmentNo'")->queryAll();
+
+                for($i=0; $i<$length; $i++){
+                $headTransId = Yii::$app->db->createCommand("SELECT fee_trans_id FROM fee_transaction_head where class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND month = '$month' AND installment_no = '$installmentNo' AND total_amount > 0 AND total_discount >= 0 ")->queryAll();
                 if(empty($headTransId)){
-                         for($i=0; $i<$length; $i++){
+                         //for($i=0; $i<$length; $i++){
                         $feeHead = Yii::$app->db->createCommand()->insert('fee_transaction_head',[
                             'class_name_id' => $classid,
                             'session_id'=> $sessionid,
@@ -214,8 +207,8 @@
                             'total_discount'=> $discount_amount[$i],
                             'status'=>'unpaid',
                         ])->execute();
-                    }
-                    for($i=0; $i<$length; $i++){
+                    //}
+                    //for($i=0; $i<$length; $i++){
                         $headID = Yii::$app->db->createCommand("SELECT fee_trans_id FROM fee_transaction_head where class_name_id= '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND transaction_date = '$date'")->queryAll();
                         $headId = $headID[$i]['fee_trans_id'];
                         for($j=0;$j<6;$j++){
@@ -261,10 +254,10 @@
                                         'fee_amount'=> $transport_fee[$i], 
                                         ])->execute();
                                     }
-                                //end of for loop
+                                //end of J for loop
                                 }
                     //end of for loop
-                    }
+                    //}
                     echo 
                         "<div class='row container-fluid' style='margin:0px -10px 0px 15px;'>
                             <div class='col-md-12 alert alert-success text-success' style='text-align: center'>
@@ -273,8 +266,8 @@
                         </div>";
                  // end of if
                 } else {
-                    for ($i=0; $i <$length ; $i++) { 
-                        if($headTransId != null AND $discount_amount[$i] > 0 OR $late_fee_fine[$i] > 0  OR $absent_fine[$i] > 0 OR
+                    //for ($i=0; $i <$length ; $i++) { 
+                        if($headTransId != null AND $discount_amount[$i] >= 0 OR $late_fee_fine[$i] > 0  OR $absent_fine[$i] > 0 OR
                             $library_dues[$i] > 0 OR $transport_fee[$i] > 0 OR $discount_amount[$i] > 0){
                             $updateStatus = '1';
                             $i = $length + 1;
@@ -486,6 +479,7 @@
         //end of isset
         }
      ?>
+
 <script>
     var totalAmount;
     function lateFeeFine(i) {
