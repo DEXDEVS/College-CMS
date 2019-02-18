@@ -19,7 +19,6 @@ use yii\widgets\DetailView;
             'concession_id',
             'no_of_installment',
             'tuition_fee',
-            'net_tuition_fee',
             'created_at',
             'updated_at',
             'created_by',

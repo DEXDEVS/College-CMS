@@ -410,10 +410,10 @@
                               <th>Tuition Fee:</th>
                               <td><?php echo  $stdFeeInfo[0]['tuition_fee'] ?></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                               <th>Net Tuition Fee:</th>
-                              <td><?php echo  $stdFeeInfo[0]['net_tuition_fee'] ?></td>
-                            </tr>
+                              <td><?php //echo  $stdFeeInfo[0]['net_tuition_fee'] ?></td>
+                            </tr> -->
                             <tr>
                               <th>Number Of Installments:</th>
                               <td><?php echo  $stdFeeInfo[0]['no_of_installment'] ?></td>

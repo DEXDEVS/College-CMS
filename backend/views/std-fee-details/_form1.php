@@ -48,9 +48,6 @@ use common\models\StdSessions
         <div class="col-md-4">
             <?= $form->field($model, 'no_of_installment')->textInput(['type' => 'number','id' => 'noOfInstallment']) ?>
         </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'net_tuition_fee')->textInput(['type' => 'number','id' => 'netTuitionFee','readonly'=> true, 'onfocus' => 'showNetTuitionFee();' ]) ?>
-        </div>
     </div>
     <div class="row">
     </div>

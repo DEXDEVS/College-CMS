@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b29c20691417b5159f7e928915292f9",
+    "content-hash": "8d643ab4c6654b5f74f2969b180851ca",
     "packages": [
         {
             "name": "2amigos/yii2-date-time-picker-widget",
@@ -315,6 +315,22 @@
             "type": "bower-asset"
         },
         {
+            "name": "bower-asset/vue",
+            "version": "v2.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vuejs/vue.git",
+                "reference": "1f9416d514d80a99eb45184459fdf390405967ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vuejs/vue/zipball/1f9416d514d80a99eb45184459fdf390405967ec",
+                "reference": "1f9416d514d80a99eb45184459fdf390405967ec",
+                "shasum": null
+            },
+            "type": "bower-asset"
+        },
+        {
             "name": "bower-asset/yii2-pjax",
             "version": "2.0.7.1",
             "source": {
@@ -438,6 +454,50 @@
                 "yii"
             ],
             "time": "2013-12-10T17:49:58+00:00"
+        },
+        {
+            "name": "cenotia/yii2-calculator-widget",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Cenotia/yii2-calculator-widget.git",
+                "reference": "a25692c73836d4cbee9e3a9e82bf200ff5710860"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Cenotia/yii2-calculator-widget/zipball/a25692c73836d4cbee9e3a9e82bf200ff5710860",
+                "reference": "a25692c73836d4cbee9e3a9e82bf200ff5710860",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/vue": "~2.3.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "cenotia\\components\\calculatorWidget\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "villamuera",
+                    "email": "xavier.villamuera@gmail.com",
+                    "homepage": "http://cenotia.com"
+                }
+            ],
+            "description": "A calculator widget operated by vueJs",
+            "keywords": [
+                "extension",
+                "vuejs",
+                "widget",
+                "yii2"
+            ],
+            "time": "2017-11-23T16:42:11+00:00"
         },
         {
             "name": "composer/installers",
@@ -3199,16 +3259,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.4",
+            "version": "7.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2896657da5fb237bc316bdfc18c2650efeee0dc0"
+                "reference": "23a200a60552cb9ba483a8d1e106c70fb0be0bb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2896657da5fb237bc316bdfc18c2650efeee0dc0",
-                "reference": "2896657da5fb237bc316bdfc18c2650efeee0dc0",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/23a200a60552cb9ba483a8d1e106c70fb0be0bb9",
+                "reference": "23a200a60552cb9ba483a8d1e106c70fb0be0bb9",
                 "shasum": ""
             },
             "require": {
@@ -3279,7 +3339,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-02-07T14:15:04+00:00"
+            "time": "2019-02-15T14:00:34+00:00"
         },
         {
             "name": "psr/http-message",
@@ -4723,7 +4783,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-widget-select2": 20,
-        "perminder-klair/yii2-dropzone": 20
+        "perminder-klair/yii2-dropzone": 20,
+        "cenotia/yii2-calculator-widget": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

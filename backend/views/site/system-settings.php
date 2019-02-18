@@ -1,7 +1,9 @@
 <?php 
 use yii\helpers\Html; 
+use cenotia\components\calculatorWidget\CalculatorWidget;
 $this->title = Yii::t('app', 'System Settings');
 $this->params['breadcrumbs'][] = $this->title;
+
 
 /* @var $this yii\web\View */
 
@@ -33,8 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
             </div> -->
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
+          <div class="col-md-6">
+          <?php echo CalculatorWidget::widget(); ?>
+        </div>
         </div>
         <!-- ./col -->
+      </div>
+      <div class="row">
+        
       </div>
       <!-- /.row -->
       <!-- Main row -->

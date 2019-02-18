@@ -393,6 +393,24 @@
         "installation-source": "dist"
     },
     {
+        "name": "bower-asset/vue",
+        "version": "v2.3.4",
+        "version_normalized": "2.3.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vuejs/vue.git",
+            "reference": "1f9416d514d80a99eb45184459fdf390405967ec"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/vuejs/vue/zipball/1f9416d514d80a99eb45184459fdf390405967ec",
+            "reference": "1f9416d514d80a99eb45184459fdf390405967ec",
+            "shasum": null
+        },
+        "type": "bower-asset",
+        "installation-source": "dist"
+    },
+    {
         "name": "bower-asset/yii2-pjax",
         "version": "2.0.7.1",
         "version_normalized": "2.0.7.1",
@@ -521,6 +539,52 @@
         "keywords": [
             "gravatar",
             "yii"
+        ]
+    },
+    {
+        "name": "cenotia/yii2-calculator-widget",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Cenotia/yii2-calculator-widget.git",
+            "reference": "a25692c73836d4cbee9e3a9e82bf200ff5710860"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Cenotia/yii2-calculator-widget/zipball/a25692c73836d4cbee9e3a9e82bf200ff5710860",
+            "reference": "a25692c73836d4cbee9e3a9e82bf200ff5710860",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/vue": "~2.3.0",
+            "yiisoft/yii2": "*"
+        },
+        "time": "2017-11-23T16:42:11+00:00",
+        "type": "yii2-extension",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "cenotia\\components\\calculatorWidget\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "villamuera",
+                "email": "xavier.villamuera@gmail.com",
+                "homepage": "http://cenotia.com"
+            }
+        ],
+        "description": "A calculator widget operated by vueJs",
+        "keywords": [
+            "extension",
+            "vuejs",
+            "widget",
+            "yii2"
         ]
     },
     {
@@ -2736,17 +2800,17 @@
     },
     {
         "name": "phpunit/phpunit",
-        "version": "7.5.4",
-        "version_normalized": "7.5.4.0",
+        "version": "7.5.5",
+        "version_normalized": "7.5.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "2896657da5fb237bc316bdfc18c2650efeee0dc0"
+            "reference": "23a200a60552cb9ba483a8d1e106c70fb0be0bb9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2896657da5fb237bc316bdfc18c2650efeee0dc0",
-            "reference": "2896657da5fb237bc316bdfc18c2650efeee0dc0",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/23a200a60552cb9ba483a8d1e106c70fb0be0bb9",
+            "reference": "23a200a60552cb9ba483a8d1e106c70fb0be0bb9",
             "shasum": ""
         },
         "require": {
@@ -2785,7 +2849,7 @@
             "ext-xdebug": "*",
             "phpunit/php-invoker": "^2.0"
         },
-        "time": "2019-02-07T14:15:04+00:00",
+        "time": "2019-02-15T14:00:34+00:00",
         "bin": [
             "phpunit"
         ],

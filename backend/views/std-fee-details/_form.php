@@ -53,10 +53,63 @@ use common\models\StdSessions
         <div class="col-md-4">
             <?= $form->field($model, 'no_of_installment')->textInput(['type' => 'number','id' => 'noOfInstallment']) ?>
         </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'net_tuition_fee')->textInput(['type' => 'number','id' => 'netTuitionFee','readonly'=> true, 'onfocus' => 'showNetTuitionFee();' ]) ?>
-        </div>
     </div>
+    <div class="row" >
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount1')->textInput() ?>               
+        </div>   
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount2')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount3')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount4')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount5')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($stdFeeInstallments, 'amount6')->textInput() ?>
+        </div>     
+    </div>
+    
+   <!--  <div class="row" >
+        <?php for ($i=1; $i <= 3 ; $i++) {  ?> 
+            <?php if ($i==1) { ?>
+                <div class="col-md-2">
+                    <?= $form->field($stdFeeInstallments, 'amount1')->textInput() ?>               
+                </div>
+            <?php } ?>
+            <?php if ($i==2) { ?>   
+                <div class="col-md-2">
+                    <?= $form->field($stdFeeInstallments, 'amount2')->textInput() ?>
+                </div>
+            <?php } ?>
+            <?php if ($i==3) { ?>
+                <div class="col-md-2">
+                    <?= $form->field($stdFeeInstallments, 'amount3')->textInput() ?>
+                </div>
+            <?php } ?>
+            <?php if ($i==4) { ?>
+                <div class="col-md-2">
+                    <?= $form->field($stdFeeInstallments, 'amount4')->textInput() ?>
+                </div>
+            <?php } ?>
+            <?php if ($i==5) { ?>
+                <div class="col-md-2">
+                    <?= $form->field($stdFeeInstallments, 'amount5')->textInput() ?>
+                </div>
+            <?php } ?>
+            <?php if ($i==6) { ?>
+                <div class="col-md-2">
+                    <?= $form->field($stdFeeInstallments, 'amount6')->textInput() ?>
+                </div>   
+            <?php } ?>
+        <?php } ?>  
+    </div>
+         -->
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

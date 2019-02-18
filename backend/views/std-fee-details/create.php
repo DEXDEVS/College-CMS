@@ -10,5 +10,6 @@ use yii\helpers\Html;
 <div class="std-fee-details-create">
     <?= $this->render('_form', [
         'model' => $model,
+        'stdFeeInstallments' => $stdFeeInstallments,
     ]) ?>
 </div>
