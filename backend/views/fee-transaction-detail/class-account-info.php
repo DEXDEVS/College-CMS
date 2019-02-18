@@ -8,7 +8,8 @@
         }
     </style>
 <?php 
-    if(isset($_POST['submit'])){ 
+    if(isset($_POST['submit']))
+    { 
         $classid        = $_POST["classid"];
         $sessionid      = $_POST["sessionid"];
         $sectionid      = $_POST["sectionid"];
