@@ -33,7 +33,7 @@ class EmpInfoController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','emp-details'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','emp-details', 'upload'],
                         'allow' => true,
                         'roles' => ['@','view'],
                     ],
@@ -143,6 +143,12 @@ class EmpInfoController extends Controller
                         } else {
                            $model->degree_scan_copy = '0'; 
                         }
+
+
+                        $array = $model->emp_dept_id;
+                        $deptId = implode(",",$array);
+                        $model->emp_dept_id = $deptId;
+
                         $model->created_by = Yii::$app->user->identity->id; 
                         $model->created_at = new \yii\db\Expression('NOW()');
                         $model->updated_by = '0';
@@ -150,10 +156,6 @@ class EmpInfoController extends Controller
                         $model->save();
 
                         $empRefModel->emp_id = $model->emp_id;
-                        $empRefModel->created_by = Yii::$app->user->identity->id; 
-                        $empRefModel->created_at = new \yii\db\Expression('NOW()');
-                        $empRefModel->updated_by = '0'; 
-                        $empRefModel->updated_at = '0';
                         $empRefModel->save();
 
                 return [
@@ -358,6 +360,7 @@ class EmpInfoController extends Controller
 
     public function actionUpload()
     {
+    
     $fileName = 'file';
     $uploadPath = 'uploads';
 

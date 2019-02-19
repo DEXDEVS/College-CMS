@@ -99,7 +99,12 @@ class DepartmentsController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                $model->created_by = Yii::$app->user->identity->id; 
+                $model->created_at = new \yii\db\Expression('NOW()');
+                $model->updated_by = '0';
+                $model->updated_at = '0'; 
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new Departments",
@@ -160,7 +165,12 @@ class DepartmentsController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                $model->updated_by = Yii::$app->user->identity->id;
+                $model->updated_at = new \yii\db\Expression('NOW()');
+                $model->created_by = $model->created_by;
+                $model->created_at = $model->created_at;
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Departments #".$id,

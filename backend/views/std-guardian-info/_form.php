@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use common\models\StdPersonalInfo;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StdGuardianInfo */
@@ -12,7 +14,10 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'std_id')->textInput() ?>
+            <?= $form->field($model, 'std_id')->dropDownList(
+                    ArrayHelper::map(StdPersonalInfo::find()->where(['delete_status'=>1])->all(),'std_id','std_name'),
+                    ['prompt'=>'Select Students']
+                )?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'guardian_name')->textInput(['maxlength' => true]) ?>

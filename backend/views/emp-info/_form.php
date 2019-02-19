@@ -6,6 +6,8 @@ use common\models\EmpInfo;
 use common\models\EmpDesignation;
 use common\models\EmpType;
 use common\models\Branches;
+use kartik\select2\Select2;
+use common\models\Departments;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\EmpInfo */
@@ -98,6 +100,19 @@ use common\models\Branches;
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 97px; top: 6px"></i>
+            <?= $form->field($model, 'emp_dept_id')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(Departments::find()->all(),'department_id','department_name'),
+                    'language' => 'en',
+                    'options' => ['placeholder' => 'Select'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        'multiple' => true
+                    ],
+                ]);
+                ?>
+        </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 97px; top: 6px"></i>
             <?= $form->field($model, 'emp_designation_id')->dropDownList(

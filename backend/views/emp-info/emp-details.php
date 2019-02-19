@@ -241,7 +241,7 @@
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Document Information</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
-                  <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                  <button class="btn btn-primary"><i class="fa fa-edit"></i><a href="index.php?r=emp-info/upload&id=<?php echo $id; ?>">Add Document</a></button>
                 </div>
               </div><hr>
 

@@ -13,7 +13,7 @@ class DropZoneAsset extends AssetBundle
     public $sourcePath = '@dropzone/bower_components';
 
     public $js = [
-        "dropzone/dist/min/dropzone.min.js"
+        "dropzone/dist/dropzone.js"
     ];
 
     public $css = [
