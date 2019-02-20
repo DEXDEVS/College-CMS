@@ -7,10 +7,8 @@
 
   // Employee Personal Info..... 
   $empInfo = Yii::$app->db->createCommand("SELECT * FROM emp_info WHERE emp_id = '$id'")->queryAll();
-
   // Get `emp_designation_id` from `emp_info` table
   $empDesignationId = $empInfo[0]['emp_designation_id'];
-
   // Employee `desigantion_name` from `emp_designation` table against `$empDesignationId`
   $emp_designation = Yii::$app->db->createCommand("SELECT * FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
   $empDesignationName = $emp_designation[0]['emp_designation'];
@@ -240,8 +238,11 @@
                 <div class="col-md-5">
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Document Information</p>
                 </div>
-                <div class="col-md-2 col-md-offset-5">
-                  <button class="btn btn-primary"><i class="fa fa-edit"></i><a href="index.php?r=emp-info/upload&id=<?php echo $id; ?>">Add Document</a></button>
+                <div class="col-md-2 col-md-offset-4">
+                  <!-- <button class="btn btn-primary"><i class="fa fa-edit"></i><a href="index.php?r=emp-info/upload&id=<?php echo $id; ?>">Add Document</a></button> -->
+
+                  <a href="index.php?r=emp-documents/create&id=<?php echo $id;?>" class="btn btn-success btn-sm fa fa-plus" style='color: white;'> Add Document </a>
+
                 </div>
               </div><hr>
 
