@@ -7,11 +7,14 @@
 
   // Employee Personal Info..... 
   $empInfo = Yii::$app->db->createCommand("SELECT * FROM emp_info WHERE emp_id = '$id'")->queryAll();
+
   // Get `emp_designation_id` from `emp_info` table
   $empDesignationId = $empInfo[0]['emp_designation_id'];
+
   // Employee `desigantion_name` from `emp_designation` table against `$empDesignationId`
   $emp_designation = Yii::$app->db->createCommand("SELECT * FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
   $empDesignationName = $emp_designation[0]['emp_designation'];
+
   // Get `emp_type_id` from `emp_info` table
   $empTypeId = $empInfo[0]['emp_type_id'];
 
@@ -21,6 +24,7 @@
 
   // Employee refrence info from `emp_refrence` table againts `emp_id`
   $empReference = Yii::$app->db->createCommand("SELECT * FROM emp_reference WHERE emp_id = '$id'")->queryAll();
+
   if (empty($empReference)) {
     $empReference[0]['ref_name'] = 'No';
     $empReference[0]['ref_contact_no'] = 'No';
@@ -89,6 +93,12 @@
                   <?php echo $empInfo[0]['emp_email'] ?>
                 </a> 
               </li>
+              <li class="list-group-item">
+                <b>Facebook ID</b><br>
+                <a class="">
+                  <?php echo $empInfo[0]['emp_fb_ID'] ?>
+                </a> 
+              </li>
               <!-- <li class="list-group-item">
                 <b>Status</b>
                 <a class="pull-right"><span class="label label-success">Active</span></a>
@@ -143,7 +153,17 @@
                           <td><?php echo $empInfo[0]['emp_gender'] ?></td>
                         </tr>
                         <tr>
-                          <th>Salary:</th>
+                          <th>
+                            <?php if($empInfo[0]['emp_salary_type'] == 'Salaried')
+                              {
+                                echo "Salaried:";
+                              }
+                              else
+                              {
+                                echo $empInfo[0]['emp_salary_type'].":";
+                              } 
+                            ?>
+                          </th>
                           <td><?php echo $empInfo[0]['emp_salary'] ?></td>
                         </tr>
                         <tr>
