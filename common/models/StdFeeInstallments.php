@@ -17,6 +17,7 @@ use Yii;
  * @property int $updated_by
  *
  * @property StdFeeDetails $stdFee
+ * @property Installment $installmentNo
  */
 class StdFeeInstallments extends \yii\db\ActiveRecord
 {
@@ -42,11 +43,11 @@ class StdFeeInstallments extends \yii\db\ActiveRecord
     {
         return [
             [['std_fee_id', 'installment_no', 'installment_amount', 'created_by', 'updated_by'], 'required'],
-            [['std_fee_id', 'created_by', 'updated_by'], 'integer'],
+            [['std_fee_id', 'installment_no', 'created_by', 'updated_by'], 'integer'],
             [['installment_amount'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
-            [['installment_no'],'string'],
             [['std_fee_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdFeeDetails::className(), 'targetAttribute' => ['std_fee_id' => 'fee_id']],
+            [['installment_no'], 'exist', 'skipOnError' => true, 'targetClass' => Installment::className(), 'targetAttribute' => ['installment_no' => 'installment_id']],
             [['amount1','amount2','amount3','amount4','amount5','amount6'],'number'],
         ];
     }
@@ -80,5 +81,13 @@ class StdFeeInstallments extends \yii\db\ActiveRecord
     public function getStdFee()
     {
         return $this->hasOne(StdFeeDetails::className(), ['fee_id' => 'std_fee_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInstallmentNo()
+    {
+        return $this->hasOne(Installment::className(), ['installment_id' => 'installment_no']);
     }
 }

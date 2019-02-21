@@ -18,9 +18,9 @@ class StdFeeInstallmentsSearch extends StdFeeInstallments
     public function rules()
     {
         return [
-            [['fee_installment_id', 'std_fee_id', 'created_by', 'updated_by'], 'integer'],
+            [['fee_installment_id', 'std_fee_id', 'installment_no', 'created_by', 'updated_by'], 'integer'],
             [['installment_amount'], 'number'],
-            [['installment_no','created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'],
         ];
     }
 

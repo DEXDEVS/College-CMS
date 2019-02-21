@@ -83,9 +83,25 @@
                             $admission = Yii::$app->db->createCommand("SELECT net_addmission_fee , fee_id FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
 
                             $feeId = $admission[0]['fee_id'];
-                            $installmentAmount = Yii::$app->db->createCommand("SELECT installment_amount FROM std_fee_installments  WHERE std_fee_id = '$feeId' AND installment_no = '$installment_no'")->queryAll();
+                            // get student addmission fee
+                            $payAdmission = Yii::$app->db->createCommand("SELECT ftd.fee_amount,ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON ftd.fee_trans_detail_head_id = fth.fee_trans_id WHERE ftd.fee_type_id = 1 AND fth.std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
+                            $feeAmount = $payAdmission[0]['fee_amount'];
+                            $collectedFeeAmount = $payAdmission[0]['collected_fee_amount'];
 
-                            $admissionFee = $admission[0]['net_addmission_fee'];
+                            if(!empty($payAdmission)){
+                                if($feeAmount == $collectedFeeAmount){
+                                    $admissionFee = 0;
+                                }
+                                else {
+                                    $rem = $feeAmount - $collectedFeeAmount;
+                                    $admissionFee = $rem;
+                                }
+                            }
+                            else {
+                              $admissionFee = $admission[0]['net_addmission_fee'];  
+                            }
+                            // get student installment amount
+                            $installmentAmount = Yii::$app->db->createCommand("SELECT installment_amount FROM std_fee_installments  WHERE std_fee_id = '$feeId' AND installment_no = '$installment_no'")->queryAll();
                             if(empty($installmentAmount)){
                                 $tuitionFee = 0;
                             }
@@ -105,7 +121,7 @@
                             <p style="margin-top: 8px"><?php echo $stdName[0]['std_name'];?></p>
                          </td>
                         <td align="center">
-                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $admission[0]['net_addmission_fee']; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
+                            <input class="form-control" type="number" name="admission_fee[]" value="<?php echo $admissionFee; ?>" readonly="" id="admissionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
                         </td>
                         <td align="center">
                             <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $tuitionFee; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
@@ -447,7 +463,7 @@
                         // end of j loop    
                         }          
                         echo 
-                            "<br><div class='row container-fluid' style='margin:0px 0px 0px 0px;'>
+                            "<div class='row container-fluid' style='margin:0px 0px 0px 0px;'>
                                 <div class='col-md-12 alert alert-warning' style='text-align: center'>
                                     <p>You have <b>Successfully </b>update this class account....!</p>
                                 </div>
