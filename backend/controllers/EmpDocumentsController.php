@@ -80,7 +80,7 @@ class EmpDocumentsController extends Controller
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $request = Yii::$app->request;
         $model = new EmpDocuments();  
@@ -102,15 +102,13 @@ class EmpDocumentsController extends Controller
                 ];         
             }else if($model->load($request->post())){
                 $model->emp_document = UploadedFile::getInstance($model,'emp_document');
-                    if(!empty($model->emp_document)){
-                        $document = $model->emp_document;
-                        $imageName = $model->emp_info_id."_".$document; 
-                        $model->emp_document->saveAs('uploads/'.$imageName);
-                        //save the path in the db column
-                        $model->emp_document = 'uploads/'.$imageName;
-                    } else {
-                       $model->emp_document = '0'; 
-                    }
+                $document = $model->emp_document;
+                var_dump($document);
+                $imageName = $model->emp_info_id."_".$document; 
+                $model->emp_document->saveAs('uploads/'.$imageName);
+                //save the path in the db column
+                $model->emp_document = 'uploads/'.$imageName;
+                    
                 $model->created_by = Yii::$app->user->identity->id; 
                 $model->created_at = new \yii\db\Expression('NOW()');
                 $model->updated_by = '0';
@@ -139,8 +137,21 @@ class EmpDocumentsController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->emp_document_id]);
+            if ($model->load($request->post())) {
+                $model->emp_document = UploadedFile::getInstance($model,'emp_document');
+                $document = $model->emp_document;
+                var_dump($document);
+                $imageName = $model->emp_info_id."_".$document; 
+                $model->emp_document->saveAs('uploads/'.$imageName);
+                //save the path in the db column
+                $model->emp_document = 'uploads/'.$imageName;
+                    
+                $model->created_by = Yii::$app->user->identity->id; 
+                $model->created_at = new \yii\db\Expression('NOW()');
+                $model->updated_by = '0';
+                $model->updated_at = '0'; 
+                $model->save();
+                return $this->redirect(['emp-info/view', 'id' => $model->emp_info_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
