@@ -132,6 +132,107 @@
         </div>
     </div>
 </form>
+<!-- modified collect voucher start -->
+<div class="row container-fluid">
+    <div class="col-md-6">
+        <table class="table table-bordered">
+            <tr>
+                <thead>
+                        <th colspan="4" style="text-align: center;background-color:black;color:white; ">Voucher # : <span>01</span></th>
+                </thead>
+            </tr>
+            <tr>
+                <thead>
+                    <th>Student:</th>
+                    <td>Ali</td>
+                    <th>Class:</th>
+                    <td>FSC-1</td>
+                </thead>
+            </tr>
+             <tr>
+                <thead>
+                    <th>Month:</th>
+                    <td>FEB</td>
+                    <th>Installment:</th>
+                    <td>1</td>
+                </thead>
+            </tr>
+            <tbody>
+                <tr>
+                    <td colspan="4" align="center" style="background-color: lightgray;"><b>Details</b></td>
+                </tr>
+                <form method="post">
+                    <tr>
+                        <td colspan="2" rowspan="1">Admission Fees</td>
+                        <td colspan="2">
+                            <div class="form-group">
+                                <input type="text" name="admission_fee" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Installment Amount</td>
+                        <td colspan="2">
+                            <div class="form-group">
+                                <input type="text" name="installment_amount" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Total Amount</td>
+                        <td colspan="2">
+                            <div class="form-group">
+                                <input type="text" name="total_amount" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Discount Amount</td>
+                        <td colspan="2">
+                            <div class="form-group">
+                                <input type="text" name="discount_amount" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Paid Amount</td>
+                        <td colspan="2">
+                            <div class="form-group">
+                                <input type="text" name="paid_amount" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Remaining Amount</td>
+                        <td colspan="2">
+                            <div class="form-group">
+                                <input type="text" name="remaining_amount" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Status</td>
+                        <td colspan="2">
+                            <div class="form-group">
+                                <input type="text" name="status" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <button type="submit" name="submit" class="btn btn-success btn-block">
+                                    Collect Voucher
+                                </button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </form>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- modified collect voucher close -->
 <?php 
     }
     // if close...
