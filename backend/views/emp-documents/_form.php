@@ -3,17 +3,20 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Departments */
+/* @var $model common\models\EmpDocuments */
 /* @var $form yii\widgets\ActiveForm */
+
+$id = $_GET['id'];
+
 ?>
 
-<div class="departments-form">
+<div class="emp-documents-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'department_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'emp_info_id')->textInput(['value' => $id]) ?>
 
-    <?= $form->field($model, 'department_description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'emp_document')->fileInput(['maxlength' => true]) ?>
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

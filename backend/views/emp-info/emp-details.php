@@ -7,14 +7,11 @@
 
   // Employee Personal Info..... 
   $empInfo = Yii::$app->db->createCommand("SELECT * FROM emp_info WHERE emp_id = '$id'")->queryAll();
-
   // Get `emp_designation_id` from `emp_info` table
   $empDesignationId = $empInfo[0]['emp_designation_id'];
-
   // Employee `desigantion_name` from `emp_designation` table against `$empDesignationId`
   $emp_designation = Yii::$app->db->createCommand("SELECT * FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
   $empDesignationName = $emp_designation[0]['emp_designation'];
-
   // Get `emp_type_id` from `emp_info` table
   $empTypeId = $empInfo[0]['emp_type_id'];
 
@@ -34,6 +31,9 @@
     $empReference == $empReference;
   }
   
+  // Employee Documents Info..... 
+  $empDocs = Yii::$app->db->createCommand("SELECT emp_document FROM emp_documents WHERE emp_info_id = '$id'")->queryAll();
+  $countDocs = count($empDocs);
 
 ?>
 <div class="container-fluid">
@@ -240,29 +240,22 @@
                 <div class="col-md-5">
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Document Information</p>
                 </div>
-                <div class="col-md-2 col-md-offset-5">
-                  <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                <div class="col-md-2 col-md-offset-4">
+                  <!-- <button class="btn btn-primary"><i class="fa fa-edit"></i><a href="index.php?r=emp-info/upload&id=<?php echo $id; ?>">Add Document</a></button> -->
+
+                  <a href="index.php?r=emp-documents/create&id=<?php echo $id;?>" class="btn btn-success btn-sm fa fa-plus" style='color: white;'> Add Document </a>
+
                 </div>
               </div><hr>
 
               <!-- Employee Document info start -->
 
                 <div class="row">
-                  <div class="col-md-12">
-                    <table class="table table-striped table-hover">
-                      <thead>
-                        <tr>
-                          <th>Degree Copy</th>
-                        </tr>
-                        <tr>
-                          <td><img src="<?php echo $empInfo[0]['degree_scan_copy'] ?>" width="50%"></td>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                  <div class="col-md-6">
-                      
-                  </div>
+                  <?php for ($i=0; $i < $countDocs ; $i++) { ?>
+                    <div class="col-md-6">
+                      <img src="<?php echo $empDocs[$i]['emp_document'] ?>" width="50%" class="img-responsive img-thumbnail"></td>
+                    </div>
+                  <?php } ?>
                 </div>
               <!-- Employee Document info close -->
             </div>

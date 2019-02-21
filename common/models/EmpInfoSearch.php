@@ -18,7 +18,7 @@ class EmpInfoSearch extends EmpInfo
     public function rules()
     {
         return [
-            [['emp_id', 'emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by'], 'integer'],
+            [['emp_id', 'emp_dept_id', 'emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by'], 'integer'],
             [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_fb_ID', 'emp_gender', 'emp_photo', 'emp_salary_type', 'group_by', 'emp_email', 'emp_qualification', 'emp_institute_name', 'degree_scan_copy', 'created_at', 'updated_at', 'delete_status'], 'safe'],
             [['emp_salary'], 'number'],
         ];
@@ -58,6 +58,7 @@ class EmpInfoSearch extends EmpInfo
 
         $query->andFilterWhere([
             'emp_id' => $this->emp_id,
+            'emp_dept_id' => $this->emp_dept_id,
             'emp_designation_id' => $this->emp_designation_id,
             'emp_type_id' => $this->emp_type_id,
             'emp_branch_id' => $this->emp_branch_id,

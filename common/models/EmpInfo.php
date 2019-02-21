@@ -19,6 +19,7 @@ use Yii;
  * @property string $emp_fb_ID
  * @property string $emp_gender
  * @property string $emp_photo
+ * @property int $emp_dept_id
  * @property int $emp_designation_id
  * @property int $emp_type_id
  * @property string $emp_salary_type
@@ -39,6 +40,7 @@ use Yii;
  * @property EmpDesignation $empDesignation
  * @property Branches $empBranch
  * @property EmpType $empType
+ * @property Departments $empDept
  * @property EmpReference[] $empReferences
  * @property StdAttendance[] $stdAttendances
  * @property TeacherSubjectAssignHead[] $teacherSubjectAssignHeads
@@ -54,19 +56,18 @@ class EmpInfo extends \yii\db\ActiveRecord
     }
 
     public $reference;
-
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_fb_ID', 'emp_gender', 'emp_photo', 'emp_designation_id', 'emp_type_id', 'emp_salary_type', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary', 'created_by', 'updated_by'], 'required'],
+            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_fb_ID', 'emp_gender', 'emp_photo', 'emp_dept_id', 'emp_designation_id', 'emp_type_id', 'emp_salary_type', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary'], 'required'],
             [['emp_marital_status', 'emp_gender', 'emp_salary_type', 'group_by'], 'string'],
-            [['emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by', 'delete_status'], 'integer'],
+            [[ 'emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by', 'delete_status'], 'integer'],
             [['emp_salary'], 'number'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_qualification', 'emp_institute_name'], 'string', 'max' => 50],
+            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['emp_dept_id','emp_reg_no', 'emp_name', 'emp_father_name', 'emp_qualification', 'emp_institute_name'], 'string', 'max' => 50],
             [['emp_cnic', 'emp_contact_no'], 'string', 'max' => 15],
             [['emp_perm_address', 'emp_temp_address', 'emp_photo', 'degree_scan_copy'], 'string', 'max' => 200],
             [['emp_fb_ID'], 'string', 'max' => 30],
@@ -96,9 +97,10 @@ class EmpInfo extends \yii\db\ActiveRecord
             'emp_perm_address' => 'Emp Perm Address',
             'emp_temp_address' => 'Emp Temp Address',
             'emp_marital_status' => 'Emp Marital Status',
-            'emp_fb_ID' => 'Emp Fb ID',
+            'emp_fb_ID' => 'Emp Fb I D',
             'emp_gender' => 'Emp Gender',
             'emp_photo' => 'Emp Photo',
+            'emp_dept_id' => 'Emp Dept ID',
             'emp_designation_id' => 'Emp Designation ID',
             'emp_type_id' => 'Emp Type ID',
             'emp_salary_type' => 'Emp Salary Type',
@@ -166,7 +168,7 @@ class EmpInfo extends \yii\db\ActiveRecord
         return $this->hasMany(TeacherSubjectAssignHead::className(), ['teacher_id' => 'emp_id']);
     }
 
-     public function getPhotoInfo(){
+    public function getPhotoInfo(){
         $path = Url::to('@web/uploads/');
         $url = Url::to('@web/uploads/');
         $filename = $this->emp_name.'_emp_photo'.'.jpg';
@@ -198,3 +200,5 @@ class EmpInfo extends \yii\db\ActiveRecord
         return $imageInfo;
     }
 }
+
+

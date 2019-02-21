@@ -14,6 +14,8 @@ use Yii;
  * @property string $updated_at
  * @property int $created_by
  * @property int $updated_by
+ *
+ * @property EmpInfo[] $empInfos
  */
 class Departments extends \yii\db\ActiveRecord
 {
@@ -53,5 +55,13 @@ class Departments extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEmpInfos()
+    {
+        return $this->hasMany(EmpInfo::className(), ['emp_dept_id' => 'department_id']);
     }
 }

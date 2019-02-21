@@ -3,18 +3,19 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Departments;
-use common\models\DepartmentsSearch;
+use common\models\EmpDocuments;
+use common\models\EmpDocumentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\web\UploadedFile;
 
 /**
- * DepartmentsController implements the CRUD actions for Departments model.
+ * EmpDocumentsController implements the CRUD actions for EmpDocuments model.
  */
-class DepartmentsController extends Controller
+class EmpDocumentsController extends Controller
 {
     /**
      * @inheritdoc
@@ -33,12 +34,12 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Lists all Departments models.
+     * Lists all EmpDocuments models.
      * @return mixed
      */
     public function actionIndex()
     {    
-        $searchModel = new DepartmentsSearch();
+        $searchModel = new EmpDocumentsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +50,7 @@ class DepartmentsController extends Controller
 
 
     /**
-     * Displays a single Departments model.
+     * Displays a single EmpDocuments model.
      * @param integer $id
      * @return mixed
      */
@@ -59,7 +60,7 @@ class DepartmentsController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Departments #".$id,
+                    'title'=> "EmpDocuments #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -74,15 +75,15 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Creates a new Departments model.
+     * Creates a new EmpDocuments model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $request = Yii::$app->request;
-        $model = new Departments();  
+        $model = new EmpDocuments();  
 
         if($request->isAjax){
             /*
@@ -91,7 +92,7 @@ class DepartmentsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new Departments",
+                    'title'=> "Create new EmpDocuments",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -100,6 +101,14 @@ class DepartmentsController extends Controller
         
                 ];         
             }else if($model->load($request->post())){
+                $model->emp_document = UploadedFile::getInstance($model,'emp_document');
+                $document = $model->emp_document;
+                var_dump($document);
+                $imageName = $model->emp_info_id."_".$document; 
+                $model->emp_document->saveAs('uploads/'.$imageName);
+                //save the path in the db column
+                $model->emp_document = 'uploads/'.$imageName;
+                    
                 $model->created_by = Yii::$app->user->identity->id; 
                 $model->created_at = new \yii\db\Expression('NOW()');
                 $model->updated_by = '0';
@@ -107,15 +116,15 @@ class DepartmentsController extends Controller
                 $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Departments",
-                    'content'=>'<span class="text-success">Create Departments success</span>',
+                    'title'=> "Create new EmpDocuments",
+                    'content'=>'<span class="text-success">Create EmpDocuments success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new Departments",
+                    'title'=> "Create new EmpDocuments",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -128,8 +137,21 @@ class DepartmentsController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->department_id]);
+            if ($model->load($request->post())) {
+                $model->emp_document = UploadedFile::getInstance($model,'emp_document');
+                $document = $model->emp_document;
+                var_dump($document);
+                $imageName = $model->emp_info_id."_".$document; 
+                $model->emp_document->saveAs('uploads/'.$imageName);
+                //save the path in the db column
+                $model->emp_document = 'uploads/'.$imageName;
+                    
+                $model->created_by = Yii::$app->user->identity->id; 
+                $model->created_at = new \yii\db\Expression('NOW()');
+                $model->updated_by = '0';
+                $model->updated_at = '0'; 
+                $model->save();
+                return $this->redirect(['emp-info/view', 'id' => $model->emp_info_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
@@ -140,7 +162,7 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Updates an existing Departments model.
+     * Updates an existing EmpDocuments model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -158,7 +180,7 @@ class DepartmentsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update Departments #".$id,
+                    'title'=> "Update EmpDocuments #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -173,7 +195,7 @@ class DepartmentsController extends Controller
                 $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Departments #".$id,
+                    'title'=> "EmpDocuments #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -182,7 +204,7 @@ class DepartmentsController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update Departments #".$id,
+                    'title'=> "Update EmpDocuments #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -195,7 +217,7 @@ class DepartmentsController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->department_id]);
+                return $this->redirect(['view', 'id' => $model->emp_document_id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,
@@ -205,7 +227,7 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Delete an existing Departments model.
+     * Delete an existing EmpDocuments model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -233,7 +255,7 @@ class DepartmentsController extends Controller
     }
 
      /**
-     * Delete multiple existing Departments model.
+     * Delete multiple existing EmpDocuments model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -264,15 +286,15 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Finds the Departments model based on its primary key value.
+     * Finds the EmpDocuments model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Departments the loaded model
+     * @return EmpDocuments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Departments::findOne($id)) !== null) {
+        if (($model = EmpDocuments::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

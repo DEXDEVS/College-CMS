@@ -42,12 +42,14 @@ class StdGuardianInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_id', 'guardian_name', 'guardian_relation', 'guardian_cnic', 'guardian_email', 'guardian_contact_no_1', 'guardian_contact_no_2', 'guardian_monthly_income', 'guardian_occupation', 'guardian_designation'], 'required'],
+            [['std_id', 'guardian_name', 'guardian_relation', 'guardian_cnic', 'guardian_contact_no_1', 'guardian_monthly_income', 'guardian_occupation'], 'required'],
             [['std_id', 'guardian_monthly_income', 'created_by', 'updated_by', 'delete_status'], 'integer'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by', 'guardian_email', 'guardian_contact_no_2', 'guardian_designation'], 'safe'],
             [['guardian_name', 'guardian_relation', 'guardian_occupation'], 'string', 'max' => 50],
             [['guardian_cnic', 'guardian_contact_no_1', 'guardian_contact_no_2'], 'string', 'max' => 15],
             [['guardian_email'], 'string', 'max' => 84],
+            ['guardian_email', 'unique'],
+            [['guardian_monthly_income'], 'integer'],
             [['guardian_designation'], 'string', 'max' => 100],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
         ];
