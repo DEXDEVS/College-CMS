@@ -48,7 +48,7 @@
                     //['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     // ------------------------------------------------
-                    // System Sesstings start...
+                    // System Settings start...
                     [
                         'label' => 'System Settings',
                         'icon' => 'cog',
@@ -73,6 +73,7 @@
                         'items' => [
                             ['label' => 'Institute', 'icon' => 'caret-right', 'url' => 'index.php?r=institute',],
                             ['label' => 'Branches', 'icon' => 'caret-right', 'url' => 'index.php?r=branches',],
+                            ['label' => 'Departments', 'icon' => 'caret-right', 'url' => 'index.php?r=departments',],
                             ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sessions',],
                             ['label' => 'Sections', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sections',],
                             ['label' => 'Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
