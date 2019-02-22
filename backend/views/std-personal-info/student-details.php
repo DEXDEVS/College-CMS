@@ -43,8 +43,8 @@
     $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$stdAcademicClass'")->queryAll();
 
     // Stduent Fee Info..... 
-    $stdFeeInfo = Yii::$app->db->createCommand("SELECT * FROM std_fee_details WHERE fee_id = '$id'")->queryAll();
-    // var_dump($className);  
+    $stdFeeInfo = Yii::$app->db->createCommand("SELECT * FROM std_fee_details WHERE std_id = '$id'")->queryAll();
+    var_dump($stdFeeInfo);  
 
 
     // $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();

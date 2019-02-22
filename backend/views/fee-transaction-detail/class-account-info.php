@@ -84,11 +84,11 @@
 
                             $feeId = $admission[0]['fee_id'];
                             // get student addmission fee
-                            $payAdmission = Yii::$app->db->createCommand("SELECT ftd.fee_amount,ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON ftd.fee_trans_detail_head_id = fth.fee_trans_id WHERE ftd.fee_type_id = 1 AND fth.std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
-                            $feeAmount = $payAdmission[0]['fee_amount'];
-                            $collectedFeeAmount = $payAdmission[0]['collected_fee_amount'];
-
+                            $payAdmission = Yii::$app->db->createCommand("SELECT ftd.fee_amount,ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON ftd.fee_trans_detail_head_id = fth.fee_trans_id WHERE ftd.fee_type_id = 1 AND fth.std_id = '$value[std_enroll_detail_std_id]' AND ftd.addmission_status= 'paid'")->queryAll();
+                            var_dump($payAdmission);
                             if(!empty($payAdmission)){
+                                $feeAmount = $payAdmission[0]['fee_amount'];
+                                $collectedFeeAmount = $payAdmission[0]['collected_fee_amount'];
                                 if($feeAmount == $collectedFeeAmount){
                                     $admissionFee = 0;
                                 }
@@ -98,8 +98,8 @@
                                 }
                             }
                             else {
-                              $admissionFee = $admission[0]['net_addmission_fee'];  
-                            }
+                                $admissionFee = $admission[0]['net_addmission_fee'];  
+                            }    
                             // get student installment amount
                             $installmentAmount = Yii::$app->db->createCommand("SELECT installment_amount FROM std_fee_installments  WHERE std_fee_id = '$feeId' AND installment_no = '$installment_no'")->queryAll();
                             if(empty($installmentAmount)){
@@ -108,7 +108,7 @@
                             else{
                                 $tuitionFee = $installmentAmount[0]['installment_amount'];
                             }
-                            $netTotal = $admissionFee + $tuitionFee;
+                            $netTotal = $tuitionFee;
                     ?>
                     <tr>
                         <td>
