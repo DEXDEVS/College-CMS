@@ -7,7 +7,9 @@
 
   // Getting departments Info from `departments` table
   $deptInfo = Yii::$app->db->createCommand("SELECT * FROM departments WHERE department_id = '$id'")->queryAll();
-  $empData = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_dept_id = '$id'")->queryAll();
+  $deptemp = Yii::$app->db->createCommand("SELECT emp_id FROM emp_departments WHERE dept_id = '$id'")->queryAll();
+  $empId = $deptemp[0]['emp_id'];
+  $empData = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
 
   if (!empty($empData)) {
      $empDesignationId = $empData[0]['emp_designation_id'];

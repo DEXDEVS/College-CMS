@@ -10,6 +10,7 @@ use yii\helpers\Html;
 <div class="emp-info-create">
     <?= $this->render('_form', [
         'model' => $model,
+        'empDepartments' => $empDepartments,
         'empRefModel' => $empRefModel,
     ]) ?>
 </div>

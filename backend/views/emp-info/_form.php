@@ -102,7 +102,7 @@ use common\models\Departments;
     <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 97px; top: 6px"></i>
-            <?= $form->field($model, 'emp_dept_id')->widget(Select2::classname(), [
+            <?= $form->field($empDepartments, 'dept_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(Departments::find()->all(),'department_id','department_name'),
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select'],

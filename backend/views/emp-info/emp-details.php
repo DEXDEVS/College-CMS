@@ -12,12 +12,9 @@
   $empDesignationId = $empInfo[0]['emp_designation_id'];
 
   // Get `emp_dept_id` from `emp_info` table
-  $empDeptId = $empInfo[0]['emp_dept_id'];
-
-  $empDeptID = explode(",", $empDeptId);
-
-  $count = count($empDeptID);
-
+  $empdept = Yii::$app->db->createCommand("SELECT dept_id FROM emp_departments WHERE emp_id = '$id'")->queryAll();
+  $count = count($empdept);
+  
   // Employee `desigantion_name` from `emp_designation` table against `$empDesignationId`
   $emp_designation = Yii::$app->db->createCommand("SELECT * FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
   $empDesignationName = $emp_designation[0]['emp_designation'];
@@ -74,11 +71,11 @@
 
             <ul class="list-group list-group-unbordered">
               <b>Departments</b>
-              <?php 
+               <?php 
                 for ($i=0; $i <$count ; $i++) {
+                   $id = $empdept[$i]['dept_id'];
                    // Get `deprtment_name` from `departments` againts `emp_department_id`
-                    $empDeptName = Yii::$app->db->createCommand("SELECT department_name,department_id FROM departments WHERE department_id = '$empDeptID[$i]'")->queryAll();
-
+                    $empDeptName = Yii::$app->db->createCommand("SELECT department_name,department_id FROM departments WHERE department_id = '$id'")->queryAll();
                   ?>
 
                 <li class="list-group-item" style="height:40px">
@@ -86,7 +83,7 @@
                     <?php echo $empDeptName[0]['department_name']; ?>
                   </a>
                 </li>
-              <?php } ?>
+              <?php } ?> 
               <li class="list-group-item">
                 <b>Designation</b> <a class="pull-right">
                   <?php echo $empDesignationName; ?>
