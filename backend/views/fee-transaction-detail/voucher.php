@@ -162,6 +162,9 @@
 											if($feeDetail[$key]['fee_type_id'] == $feeType[$index]['fee_type_id'] ){
 												echo $feeDetail[$key]['fee_amount'];
 											}	
+											if($feeDetail[$key]['fee_type_id'] == 1 ){
+												$addmission = $feeDetail[$key]['fee_amount'];
+											}	
 										} 
 									?>
 								</td>
@@ -174,12 +177,21 @@
 			$currentTotal = $feeDetail[0]['total_amount'];
 			$installNo = $feeDetail[0]['installment_no'];
 			$installmentNo = $installNo -1;
-			$remain = Yii::$app->db->createCommand("SELECT remaining, std_name FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
-			if(empty($remain)){
+			$remain = Yii::$app->db->createCommand("SELECT  remaining, total_amount,paid_amount FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
+			var_dump($remain);
+			$remainig = $remain[0]['remaining'];
+			$totalAmount = $remain[0]['total_amount'];
+			$paidAmount = $remain[0]['paid_amount'];
+			if($totalAmount == $paidAmount){
 				$remaining = 0; 
+			} else if($paidAmount == 0 ){
+				$remaining = $totalAmount;
+			} else if($totalAmount != $paidAmount){
+				$remaining = $remainig;
 			} else {
-				$remaining = $remain[0]['remaining'];
+				$remaining = "-";
 			}
+			$finallyRemaining = $remaining - $addmission;
 			$paymentByDueDate = $currentTotal + $remaining;
 			$paymentAFterDueDate = $paymentByDueDate + 50;
 			 ?>			
@@ -192,7 +204,7 @@
 						</tr>
 						<tr>
 							<th>Previous Dues:</th>
-							<td align="center"> <?php echo $remaining; ?> </td>
+							<td align="center"> <?php echo $finallyRemaining; ?> </td>
 						</tr>
 						<tr>
 							<th>Total Paymeny by Due Date:</th>
