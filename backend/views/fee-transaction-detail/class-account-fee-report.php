@@ -2,10 +2,25 @@
 <html>
 <head>
 	<title></title>
+	<style type="text/css">
+	@media print{
+	    .table th{
+	        background-color: #001F3F !important;
+	        color: #fff !important;
+	    }
+	    .table .tdcolor{
+	    	background-color: #ccc !important;
+	    }
+	    .table .a{
+	    	background-color: gray !important;
+	    }
+	}
+</style>
 </head>
 <body>
-<!-- class fee account report start-->
 <div class="row container-fluid"> 
+
+	<!-- class fee account report start-->
 	<div class="container-fluid" style="margin-top: -30px;">
 	<h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC;">Manage Class Fee Accounts</h1>
 	<!-- action="index.php?r=fee-transaction-detail/class-account-info" -->
@@ -110,25 +125,25 @@
 		</div>
 		<table class="table table-bordered">
 			<thead>
-			<tr style="background-color:#337ab7;color: white;">
-				<th>Sr.#</th>
+			<tr class="bg-navy">
+				<th class="text-center">Sr.#</th>
 				<th>Roll No.</th>
-				<th>Name</th>
-				<th>T.PKG</th>
-				<th>1st Instll</th>
-				<th>1st Paid</th>
-				<th>2nd</th>
-				<th>2nd Paid</th>
-				<th>3rd</th>
-				<th>3rd Paid</th>
-				<th>4th</th>
-				<th>4th Paid</th>
-				<th>5th</th>
-				<th>5th Paid</th>
-				<th>6th</th>
-				<th>6th Paid</th>
-				<th>Remain</th>
-				<th>Status</th>
+				<th>Student Name</th>
+				<th class="text-center">T.PKG</th>
+				<th class="text-center">1st</th>
+				<th class="text-center">1st Paid</th>
+				<th class="text-center">2nd</th>
+				<th class="text-center">2nd Paid</th>
+				<th class="text-center">3rd</th>
+				<th class="text-center">3rd Paid</th>
+				<th class="text-center">4th</th>
+				<th class="text-center">4th Paid</th>
+				<th class="text-center">5th</th>
+				<th class="text-center">5th Paid</th>
+				<th class="text-center">6th</th>
+				<th class="text-center">6th Paid</th>
+				<th class="text-center">Remaining</th>
+				<th class="text-center">Status</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -144,8 +159,9 @@
 					$stdFeePakg = Yii::$app->db->createCommand("SELECT tuition_fee FROM std_fee_details WHERE std_id = '$stdID'")->queryAll();
 					$stdFee = Yii::$app->db->createCommand("SELECT sfd.fee_id, sfi.installment_no, sfi.installment_amount FROM std_fee_details as sfd INNER JOIN std_fee_installments as sfi ON sfi.std_fee_id = sfd.fee_id WHERE sfd.std_id  = '$stdID'")->queryAll();
 					
-					var_dump($stdFee);
-					echo "<br>";
+					//var_dump($stdFee);
+					//echo "<br>";
+					
 					$totalFee += $stdFeePakg[0]['tuition_fee'];
 					if (empty($stdFee[0]['installment_amount'])) {
 						$total1st += 0;
@@ -187,10 +203,10 @@
 				<tr>
 					<td><?php echo $id+1; ?></td>
 					<td><?php echo  $students[$id]['std_roll_no']; ?></td>
-					<td><?php echo $stdName[0]['std_name']; ?>		</td>
-					<td><?php echo $stdFeePakg[0]['tuition_fee']; ?></td>
+					<td><?php echo $stdName[0]['std_name']; ?></td>
+					<td align="center"><?php echo $stdFeePakg[0]['tuition_fee']; ?></td>
 					<?php for ($i=0; $i <6; $i++) { ?>
-						<td style="background-color: #ccc; width: 50px">
+						<td class="tdcolor" align="center" style="background-color: #ccc">
 							<?php
 								if (empty($stdFee[$i]['installment_amount'])) {
 									echo '';
@@ -200,31 +216,31 @@
 								}
 							?>
 						</td>
-						<td style="width: 50px"></td>
+						<td align="center">1029</td>
 					<?php } ?>
-					<td style="width: 50px">---</td>
+					<td style="background-color: gray;" class="a text-center">---</td>
 					<td style="width: 60px">---</td>
 				</tr>
 			<?php } ?>
 				
-				<tr align="center" style="width: 50px; background-color: #ccc;">
-					<td colspan="3" align="center" class="bg-navy"  style="margin-top: 15px;">
+				<tr align="center" style="background-color: #ccc;">
+					<th colspan="3" align="center" class="bg-navy text-center tdcolor" >
 						<?php echo "<b>".$sectionName[0]['section_name']." Session (".$sessionName[0]['session_name'].")</b>";?>
-					</td>
-					<td><b><?php echo $totalFee; ?></b></td>
-					<td><b><?php echo $total1st; ?></b></td>
-					<td style="background-color: gray;">---</td>
-					<td><b><?php echo $total2nd; ?></b></td>
-					<td style="background-color: gray;">---</td>
-					<td><b><?php echo $total3rd; ?></b></td>
-					<td style="background-color: gray;">---</td>
-					<td><b><?php echo $total4th; ?></b></td>
-					<td style="background-color: gray;">---</td>
-					<td><b><?php echo $total5th; ?></b></td>
-					<td style="background-color: gray;">---</td>
-					<td><b><?php echo $total6th; ?></b></td>
-					<td></td>
-					<td></td>
+					</th>
+					<td class="tdcolor"><b><?php echo $totalFee; ?></b></td>
+					<td class="tdcolor"><b><?php echo $total1st; ?></b></td>
+					<td style="background-color: gray;" class="a">---</td>
+					<td class="tdcolor"><b><?php echo $total2nd; ?></b></td>
+					<td style="background-color: gray;" class="a">---</td>
+					<td class="tdcolor"><b><?php echo $total3rd; ?></b></td>
+					<td style="background-color: gray;" class="a">---</td>
+					<td class="tdcolor"><b><?php echo $total4th; ?></b></td>
+					<td style="background-color: gray;" class="a">---</td>
+					<td class="tdcolor"><b><?php echo $total5th; ?></b></td>
+					<td style="background-color: gray;" class="a">---</td>
+					<td class="tdcolor"><b><?php echo $total6th; ?></b></td>
+					<td style="background-color: gray;" class="a">---</td>
+					<td style="background-color: gray;" class="a">---</td>
 					<td></td>
 				</tr>
 			</tbody>
