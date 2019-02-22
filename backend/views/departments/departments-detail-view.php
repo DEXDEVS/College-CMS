@@ -5,26 +5,29 @@
   // Get `dept_id` from `departments` table
   $id = $_GET['id'];
 
-  // Getting departments Info from `departments` table
-  $deptInfo = Yii::$app->db->createCommand("SELECT * FROM departments WHERE department_id = '$id'")->queryAll();
-  $deptemp = Yii::$app->db->createCommand("SELECT emp_id FROM emp_departments WHERE dept_id = '$id'")->queryAll();
-  $empId = $deptemp[0]['emp_id'];
-  $empData = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
+  // Getting `dept_id and emp_id` from `emp_departments` table
+  $empDept = Yii::$app->db->createCommand("SELECT emp_id FROM emp_departments WHERE dept_id = '$id'")->queryAll();
+  $empCount = count($empDept);
 
-  if (!empty($empData)) {
-     $empDesignationId = $empData[0]['emp_designation_id'];
-  $empDesig = Yii::$app->db->createCommand("SELECT emp_info.emp_name,emp_info.emp_reg_no FROM emp_info as emp_info
-  INNER JOIN emp_designation as emp_desig
-  ON emp_desig.emp_designation_id = emp_info.emp_designation_id
-   WHERE emp_desig.emp_designation = 'HOD'")->queryAll();
-  }
+  // $deptemp = Yii::$app->db->createCommand("SELECT emp_id FROM emp_departments WHERE dept_id = '$id'")->queryAll();
+  // $empId = $deptemp[0]['emp_id'];
+
+  //$empData = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
+
+  // if (!empty($empData)) {
+  //    $empDesignationId = $empData[0]['emp_designation_id'];
+  // $empDesig = Yii::$app->db->createCommand("SELECT emp_info.emp_name,emp_info.emp_reg_no FROM emp_info
+  // INNER JOIN emp_designation as emp_desig
+  // ON emp_desig.emp_designation_id = emp_info.emp_designation_id
+  //  WHERE emp_desig.emp_designation = 'HOD'")->queryAll();
+  // }
 
  
 ?>
 <div class="container-fluid">
 	<section class="content-header">
     <h1 style="color: #3C8DBC;">
-        <i class="fa fa-university"></i>  <?php echo $deptInfo[0]['department_name']." "."Information"; ?>
+        <i class="fa fa-university"></i>  <?php //echo $deptInfo[0]['department_name']." "."Information"; ?>
       </h1>
     <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -43,15 +46,24 @@
               <p style="font-size: 20px; color: #3C8DBC;">
                 <i class="fa fa-user" style="font-size: 20px;"></i> Department HOD
               </p>
-              <h4> <?php 
+              <h4> 
+                <?php
+                for ($i=0; $i <$empCount ; $i++) { 
+                 $empId = $empDept[$i]['emp_id'];
+                  $empInfo = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
+                  $empDesignationID = $empInfo[0]['emp_designation_id'];
+                  $empDesignation = Yii::$app->db->createCommand("SELECT emp_designation FROM emp_designation WHERE emp_designation_id = '$empDesignationID'")->queryAll();
+                  
+                  var_dump($empDesignation);
 
-                if (empty($empDesig[0]['emp_name']))
-                {
-                  echo "HOD not assigned";
-                }
-                else
-                {
-                  echo $empDesig[0]['emp_name'];
+                
+                //if (empty($empDesig[0]['emp_name']))
+                //{
+                //  echo "HOD not assigned";
+                //}
+                //else
+                //{
+                 // echo $empDesig[0]['emp_name'];
                 } 
                 ?> 
               </h4>
@@ -59,7 +71,7 @@
                HOD  Registration
               </p>
               <h5>
-                <?php echo $empDesig[0]['emp_reg_no']; ?>
+                <?php //echo $empDesig[0]['emp_reg_no']; ?>
               </h5>
             </ul>
             <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
@@ -105,28 +117,33 @@
             </thead>
             <tbody>
               <?php 
-
-              foreach ($empData as $key => $value) {
-                $empDesignationId = $value['emp_designation_id'];
-                $empDesignation = Yii::$app->db->createCommand("SELECT emp_designation FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
+              $sr = 0;
+             for ($i=0; $i <$empCount ; $i++) { 
+               $empId = $empDept[$i]['emp_id'];
+                $empInfo = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
+                $empDesignationId = $empInfo[0]['emp_designation_id'];
+                $empDesignationName = Yii::$app->db->createCommand("SELECT emp_designation FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
+                
                ?>
+               <?php var_dump($empInfo); ?>
               <tr>
                 <?php 
-                  if ($empDesignation[0]['emp_designation'] == "HOD") {
-                    break;
-                  }
+                  if ($empDesignationName[0]['emp_designation'] == "HOD") {
+                     continue;
+                   }else {
+
                 ?>
-                <td align="center"><b><?php echo $key+1; ?></b></td>
-                <td><?php echo $value['emp_reg_no']; ?></td>
-                <td><?php echo $value['emp_name']; ?></td>
-                <td><?php echo $empDesignation[0]['emp_designation']; ?></td>
+                <td align="center"><b><?php echo $sr+1; ?></b></td>
+                <td><?php echo $empInfo[0]['emp_reg_no']; ?></td>
+                <td><?php echo $empInfo[0]['emp_name']; ?></td>
+                <td><?php echo $empDesignationName[0]['emp_designation']; ?></td>
                 <td>
                   <a href="index.php?r=std-personal-info/view&id=<?php //echo $value['std_enroll_detail_std_id'];?>">
                     <?php //echo $value['std_enroll_detail_std_name'];?>
                   </a>
                   </td>
               </tr>
-              <?php } ?>
+              <?php } }?>
             </tbody>
           </table>
         </div>
