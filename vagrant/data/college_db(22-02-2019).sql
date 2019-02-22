@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2019 at 12:49 PM
--- Server version: 10.1.22-MariaDB
--- PHP Version: 7.1.4
+-- Generation Time: Feb 22, 2019 at 05:17 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -265,8 +265,16 @@ INSERT INTO `emails` (`emial_id`, `receiver_name`, `receiver_email`, `email_subj
 CREATE TABLE `emp_departments` (
   `emp_department_id` int(11) NOT NULL,
   `emp_id` int(11) NOT NULL,
-  `department_id` int(11) NOT NULL
+  `dept_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `emp_departments`
+--
+
+INSERT INTO `emp_departments` (`emp_department_id`, `emp_id`, `dept_id`) VALUES
+(1, 5, 2),
+(2, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -348,7 +356,6 @@ CREATE TABLE `emp_info` (
   `emp_fb_ID` varchar(30) NOT NULL,
   `emp_gender` enum('Male','Female') NOT NULL,
   `emp_photo` varchar(200) NOT NULL,
-  `emp_dept_id` varchar(11) NOT NULL,
   `emp_designation_id` int(11) NOT NULL,
   `emp_type_id` int(11) NOT NULL,
   `emp_salary_type` enum('Salaried','Per Lecture') NOT NULL,
@@ -371,11 +378,12 @@ CREATE TABLE `emp_info` (
 -- Dumping data for table `emp_info`
 --
 
-INSERT INTO `emp_info` (`emp_id`, `emp_reg_no`, `emp_name`, `emp_father_name`, `emp_cnic`, `emp_contact_no`, `emp_perm_address`, `emp_temp_address`, `emp_marital_status`, `emp_fb_ID`, `emp_gender`, `emp_photo`, `emp_dept_id`, `emp_designation_id`, `emp_type_id`, `emp_salary_type`, `group_by`, `emp_branch_id`, `emp_email`, `emp_qualification`, `emp_passing_year`, `emp_institute_name`, `degree_scan_copy`, `emp_salary`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(1, 'EMP-Y19-1', 'Kinza Mustafa', 'G Mustafa', '45678-9876545-6', '+56-777-7777777', 'RYK', 'RYK', 'Single', 'Kinza@gmail.com', 'Female', 'uploads/Kinza Mustafa_emp_photo.jpg', '1', 1, 4, 'Salaried', 'Faculty', 5, 'kinza.fatima.522@gmail.com', 'BSCS', 2017, 'IUB', 'uploads/Kinza Mustafa_degree_scan_copy.jpg', 10000, '2019-02-22 07:24:29', '2019-02-20 09:30:25', 3, 9, 1),
-(2, 'EMP-Y19-2', 'Nadia', 'Gull', '88888-8888888-8', '+66-666-6666666', 'ryk', 'ryk', 'Single', 'fghj@gmail.com', 'Female', 'uploads/nadia_emp_photo.jpg', '1', 4, 5, 'Per Lecture', 'Faculty', 5, 'fghj@gmail.com', 'BSCS', 2019, 'fghjk', 'uploads/Nadia_degree_scan_copy.png', 1300, '2019-02-21 20:30:21', '2019-02-20 06:39:57', 3, 9, 1),
-(3, 'EMP-Y19-3', 'nauman', 'shahid', '24654-5468546-5', '+65-465-4546546', 'RYK', 'RYK', 'Single', 'nauman@gmail.com', 'Male', 'uploads/nauman_emp_photo.jpg', '1,7', 4, 5, 'Per Lecture', 'Faculty', 5, 'nauman@gmail.com', 'BSCS', 2108, 'Superior', 'uploads/nauman_degree_scan_copy.xps', 1400, '2019-02-21 15:41:48', '0000-00-00 00:00:00', 8, 0, 1),
-(4, 'EMP-Y19-4', 'Ayesha', 'Ali', '46545-4654654-6', '+65-465-6549841', 'RYK', 'RYK', 'Single', 'ayesha@gmail.com', 'Female', 'uploads/Ayesha_emp_photo.jpg', '1', 9, 4, 'Salaried', 'Faculty', 5, 'ayesha@gmail.com', 'BSCS', 2018, 'Superior', 'uploads/Ayesha_degree_scan_copy.xps', 40000, '2019-02-22 07:36:31', '0000-00-00 00:00:00', 8, 0, 1);
+INSERT INTO `emp_info` (`emp_id`, `emp_reg_no`, `emp_name`, `emp_father_name`, `emp_cnic`, `emp_contact_no`, `emp_perm_address`, `emp_temp_address`, `emp_marital_status`, `emp_fb_ID`, `emp_gender`, `emp_photo`, `emp_designation_id`, `emp_type_id`, `emp_salary_type`, `group_by`, `emp_branch_id`, `emp_email`, `emp_qualification`, `emp_passing_year`, `emp_institute_name`, `degree_scan_copy`, `emp_salary`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
+(1, 'EMP-Y19-1', 'Kinza Mustafa', 'G Mustafa', '45678-9876545-6', '+56-777-7777777', 'RYK', 'RYK', 'Single', 'Kinza@gmail.com', 'Female', 'uploads/Kinza Mustafa_emp_photo.jpg', 1, 4, 'Salaried', 'Faculty', 5, 'kinza.fatima.522@gmail.com', 'BSCS', 2017, 'IUB', 'uploads/Kinza Mustafa_degree_scan_copy.jpg', 10000, '2019-02-22 07:24:29', '2019-02-20 09:30:25', 3, 9, 1),
+(2, 'EMP-Y19-2', 'Nadia', 'Gull', '88888-8888888-8', '+66-666-6666666', 'ryk', 'ryk', 'Single', 'fghj@gmail.com', 'Female', 'uploads/nadia_emp_photo.jpg', 4, 5, 'Per Lecture', 'Faculty', 5, 'fghj@gmail.com', 'BSCS', 2019, 'fghjk', 'uploads/Nadia_degree_scan_copy.png', 1300, '2019-02-21 20:30:21', '2019-02-20 06:39:57', 3, 9, 1),
+(3, 'EMP-Y19-3', 'nauman', 'shahid', '24654-5468546-5', '+65-465-4546546', 'RYK', 'RYK', 'Single', 'nauman@gmail.com', 'Male', 'uploads/nauman_emp_photo.jpg', 4, 5, 'Per Lecture', 'Faculty', 5, 'nauman@gmail.com', 'BSCS', 2108, 'Superior', 'uploads/nauman_degree_scan_copy.xps', 1400, '2019-02-21 15:41:48', '0000-00-00 00:00:00', 8, 0, 1),
+(4, 'EMP-Y19-4', 'Ayesha', 'Ali', '46545-4654654-6', '+65-465-6549841', 'RYK', 'RYK', 'Single', 'ayesha@gmail.com', 'Female', 'uploads/Ayesha_emp_photo.jpg', 9, 4, 'Salaried', 'Faculty', 5, 'ayesha@gmail.com', 'BSCS', 2018, 'Superior', 'uploads/Ayesha_degree_scan_copy.xps', 40000, '2019-02-22 07:36:31', '0000-00-00 00:00:00', 8, 0, 1),
+(5, 'EMP-Y19-5', 'Sadia', 'Iftikhar', '87654-3234567-8', '+09-876-5434567', 'kjhgfdfghjk', 'iuytrewaxcvb', 'Single', 'gull@gmail.com', 'Female', 'uploads/Sadia_emp_photo.png', 4, 4, 'Salaried', 'Faculty', 5, 'sadiagull@gmail.com', 'Mphil', 2018, 'QAU', 'uploads/Sadia_degree_scan_copy.png', 20000, '2019-02-22 12:51:14', '0000-00-00 00:00:00', 3, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -506,14 +514,14 @@ CREATE TABLE `fee_transaction_detail` (
 --
 
 INSERT INTO `fee_transaction_detail` (`fee_trans_detail_id`, `fee_trans_detail_head_id`, `fee_type_id`, `fee_amount`, `collected_fee_amount`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(1, 5, 1, 9960, 0, '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
-(2, 5, 2, 8000, 0, '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
-(3, 6, 1, 5600, 0, '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
-(4, 6, 2, 10000, 0, '2019-02-17 17:39:22', '0000-00-00 00:00:00', 0, 0, 1),
-(5, 7, 1, 9960, 0, '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1),
-(6, 7, 2, 10000, 0, '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1),
-(7, 8, 1, 5600, 0, '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1),
-(8, 8, 2, 18000, 0, '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1);
+(13, 11, 1, 9960, 5000, '2019-02-22 15:18:37', '0000-00-00 00:00:00', 0, 0, 1),
+(14, 11, 2, 8000, 4000, '2019-02-22 15:18:37', '0000-00-00 00:00:00', 0, 0, 1),
+(15, 12, 1, 5600, 0, '2019-02-22 15:16:16', '0000-00-00 00:00:00', 0, 0, 1),
+(16, 12, 2, 10000, 0, '2019-02-22 15:16:16', '0000-00-00 00:00:00', 0, 0, 1),
+(17, 13, 1, 4960, 0, '2019-02-22 15:22:12', '0000-00-00 00:00:00', 0, 0, 1),
+(18, 13, 2, 10000, 0, '2019-02-22 15:22:12', '0000-00-00 00:00:00', 0, 0, 1),
+(19, 14, 1, 5600, 0, '2019-02-22 15:22:13', '0000-00-00 00:00:00', 0, 0, 1),
+(20, 14, 2, 18000, 0, '2019-02-22 15:22:13', '0000-00-00 00:00:00', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -548,10 +556,10 @@ CREATE TABLE `fee_transaction_head` (
 --
 
 INSERT INTO `fee_transaction_head` (`fee_trans_id`, `class_name_id`, `session_id`, `section_id`, `std_id`, `std_name`, `month`, `installment_no`, `transaction_date`, `total_amount`, `total_discount`, `paid_amount`, `remaining`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(5, 1, 4, 1, 1, 'Kinza Mustafah', '2019-02', '1', '2019-02-20 00:00:00', 17960, 0, 10000, 7960, 'Unpaid', '2019-02-20 06:24:53', '0000-00-00 00:00:00', 0, 0, 1),
-(6, 1, 4, 1, 2, 'Nadia Gull', '2019-02', '1', '2019-02-20 00:00:00', 15600, 0, 0, 0, 'Unpaid', '2019-02-20 06:24:53', '0000-00-00 00:00:00', 0, 0, 1),
-(7, 1, 4, 1, 1, 'Kinza Mustafah', '2019-04', '2', '2019-04-02 00:00:00', 19960, 0, 0, 0, 'Unpaid', '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1),
-(8, 1, 4, 1, 2, 'Nadia Gull', '2019-04', '2', '2019-04-02 00:00:00', 23600, 0, 0, 0, 'Unpaid', '2019-02-17 17:58:38', '0000-00-00 00:00:00', 0, 0, 1);
+(11, 1, 4, 1, 1, 'Kinza Mustafah', '2019-02', '1', '2019-02-22 00:00:00', 17960, 0, 9000, 8960, 'Unpaid', '2019-02-22 15:18:37', '0000-00-00 00:00:00', 0, 0, 1),
+(12, 1, 4, 1, 2, 'Nadia Gull', '2019-02', '1', '2019-02-22 00:00:00', 15600, 0, 0, 0, 'Unpaid', '2019-02-22 15:16:16', '0000-00-00 00:00:00', 0, 0, 1),
+(13, 1, 4, 1, 1, 'Kinza Mustafah', '2019-04', '2', '2019-04-07 00:00:00', 14960, 0, 0, 0, 'Unpaid', '2019-02-22 15:22:12', '0000-00-00 00:00:00', 0, 0, 1),
+(14, 1, 4, 1, 2, 'Nadia Gull', '2019-04', '2', '2019-04-07 00:00:00', 23600, 0, 0, 0, 'Unpaid', '2019-02-22 15:22:13', '0000-00-00 00:00:00', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1468,7 +1476,7 @@ ALTER TABLE `emails`
 ALTER TABLE `emp_departments`
   ADD PRIMARY KEY (`emp_department_id`),
   ADD KEY `emp_id` (`emp_id`),
-  ADD KEY `department_id` (`department_id`);
+  ADD KEY `department_id` (`dept_id`);
 
 --
 -- Indexes for table `emp_designation`
@@ -1490,8 +1498,7 @@ ALTER TABLE `emp_info`
   ADD PRIMARY KEY (`emp_id`),
   ADD KEY `emp_designation_id` (`emp_designation_id`),
   ADD KEY `emp_branch_id` (`emp_branch_id`),
-  ADD KEY `emp_type_id` (`emp_type_id`),
-  ADD KEY `emp_dept_id` (`emp_dept_id`);
+  ADD KEY `emp_type_id` (`emp_type_id`);
 
 --
 -- Indexes for table `emp_reference`
@@ -1755,206 +1762,247 @@ ALTER TABLE `user`
 --
 ALTER TABLE `branches`
   MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `concession`
 --
 ALTER TABLE `concession`
   MODIFY `concession_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
   MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
   MODIFY `emial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT for table `emp_departments`
 --
 ALTER TABLE `emp_departments`
-  MODIFY `emp_department_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `emp_designation`
 --
 ALTER TABLE `emp_designation`
   MODIFY `emp_designation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `emp_documents`
 --
 ALTER TABLE `emp_documents`
   MODIFY `emp_document_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT for table `emp_info`
 --
 ALTER TABLE `emp_info`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `emp_reference`
 --
 ALTER TABLE `emp_reference`
   MODIFY `emp_ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `emp_type`
 --
 ALTER TABLE `emp_type`
   MODIFY `emp_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
   MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `fee_transaction_detail`
 --
 ALTER TABLE `fee_transaction_detail`
-  MODIFY `fee_trans_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `fee_trans_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `fee_transaction_head`
 --
 ALTER TABLE `fee_transaction_head`
-  MODIFY `fee_trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `fee_trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `fee_type`
 --
 ALTER TABLE `fee_type`
   MODIFY `fee_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `installment`
 --
 ALTER TABLE `installment`
   MODIFY `installment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `institute`
 --
 ALTER TABLE `institute`
   MODIFY `institute_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `month`
 --
 ALTER TABLE `month`
   MODIFY `month_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `msg_of_day`
 --
 ALTER TABLE `msg_of_day`
   MODIFY `msg_of_day_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
   MODIFY `notice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `sms`
 --
 ALTER TABLE `sms`
   MODIFY `sms_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `std_academic_info`
 --
 ALTER TABLE `std_academic_info`
   MODIFY `academic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- AUTO_INCREMENT for table `std_attendance`
 --
 ALTER TABLE `std_attendance`
   MODIFY `std_attend_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `std_class`
 --
 ALTER TABLE `std_class`
   MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `std_class_name`
 --
 ALTER TABLE `std_class_name`
   MODIFY `class_name_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `std_enrollment_detail`
 --
 ALTER TABLE `std_enrollment_detail`
   MODIFY `std_enroll_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `std_enrollment_head`
 --
 ALTER TABLE `std_enrollment_head`
   MODIFY `std_enroll_head_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `std_fee_details`
 --
 ALTER TABLE `std_fee_details`
   MODIFY `fee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
 --
 -- AUTO_INCREMENT for table `std_fee_installments`
 --
 ALTER TABLE `std_fee_installments`
   MODIFY `fee_installment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
 --
 -- AUTO_INCREMENT for table `std_fee_pkg`
 --
 ALTER TABLE `std_fee_pkg`
   MODIFY `std_fee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `std_guardian_info`
 --
 ALTER TABLE `std_guardian_info`
   MODIFY `std_guardian_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `std_ice_info`
 --
 ALTER TABLE `std_ice_info`
   MODIFY `std_ice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `std_inquiry`
 --
 ALTER TABLE `std_inquiry`
   MODIFY `std_inquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `std_personal_info`
 --
 ALTER TABLE `std_personal_info`
   MODIFY `std_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `std_sections`
 --
 ALTER TABLE `std_sections`
   MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `std_sessions`
 --
 ALTER TABLE `std_sessions`
   MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `std_subjects`
 --
 ALTER TABLE `std_subjects`
   MODIFY `std_subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
   MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `teacher_subject_assign_detail`
 --
 ALTER TABLE `teacher_subject_assign_detail`
   MODIFY `teacher_subject_assign_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `teacher_subject_assign_head`
 --
 ALTER TABLE `teacher_subject_assign_head`
   MODIFY `teacher_subject_assign_head_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- Constraints for dumped tables
 --
@@ -1977,7 +2025,7 @@ ALTER TABLE `branches`
 --
 ALTER TABLE `emp_departments`
   ADD CONSTRAINT `emp_departments_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `emp_info` (`emp_id`),
-  ADD CONSTRAINT `emp_departments_ibfk_2` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`);
+  ADD CONSTRAINT `emp_departments_ibfk_2` FOREIGN KEY (`dept_id`) REFERENCES `departments` (`department_id`);
 
 --
 -- Constraints for table `emp_documents`
