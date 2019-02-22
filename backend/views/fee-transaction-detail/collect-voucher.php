@@ -9,6 +9,8 @@
           -webkit-appearance: none; 
           margin: 0; 
         }
+
+}
     </style>
 </head>
 <body>
@@ -49,7 +51,6 @@
 
     	$transactionHead = Yii::$app->db->createCommand("SELECT * FROM fee_transaction_head WHERE fee_trans_id = '$voucherNo'")->queryAll();
         $transactionDetail = Yii::$app->db->createCommand("SELECT fee_type_id,fee_amount FROM fee_transaction_detail WHERE fee_trans_detail_head_id = '$voucherNo'")->queryAll();
-        var_dump($transactionDetail);
         $count = count($transactionDetail);
         $status = $transactionHead[0]['status'];
         $remainingAmount = $transactionHead[0]['remaining'];
@@ -69,32 +70,22 @@
 
 <!-- modified collect voucher start -->
 <div class="row container-fluid">
-    <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="well well-sm">
+                <?php echo $student[0]['std_name']." - ".$class[0]['class_name']."<span style='float: right;'>".date('F, Y', strtotime($month))." - Installment No: ".$installmentNo."</span>"; ?>
+            </h3>
+        </div>
+    </div>
+    <div class="col-md-4 col-md-offset-2">
         <table class="table table-bordered">
-            <tr>
-                <thead>
-                        <th colspan="4" style="text-align: center;background-color:black;color:white; ">Voucher # : <span><?php echo $voucherNo; ?></span></th>
-                </thead>
-            </tr>
-            <tr>
-                <thead>
-                    <th>Student:</th>
-                    <td><?php echo $student[0]['std_name']; ?></td>
-                    <th>Class:</th>
-                    <td><?php echo $class[0]['class_name']; ?></td>
-                </thead>
-            </tr>
-             <tr>
-                <thead>
-                    <th>Month:</th>
-                    <td><?php echo date('F, Y', strtotime($month)); ?></td>
-                    <th>Installment:</th>
-                    <td><?php echo $installmentNo; ?></td>
-                </thead>
-            </tr>
             <tbody>
-                <tr>
-                    <td colspan="4" align="center" style="background-color: lightgray;"><b>Details</b></td>
+                <tr class="bg-navy">
+                    <th colspan="2" class=" text-center"><b>Voucher #: <?php echo $voucherNo; ?></b></th>
+                </tr>
+                <tr class="bg-info">
+                    <th><b>Fee Types</b></th>
+                    <th class="text-center">Amount</th>
                 </tr>
                 <form method="post" action="index.php?r=fee-transaction-detail/collect-voucher">
                     <div class="row">
@@ -115,12 +106,78 @@
                             <td width="150px"><?php echo $feeTypeName[0]['fee_type_name'];?></td>
                             <td width="80px">
                                 <div class="form-group">
-                                    <input type="text" name="amount<?php echo $i;?>" class="form-control" value="<?php echo $feeAmount;?>">
+                                    <input type="text" name="amount<?php echo $i;?>" class="form-control" value="<?php echo $feeAmount;?>" style="width:80px">
                                 </div>
                             </td>
                         </tr>
                     <?php } ?>
-                    <tr>
+            </tbody>
+        </table>        
+    </div>
+    <div class="col-md-4">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th colspan="2" class="text-center bg-navy">Payment</th>
+                </tr>
+                <tr>
+                    <th>Total Amount</th>
+                    <div class="form-group">
+                        <?php
+                        if ($remainingAmount==0) { ?>
+                            <td width="90px">
+                                <input type="text" name="total_amount" class="form-control" id="total_amount" readonly="" value="<?php echo $transactionHead[0]['total_amount'] ?>" />
+                            </td>
+                        <?php } else{ ?>
+                        <td width="90px">
+                            <input type="text" name="total_amount" class="form-control" id="total_amount" readonly="" value="<?php echo $transactionHead[0]['remaining'] ?>" />
+                        </td>
+                        <?php } ?>
+                    </div>
+                </tr>
+                <tr>
+                    <th>Total Discount</th>
+                    <td>
+                        <input type="text" class="form-control" readonly="" value="<?php echo $transactionHead[0]['total_discount'] ?>"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Paid Amount</th>
+                    <td>
+                        <input type="number" class="form-control" id="paid_amount" name="paid_amount" onchange="setAmount()" required="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Remaining Amount</th>
+                    <td>
+                        <input type="text" class="form-control" id="remaining_amount" name="remaining_amount" readonly="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>
+                        <input type="text" class="form-control" id="status" name="status" readonly="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                       <button type="submit" name="save" id="btn" class="btn btn-success btn-flat  btn-block" style="padding: 5px 27px;"><span class="fa fa-check-square" aria-hidden="true"></span><b> Collect Voucher</b></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <?php foreach ($typeIdArray as $value) {
+                                echo '<input type="hidden" name="typeIdArray[]" value="'.$value.'">';
+                            } ?>
+                            <div class="col-md-2 invisible">
+                                <input type="number" name="voucherNo"  class="form-control" value="<?php echo $voucherNo; ?>">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+                    <!-- <tr>
                         <td width="150px">Total Amount</td>
                         <div class="form-group">
                             <?php
@@ -172,11 +229,9 @@
                                 <input type="number" name="voucherNo"  class="form-control" value="<?php echo $voucherNo; ?>">
                             </div>
                         </div>
-                    </tfoot>
+                    </tfoot> -->
                 </form>
-            </tbody>
         </table>
-    </div>
 </div>
 <!-- modified collect voucher close -->
 <?php 
