@@ -42,6 +42,7 @@ class FeeType extends \yii\db\ActiveRecord
             [['created_by', 'updated_by',], 'integer'],
             [['fee_type_name'], 'string', 'max' => 64],
             [['fee_type_description'], 'string', 'max' => 120],
+            ['fee_type_name','unique'],
         ];
     }
 

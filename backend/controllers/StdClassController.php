@@ -100,7 +100,7 @@ class StdClassController extends Controller
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post())){
+            }else if($model->load($request->post()) && $model->validate()){
                 $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name where class_name_id = $model->class_name_id")->queryAll();
                 $session = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions where session_id = $model->session_id")->queryAll();
                 $section = Yii::$app->db->createCommand("SELECT section_name FROM std_sections where section_id = $model->section_id")->queryAll();

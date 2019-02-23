@@ -34,6 +34,7 @@ class StdSubjects extends \yii\db\ActiveRecord
             [['class_id', 'std_subject_name'], 'required'],
             [['class_id'], 'integer'],
             [['std_subject_name'], 'string', 'max' => 200],
+            ['std_subject_name','unique'],
             [['class_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdClassName::className(), 'targetAttribute' => ['class_id' => 'class_name_id']],
         ];
     }

@@ -35,7 +35,8 @@ use kartik\select2\Select2;
         <div class="row"> 
             <div class="col-md-12">
                 <?= $form->field($model, 'section_subjects')->dropDownList(
-                    ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name')
+                    ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name'),
+                    ['prompt' => 'Select Subject Combination ']
                 )?>
             </div>
         </div>

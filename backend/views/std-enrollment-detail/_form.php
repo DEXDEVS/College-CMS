@@ -21,7 +21,7 @@ use kartik\select2\Select2;
             <div class="col-md-6">
                 <?= $form->field($stdEnrollmentHead, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
-                    ['prompt'=>'','id'=>'classId']
+                    ['prompt'=>'Select Class','id'=>'classId']
                 )?>
             </div>
             <div class="col-md-6">
@@ -48,7 +48,7 @@ use kartik\select2\Select2;
                 <?= $form->field($model, 'std_enroll_detail_std_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(StdPersonalInfo::find()->all(),'std_id','std_name'),
                     'language' => 'en',
-                    'options' => ['placeholder' => 'Select' , 'id'=>'std'],
+                    'options' => ['placeholder' => 'Select ' , 'id'=>'std'],
                     'pluginOptions' => [
                         'allowClear' => true,
                         'multiple' => true

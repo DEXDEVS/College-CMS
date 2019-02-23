@@ -100,7 +100,7 @@ class InstituteController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post())){
+            }else if($model->load($request->post()) && $model->validate()){
                 $model->institute_logo = UploadedFile::getInstance($model,'institute_logo');
                 if(!empty($model->institute_logo)){
                     $imageName = $model->institute_name.'_photo'; 

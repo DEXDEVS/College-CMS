@@ -20,7 +20,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Class</label>
-                    <select class="form-control" name="classid" id="classId">
+                    <select class="form-control" name="classid" id="classId" required="required">
+                        <option>Select Class</option>
                             <?php 
                                 $className = Yii::$app->db->createCommand("SELECT * FROM std_class_name where delete_status=1")->queryAll();
                                 
@@ -35,7 +36,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Session</label>
-                    <select class="form-control" name="sessionid" id="sessionId">
+                    <select class="form-control" name="sessionid" id="sessionId" required="">
                             <option value="">Select Session</option>
                             <?php 
                                 $sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1")->queryAll();
@@ -50,7 +51,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Section</label>
-                    <select class="form-control" name="sectionid" id="section" >
+                    <select class="form-control" name="sectionid" id="section" required="">
                             <option value="">Select Section</option>
                     </select>      
                 </div>    
@@ -60,13 +61,13 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Month</label>
-                    <input type="month" class="form-control" name="monthYear">   
+                    <input type="month" class="form-control" name="monthYear" required="">   
                 </div>    
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Installment No</label>
-                    <select name="installment_no" class="form-control">
+                    <select name="installment_no" class="form-control" required>
                         <option>Select Installment No</option>
                         <option value="1">1st Installment</option>
                         <option value="2">2nd Installment</option>
@@ -80,7 +81,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" class="form-control" name="date">     
+                    <input type="date" class="form-control" name="date" required="">     
                 </div>    
             </div> 
             <div class="col-md-3">

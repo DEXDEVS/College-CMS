@@ -19,7 +19,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Class</label>
-                    <select class="form-control" name="classid" id="classId">
+                    <select class="form-control" name="classid" id="classId" required="">
+                        <option>Select Class</option>
 							<?php 
 								$className = Yii::$app->db->createCommand("SELECT * FROM std_class_name where delete_status=1")->queryAll();
 								    foreach ($className as  $value) { ?>	
@@ -33,7 +34,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Session</label>
-                    <select class="form-control" name="sessionid" id="sessionId">
+                    <select class="form-control" name="sessionid" id="sessionId" required="">
                             <option value="">Select Session</option>
 							<?php 
 								$sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1")->queryAll();
@@ -49,7 +50,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Section</label>
-                    <select class="form-control" name="sectionid" id="section" >
+                    <select class="form-control" name="sectionid" id="section" required="">
                     		<option value="">Select Section</option>
 					</select>      
                 </div>    
@@ -60,35 +61,21 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Select Month</label>
-                    <input type="month" class="form-control" name="month">
-                    <!-- <select class="form-control" name="month">
-						<option value="1">January</option>
-						<option value="2">Fabruary</option>
-						<option value="3">March</option>
-						<option value="4">April</option>
-						<option value="5">May</option>
-						<option value="6">June</option>
-						<option value="7">July</option>
-						<option value="8">August</option>
-						<option value="9">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select>   -->    
+                    <input type="month" class="form-control" name="month" required="">
                 </div>    
             </div>    
             
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Issue Date</label>
-                    <input type="date" name="issue_date" class="form-control">
+                    <input type="date" name="issue_date" class="form-control" required="">
                 </div>    
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Issue Date</label>
-                    <input type="date" name="due_date" class="form-control">
+                    <input type="date" name="due_date" class="form-control" required="">
                 </div>    
             </div>
 
