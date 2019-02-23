@@ -19,7 +19,7 @@ class EmpDocumentsSearch extends EmpDocuments
     {
         return [
             [['emp_document_id', 'emp_info_id', 'created_by', 'updated_by'], 'integer'],
-            [['emp_document', 'created_at', 'updated_at'], 'safe'],
+            [['emp_document', 'created_at', 'updated_at','emp_document_name'], 'safe'],
         ];
     }
 
@@ -57,6 +57,7 @@ class EmpDocumentsSearch extends EmpDocuments
 
         $query->andFilterWhere([
             'emp_document_id' => $this->emp_document_id,
+            'emp_document_name' => $this->emp_document_name,
             'emp_info_id' => $this->emp_info_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
