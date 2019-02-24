@@ -260,6 +260,7 @@
              <div class="row">
                 <div class="col-md-5">
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Document Information</p>
+                <?php echo $id; ?>
                 </div>
                 <div class="col-md-2 col-md-offset-4">
                   <a href="index.php?r=emp-documents/create&id=<?php echo $id;?>" class="btn btn-success btn-sm fa fa-plus" style='color: white;'> Add Document </a>
@@ -269,8 +270,8 @@
                 <div class="row">
                   <?php for ($i=0; $i < $countDocs ; $i++) { ?>
                     <div class="col-md-6">
-                      <h3 style="color: #3C8DBC;"><?php echo $empDocs[$i]['emp_document_name'] ?></h3>
-                      <img src="<?php echo $empDocs[$i]['emp_document'] ?>" width="50%" class="img-responsive img-thumbnail">
+                      <h3 style="color: #3C8DBC; text-align: center;"><?php echo $empDocs[$i]['emp_document_name'] ?></h3>
+                      <img src="<?php echo $empDocs[$i]['emp_document'] ?>" class="img-responsive img-thumbnail" width="350px">
                     </div>
                   <?php } ?>
                 </div>

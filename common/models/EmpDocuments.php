@@ -39,6 +39,11 @@ class EmpDocuments extends \yii\db\ActiveRecord
             [['emp_info_id', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['emp_document'], 'string', 'max' => 120],
+            ['emp_document', 'image', 
+                'extensions' => 'png, jpg, jpeg',
+                'minWidth' => 100, 'maxWidth' => 500,
+                'minHeight' => 100, 'maxHeight' => 400,
+            ],
             [['emp_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => EmpInfo::className(), 'targetAttribute' => ['emp_info_id' => 'emp_id']],
         ];
     }

@@ -123,13 +123,12 @@ class EmpInfoController extends Controller
                         'model' => $model,
                         'empDepartments' => $empDepartments,
                         'empRefModel' => $empRefModel,
-
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $empDepartments->load($request->post()) && $empRefModel->load($request->post()) ){
+            }else if($model->load($request->post()) && $model->validate() && $empDepartments->load($request->post()) && $empRefModel->load($request->post()) ){
                         $model->emp_photo = UploadedFile::getInstance($model,'emp_photo');
                         if(!empty($model->emp_photo)){
                             $imageName = $model->emp_name.'_emp_photo'; 
@@ -179,6 +178,8 @@ class EmpInfoController extends Controller
                     'title'=> "Create new EmpInfo",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'empDepartments' => $empDepartments,
+                        'empRefModel' => $empRefModel,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
