@@ -36,6 +36,7 @@ class EmpType extends \yii\db\ActiveRecord
             [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['created_by', 'updated_by'], 'integer'],
             [['emp_type'], 'string', 'max' => 50],
+            ['emp_type','unique'],
         ];
     }
 

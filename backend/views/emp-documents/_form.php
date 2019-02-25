@@ -13,10 +13,27 @@ $id = $_GET['id'];
 <div class="emp-documents-form">
 
     <?php $form = ActiveForm::begin(); ?>
+	
+	<div class="row container-fluid">
+	    <h3 class="well well-sm label-primary" style="margin-top: -10px;">
+	    	<i class="fa fa-upload"></i>
+	    	Add Employee Documents
+	    </h3>
+	</div>	
 
-    <?= $form->field($model, 'emp_info_id')->textInput(['value' => $id]) ?>
-
-    <?= $form->field($model, 'emp_document')->fileInput(['maxlength' => true]) ?>
+    <div class="row">
+    	<div class="col-md-4">
+    		<?= $form->field($model, 'emp_document_name')->textInput() ?>
+		</div>
+    	<div class="col-md-4 invisible">
+		   	<?= $form->field($model, 'emp_info_id')->textInput(['value' => $id]) ?>
+    	</div>
+	</div>
+	<div class="row">
+    	<div class="col-md-4">
+    		<?= $form->field($model, 'emp_document')->fileInput(['maxlength' => true]) ?>	
+    	</div>
+	</div>
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

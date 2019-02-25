@@ -61,11 +61,11 @@ class EmpInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_fb_ID', 'emp_gender', 'emp_photo', 'emp_designation_id', 'emp_type_id', 'emp_salary_type', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'degree_scan_copy', 'emp_salary'], 'required'],
+            [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_cnic', 'emp_contact_no', 'emp_perm_address', 'emp_temp_address', 'emp_marital_status', 'emp_fb_ID', 'emp_gender', 'emp_designation_id', 'emp_type_id', 'emp_salary_type', 'group_by', 'emp_branch_id', 'emp_email', 'emp_qualification', 'emp_passing_year', 'emp_institute_name', 'emp_salary'], 'required'],
             [['emp_marital_status', 'emp_gender', 'emp_salary_type', 'group_by'], 'string'],
             [[ 'emp_designation_id', 'emp_type_id', 'emp_branch_id', 'emp_passing_year', 'created_by', 'updated_by', 'delete_status'], 'integer'],
             [['emp_salary'], 'number'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by', 'emp_photo', 'degree_scan_copy'], 'safe'],
             [['emp_reg_no', 'emp_name', 'emp_father_name', 'emp_qualification', 'emp_institute_name'], 'string', 'max' => 50],
             [['emp_cnic', 'emp_contact_no'], 'string', 'max' => 15],
             [['emp_perm_address', 'emp_temp_address', 'emp_photo', 'degree_scan_copy'], 'string', 'max' => 200],
@@ -75,7 +75,7 @@ class EmpInfo extends \yii\db\ActiveRecord
             [['emp_branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branches::className(), 'targetAttribute' => ['emp_branch_id' => 'branch_id']],
             [['emp_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EmpType::className(), 'targetAttribute' => ['emp_type_id' => 'emp_type_id']],
             [['emp_photo', 'degree_scan_copy'], 'image', 'extensions' => 'jpg'],
-            [['emp_email'],'email'],
+            ['emp_email','email'],
             ['emp_email', 'unique', 'targetClass' => '\common\models\EmpInfo', 'message' => 'This email address has already been taken.'],
             [['reference'],'string', 'max' => 84],
         ];

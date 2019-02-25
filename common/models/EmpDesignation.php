@@ -36,6 +36,7 @@ class EmpDesignation extends \yii\db\ActiveRecord
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['created_by', 'updated_by'], 'integer'],
             [['emp_designation'], 'string', 'max' => 100],
+            ['emp_designation','unique'],
         ];
     }
 

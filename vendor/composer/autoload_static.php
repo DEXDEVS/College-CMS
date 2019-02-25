@@ -38,6 +38,10 @@ class ComposerStaticInit0c51b51caa7b76089a6868de9dd1f3ad
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'm' => 
+        array (
+            'miloschuman\\highcharts\\' => 23,
+        ),
         'k' => 
         array (
             'kato\\' => 5,
@@ -163,6 +167,10 @@ class ComposerStaticInit0c51b51caa7b76089a6868de9dd1f3ad
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'miloschuman\\highcharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/miloschuman/yii2-highcharts-widget/src',
         ),
         'kato\\' => 
         array (

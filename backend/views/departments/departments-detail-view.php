@@ -5,31 +5,25 @@
   // Get `dept_id` from `departments` table
   $id = $_GET['id'];
 
-  $deptInfo = Yii::$app->db->createCommand("SELECT department_name FROM departments WHERE department_id = '$id'")->queryAll();
+
+  $deptName = Yii::$app->db->createCommand("SELECT department_name FROM departments WHERE department_id = '$id'")->queryAll();
 
   // Getting `dept_id and emp_id` from `emp_departments` table
   $empDept = Yii::$app->db->createCommand("SELECT emp_id FROM emp_departments WHERE dept_id = '$id'")->queryAll();
   $empCount = count($empDept);
 
-  // $deptemp = Yii::$app->db->createCommand("SELECT emp_id FROM emp_departments WHERE dept_id = '$id'")->queryAll();
-  // $empId = $deptemp[0]['emp_id'];
 
-  //$empData = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
+  $empDeptName = Yii::$app->db->createCommand("SELECT emp_designation_id FROM emp_designation WHERE emp_designation = 'HOD'")->queryAll();
+  $empHODId = $empDeptName[0]['emp_designation_id'];
 
-  // if (!empty($empData)) {
-  //    $empDesignationId = $empData[0]['emp_designation_id'];
-  // $empDesig = Yii::$app->db->createCommand("SELECT emp_info.emp_name,emp_info.emp_reg_no FROM emp_info
-  // INNER JOIN emp_designation as emp_desig
-  // ON emp_desig.emp_designation_id = emp_info.emp_designation_id
-  //  WHERE emp_desig.emp_designation = 'HOD'")->queryAll();
-  // }
-
+  $empHODName = Yii::$app->db->createCommand("SELECT ei.emp_name,ei.emp_reg_no,ei.emp_designation_id FROM emp_info as ei INNER Join emp_departments as ed ON ei.emp_id = ed.emp_id WHERE ed.dept_id = '$id' AND ei.emp_designation_id = '$empHODId'")->queryAll();
  
 ?>
 <div class="container-fluid">
 	<section class="content-header">
     <h1 style="color: #3C8DBC;">
-        <i class="fa fa-university"></i>  <?php echo $deptInfo[0]['department_name']." "."Information"; ?>
+
+        <i class="fa fa-university"></i>  <?php echo $deptName[0]['department_name']." "." - Information"; ?>
       </h1>
     <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -50,22 +44,11 @@
               </p>
               <h4> 
                 <?php
-                for ($i=0; $i <$empCount ; $i++) { 
-                 $empId = $empDept[$i]['emp_id'];
-                  $empInfo = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
-                  $empDesignationID = $empInfo[0]['emp_designation_id'];
-                  $empDesignation = Yii::$app->db->createCommand("SELECT emp_designation FROM emp_designation WHERE emp_designation_id = '$empDesignationID'")->queryAll();
-                  
-                  var_dump($empDesignation);
-
-                
-                //if (empty($empDesig[0]['emp_name']))
-                //{
-                //  echo "HOD not assigned";
-                //}
-                //else
-                //{
-                 // echo $empDesig[0]['emp_name'];
+                if (empty($empHODName[0]['emp_name'])) {
+                  echo "N/A";
+                } 
+                else {
+                 echo $empHODName[0]['emp_name'];
                 } 
                 ?> 
               </h4>
@@ -73,7 +56,13 @@
                HOD  Registration
               </p>
               <h5>
-                <?php //echo $empDesig[0]['emp_reg_no']; ?>
+                <?php 
+                if (empty($empHODName[0]['emp_reg_no'])) {
+                  echo "N/A";
+                } 
+                else {
+                 echo $empHODName[0]['emp_reg_no'];
+                }   ?>
               </h5>
             </ul>
             <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
@@ -127,7 +116,6 @@
                 $empDesignationName = Yii::$app->db->createCommand("SELECT emp_designation FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
                 
                ?>
-               <?php var_dump($empInfo); ?>
               <tr>
                 <?php 
                   // if ($empDesignationName[0]['emp_designation'] == "HOD") {
@@ -145,7 +133,11 @@
                   </a>
                   </td>
               </tr>
+<<<<<<< HEAD
               <?php } ?>
+=======
+              <?php } } ?>
+>>>>>>> c444b04dc178920167d1771bbf97838c34a64169
             </tbody>
           </table>
         </div>

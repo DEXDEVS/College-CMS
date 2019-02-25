@@ -42,13 +42,14 @@ class StdSections extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['session_id', 'section_name', 'section_description', 'section_intake', 'section_subjects', 'created_by', 'updated_by'], 'required'],
+            [['session_id', 'section_name', 'section_description', 'section_subjects', 'created_by', 'updated_by'], 'required'],
             [['session_id', 'section_intake', 'section_subjects', 'created_by', 'updated_by', 'delete_status'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['section_name'], 'string', 'max' => 50],
+            [['created_at', 'updated_at', 'section_intake'], 'safe'],
+            [['section_name'], 'string', 'max' => 4],
             [['section_description'], 'string', 'max' => 100],
             [['session_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdSessions::className(), 'targetAttribute' => ['session_id' => 'session_id']],
             [['section_subjects'], 'exist', 'skipOnError' => true, 'targetClass' => StdSubjects::className(), 'targetAttribute' => ['section_subjects' => 'std_subject_id']],
+            ['section_name','unique'],
         ];
     }
 
@@ -60,7 +61,7 @@ class StdSections extends \yii\db\ActiveRecord
         return [
             'section_id' => 'Section ID',
             'session_id' => 'Session',
-            'section_name' => 'Section Name',
+            'section_name' => 'Section Code',
             'section_description' => 'Section Group',
             'section_intake' => 'Section Intake',
             'section_subjects' => 'Section Subjects',

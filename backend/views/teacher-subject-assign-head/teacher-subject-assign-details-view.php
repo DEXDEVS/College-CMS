@@ -13,30 +13,12 @@
   WHERE tsad.teacher_subject_assign_detail_head_id = '$id'")->queryAll();
 
   $count = count($teacherAssignDetail);
-  for ($i=0; $i <$count ; $i++) { 
-    $teacherSubjectId  = $teacherAssignDetail[$i]['subject_id'];
-    $teacherSubjectName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$teacherSubjectId'")->queryAll();
-  }
-
- $teacherName       = $teacherAssignDetail[0]['teacher_subject_assign_head_name'];
- 
- $teacherClassId    = $teacherAssignDetail[0]['class_id'];
- $teacherLectures   = $teacherAssignDetail[0]['no_of_lecture'];
-
-  // get `class names` from `std_class` against  `$teacherClassId`
-  $teacherClassNames = Yii::$app->db->createCommand("SELECT class_name FROM std_class WHERE class_id = '$teacherClassId'")->queryAll();
-
-  // get `subjects name` from `std_subjects` against  `$teacherSubjectId`
- 
-  
-
-
 ?>
 <div class="container-fluid">
 	<section class="content-header">
       	<h1 style="color: #3C8DBC;">
         	<i class="fa fa-copyright"></i>
-          <?php echo $teacherName." - Information" ; ?>
+          <?php echo $teacherAssignDetail[0]['teacher_subject_assign_head_name']." - Information" ; ?>
       	</h1>
 	    <ol class="breadcrumb" style="color: #3C8DBC;">
 	        <li><a href="index.php" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -60,21 +42,21 @@
             <tbody>
               <?php 
                 foreach ($teacherAssignDetail as $key => $value){
-                  $teacherSubjectId  = $teacherAssignDetail[$key]['subject_id'];
+                  $teacherClassId    = $value['class_id'];
+                  $teacherSubjectId  = $value['subject_id'];
+
+                  $teacherClassNames = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$teacherClassId'")->queryAll();
                   $teacherSubjectName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$teacherSubjectId'")->queryAll();
+                  
               ?>
               <tr>
                 <td align="center"><b><?php echo $key+1; ?></b></td>
-                <?php foreach ($teacherClassNames as $cls => $class){ ?>
-                <td>
-                  <?php echo $class['class_name']; ?>
-                </td>
-                <td><?php echo $teacherSubjectName[0]['subject_name']; ?></td>
+                <td><?php echo $teacherClassNames[$key]['class_name']; ?> </td>
+                <td><?php echo $teacherSubjectName[$key]['subject_name']; ?></td>
                 <td><?php echo $value['no_of_lecture'];?></td>
               </tr>
-              <?php }
-              } ?>
-              <?php  ?>
+             <?php } ?>
+              
             </tbody>
           </table>
         </div>

@@ -10,6 +10,7 @@ use yii\helpers\Url;
  *
  * @property int $emp_document_id
  * @property int $emp_info_id
+ * @property string $emp_document_name
  * @property string $emp_document
  * @property string $created_at
  * @property string $updated_at
@@ -34,10 +35,15 @@ class EmpDocuments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['emp_info_id', 'emp_document'], 'required'],
+            [['emp_info_id', 'emp_document','emp_document_name'], 'required'],
             [['emp_info_id', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['emp_document'], 'string', 'max' => 120],
+            ['emp_document', 'image', 
+                'extensions' => 'png, jpg, jpeg',
+                'minWidth' => 100, 'maxWidth' => 500,
+                'minHeight' => 100, 'maxHeight' => 400,
+            ],
             [['emp_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => EmpInfo::className(), 'targetAttribute' => ['emp_info_id' => 'emp_id']],
         ];
     }
@@ -50,7 +56,8 @@ class EmpDocuments extends \yii\db\ActiveRecord
         return [
             'emp_document_id' => 'Emp Document ID',
             'emp_info_id' => 'Emp Info ID',
-            'emp_document' => 'Emp Document',
+            'emp_document_name' => 'Employee Document Name',
+            'emp_document' => 'Employee Document',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
@@ -69,8 +76,8 @@ class EmpDocuments extends \yii\db\ActiveRecord
     public function getDocumentInfo(){
         $path = Url::to('@web/uploads/');
         $url = Url::to('@web/uploads/');
-        $filename = $this->emp_document.'.jpg';
-        $alt = $this->emp_document."'s image not exist!";
+        $filename = $this->emp_document_name.'.jpg';
+        $alt = $this->emp_document_name."'s image not exist!";
 
         $imageInfo = ['alt'=>$alt];
 

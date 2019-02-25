@@ -53,6 +53,7 @@ class Branches extends \yii\db\ActiveRecord
             [['branch_email'], 'string', 'max' => 100],
             [['branch_head_contact_no'], 'string', 'max' => 15],
             [['branch_head_email'], 'string', 'max' => 120],
+            [['branch_name','branch_code'],'unique'],
             [['institute_id'], 'exist', 'skipOnError' => true, 'targetClass' => Institute::className(), 'targetAttribute' => ['institute_id' => 'institute_id']],
         ];
     }

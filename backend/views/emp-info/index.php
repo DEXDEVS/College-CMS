@@ -5,6 +5,7 @@ use yii\bootstrap\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset; 
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use miloschuman\highcharts\Highcharts;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\EmpInfoSearch */
@@ -16,6 +17,116 @@ $this->params['breadcrumbs'][] = $this->title;
 CrudAsset::register($this);
 
 ?>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<div class="row">
+    <!-- Department Wise Employees Start -->
+    <div class="col-md-6">
+        <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa  fa-university"></i> Department Wise Employees</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="table-responsive" id="div1"></div>
+        </div>
+    </div>
+    </div>
+    <!--- Department Wise Employees End --->
+    <!-- ******************************* -->
+    <!-- Designation Wise Employees Start -->
+    <div class="col-md-6">
+        <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa  fa-sitemap"></i> Designation Wise Employees</h3>
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+        <div class="box-body">
+            <div class="table-responsive" id="div2">
+                <?php
+                $emp_designation = Yii::$app->db->createCommand("SELECT emp_designation_id,emp_designation FROM emp_designation")->queryAll();
+                $countDesignation = count($emp_designation);                             
+                for ($i=0; $i <$countDesignation ; $i++) { 
+                    $ID = $emp_designation[3]['emp_designation_id'];
+                    $empDepWise = Yii::$app->db->createCommand("SELECT COUNT(ed.emp_designation_id), ed.emp_designation FROM emp_designation as ed INNER JOIN emp_info as ei on ei.emp_designation_id = ed.emp_designation_id WHERE ei.emp_designation_id = '$ID'")->queryAll();
+                // 
+                    //     if(!empty($empDepWise)) {
+                    //     echo Highcharts::widget([
+                    //         'scripts' => [
+                    //             'highcharts-3d',   
+                    //         ],
+                    //         'options' => [  
+                    //             'exporting'=>[
+                    //                 'enabled'=>false 
+                    //             ],
+                    //             'legend'=>[
+                    //                 'align'=>'center',
+                    //                 'verticalAlign'=>'bottom',
+                    //                 'layout'=>'vertical',
+                    //                 'x'=>0,
+                    //                 'y'=>0,
+                    //             ],
+                    //             'credits'=>[
+                    //                     'enabled'=>false
+                    //              ],
+                    //             'chart'=> [
+                    //                 'type'=>'pie',
+                    //                 'options3d'=>[
+                    //                     'enabled'=>true,
+                    //                     'alpha'=>45,
+                    //                     'beta'=>0
+                    //                 ],
+                    //             ],
+                    //             'title'=>[
+                    //                 'text'=>'',
+                    //                 'margin'=>0,
+                    //             ],
+                    //             'plotOptions'=>[
+                    //                 'pie'=>[
+                    //                     'allowPointSelect'=>true,
+                    //                         'cursor'=>'pointer',
+                    //                         'depth'=>35,
+                    //                     'dataLabels'=>[
+                    //                         'enabled'=>false
+                    //                          ],
+                    //                      'showInLegend'=>true,
+                    //                 ],  
+                    //                 'series'=>[
+                    //                     'pointPadding'=>0,
+                    //                     'groupPadding'=>0,      
+                    //                  ],
+                    //             ],
+                    //             'series'=> [
+                    //                 [
+                    //                     'name'=>'Total Employee',
+                    //                     'data'=>$empDepWise
+                    //                 ]
+                    //             ]
+                    //         ],
+                    //     ]);
+                    // } else {
+                    //     echo '<div class="alert alert-danger">No results found.</div>';
+                    // }
+                }  
+                // ending of If....
+                ?>
+              </div>
+            </div>
+          </div>
+    </div>
+    <!-- Designation Wise Employees End -->
+</div>
+
 <div class="emp-info-index">
     <div id="ajaxCrudDatatable">
         <?=GridView::widget([

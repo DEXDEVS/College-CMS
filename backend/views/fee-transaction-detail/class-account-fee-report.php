@@ -38,6 +38,7 @@
                 <div class="form-group">
                     <label>Select Class</label>
                     <select class="form-control" name="classid" id="classId" required="">
+                    	<option>Select Class</option>
                             <?php 
                                 $className = Yii::$app->db->createCommand("SELECT * FROM std_class_name where delete_status=1")->queryAll();
                                 

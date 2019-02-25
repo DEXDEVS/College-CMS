@@ -72,7 +72,6 @@ use common\models\Branches;
         </div>
     </div>
     <div class="row">
-        
         <div class="col-md-4">
             <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 113px; top: 6px"></i> -->
             <?= $form->field($model, 'emp_institute_name')->textInput(['maxlength' => true]) ?>
@@ -80,6 +79,9 @@ use common\models\Branches;
         <div class="col-md-4">
             <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 173px; top: 6px"></i> -->
             <?= $form->field($model, 'degree_scan_copy')->fileInput() ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'emp_fb_ID')->textInput(['maxlength' => true]) ?> 
         </div>
     </div>
     <!-- <div class="row">

@@ -24,7 +24,8 @@
         "philippfrenzel/yii2fullcalendar":"*",
         "kartik-v/yii2-widget-select2": "@dev",
         "perminder-klair/yii2-dropzone": "dev-master",
-        "cenotia/yii2-calculator-widget": "dev-master"        
+        "cenotia/yii2-calculator-widget": "dev-master",
+        "miloschuman/yii2-highcharts-widget": "dev-master"        
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

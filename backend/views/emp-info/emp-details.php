@@ -1,48 +1,37 @@
 <?php 
   use yii\helpers\Html;
   use common\models\StdPersonalInfo;
-
   // Get `emp_id` from `emp_info` table
   $id = $_GET['id'];
-
   // Employee Personal Info..... 
   $empInfo = Yii::$app->db->createCommand("SELECT * FROM emp_info WHERE emp_id = '$id'")->queryAll();
-
   // Get `emp_designation_id` from `emp_info` table
   $empDesignationId = $empInfo[0]['emp_designation_id'];
-
   // Get `emp_dept_id` from `emp_info` table
   $empdept = Yii::$app->db->createCommand("SELECT dept_id FROM emp_departments WHERE emp_id = '$id'")->queryAll();
   $count = count($empdept);
-  
   // Employee `desigantion_name` from `emp_designation` table against `$empDesignationId`
   $emp_designation = Yii::$app->db->createCommand("SELECT * FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
   $empDesignationName = $emp_designation[0]['emp_designation'];
-
   // Get `emp_type_id` from `emp_info` table
   $empTypeId = $empInfo[0]['emp_type_id'];
-
   // `emp_type` from `emp_type` table against `$empTypeId`
   $emp_type = Yii::$app->db->createCommand("SELECT * FROM emp_type WHERE emp_type_id = '$empTypeId'")->queryAll();
   $empType = $emp_type[0]['emp_type'];
-
   // Employee refrence info from `emp_refrence` table againts `emp_id`
   $empReference = Yii::$app->db->createCommand("SELECT * FROM emp_reference WHERE emp_id = '$id'")->queryAll();
-
   if (empty($empReference)) {
-    $empReference[0]['ref_name'] = 'No';
-    $empReference[0]['ref_contact_no'] = 'No';
-    $empReference[0]['ref_cnic'] = 'No';
-    $empReference[0]['ref_designation'] = 'No';
+    $empReference[0]['ref_name'] = 'N/A';
+    $empReference[0]['ref_contact_no'] = 'N/A';
+    $empReference[0]['ref_cnic'] = 'N/A';
+    $empReference[0]['ref_designation'] = 'N/A';
   }
   else{
     $empReference == $empReference;
   }
-  
   // Employee Documents Info..... 
-  $empDocs = Yii::$app->db->createCommand("SELECT emp_document FROM emp_documents WHERE emp_info_id = '$id'")->queryAll();
+  $empDocs = Yii::$app->db->createCommand("SELECT emp_document,emp_document_name FROM emp_documents WHERE emp_info_id = '$id'")->queryAll();
   $countDocs = count($empDocs);
-
 ?>
 <div class="container-fluid">
 	<section class="content-header">
@@ -54,7 +43,7 @@
         <li><a href="index.php?r=emp-info">Back</a></li>
     </ol>
   </section>
-    <!-- main content start  -->
+  <!-- main content start  -->
 	<section class="content">
     <div class="row">
       <div class="col-md-3">
@@ -62,13 +51,10 @@
         <div class="box box-primary">
           <div class="box-body box-profile">
             <img class="profile-user-img img-responsive img-circle" src="<?php echo $empInfo[0]['emp_photo']; ?>" alt="User profile picture" width="10%">
-
             <h3 class="profile-username text-center" style="color: #3C8DBC;">
               <?php echo $empInfo[0]['emp_name']; ?>
             </h3>
-
             <p class="text-muted text-center"><!-- Software Engineer --></p>
-
             <ul class="list-group list-group-unbordered">
               <b>Departments</b>
                <?php 
@@ -77,7 +63,6 @@
                    // Get `deprtment_name` from `departments` againts `emp_department_id`
                     $empDeptName = Yii::$app->db->createCommand("SELECT department_name,department_id FROM departments WHERE department_id = '$id'")->queryAll();
                   ?>
-
                 <li class="list-group-item" style="height:40px">
                    <a href="index.php?r=departments/view&id=<?php echo $empDeptName[0]['department_id']; ?>" class="">
                     <?php echo $empDeptName[0]['department_name']; ?>
@@ -172,13 +157,11 @@
                         </tr>
                         <tr>
                           <th>
-                            <?php if($empInfo[0]['emp_salary_type'] == 'Salaried')
-                              {
-                                echo "Salaried:";
+                            <?php if($empInfo[0]['emp_salary_type'] == 'Salaried') {
+                                echo "Salaried: ";
                               }
-                              else
-                              {
-                                echo $empInfo[0]['emp_salary_type'].":";
+                              else {
+                                echo $empInfo[0]['emp_salary_type'].": ";
                               } 
                             ?>
                           </th>
@@ -277,29 +260,24 @@
              <div class="row">
                 <div class="col-md-5">
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Document Information</p>
+                <?php echo $id; ?>
                 </div>
                 <div class="col-md-2 col-md-offset-4">
-                  <!-- <button class="btn btn-primary"><i class="fa fa-edit"></i><a href="index.php?r=emp-info/upload&id=<?php echo $id; ?>">Add Document</a></button> -->
-
                   <a href="index.php?r=emp-documents/create&id=<?php echo $id;?>" class="btn btn-success btn-sm fa fa-plus" style='color: white;'> Add Document </a>
-
                 </div>
               </div><hr>
-
               <!-- Employee Document info start -->
-
                 <div class="row">
                   <?php for ($i=0; $i < $countDocs ; $i++) { ?>
                     <div class="col-md-6">
-                      <img src="<?php echo $empDocs[$i]['emp_document'] ?>" width="50%" class="img-responsive img-thumbnail"></td>
+                      <h3 style="color: #3C8DBC; text-align: center;"><?php echo $empDocs[$i]['emp_document_name'] ?></h3>
+                      <img src="<?php echo $empDocs[$i]['emp_document'] ?>" class="img-responsive img-thumbnail" width="350px">
                     </div>
                   <?php } ?>
                 </div>
               <!-- Employee Document info close -->
             </div>
-            
             <!-- Employee Document tab close here -->
-        
         </div>
         <!-- /.nav-tabs-custom -->
       </div>
