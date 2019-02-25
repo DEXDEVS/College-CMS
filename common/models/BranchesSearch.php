@@ -41,7 +41,7 @@ class BranchesSearch extends Branches
      */
     public function search($params)
     {
-        $query = Branches::find()->where(['delete_status' => 1]);
+        $query = Branches::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,7 +55,7 @@ class BranchesSearch extends Branches
             return $dataProvider;
         }
 
-         $query->with('institute');
+         $query->joinWith('institute');
 
          $query->andFilterWhere([
             'branch_id' => $this->branch_id,

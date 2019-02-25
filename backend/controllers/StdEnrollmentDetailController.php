@@ -124,9 +124,16 @@ class StdEnrollmentDetailController extends Controller
                 $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name where class_name_id = $stdEnrollmentHead->class_name_id")->queryAll();
                 $session = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions where session_id = $stdEnrollmentHead->session_id")->queryAll();
                 $section = Yii::$app->db->createCommand("SELECT section_name FROM std_sections where section_id = $stdEnrollmentHead->section_id")->queryAll();
-                $class = substr($className[0]['class_name'], 0, 3);
-                $sessionString = substr($session[0]['session_name'], 2,2);
-                $sectionString = substr($section[0]['section_name'], 0,2);
+                $sectionName = $section[0]['section_name'];
+                   
+                $techerEmail = Yii::$app->user->identity->email;
+                $teacherId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$techerEmail'")->queryAll();
+                $teacher_id = $teacherId[0]['emp_id'];
+
+                $branchName = Yii::$app->db->createCommand("SELECT br.branch_code FROM branches as br INNER JOIN emp_info as einfo ON br.branch_id = einfo.emp_branch_id WHERE einfo.emp_id =' $teacher_id'")->queryAll();
+                $branchCode = $branchName[0]['branch_code'];
+
+                $date = date('y');
 
                 if(!empty($std_enrollment_head)){
                     $std_enrollment_head_id = $std_enrollment_head[0]['std_enroll_head_id'];
@@ -141,13 +148,15 @@ class StdEnrollmentDetailController extends Controller
                         $model->std_reg_no =$stdName[0]['std_reg_no'];
                         //assign roll no
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $std_enrollment_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
+                        var_dump($StdEnrollmentDetail);
+
                         if(empty($StdEnrollmentDetail)){
                             $rollNo = 001;
                         } else {
                             $rolNo = $StdEnrollmentDetail[0]['std_roll_no'];
-                            $rollNo = substr($rolNo,9,2)+1;    
+                            $rollNo = substr($rolNo,14,3)+1;    
                         } 
-                        $model->std_roll_no = $class."-".$sectionString.$sessionString."-".$rollNo;
+                        $model->std_roll_no = $branchCode."-".$sectionName."-".$date.$rollNo;
                         $model->std_enroll_detail_std_id = $value;
                         $model->std_enroll_detail_std_name = $stdName[0]['std_name'];
                         // select2 add multiple students end...!    
@@ -179,13 +188,16 @@ class StdEnrollmentDetailController extends Controller
                         $model->std_reg_no =$stdName[0]['std_reg_no'];
                         // assign roll no 
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $stdEnrollmentHead->std_enroll_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
+                        var_dump($StdEnrollmentDetail);
+
                         if(empty($StdEnrollmentDetail)){
                             $rollNo = 001;
                         } else {
                             $rolNo = $StdEnrollmentDetail[0]['std_roll_no'];
-                            $rollNo = substr($rolNo,9,2)+1;    
+                            $rollNo = substr($rolNo,14,3)+1;    
                         } 
-                        $model->std_roll_no = $class."-".$sectionString.$sessionString."-".$rollNo;
+                        $model->std_roll_no = $branchCode."-".$sectionName."-".$date.$rollNo;
+                        var_dump($model->std_roll_no);
                         $model->std_enroll_detail_std_id = $value;
                         $model->std_enroll_detail_std_name = $stdName[0]['std_name'];
 
