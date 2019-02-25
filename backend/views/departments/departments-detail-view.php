@@ -5,6 +5,8 @@
   // Get `dept_id` from `departments` table
   $id = $_GET['id'];
 
+  $deptInfo = Yii::$app->db->createCommand("SELECT department_name FROM departments WHERE department_id = '$id'")->queryAll();
+
   // Getting `dept_id and emp_id` from `emp_departments` table
   $empDept = Yii::$app->db->createCommand("SELECT emp_id FROM emp_departments WHERE dept_id = '$id'")->queryAll();
   $empCount = count($empDept);
@@ -27,7 +29,7 @@
 <div class="container-fluid">
 	<section class="content-header">
     <h1 style="color: #3C8DBC;">
-        <i class="fa fa-university"></i>  <?php //echo $deptInfo[0]['department_name']." "."Information"; ?>
+        <i class="fa fa-university"></i>  <?php echo $deptInfo[0]['department_name']." "."Information"; ?>
       </h1>
     <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -128,9 +130,9 @@
                <?php var_dump($empInfo); ?>
               <tr>
                 <?php 
-                  if ($empDesignationName[0]['emp_designation'] == "HOD") {
-                     continue;
-                   }else {
+                  // if ($empDesignationName[0]['emp_designation'] == "HOD") {
+                  //    continue;
+                  //  }else {
 
                 ?>
                 <td align="center"><b><?php echo $sr+1; ?></b></td>
@@ -143,7 +145,7 @@
                   </a>
                   </td>
               </tr>
-              <?php } }?>
+              <?php } ?>
             </tbody>
           </table>
         </div>
