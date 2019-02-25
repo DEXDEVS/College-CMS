@@ -29,12 +29,12 @@
 	<section class="content">
       <div class="row">
         <!-- /.col -->
-        <div class="col-md-12">
+        <div class="col-md-6">
           <table class="table table-bordered table-hover table-condensed table-striped">
             <thead>
+              
               <tr class="label-primary">
                 <th style="width: 60px; text-align: center;">Sr #</th>
-                <th style="width: 250px">Class</th>
                 <th style="width: 200px">Subject</th>
                 <th>Lectures</th>
               </tr>
@@ -44,19 +44,19 @@
                 foreach ($teacherAssignDetail as $key => $value){
                   $teacherClassId    = $value['class_id'];
                   $teacherSubjectId  = $value['subject_id'];
-
-                  $teacherClassNames = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$teacherClassId'")->queryAll();
-                  $teacherSubjectName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$teacherSubjectId'")->queryAll();
-                  
+                  $teacherClassNames = Yii::$app->db->createCommand("SELECT DISTINCT std_enroll_head_name FROM std_enrollment_head WHERE std_enroll_head_id = '$teacherClassId'")->queryAll();
+                  $teacherSubjectName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$teacherSubjectId'")->queryAll();    
               ?>
               <tr>
+                <th colspan="4" class="bg-info"><h4>
+                  <?php echo $teacherClassNames[0]['std_enroll_head_name']; ?></h4></th>
+              </tr>
+              <tr>
                 <td align="center"><b><?php echo $key+1; ?></b></td>
-                <td><?php echo $teacherClassNames[$key]['class_name']; ?> </td>
-                <td><?php echo $teacherSubjectName[$key]['subject_name']; ?></td>
-                <td><?php echo $value['no_of_lecture'];?></td>
+                <td><b><?php echo $teacherSubjectName[0]['subject_name']; ?></b></td>
+                <td><b><?php echo $value['no_of_lecture'];?></b></td>
               </tr>
              <?php } ?>
-              
             </tbody>
           </table>
         </div>

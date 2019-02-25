@@ -28,6 +28,9 @@ use common\models\StdSubjects;
         <h3 style="color: #337AB7; margin-top: -10px"> Personal Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-4">
+                <?= $form->field($model, 'stdInquiryNo')->textInput(['id' => 'inquiryNo']) ?>
+            </div>
+            <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i> -->
                 <?= $form->field($model, 'std_reg_no')->textInput(['maxlength' => true,'value'=> 'STD-Y'.$year.'-'.$id, 'readonly'=> true]) ?>
             </div>
@@ -35,15 +38,15 @@ use common\models\StdSubjects;
         <div class="row">
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i>
-                <?= $form->field($model, 'std_name')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'std_name')->textInput(['maxlength' => true,'id' => 'std_name', 'required'=> true]) ?>
             </div>
             <div class="col-md-4">
                  <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 167px; top: 6px"></i>
-                <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true,'id' => 'std_father_name']) ?>
             </div>  
             <div class="col-md-4">
                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 156px; top: 6px"></i> -->
-                <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+                <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', 'id' => 'std_contact_no']) ?>
             </div>     
         </div>
         <div class="row"> 
@@ -67,7 +70,7 @@ use common\models\StdSubjects;
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 131px; top: 6px"></i>
                 <?= $form->field($model, 'std_gender')->dropDownList
-                ([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => '']) ?>
+                ([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => '','id' => 'std_gender']) ?>
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i> -->
@@ -106,11 +109,11 @@ use common\models\StdSubjects;
         <div class="row">
             <div class="col-md-6">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 214px; top: 6px"></i>
-                <?= $form->field($model, 'std_permanent_address')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'std_permanent_address')->textInput(['maxlength' => true, 'id' => 'std_permanent_address']) ?>
             </div>
             <div class="col-md-6">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 213px; top: 6px"></i> -->
-                <?= $form->field($model, 'std_temporary_address')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'std_temporary_address')->textInput(['maxlength' => true, 'id' => 'std_temporary_address']) ?>
             </div>
         </div>
     </div>
@@ -207,11 +210,11 @@ use common\models\StdSubjects;
         <div class="row">
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 118px; top: 6px"></i> -->
-                    <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true, 'id' => 'previous_class']) ?>
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i> -->
-                    <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput() ?>
+                    <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput(['id' => 'previous_class_rollno']) ?>
             </div>
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 106px; top: 6px"></i> -->
@@ -405,6 +408,31 @@ $url = \yii\helpers\Url::to("index.php?r=std-personal-info/fetch-fee");
 
 $script = <<< JS
 
+// getting std-personal-info- by std inquiry no...
+$('#inquiryNo').on('change',function(){
+   var stdInquiryNo = $('#inquiryNo').val();
+   
+   $.ajax({
+        type:'post',
+        data:{stdInquiryNo:stdInquiryNo},
+        url: "$url",
+        success: function(result){
+            var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
+            $('#std_name').val(jsonResult['std_name']);
+            $('#std_father_name').val(jsonResult['std_father_name']);
+            $('#std_contact_no').val(jsonResult['std_contact_no']);
+            $('#std_father_contact_no').val(jsonResult['std_father_contact_no']);
+            $('#previous_class').val(jsonResult['std_previous_class']);
+            $('#previous_class_rollno').val(jsonResult['std_roll_no']);
+            $('#obtainedMarks').val(jsonResult['std_obtained_marks']);
+            $('#totalMarks').val(jsonResult['std_total_marks']);
+            $('#percentage').val(jsonResult['std_percentage']);
+            $('#std_permanent_address').val(jsonResult['std_address']);
+            $('#std_temporary_address').val(jsonResult['std_address']);
+        }         
+    }); 
+});
+
 // calculate totalMarks....
     $('#totalMarks').on('change',function(){
         var tMarks = $('#totalMarks').val();
@@ -483,6 +511,7 @@ $('#classId').on('change',function(){
         }         
     }); 
 });
+
 
 JS;
 $this->registerJs($script);

@@ -25,9 +25,11 @@
     $empReference[0]['ref_contact_no'] = 'N/A';
     $empReference[0]['ref_cnic'] = 'N/A';
     $empReference[0]['ref_designation'] = 'N/A';
+    $empRefID = 0;
   }
   else{
-    $empReference == $empReference;
+    $empRefID = $empReference[0]['emp_ref_id'];
+    $empReference = $empReference;
   }
   // Employee Documents Info..... 
   $empDocs = Yii::$app->db->createCommand("SELECT emp_document,emp_document_name FROM emp_documents WHERE emp_info_id = '$id'")->queryAll();
@@ -59,9 +61,9 @@
               <b>Departments</b>
                <?php 
                 for ($i=0; $i <$count ; $i++) {
-                   $id = $empdept[$i]['dept_id'];
+                   $deptId = $empdept[$i]['dept_id'];
                    // Get `deprtment_name` from `departments` againts `emp_department_id`
-                    $empDeptName = Yii::$app->db->createCommand("SELECT department_name,department_id FROM departments WHERE department_id = '$id'")->queryAll();
+                    $empDeptName = Yii::$app->db->createCommand("SELECT department_name,department_id FROM departments WHERE department_id = '$deptId'")->queryAll();
                   ?>
                 <li class="list-group-item" style="height:40px">
                    <a href="index.php?r=departments/view&id=<?php echo $empDeptName[0]['department_id']; ?>" class="">
@@ -220,7 +222,7 @@
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Refrence Information</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
-                  <a href="index.php?r=emp-reference/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                  <a href="index.php?r=emp-reference/update&id=<?php echo $empRefID;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                 </div>
               </div><hr>
               <!-- Employee refrence info start -->
@@ -256,6 +258,7 @@
             <!-- Employee refrence tab close here -->
             <!-- ******************************** -->
             <!-- Employee Document tab start here -->
+            
             <div class="tab-pane" id="doc">
              <div class="row">
                 <div class="col-md-5">
@@ -271,7 +274,7 @@
                   <?php for ($i=0; $i < $countDocs ; $i++) { ?>
                     <div class="col-md-6">
                       <h3 style="color: #3C8DBC; text-align: center;"><?php echo $empDocs[$i]['emp_document_name'] ?></h3>
-                      <img src="<?php echo $empDocs[$i]['emp_document'] ?>" class="img-responsive img-thumbnail" width="350px">
+                      <img src="<?php echo $empDocs[$i]['emp_document'] ?>" class="img-responsive img-thumbnail" width="350px"="350px">
                     </div>
                   <?php } ?>
                 </div>

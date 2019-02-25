@@ -132,7 +132,7 @@ class StdPersonalInfoController extends Controller
                                 Html::button('Save',['class'=>'btn btn-info','type'=>"submit",'id'=>'save'])
         
                 ];         
-            }else if($model->load($request->post()) && $model->validate() && $stdGuardianInfo->load($request->post()) && $stdGuardianInfo->validate() && $stdIceInfo->load($request->post()) && $stdIceInfo->validate() && $stdAcademicInfo->load($request->post()) && $stdAcademicInfo->validate() && $stdFeeDetails->load($request->post()) && $stdFeeDetails->validate() && $stdFeeInstallments->load($request->post()) && $stdFeeInstallments->validate()){
+            }else if($model->load($request->post()) && $stdGuardianInfo->load($request->post()) && $stdIceInfo->load($request->post()) && $stdAcademicInfo->load($request->post()) && $stdFeeDetails->load($request->post()) && $stdFeeInstallments->load($request->post())){
                         $model->std_photo = UploadedFile::getInstance($model,'std_photo');
                         if(!empty($model->std_photo)){
                             $imageName = $model->std_name.'_photo'; 
@@ -211,11 +211,6 @@ class StdPersonalInfoController extends Controller
                     'title'=> "Create new Student Personal Info",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
-                        'stdGuardianInfo' => $stdGuardianInfo,
-                        'stdIceInfo' => $stdIceInfo,
-                        'stdAcademicInfo' => $stdAcademicInfo,
-                        'stdFeeDetails' => $stdFeeDetails,
-                        'stdFeeInstallments' => $stdFeeInstallments,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])

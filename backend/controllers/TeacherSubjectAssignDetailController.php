@@ -118,37 +118,67 @@ class TeacherSubjectAssignDetailController extends Controller
         
                 ];         
             }else if($teacherSubjectAssignHead->load($request->post()) && $model->load($request->post())){
-                        $teacher_name = Yii::$app->db->createCommand("SELECT emp_name FROM emp_info where emp_id = $teacherSubjectAssignHead->teacher_id")->queryAll();
 
-                        $teacherSubjectAssignHead->teacher_subject_assign_head_name = $teacher_name[0]['emp_name'];
-                        $teacherSubjectAssignHead->created_by = Yii::$app->user->identity->id; 
-                        $teacherSubjectAssignHead->created_at = new \yii\db\Expression('NOW()');
-                        $teacherSubjectAssignHead->updated_by = '0';
-                        $teacherSubjectAssignHead->updated_at = '0'; 
-                        $teacherSubjectAssignHead->save();
+                $techer_enrollment_head = Yii::$app->db->createCommand("SELECT * FROM teacher_subject_assign_head where teacher_id = $teacherSubjectAssignHead->teacher_id")->queryAll();
+                if(!empty($techer_enrollment_head)){
+                    $teacherAssignHead = $techer_enrollment_head[0]['teacher_subject_assign_head_id'];
+                    // select2 add multiple students start...!
+                    $array = $model->class_id;
+                    $sub = $model->subject_id;
+                    $lec = $model->no_of_lecture;
 
-                        // select2 add multiple students start...!
-                        $array = $model->class_id;
-                        $sub = $model->subject_id;
-                        $lec = $model->no_of_lecture;
+                    foreach ($sub as  $valu) {
+                        foreach ($array as  $value) {
+                            $model = new TeacherSubjectAssignDetail();
+                            $model->teacher_subject_assign_detail_head_id = $teacherAssignHead;
+                            $model->class_id = $value;
+                            $model->subject_id = $valu;
+                            $model->no_of_lecture = $lec;
 
-                        foreach ($sub as  $valu) {
-                            foreach ($array as  $value) {
-                                $model = new TeacherSubjectAssignDetail();
-                                $model->teacher_subject_assign_detail_head_id = $teacherSubjectAssignHead->teacher_subject_assign_head_id;
-                                $model->class_id = $value;
-                                $model->subject_id = $valu;
-                                $model->no_of_lecture = $lec;
-
-                                // created and updated values...
-                                $model->created_by = Yii::$app->user->identity->id; 
-                                $model->created_at = new \yii\db\Expression('NOW()');
-                                $model->updated_by = '0';
-                                $model->updated_at = '0';
-                                $model->save(false);
-                            }
+                            // created and updated values...
+                            $model->created_by = Yii::$app->user->identity->id; 
+                            $model->created_at = new \yii\db\Expression('NOW()');
+                            $model->updated_by = '0';
+                            $model->updated_at = '0';
+                            $model->save(false);
                         }
-                        // select2 add multiple students end...!       
+                    }
+                    // select2 add multiple students end...! 
+
+                } else {
+                    $teacher_name = Yii::$app->db->createCommand("SELECT emp_name FROM emp_info where emp_id = $teacherSubjectAssignHead->teacher_id")->queryAll();
+
+                    $teacherSubjectAssignHead->teacher_subject_assign_head_name = $teacher_name[0]['emp_name'];
+                    $teacherSubjectAssignHead->created_by = Yii::$app->user->identity->id; 
+                    $teacherSubjectAssignHead->created_at = new \yii\db\Expression('NOW()');
+                    $teacherSubjectAssignHead->updated_by = '0';
+                    $teacherSubjectAssignHead->updated_at = '0'; 
+                    $teacherSubjectAssignHead->save();
+
+                    // select2 add multiple students start...!
+                    $array = $model->class_id;
+                    $sub = $model->subject_id;
+                    $lec = $model->no_of_lecture;
+
+                    foreach ($sub as  $valu) {
+                        foreach ($array as  $value) {
+                            $model = new TeacherSubjectAssignDetail();
+                            $model->teacher_subject_assign_detail_head_id = $teacherSubjectAssignHead->teacher_subject_assign_head_id;
+                            $model->class_id = $value;
+                            $model->subject_id = $valu;
+                            $model->no_of_lecture = $lec;
+
+                            // created and updated values...
+                            $model->created_by = Yii::$app->user->identity->id; 
+                            $model->created_at = new \yii\db\Expression('NOW()');
+                            $model->updated_by = '0';
+                            $model->updated_at = '0';
+                            $model->save(false);
+                        }
+                    }
+                    // select2 add multiple students end...! 
+                    // end of else     
+                    }          
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "<b>Create new Teacher Subject Assign Detail</b>",

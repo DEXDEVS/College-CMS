@@ -1,5 +1,11 @@
 <?php
-	if(isset($_POST['session_Id'])){
+	if(isset($_POST['stdInquiryNo'])){
+	$stdInquiryNo = $_POST['stdInquiryNo'];
+
+ 	$inquiryDetail = Yii::$app->db->createCommand("SELECT * FROM std_inquiry WHERE std_inquiry_no = '$stdInquiryNo'")->queryAll();
+ 	echo json_encode($inquiryDetail);
+ 	}
+	else if(isset($_POST['session_Id'])){
 	$classId = $_POST['class_Id'];
 	$sessionId = $_POST['session_Id'];
 
@@ -12,5 +18,7 @@
 		$subjectsCombination = Yii::$app->db->createCommand("SELECT std_subject_id, std_subject_name FROM std_subjects WHERE class_id = '$classId'")->queryAll();
  	echo json_encode($subjectsCombination);
 	}
+
+
 
 ?>
