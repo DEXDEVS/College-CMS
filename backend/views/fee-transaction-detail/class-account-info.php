@@ -83,24 +83,12 @@
                             $admission = Yii::$app->db->createCommand("SELECT net_addmission_fee , fee_id FROM std_fee_details WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
 
                             $feeId = $admission[0]['fee_id'];
-                            $installNo=$installment_no - 1;
-                            //get student addmission fee
-                            $payAdmission = Yii::$app->db->createCommand("SELECT ftd.fee_amount,ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON ftd.fee_trans_detail_head_id = fth.fee_trans_id WHERE ftd.fee_type_id = 1 AND fth.std_id = '$value[std_enroll_detail_std_id]' AND installment_no = '$installNo'")->queryAll();
-                            var_dump($payAdmission);
-                            if(!empty($payAdmission)){
-                                $feeAmount = $payAdmission[0]['fee_amount'];
-                                $collectedFeeAmount = $payAdmission[0]['collected_fee_amount'];
-                                if($feeAmount == $collectedFeeAmount){
-                                    $admissionFee = 0;
-                                }
-                                else {
-                                    $rem = $feeAmount - $collectedFeeAmount;
-                                    $admissionFee = $rem;
-                                }
+                            if ($installment_no != 1) {
+                                $admissionFee = 0;    
                             }
-                            else {
-                                $admissionFee = $admission[0]['net_addmission_fee'];  
-                            }    
+                            else{
+                                $admissionFee = $admission[0]['net_addmission_fee'];
+                            }
                             // get student installment amount
                             $installmentAmount = Yii::$app->db->createCommand("SELECT installment_amount FROM std_fee_installments  WHERE std_fee_id = '$feeId' AND installment_no = '$installment_no'")->queryAll();
                             if(empty($installmentAmount)){
