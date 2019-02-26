@@ -159,10 +159,7 @@
 					// get student fee pakg
 					$stdFeePakg = Yii::$app->db->createCommand("SELECT tuition_fee FROM std_fee_details WHERE std_id = '$stdID'")->queryAll();
 					$stdFee = Yii::$app->db->createCommand("SELECT sfd.fee_id, sfi.installment_no, sfi.installment_amount FROM std_fee_details as sfd INNER JOIN std_fee_installments as sfi ON sfi.std_fee_id = sfd.fee_id WHERE sfd.std_id  = '$stdID'")->queryAll();
-					
-					//var_dump($stdFee);
-					//echo "<br>";
-					
+
 					$totalFee += $stdFeePakg[0]['tuition_fee'];
 					if (empty($stdFee[0]['installment_amount'])) {
 						$total1st += 0;
@@ -217,7 +214,21 @@
 								}
 							?>
 						</td>
-						<td align="center">1029</td>
+						<td align="center">
+							<?php 
+							if(!empty($stdFee[$i]['installment_no'])){
+							$installNo = $stdFee[$i]['installment_no'];
+							$stdCollectedAmount = Yii::$app->db->createCommand("SELECT ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdID' AND ftd.fee_type_id = 2 AND fth.installment_no ='$installNo'")->queryAll();
+							if(!empty($stdCollectedAmount) AND $stdCollectedAmount[0]['collected_fee_amount'] > 0){
+								echo $stdCollectedAmount[0]['collected_fee_amount']; 
+							}
+							else {
+								echo "";
+							}
+							
+							} ?>
+					
+						</td>
 					<?php } ?>
 					<td style="background-color: gray;" class="a text-center">---</td>
 					<td style="width: 60px">---</td>
