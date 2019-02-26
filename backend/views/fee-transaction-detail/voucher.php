@@ -174,17 +174,15 @@
 				</div>
 			</div>
 			<?php
-			$currentTotal = $feeDetail[0]['total_amount'];
-			$installNo = $feeDetail[0]['installment_no'];
+			$currentTotal  = $feeDetail[0]['total_amount'];
+			$installNo     = $feeDetail[0]['installment_no'];
 			$installmentNo = $installNo -1;
 			$remaining = 0;
-			$remain = Yii::$app->db->createCommand("SELECT  remaining, total_amount,paid_amount FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
-
+			$remain = Yii::$app->db->createCommand("SELECT remaining, total_amount, paid_amount FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
 			$remainig = $remain[0]['remaining'];
-		
 			$paymentByDueDate = $currentTotal + $remaining;
 			$paymentAFterDueDate = $paymentByDueDate + 50;
-			 ?>			
+			?>			
 			<div class="row">
 				<div class="col-md-12">
 					<table width="100%" class="table table-condensed">
