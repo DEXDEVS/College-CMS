@@ -9,44 +9,70 @@
 	</style>
 </head>
 <body class="text">
-<?php 
+	<?php $id = $_GET['id']; ?>
 
-    if(isset($_POST['submit'])){ 
-        $classid   = $_POST["classid"];
-        $sessionid = $_POST["sessionid"];
-        $sectionid = $_POST["sectionid"];
-        $month     = $_POST["month"];
-        $issueDate = $_POST["issue_date"];
+<div class="container-fluid" style="margin-top: -30px;">
+	<h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC;">Partial Voucher</h1>
+    <!-- action="index.php?r=fee-transaction-detail/class-account-info" -->
+    <form method="POST" action="index.php?r=fee-transaction-detail/partial-voucher&id=<?php echo $id; ?>">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="hidden" name="_csrf" class="form-control" value="<?=Yii::$app->request->getCsrfToken()?>">          
+                </div>    
+            </div>    
+        </div>
+        <div class="row">              
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" class="form-control" name="due_date" required="">     
+                </div>    
+            </div> 
+            <div class="col-md-3">
+                <div class="form-group" style="margin-top: 24px;">
+                    <button type="submit" name="submit" class="btn btn-success btn-flat btn-block"><i class="fa fa-check-square-o" aria-hidden="true"></i><b> Get voucher</b></button>
+                </div>    
+            </div>
+        </div>
+    </form>
+    <!-- Header Form Close--> 
+</body>
+
+<?php 
+	
+
+	//echo $id;
+    if(isset($_POST['submit'])){  
+    	$voucherId = $_GET['id'];
         $dueDate   = $_POST["due_date"];
-        $message   = $_POST["message"];
         // change the format of dates....
-        $issueDate  = date('d-m-Y', strtotime($issueDate));
+       
         $dueDate  = date('d-m-Y', strtotime($dueDate));
         $todayDate = date('d-m-Y'); 
         
-        $months = Yii::$app->db->createCommand("SELECT month FROM fee_transaction_head WHERE month = '$month'")->queryAll();
-		
-		if(!empty($months)){
+        $voucherDetails = Yii::$app->db->createCommand("SELECT * FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.fee_trans_id = '$voucherId'")->queryAll();
+
         $institue = Yii::$app->db->createCommand("SELECT * FROM institute WHERE institute_id = 2")->queryAll();
 		$branch = Yii::$app->db->createCommand("SELECT * FROM branches WHERE branch_code = 002 ")->queryAll();
         // Select CLass...
-        $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
+        $classId = $voucherDetails[0]['class_name_id'];
+        $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classId'")->queryAll();
         // Select Session... 
-        $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
+        $sessionId = $voucherDetails[0]['session_id'];
+        $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionId'")->queryAll();
        // Select Section...
-        $sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
+        $sectionId = $voucherDetails[0]['section_id'];
+        $sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionId'")->queryAll();
         // Select Students...
-        $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id,sed.std_roll_no FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
-        foreach ($student as $id =>$value) {
-				$stdInfo = Yii::$app->db->createCommand("SELECT std_name , std_father_name  FROM std_personal_info WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
-				$stdId = $value['std_enroll_detail_std_id'];
-				$feeDetail = Yii::$app->db->createCommand("SELECT * FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdId' AND fth.month = '$month'")->queryAll();
-				$installmentId = $feeDetail[0]['installment_no'];
+  		$stdId = $voucherDetails[0]['std_id'];
+  		$student = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_std_id = '$stdId'")->queryAll();
+		$stdInfo = Yii::$app->db->createCommand("SELECT std_name , std_father_name  FROM std_personal_info WHERE std_id = '$stdId'")->queryAll();
+		$installmentId = $voucherDetails[0]['installment_no'];
+		$installment = Yii::$app->db->createCommand("SELECT installment_name FROM installment WHERE installment_id = '$installmentId'")->queryAll();
+		$installmentName = $installment[0]['installment_name'];
 
-				$installment = Yii::$app->db->createCommand("SELECT installment_name FROM installment WHERE installment_id = '$installmentId'")->queryAll();
-				$installmentName = $installment[0]['installment_name'];
-
-				$feeType = Yii::$app->db->createCommand("SELECT fee_type_id,fee_type_name  FROM fee_type")->queryAll();
+		$feeType = Yii::$app->db->createCommand("SELECT fee_type_id,fee_type_name  FROM fee_type")->queryAll();
     ?>
 
 <div class="container-fluid">
@@ -84,7 +110,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b style="float: left;">Voucher # : </b><?php echo $feeDetail[0]['fee_trans_detail_head_id']; ?>
+						<b style="float: left;">Voucher # : </b><?php echo $voucherId; ?>
 						<span style="float: right;"><b>Session: </b><?php echo $sessionName[0]['session_name'];?></span>
 					</p>
 				</div>
@@ -93,7 +119,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b style="float: left;">Issue Date: &nbsp;</b><?php echo $issueDate; ?>
+						<b style="float: left;">Issue Date: &nbsp;</b><?php echo $todayDate; ?>
 						<span style="float: right"><b>Due Date: </b><?php echo $dueDate; ?></span>
 					</p>
 				</div>
@@ -102,7 +128,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						<b>Voucher Month: </b><?php echo date('F, Y', strtotime($months[0]["month"])); ?>
+						<b>Voucher Month: </b><?php echo date('F, Y', strtotime($voucherDetails[0]["month"])); ?>
 					</p>
 				</div>
 			</div>
@@ -121,7 +147,7 @@
 						<b>Name: </b><?php echo $stdInfo[0]['std_name'] ?>
 					</p>
 					<p style="float: right;">
-						<b>Roll No.: </b><?php echo $student[$id]['std_roll_no'] ?>
+						<b>Roll No.: </b><?php echo $student[0]['std_roll_no'] ?>
 					</p>
 				</div>
 			</div>
@@ -158,13 +184,11 @@
 								</td>
 								<td align="center">
 									<?php
-										foreach ($feeDetail as $key => $value) { 
-											if($feeDetail[$key]['fee_type_id'] == $feeType[$index]['fee_type_id'] ){
-												echo $feeDetail[$key]['fee_amount'];
-											}	
-											if($feeDetail[$key]['fee_type_id'] == 1 ){
-												$addmission = $feeDetail[$key]['fee_amount'];
-											}	
+										foreach ($voucherDetails as $key => $value) { 
+											if($voucherDetails[$key]['fee_type_id'] == $feeType[$index]['fee_type_id'] ){
+												$amount = $voucherDetails[$key]['fee_amount'] -$voucherDetails[$key]['collected_fee_amount'];
+												echo $amount;
+											}		
 										} 
 									?>
 								</td>
@@ -174,14 +198,15 @@
 				</div>
 			</div>
 			<?php
-			$currentTotal = $feeDetail[0]['total_amount'];
-			$installNo = $feeDetail[0]['installment_no'];
+			$currentTotal = $voucherDetails[0]['remaining'];
+			$installNo = $voucherDetails[0]['installment_no'];
 			$installmentNo = $installNo -1;
 			$remaining = 0;
-			$remain = Yii::$app->db->createCommand("SELECT  remaining, total_amount,paid_amount FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
-
-			$remainig = $remain[0]['remaining'];
-		
+			//$remain = Yii::$app->db->createCommand("SELECT  remaining, total_amount,paid_amount FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
+			// var_dump($remain);
+			//$remainig = $remain[0]['remaining'];
+			
+			//$finallyRemaining = $remaining - $addmission;
 			$paymentByDueDate = $currentTotal + $remaining;
 			$paymentAFterDueDate = $paymentByDueDate + 50;
 			 ?>			
@@ -193,8 +218,8 @@
 							<td align="center"> <?php echo $currentTotal; ?> </td>
 						</tr>
 						<tr>
-							<th>Arrears:</th>
-							<td align="center"> <?php echo $remainig; ?> </td>
+							<th>Previous Dues:</th>
+							<td align="center"> <?php echo $remaining; ?> </td>
 						</tr>
 						<tr>
 							<th>Total Paymeny by Due Date:</th>
@@ -207,18 +232,11 @@
 					</table>
 				</div>
 			</div>
-			<?php 
-				if($remainig > 0){
-					$message = "Your remaing dues are pending by Rs: ".$remainig."/-";
-				}
-				else {
-					$message = '';
-				}
-			?>
+
 			<div class="row">
 				<div class="col-md-12" style="margin-top: -25px;">
 					<h6><b>MESSAGE:</b></h6>
-					<textarea class="form-control border-dark" rows="3"><?php echo $message; ?></textarea>
+					<textarea class="form-control border-dark" rows="2"><?php //echo $message; ?></textarea>
 				</div>
 			</div>
 
@@ -258,17 +276,6 @@
 	</div>
 </div>
 <?php
-	//ending of foreach loop
-	}
-	// ending of if statement
-	} else {
-		echo 
-			"<div class='row' style='margin:0px -10px 0px 15px;'>
-				<div class='col-md-12 alert alert-warning' style='text-align: center'>
-					<p>Please Select a valid month....!</p>
-				</div>
-			</div>";
-	}
 	//ending of isset if
     }
 ?>

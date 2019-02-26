@@ -133,7 +133,10 @@
                   </a>
                   </td>
               </tr>
+<<<<<<< HEAD
 
+=======
+>>>>>>> f29b15c48f3bfd4695441cda7b6c2dbe69ed197d
               <?php } ?>
             </tbody>
           </table>
