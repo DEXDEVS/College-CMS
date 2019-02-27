@@ -44,7 +44,6 @@
 
     // Stduent Fee Info..... 
     $stdFeeInfo = Yii::$app->db->createCommand("SELECT * FROM std_fee_details WHERE std_id = '$id'")->queryAll();
-    var_dump($stdFeeInfo);  
 
 
     // $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
