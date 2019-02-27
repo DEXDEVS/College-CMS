@@ -29,7 +29,6 @@ use yii\helpers\Url;
  * @property int $created_by
  * @property int $updated_by
  * @property int $delete_status
- *
  * @property FeeTransactionHead[] $feeTransactionHeads
  * @property StdAcademicInfo[] $stdAcademicInfos
  * @property StdAttendance[] $stdAttendances
@@ -76,22 +75,22 @@ class StdPersonalInfo extends \yii\db\ActiveRecord
     {
         return [
             'std_id' => 'Std ID',
-            'std_reg_no' => 'Std Reg No',
-            'stdInquiryNo' => 'Student Inquiry No',
-            'std_name' => 'Std Name',
-            'std_father_name' => 'Std Father Name',
-            'std_contact_no' => 'Std Contact No',
-            'std_DOB' => 'Std  Dob',
-            'std_gender' => 'Std Gender',
-            'std_permanent_address' => 'Std Permanent Address',
-            'std_temporary_address' => 'Std Temporary Address',
-            'std_email' => 'Std Email',
-            'std_photo' => 'Std Photo',
-            'std_b_form' => 'Std B Form',
-            'std_district' => 'Std District',
-            'std_religion' => 'Std Religion',
-            'std_nationality' => 'Std Nationality',
-            'std_tehseel' => 'Std Tehseel',
+            'std_reg_no' => 'Registration No.',
+            'stdInquiryNo' => 'Student Inquiry No.',
+            'std_name' => 'Student Name',
+            'std_father_name' => "Father's Name",
+            'std_contact_no' => 'Student Contact No.',
+            'std_DOB' => 'DOB',
+            'std_gender' => 'Gender',
+            'std_permanent_address' => 'Permanent Address',
+            'std_temporary_address' => 'Temporary Address',
+            'std_email' => 'Email',
+            'std_photo' => 'Photo',
+            'std_b_form' => 'B-Form',
+            'std_district' => 'District',
+            'std_religion' => 'Religion',
+            'std_nationality' => 'Nationality',
+            'std_tehseel' => 'Tehseel',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

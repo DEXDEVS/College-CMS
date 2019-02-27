@@ -67,7 +67,7 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
         return [
             'academic_id' => 'Academic ID',
             'std_id' => 'Std Name',
-            'class_name_id' => 'Class Name',
+            'class_name_id' => 'Registering In Class',
             'subject_combination' => 'Subject Combination',
             'previous_class' => 'Previous Class',
             'passing_year' => 'Passing Year',

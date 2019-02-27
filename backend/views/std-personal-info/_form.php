@@ -25,7 +25,7 @@ use common\models\StdSubjects;
 <div class="std-personal-info-form">
     <?php $form = ActiveForm::begin(); ?>
     <div style="border: 2px solid #337AB7; padding: 15px;">       
-        <h3 style="color: #337AB7; margin-top: -10px"> Personal Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
+        <h3 style="color: #337AB7; margin-top: -10px"> Personal Information <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-4">
                 <?= $form->field($model, 'stdInquiryNo')->textInput(['id' => 'inquiryNo']) ?>
@@ -121,7 +121,7 @@ use common\models\StdSubjects;
 
     <!-- Guardian Info-->
     <div style="border: 2px solid #5FDAF4; padding: 15px;">
-        <h3 style="color: #5FDAF4; margin-top: -10px"> Guardian Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
+        <h3 style="color: #5FDAF4; margin-top: -10px"> Guardian Information <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i>
@@ -165,7 +165,7 @@ use common\models\StdSubjects;
         </div><hr>
         
     <!-- ICE Info Start -->
-    <h3 style="color: #5FDAF4; margin-top: -10px"> Incase of Emergency (ICE) Info </h3>
+    <h3 style="color: #5FDAF4; margin-top: -10px"> Incase of Emergency (ICE) Information </h3>
     <div class="row">
         <div class="col-md-4">
             <?= $form->field($stdIceInfo, 'std_ice_name')->textInput(['maxlength' => true]) ?>
@@ -189,7 +189,7 @@ use common\models\StdSubjects;
     
     <!-- Academic Info -->
     <div style="border: 2px solid #EC971F; padding: 15px;">
-        <h3 style="color: #EC971F; margin-top: -10px"> Academic Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
+        <h3 style="color: #EC971F; margin-top: -10px"> Academic Information <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i> -->
@@ -280,7 +280,7 @@ use common\models\StdSubjects;
             </div>
             <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 92px; top: 6px"></i>
-                <?= $form->field($stdFeeDetails, 'totalTuitionFee')->textInput(['type' => 'number','id' => 'totalTuitionFee']) ?>
+                <?= $form->field($stdFeeDetails, 'totalTuitionFee')->textInput(['type' => 'number','id' => 'totalTuitionFee', 'readonly'=> true]) ?>
             </div>
             <div class="col-md-3">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 114px; top: 6px"></i>
@@ -297,7 +297,7 @@ use common\models\StdSubjects;
         <div class="row">
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 133px; top: 6px"></i>
-                <?= $form->field($stdFeeDetails, 'no_of_installment')->textInput(['type' => 'number','id' => 'noOfInstallment']) ?>
+                <?= $form->field($stdFeeDetails, 'no_of_installment')->textInput(['id' => 'noOfInstallment']) ?>
             </div>
         </div>
         <!-- Fee Installments start -->
