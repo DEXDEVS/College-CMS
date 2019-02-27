@@ -26,7 +26,7 @@ use yii\helpers\Url;
             <div class="icon">
               <i class="fa fa-users"></i>
             </div>
-            <a href="index.php?r=std-personal-info" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="./std-personal-info" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -43,7 +43,7 @@ use yii\helpers\Url;
             <div class="icon">
               <i class="fa fa-user-plus"></i>
             </div>
-            <a href="index.php?r=emp-info" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="./emp-info" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

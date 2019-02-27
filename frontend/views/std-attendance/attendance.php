@@ -4,7 +4,7 @@
 	<title>Attendance</title>
 </head>
 <body>
-	<form  action = "index.php?r=std-attendance/attendance" method="POST" style="margin-top: -35px">
+	<form  action = "student-attendance" method="POST" style="margin-top: -35px">
 		<h1 class="well well-sm text" align="center">Attendance</h1>
     	<div class="row">
             <div class="col-md-4">
@@ -103,7 +103,7 @@
 		?>
 	<div class="container-fluid" style="margin-top: -30px">
 		<hr>
-		<form method="POST" action="index.php?r=std-attendance/attendance">
+		<form method="POST" action="student-attendance">
 			<div class="row">
 				<div class="col-md-8">
 					<table width="100%" class="table table-responsive table-condensed table-hover">

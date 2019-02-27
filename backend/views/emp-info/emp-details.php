@@ -41,8 +41,8 @@
         <i class="fa fa-user"></i> Employee Profile
       </h1>
     <ol class="breadcrumb">
-        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="index.php?r=emp-info">Back</a></li>
+        <li><a href="./home"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="./emp-info">Back</a></li>
     </ol>
   </section>
   <!-- main content start  -->
@@ -66,7 +66,7 @@
                     $empDeptName = Yii::$app->db->createCommand("SELECT department_name,department_id FROM departments WHERE department_id = '$deptId'")->queryAll();
                   ?>
                 <li class="list-group-item" style="height:40px">
-                   <a href="index.php?r=departments/view&id=<?php echo $empDeptName[0]['department_id']; ?>" class="">
+                   <a href="./departments-view?id=<?php echo $empDeptName[0]['department_id']; ?>" class="">
                     <?php echo $empDeptName[0]['department_name']; ?>
                   </a>
                 </li>
@@ -222,7 +222,7 @@
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Refrence Information</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
-                  <a href="index.php?r=emp-reference/update&id=<?php echo $empRefID;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                  <a href="./emp-reference-update?id=<?php echo $empRefID;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                 </div>
               </div><hr>
               <!-- Employee refrence info start -->
@@ -266,7 +266,7 @@
                 <?php echo $id; ?>
                 </div>
                 <div class="col-md-2 col-md-offset-4">
-                  <a href="index.php?r=emp-documents/create&id=<?php echo $id;?>" class="btn btn-success btn-sm fa fa-plus" style='color: white;'> Add Document </a>
+                  <a href="./emp-documents-create?id=<?php echo $id;?>" class="btn btn-success btn-sm fa fa-plus" style='color: white;'> Add Document </a>
                 </div>
               </div><hr>
               <!-- Employee Document info start -->

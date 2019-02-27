@@ -87,7 +87,7 @@
                     <th><b>Fee Types</b></th>
                     <th class="text-center">Amount</th>
                 </tr>
-                <form method="post" action="index.php?r=fee-transaction-detail/collect-voucher">
+                <form method="post" action="fee-transaction-detail-collect-voucher">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">

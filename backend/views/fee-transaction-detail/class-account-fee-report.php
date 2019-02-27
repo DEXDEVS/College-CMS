@@ -340,7 +340,7 @@
 </html>
 
 <?php
-$url = \yii\helpers\Url::to("index.php?r=fee-transaction-detail/fetch-students");
+$url = \yii\helpers\Url::to("fee-transaction-detail/fetch-students");
 
 $script = <<< JS
 $('#sessionId').on('change',function(){
