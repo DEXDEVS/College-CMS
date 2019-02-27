@@ -22,7 +22,7 @@ CrudAsset::register($this);
 
 <div class="row">
     <!-- Department Wise Employees Start -->
-    <div class="col-md-6">
+   <!--  <div class="col-md-6">
         <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title"><i class="fa  fa-university"></i> Department Wise Employees</h3>
@@ -37,11 +37,11 @@ CrudAsset::register($this);
               <div class="table-responsive" id="div1"></div>
         </div>
     </div>
-    </div>
+    </div> -->
     <!--- Department Wise Employees End --->
     <!-- ******************************* -->
     <!-- Designation Wise Employees Start -->
-    <div class="col-md-6">
+   <!--  <div class="col-md-6">
         <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title"><i class="fa  fa-sitemap"></i> Designation Wise Employees</h3>
@@ -52,8 +52,9 @@ CrudAsset::register($this);
               </div>
             </div>
         <div class="box-body">
-            <div class="table-responsive" id="div2">
+            <div class="table-responsive" id="div2"> -->
                 <?php
+                /*
                 $emp_designation = Yii::$app->db->createCommand("SELECT emp_designation_id FROM emp_designation")->queryAll();
                 $countDesignation = count($emp_designation); 
                                           
@@ -77,7 +78,7 @@ CrudAsset::register($this);
                     echo \yii\helpers\Json::encode($data);
                 }
                     
-                
+                */
                 
                      
 
@@ -91,88 +92,88 @@ CrudAsset::register($this);
 // $data = json_encode($data); 
 // echo $data;
 
-echo Highcharts::widget([
-    'options' => [
-        'title' => ['text' => 'Sample title - pie chart'],
-        'plotOptions' => [
-            'pie' => [
-                'cursor' => 'pointer',
-            ],
-        ],
-        'series' => [
-            [
-                'type' => 'pie',
-                'name' => 'Elements',
-                'data' => [["Agropecario",94],["Industrial",88],["Turismo",55],["Servicios",28],["Fruticola",21],["Minero",2],["Apicola",2],["Pesquero",1]],
-            ]
-        ],
-    ],
-]);    
+// echo Highcharts::widget([
+//     'options' => [
+//         'title' => ['text' => 'Sample title - pie chart'],
+//         'plotOptions' => [
+//             'pie' => [
+//                 'cursor' => 'pointer',
+//             ],
+//         ],
+//         'series' => [
+//             [
+//                 'type' => 'pie',
+//                 'name' => 'Elements',
+//                 'data' => [["Agropecario",94],["Industrial",88],["Turismo",55],["Servicios",28],["Fruticola",21],["Minero",2],["Apicola",2],["Pesquero",1]],
+//             ]
+//         ],
+//     ],
+// ]);    
   
-                //}                        
-                //    var_dump($empDepWise);
+//                 //}                        
+//                 //    var_dump($empDepWise);
                 
-                        if(!empty($empDepWise)) {
-                        echo Highcharts::widget([
-                            'scripts' => [
-                                'highcharts-3d',   
-                            ],
-                            'options' => [  
-                                'exporting'=>[
-                                    'enabled'=>false 
-                                ],
-                                'legend'=>[
-                                    'align'=>'center',
-                                    'verticalAlign'=>'bottom',
-                                    'layout'=>'vertical',
-                                    'x'=>0,
-                                    'y'=>0,
-                                ],
-                                'credits'=>[
-                                        'enabled'=>false
-                                 ],
-                                'chart'=> [
-                                    'type'=>'pie',
-                                    'options3d'=>[
-                                        'enabled'=>true,
-                                        'alpha'=>45,
-                                        'beta'=>0
-                                    ],
-                                ],
-                                'title'=>[
-                                    'text'=>'',
-                                    'margin'=>0,
-                                ],
-                                'plotOptions'=>[
-                                    'pie'=>[
-                                        'allowPointSelect'=>true,
-                                            'cursor'=>'pointer',
-                                            'depth'=>35,
-                                        'dataLabels'=>[
-                                            'enabled'=>false
-                                             ],
-                                         'showInLegend'=>true,
-                                    ],  
-                                    'series'=>[
-                                        'pointPadding'=>0,
-                                        'groupPadding'=>0,      
-                                     ],
-                                ],
-                                'series'=> [
-                                    [
-                                        'name'=>'Total Employee',
-                                        'data'=>$data
-                                    ]
-                                ]
-                            ],
-                        ]);
-                    } else {
-                        echo '';
-                    }
+//                         if(!empty($empDepWise)) {
+//                         echo Highcharts::widget([
+//                             'scripts' => [
+//                                 'highcharts-3d',   
+//                             ],
+//                             'options' => [  
+//                                 'exporting'=>[
+//                                     'enabled'=>false 
+//                                 ],
+//                                 'legend'=>[
+//                                     'align'=>'center',
+//                                     'verticalAlign'=>'bottom',
+//                                     'layout'=>'vertical',
+//                                     'x'=>0,
+//                                     'y'=>0,
+//                                 ],
+//                                 'credits'=>[
+//                                         'enabled'=>false
+//                                  ],
+//                                 'chart'=> [
+//                                     'type'=>'pie',
+//                                     'options3d'=>[
+//                                         'enabled'=>true,
+//                                         'alpha'=>45,
+//                                         'beta'=>0
+//                                     ],
+//                                 ],
+//                                 'title'=>[
+//                                     'text'=>'',
+//                                     'margin'=>0,
+//                                 ],
+//                                 'plotOptions'=>[
+//                                     'pie'=>[
+//                                         'allowPointSelect'=>true,
+//                                             'cursor'=>'pointer',
+//                                             'depth'=>35,
+//                                         'dataLabels'=>[
+//                                             'enabled'=>false
+//                                              ],
+//                                          'showInLegend'=>true,
+//                                     ],  
+//                                     'series'=>[
+//                                         'pointPadding'=>0,
+//                                         'groupPadding'=>0,      
+//                                      ],
+//                                 ],
+//                                 'series'=> [
+//                                     [
+//                                         'name'=>'Total Employee',
+//                                         'data'=>$data
+//                                     ]
+//                                 ]
+//                             ],
+//                         ]);
+//                     } else {
+//                         echo '';
+//                     }
                 //}  
                 // ending of If....
                 ?>
-              </div>
+             <!--  </div>
             </div>
           </div>
     </div>

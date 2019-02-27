@@ -51,7 +51,7 @@ return [
                 'login' => 'site/login',
                 'logout' => 'site/login',
                 'home' => 'site/index',
-
+                
                 'attendance' => 'std-attendance',
                 'student-attendance' => 'std-attendance/attendance',
                 'class-attendance' => 'std-attendance/view-class-attendance',
