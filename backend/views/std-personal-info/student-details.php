@@ -44,8 +44,6 @@
 
     // Stduent Fee Info..... 
     $stdFeeInfo = Yii::$app->db->createCommand("SELECT * FROM std_fee_details WHERE std_id = '$id'")->queryAll();
-<<<<<<< HEAD
-    //var_dump($stdFeeInfo); 
 
     // fetching student roll number from `std_enrollment_detail` against selected student `$id`
     $stdRollNo = Yii::$app->db->createCommand("SELECT sed.std_roll_no
@@ -53,15 +51,6 @@
     INNER JOIN std_enrollment_head as seh
     ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
     WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll(); 
-
-
-=======
->>>>>>> 77a2837adf673d8c1f48020d48f4da5bcf366a54
-
-
-    // $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
-
-    // $sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
 
 ?>
 <div class="container-fluid">
