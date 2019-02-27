@@ -43,9 +43,9 @@ class EmpDepartments extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'emp_department_id' => 'Emp Department ID',
-            'emp_id' => 'Emp ID',
-            'dept_id' => 'Dept ID',
+            'emp_department_id' => 'Employee Department',
+            'emp_id' => 'Employee ID',
+            'dept_id' => 'Department',
         ];
     }
 
