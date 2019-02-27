@@ -40,8 +40,8 @@
           	<i class="fa fa-university"></i> Branch Profile
         	</h1>
   	    <ol class="breadcrumb" style="color: #3C8DBC;">
-  	        <li><a href="index.php" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
-  	        <li><a href="index.php?r=branches" style="color: #3C8DBC;">Back</a></li>
+  	        <li><a href="./home" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
+  	        <li><a href="./branches" style="color: #3C8DBC;">Back</a></li>
   	    </ol>
       </section>
       <!--  -->

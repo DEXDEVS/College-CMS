@@ -38,8 +38,8 @@
             </div>
             <div class="col-md-6">
                 <ol class="breadcrumb" style="float: right;">
-                    <li><a href="index.php" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="index.php?r=fee-transaction-detail/class-account" style="color: #3C8DBC;">Back</a></li>
+                    <li><a href="./home" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="./fee-transaction-detail-class-account" style="color: #3C8DBC;">Back</a></li>
                 </ol>
             </div>
         </div>

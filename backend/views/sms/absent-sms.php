@@ -33,7 +33,7 @@
 
 		var_dump($phoneNumber);
 		
-		$u="http://192.168.0.".$url_no.":8090/index.php?r=sms/absent-sms?username=Sadiq&password=1234&phone=";
+		$u="http://192.168.0.".$url_no.":8090/sms-absent-sms?username=Sadiq&password=1234&phone=";
 
 		if($message !=null && $phoneNumber !=null){
 			$url = $u.$phoneNumber."&message=".urlencode($message);

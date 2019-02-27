@@ -17,8 +17,8 @@
           <?php echo $teacherName[0]['teacher_subject_assign_head_name']." - Information" ; ?>
       	</h1>
 	    <ol class="breadcrumb" style="color: #3C8DBC;">
-	        <li><a href="index.php" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
-	        <li><a href="index.php?r=teacher-subject-assign-head" style="color: #3C8DBC;">Back</a></li>
+	        <li><a href="./home" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
+	        <li><a href="./teacher-subject-assign-head" style="color: #3C8DBC;">Back</a></li>
 	    </ol>
     </section>
     <!--  -->
