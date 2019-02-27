@@ -20,12 +20,9 @@
                     <?= Yii::$app->user->identity->username ?>
                     <!--  -->
                 </p>
-
-
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
-
         <!-- search form -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
@@ -38,7 +35,6 @@
             </div>
         </form>
         <!-- /.search form -->
-
         <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
@@ -76,35 +72,52 @@
                             ['label' => 'Departments', 'icon' => 'caret-right', 'url' => ["/departments"],],
                             ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => ["/std-sessions"],],
                             ['label' => 'Sections', 'icon' => 'caret-right', 'url' => ["/std-sections"],],
-                            ['label' => 'Class', 'icon' => 'caret-right', 'url' => ["/std-class"],],
-                            ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
-                            ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => ["/teacher-subject-assign-head"],],
+                            //['label' => 'Class', 'icon' => 'caret-right', 'url' => ["/std-class"],],
+                            // ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
+                            // ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => ["/teacher-subject-assign-head"],],
                         ],
                     ],
                     // System Configuration close...
                     // ------------------------------------------------
-                     // Student Inquiry start...
+                    // Student Module start...
                     [
-                        'label' => 'Student Inquiry',
-                        'icon' => 'fa fa-user-circle-o',
-                        'url' => ["/std-inquiry"],
+                        'label' => 'Student Module',
+                        'icon' => 'users',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Student Inquiry', 'icon' => 'caret-right', 'url' => ["/std-inquiry"],],
+                            ['label' => 'Student Registration', 'icon' => 'caret-right', 'url' => ["/std-personal-info"],],
+                            ['label' => 'Student Enrollment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
+                            
+                            //['label' => 'Class', 'icon' => 'caret-right', 'url' => ["/std-class"],],
+                            // ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
+                            // ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => ["/teacher-subject-assign-head"],],
+                        ],
                     ],
-                    // Student Inquiry close...
+                    // Student Module close...
                     // ------------------------------------------------
                     // Student Registration start...
-                    [
-                        'label' => 'Student Registration',
-                        'icon' => 'users',
-                        'url' => ["/std-personal-info"],
-                        // 'items' => [
-                        //     ['label' => 'Student Personal Info', 'icon' => 'caret-right', 'url' => '["/std-personal-info',],
-                        //     ['label' => 'Student Guardian Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-guardian-info',],
-                        //     ['label' => 'Student ICE Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-ice-info',],
-                        //     ['label' => 'Student Academic Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-academic-info',],
-                        //     ['label' => 'Student Fee Details', 'icon' => 'caret-right', 'url' => 'index.php?r=std-fee-details',],
-                        // ],
-                    ],
+                    // [
+                    //     'label' => 'Student Registration',
+                    //     'icon' => 'users',
+                    //     'url' => ["/std-personal-info"],
+                    //     // 'items' => [
+                    //     //     ['label' => 'Student Personal Info', 'icon' => 'caret-right', 'url' => '["/std-personal-info',],
+                    //     //     ['label' => 'Student Guardian Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-guardian-info',],
+                    //     //     ['label' => 'Student ICE Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-ice-info',],
+                    //     //     ['label' => 'Student Academic Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-academic-info',],
+                    //     //     ['label' => 'Student Fee Details', 'icon' => 'caret-right', 'url' => 'index.php?r=std-fee-details',],
+                    //     // ],
+                    // ],
                     // Student Registration close...
+                    // // ------------------------------------------------
+                    // // Student Enrollment start...
+                    // [
+                    //     'label' => 'Student Enrollment',
+                    //     'icon' => 'hourglass-half',
+                    //     'url' => ["/std-enrollment-head"],
+                    // ],
+                    // // Student Enrollment close...
                     // ------------------------------------------------
                     // Employee Registration start...
                     [
@@ -118,6 +131,15 @@
                     ],
                     // ------------------------------------------------
                     // Employee Registration close...
+                    // ------------------------------------------------
+                    // Assign Teacher start...
+                    [
+                        'label' => 'Assign Teacher',
+                        'icon' => 'id-badge',
+                        'url' => ["/teacher-subject-assign-head "],
+                    ],
+                    // Assign Teacher close...
+                    // ------------------------------------------------
                     // ------------------------------------------------
                     // Fee Registration start...
                     [
