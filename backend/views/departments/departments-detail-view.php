@@ -141,9 +141,9 @@
                 <td>
                   <?php
                       if(empty($empInfo[0]['emp_photo'])) { ?>
-                        <img class="profile-user-img img-responsive img-circle" src="images/default.png" style="height: 50px;width: 50px;">
+                       <img class="profile-user-img img-responsive img-circle" src="images/brookfield_logo.jpg" width="50px" height="50px">
                       <?php } else { ?>
-                        <img class="profile-user-img img-responsive img-circle" src="<?php echo $empInfo[0]['emp_photo']; ?>"> 
+                        <img class="profile-user-img img-responsive img-circle" src="<?php echo $empInfo[0]['emp_photo']; ?>" width="50px" height="50px"> 
                   <?php } ?>
                 </td>
                 <!-- <td>

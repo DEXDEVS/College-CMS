@@ -10,9 +10,10 @@ use yii\widgets\ActiveForm;
 <div class="std-class-name-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+    <h3 style="color: #337AB7; margin-top: -10px"><small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
+	 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 95px; top: 47px"></i>
     <?= $form->field($model, 'class_name')->textInput(['maxlength' => true]) ?>
-
+	<i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 161px; top: 18px"></i>
     <?= $form->field($model, 'class_name_description')->textInput(['maxlength' => true]) ?>
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

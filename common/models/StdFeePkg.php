@@ -36,9 +36,9 @@ class StdFeePkg extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['session_id', 'class_id', 'tutuion_fee'], 'required'],
+            [['admission_fee','session_id', 'class_id', 'tutuion_fee'], 'required'],
             [['session_id', 'class_id', 'created_by', 'updated_by'], 'integer'],
-            [['admission_fee', 'tutuion_fee'], 'number'],
+            [['tutuion_fee'], 'number'],
             [['created_at', 'updated_at', 'created_by', 'updated_by', 'admission_fee'], 'safe'],
             [['session_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdSessions::className(), 'targetAttribute' => ['session_id' => 'session_id']],
             [['class_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdClassName::className(), 'targetAttribute' => ['class_id' => 'class_name_id']],

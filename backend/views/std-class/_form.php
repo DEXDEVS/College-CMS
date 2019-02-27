@@ -14,14 +14,17 @@ use common\models\StdSections;
 <div class="std-class-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <h3 style="color: #337AB7; margin-top: -10px"><small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-6">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 80px; top: 18px"></i>
                 <?= $form->field($model, 'class_name_id')->dropDownList(
                     ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
                     ['prompt'=>'Select Class',]
                 )?>
             </div>
             <div class="col-md-6">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 96px; top: 18px"></i>
                 <?= $form->field($model, 'session_id')->dropDownList(
                     ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1])->all(),'session_id','session_name'),
                     [
@@ -36,6 +39,7 @@ use common\models\StdSections;
         </div>
         <div class="row">
             <div class="col-md-6">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 93px; top: 18px"></i>
                 <?= $form->field($model, 'section_id')->dropDownList(
                     ArrayHelper::map(StdSections::find()->where(['delete_status'=>1])->all(),'section_id','section_name'),
                     ['prompt'=>'Select Section','id'=>'sectionId']

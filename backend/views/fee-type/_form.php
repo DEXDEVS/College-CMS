@@ -11,6 +11,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 <div class="fee-type-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <h3 style="color: #337AB7; margin-top: -10px"><small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-6">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 119px; top: 6px"></i>

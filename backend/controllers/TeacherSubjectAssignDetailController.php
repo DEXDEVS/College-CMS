@@ -117,7 +117,8 @@ class TeacherSubjectAssignDetailController extends Controller
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
         
                 ];         
-            }else if($teacherSubjectAssignHead->load($request->post()) && $model->load($request->post())){
+            }else if($model->load($request->post()) && $model->validate()
+                && $teacherSubjectAssignHead->load($request->post()) && $teacherSubjectAssignHead->validate()){
 
                 $techer_enrollment_head = Yii::$app->db->createCommand("SELECT * FROM teacher_subject_assign_head where teacher_id = $teacherSubjectAssignHead->teacher_id")->queryAll();
                 if(!empty($techer_enrollment_head)){
@@ -192,6 +193,7 @@ class TeacherSubjectAssignDetailController extends Controller
                     'title'=> "<b>Create new Teacher Subject Assign Detail</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                         'teacherSubjectAssignHead' => $teacherSubjectAssignHead,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])

@@ -14,18 +14,23 @@ use kartik\select2\Select2;
 <div class="std-sections-form">
 
     <?php $form = ActiveForm::begin(); ?>
+     <h3 style="color: #337AB7; margin-top: -10px"><small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
             <div class="col-md-6">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 55px; top: 18px"></i>
                 <?= $form->field($model, 'session_id')->dropDownList(
-                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1])->all(),'session_id','session_name')
+                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1])->all(),'session_id','session_name'),
+                    ['prompt'=>'Select Session']
                 )?>
             </div>
             <div class="col-md-6">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 91px; top: 18px"></i>
                 <?= $form->field($model, 'section_name')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 97px; top: 18px"></i>
                 <?= $form->field($model, 'section_description')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-6">
@@ -34,6 +39,7 @@ use kartik\select2\Select2;
         </div>
         <div class="row"> 
             <div class="col-md-12">
+                <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 113px; top: 18px"></i>
                 <?= $form->field($model, 'section_subjects')->dropDownList(
                     ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name'),
                     ['prompt' => 'Select Subject Combination ']
