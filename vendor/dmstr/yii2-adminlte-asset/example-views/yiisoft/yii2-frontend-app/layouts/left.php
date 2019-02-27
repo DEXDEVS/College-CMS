@@ -39,9 +39,9 @@
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
                     ['label' => 'Menus', 'options' => ['class' => 'header center']],
-                    ['label' => 'Home', 'icon' => 'dashboard', 'url' => 'index.php'],
+                    ['label' => 'Home', 'icon' => 'dashboard', 'url' => ["./home"]],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Login', 'url' => ['./login'], 'visible' => Yii::$app->user->isGuest],
                     // ------------------------------------------------
                     // Student Attendance start...
                     [
@@ -49,8 +49,8 @@
                         'icon' => 'user-plus',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Student Attendance', 'icon' => 'caret-right', 'url' => 'index.php?r=std-attendance',],
-                            ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => 'index.php?r=std-attendance/view-class-attendance',]
+                            ['label' => 'Student Attendance', 'icon' => 'caret-right', 'url' => ["./attendance"],],
+                            ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],]
                         ],
                     ],
                     // ------------------------------------------------

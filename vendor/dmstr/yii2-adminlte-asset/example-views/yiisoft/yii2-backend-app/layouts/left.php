@@ -44,9 +44,9 @@
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
                     ['label' => 'Menus', 'options' => ['class' => 'header center']],
-                    ['label' => 'Home', 'icon' => 'dashboard', 'url' => 'index.php'],
+                    ['label' => 'Home', 'icon' => 'dashboard', 'url' => "./home"],
                     //['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Login', 'url' => ["../login"], 'visible' => Yii::$app->user->isGuest],
                     // ------------------------------------------------
                     // System Settings start...
                     [
@@ -54,13 +54,13 @@
                         'icon' => 'cog',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Class Name', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class-name',],
-                            ['label' => 'Subjects', 'icon' => 'caret-right', 'url' => 'index.php?r=subjects',],
-                            ['label' => 'Subjects Combination', 'icon' => 'caret-right', 'url' => 'index.php?r=std-subjects',],
-                            ['label' => 'Employee Designation', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-designation',],
-                            ['label' => 'Employee Type', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-type',],
-                            ['label' => 'Fee Type', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-type',],
-                            ['label' => 'Fee Packages', 'icon' => 'caret-right', 'url' => 'index.php?r=std-fee-pkg',],
+                            ['label' => 'Class Name', 'icon' => 'caret-right', 'url' => ["/std-class-name"],],
+                            ['label' => 'Subjects', 'icon' => 'caret-right', 'url' => ["/subjects"],],
+                            ['label' => 'Subjects Combination', 'icon' => 'caret-right', 'url' => ["/std-subjects"],],
+                            ['label' => 'Employee Designation', 'icon' => 'caret-right', 'url' => ["/emp-designation"],],
+                            ['label' => 'Employee Type', 'icon' => 'caret-right', 'url' => ["/emp-type"],],
+                            ['label' => 'Fee Type', 'icon' => 'caret-right', 'url' => ["/fee-type"],],
+                            ['label' => 'Fee Packages', 'icon' => 'caret-right', 'url' => ["/std-fee-pkg"],],
                         ],
                     ],
                     // System Settings close...
@@ -71,14 +71,14 @@
                         'icon' => 'cogs',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Institute', 'icon' => 'caret-right', 'url' => 'index.php?r=institute',],
-                            ['label' => 'Branches', 'icon' => 'caret-right', 'url' => 'index.php?r=branches',],
-                            ['label' => 'Departments', 'icon' => 'caret-right', 'url' => 'index.php?r=departments',],
-                            ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sessions',],
-                            ['label' => 'Sections', 'icon' => 'caret-right', 'url' => 'index.php?r=std-sections',],
-                            ['label' => 'Class', 'icon' => 'caret-right', 'url' => 'index.php?r=std-class',],
-                            ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => 'index.php?r=std-enrollment-head',],
-                            ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => 'index.php?r=teacher-subject-assign-head',],
+                            ['label' => 'Institute', 'icon' => 'caret-right', 'url' => ["/institute"],],
+                            ['label' => 'Branches', 'icon' => 'caret-right', 'url' => ["/branches"],],
+                            ['label' => 'Departments', 'icon' => 'caret-right', 'url' => ["/departments"],],
+                            ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => ["/std-sessions"],],
+                            ['label' => 'Sections', 'icon' => 'caret-right', 'url' => ["/std-sections"],],
+                            ['label' => 'Class', 'icon' => 'caret-right', 'url' => ["/std-class"],],
+                            ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
+                            ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => ["/teacher-subject-assign-head"],],
                         ],
                     ],
                     // System Configuration close...
@@ -87,7 +87,7 @@
                     [
                         'label' => 'Student Inquiry',
                         'icon' => 'fa fa-user-circle-o',
-                        'url' => 'index.php?r=std-inquiry',
+                        'url' => ["/std-inquiry"],
                     ],
                     // Student Inquiry close...
                     // ------------------------------------------------
@@ -95,9 +95,9 @@
                     [
                         'label' => 'Student Registration',
                         'icon' => 'users',
-                        'url' => 'index.php?r=std-personal-info',
+                        'url' => ["/std-personal-info"],
                         // 'items' => [
-                        //     ['label' => 'Student Personal Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-personal-info',],
+                        //     ['label' => 'Student Personal Info', 'icon' => 'caret-right', 'url' => '["/std-personal-info',],
                         //     ['label' => 'Student Guardian Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-guardian-info',],
                         //     ['label' => 'Student ICE Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-ice-info',],
                         //     ['label' => 'Student Academic Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-academic-info',],
@@ -110,7 +110,7 @@
                     [
                         'label' => 'Employee Registration',
                         'icon' => 'user-plus',
-                        'url' => 'index.php?r=emp-info',
+                        'url' => ["/emp-info"],
                         'items' => [
                             //['label' => 'Employee Personal Info', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-info',],
                             // ['label' => 'Employee Reference', 'icon' => 'caret-right', 'url' => 'index.php?r=emp-reference',]
@@ -126,10 +126,10 @@
                         'url' => '#',
                         'items' => [
                             //['label' => 'Manage Fee Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail',],
-                            ['label' => 'Manage Class Fee Accounts', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/class-account'],
-                            ['label' => 'Generate Student Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/fee-voucher'],
-                            ['label' => 'Collect Student Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/collect-voucher'],
-                             ['label' => 'Class Fee Report', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail/class-account-fee-report']
+                            ['label' => 'Manage Class Fee Accounts', 'icon' => 'caret-right', 'url' => "./fee-transaction-detail-class-account"],
+                            ['label' => 'Generate Student Vouchers', 'icon' => 'caret-right', 'url' => "./fee-transaction-detail-fee-voucher"],
+                            ['label' => 'Collect Student Vouchers', 'icon' => 'caret-right', 'url' => "./fee-transaction-detail-collect-voucher"],
+                             ['label' => 'Class Fee Report', 'icon' => 'caret-right', 'url' => "./fee-transaction-detail-class-account-fee-report"]
                         ],
                     ],
                     // ------------------------------------------------
@@ -141,9 +141,9 @@
                         'icon' => 'comments',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Message Management', 'icon' => 'caret-right', 'url' => 'index.php?r=msg-of-day'],
-                            ['label' => 'Events Management', 'icon' => 'caret-right', 'url' => 'index.php?r=events'],
-                            ['label' => 'Notice Management', 'icon' => 'caret-right', 'url' => 'index.php?r=notice'],
+                            ['label' => 'Message Management', 'icon' => 'caret-right', 'url' => "./msg-of-day"],
+                            ['label' => 'Events Management', 'icon' => 'caret-right', 'url' => "./events"],
+                            ['label' => 'Notice Management', 'icon' => 'caret-right', 'url' => "./notice"],
                         ],
                     ],
                     // ------------------------------------------------
@@ -155,8 +155,8 @@
                         'icon' => 'comments-o',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'SMS Templates', 'icon' => 'caret-right', 'url' => 'index.php?r=sms',],
-                            ['label' => 'Absent Students SMS', 'icon' => 'caret-right', 'url' => 'index.php?r=sms/absent-sms',],
+                            ['label' => 'SMS Templates', 'icon' => 'caret-right', 'url' => "./sms",],
+                            ['label' => 'Absent Students SMS', 'icon' => 'caret-right', 'url' => "./sms-absent-sms",],
                             
                             // ['label' => 'Fee Transaction Details', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail',]
                         ],
@@ -168,7 +168,7 @@
                     [
                         'label' => 'Email',
                         'icon' => 'envelope-o',
-                        'url' => 'index.php?r=emails',
+                        'url' => ["/emails"],
                     ],
                     // ------------------------------------------------
                     // Email close...

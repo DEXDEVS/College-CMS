@@ -404,7 +404,7 @@ use common\models\StdSubjects;
 	// calculate concession end....
 </script>
 <?php
-$url = \yii\helpers\Url::to("index.php?r=std-personal-info/fetch-fee");
+$url = \yii\helpers\Url::to("std-personal-info/fetch-fee");
 
 $script = <<< JS
 

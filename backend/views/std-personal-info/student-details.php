@@ -58,8 +58,8 @@
       	<i class="fa fa-user"></i> Student Profile
     	</h1>
 	    <ol class="breadcrumb">
-	        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-	        <li><a href="index.php?r=std-personal-info">Back</a></li>
+	        <li><a href="./home"><i class="fa fa-dashboard"></i> Home</a></li>
+	        <li><a href="./std-personal-info">Back</a></li>
 	    </ol>
   </section>
     <!-- Content Start -->
@@ -71,7 +71,7 @@
               <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="<?php echo $photo; ?>" alt="User profile picture">
                 <div class="photo-edit text-center">
-                  <a href="index.php?r=std-personal-info/std-photo&id=<?php echo $id; ?>"><i class="fa fa-pencil"></i></a>
+                  <a href="./std-personal-info-std-photo?id=<?php echo $id; ?>"><i class="fa fa-pencil"></i></a>
                 </div>
                 <h3 class="profile-username text-center" style="color: #3C8DBC;"><?php echo $stdPersonalInfo[0]['std_name'] ?></h3>
                 <p class="text-muted text-center"><!-- Software Engineer --></p>
@@ -200,7 +200,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Guardian Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="index.php?r=std-guardian-info/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="./std-guardian-info-update?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- guardian info start -->
@@ -265,7 +265,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> ICE Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="index.php?r=std-ice-info/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="./std-ice-info-update?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- ICE info start -->
@@ -300,7 +300,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Academic Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="index.php?r=std-academic-info/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="./std-academic-info-update?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- Academic info start -->
@@ -375,7 +375,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Fee Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="index.php?r=std-fee-details/update&id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="./std-fee-details-update?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- Fee info start -->

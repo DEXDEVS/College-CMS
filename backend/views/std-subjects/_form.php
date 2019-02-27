@@ -13,9 +13,7 @@ use common\models\StdClassName;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'class_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name')
-                )?>
+    <?= $form->field($model, 'class_id')->dropDownList(ArrayHelper::map(StdClassName::find()->all(),'class_name_id','class_name'))?>
 
     <?= $form->field($model, 'std_subject_name')->textInput(['maxlength' => true]) ?>
 

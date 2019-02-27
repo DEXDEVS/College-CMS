@@ -20,8 +20,8 @@
           <?php echo $stdEnrollmentClassName." - Information "."<span class='label-success' style='border-radius: 50%; padding: 2px 8px;'>". $count."</span>"; ?>
       	</h1>
 	    <ol class="breadcrumb" style="color: #3C8DBC;">
-	        <li><a href="index.php" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
-	        <li><a href="index.php?r=std-enrollment-head" style="color: #3C8DBC;">Back</a></li>
+	        <li><a href="./home" style="color: #3C8DBC;"><i class="fa fa-dashboard"></i> Home</a></li>
+	        <li><a href="./std-enrollment-head" style="color: #3C8DBC;">Back</a></li>
 	    </ol>
     </section>
     <!--  -->
@@ -45,7 +45,7 @@
                 <td><?php echo $value['std_reg_no']; ?></td>
                 <td><?php echo $value['std_roll_no']; ?></td>
                 <td>
-                  <a href="index.php?r=std-personal-info/view&id=<?php echo $value['std_enroll_detail_std_id'];?>">
+                  <a href="./std-personal-info-view?id=<?php echo $value['std_enroll_detail_std_id'];?>">
                     <?php echo $value['std_enroll_detail_std_name'];?>
                   </a>
                   </td>

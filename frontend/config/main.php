@@ -18,6 +18,8 @@ return [
     ],
     'components' => [
         'request' => [
+            'class' => 'common\components\Request',
+            'web'=> '/frontend/web',
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
@@ -41,14 +43,21 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'login' => 'site/login',
+                'logout' => 'site/login',
+                'home' => 'site/index',
+                
+                'attendance' => 'std-attendance',
+                'student-attendance' => 'std-attendance/attendance',
+                'class-attendance' => 'std-attendance/view-class-attendance',
             ],
         ],
-        */
+        
     ],
     'params' => $params,
 ];

@@ -150,7 +150,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 </div>
 
 <?php
-$url = \yii\helpers\Url::to("index.php?r=fee-transaction-detail/fetch-students");
+$url = \yii\helpers\Url::to("fee-transaction-detail/fetch-students");
 
 $script = <<< JS
 $('#sectionId').on('change',function(){

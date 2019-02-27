@@ -7,7 +7,7 @@
 <body>
 <div class="container-fluid" style="margin-top: -30px;">
 	<h1 class="well well-sm" align="center">Generate Class Fee Vouchers</h1>
-    <form method="POST" action="index.php?r=fee-transaction-detail/voucher">
+    <form method="POST" action="fee-transaction-detail-voucher">
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -91,7 +91,7 @@
 </html>
 
 <?php
-$url = \yii\helpers\Url::to("index.php?r=fee-transaction-detail/fetch-students");
+$url = \yii\helpers\Url::to("fee-transaction-detail/fetch-students");
 
 $script = <<< JS
 $('#sessionId').on('change',function(){

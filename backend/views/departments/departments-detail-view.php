@@ -26,8 +26,8 @@
         <i class="fa fa-university"></i>  <?php echo $deptName[0]['department_name']." "." - Information"; ?>
       </h1>
     <ol class="breadcrumb">
-        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="index.php?r=departments">Back</a></li>
+        <li><a href="./home"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="./departments">Back</a></li>
     </ol>
   </section>
     <!-- main content start  -->
@@ -128,7 +128,7 @@
                 <td><?php echo $empInfo[0]['emp_name']; ?></td>
                 <td><?php echo $empDesignationName[0]['emp_designation']; ?></td>
                 <td>
-                  <a href="index.php?r=std-personal-info/view&id=<?php //echo $value['std_enroll_detail_std_id'];?>">
+                  <a href="../std-personal-info-view&id=<?php //echo $value['std_enroll_detail_std_id'];?>">
                     <?php //echo $value['std_enroll_detail_std_name'];?>
                   </a>
                   </td>

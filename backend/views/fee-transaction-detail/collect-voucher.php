@@ -86,7 +86,7 @@
                     <th><b>Fee Types</b></th>
                     <th class="text-center">Amount</th>
                 </tr>
-                <form method="post" action="index.php?r=fee-transaction-detail/collect-voucher">
+                <form method="post" action="fee-transaction-detail-collect-voucher">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -169,7 +169,7 @@
                     <?php 
                     if($status == "Partially Paid"){ ?>
                     <td>
-                       <a href="index.php?r=fee-transaction-detail/partial-voucher&id=<?php echo $voucherNo; ?>" class="btn btn-success btn-flat">
+                       <a href="index.php?r=fee-transaction-detail/partial-voucher-head&id=<?php echo $voucherNo; ?>" class="btn btn-success btn-flat">
                            <span class="fa fa-check-square" aria-hidden="true"></span><b> Generate Partial Voucher</b>
                        </a>
                     </td>
