@@ -24,6 +24,7 @@ class StdSubjects extends \yii\db\ActiveRecord
     {
         return 'std_subjects';
     }
+    public $subId;
 
     /**
      * {@inheritdoc}
@@ -32,9 +33,10 @@ class StdSubjects extends \yii\db\ActiveRecord
     {
         return [
             [['class_id', 'std_subject_name'], 'required'],
-            [['class_id'], 'integer'],
+            [['class_id','subId'], 'integer'],
+            [['subId'],'safe'],
             [['std_subject_name'], 'string', 'max' => 200],
-            ['std_subject_name','unique'],
+            //['std_subject_name','unique'],
             [['class_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdClassName::className(), 'targetAttribute' => ['class_id' => 'class_name_id']],
         ];
     }

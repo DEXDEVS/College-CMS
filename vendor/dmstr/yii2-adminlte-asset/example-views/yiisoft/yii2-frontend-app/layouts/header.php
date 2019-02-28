@@ -249,7 +249,7 @@ use yii\helpers\Html;
                             <div class="pull-right">
                                 <?= Html::a(
                                     'Sign out',
-                                    ['/site/logout'],
+                                    ['./logout'],
                                     ['data-method' => 'post', 'class' => 'btn btn-danger btn-flat btn-sm']
                                 ) ?>
                             </div>
