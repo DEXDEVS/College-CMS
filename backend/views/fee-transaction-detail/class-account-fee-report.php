@@ -101,6 +101,7 @@
         	INNER JOIN std_enrollment_head as seh
         	ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
         	WHERE seh.class_name_id  = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
+        $countStudents = count($students);
     ?>
 	<div class="col-md-12">
 		<h2 style="text-align: center;box-shadow: 1px 1px 1px 1px; padding: 5px;">
@@ -150,7 +151,6 @@
 			<tbody>
 				<?php
 					$totalFee = $total1st = $total2nd = $total3rd = $total4th = $total5th = $total6th = $paid1st = $paid2nd = $paid3rd = $paid4th = $paid5th = $paid6th = 0;
-					
 					foreach ($students as $id => $value) {
 					// students `id`
 					$stdID = $students[$id]['std_enroll_detail_std_id'];
@@ -159,7 +159,6 @@
 					// get student fee pakg
 					$stdFeePakg = Yii::$app->db->createCommand("SELECT tuition_fee FROM std_fee_details WHERE std_id = '$stdID'")->queryAll();
 					$stdFee = Yii::$app->db->createCommand("SELECT sfd.fee_id, sfi.installment_no, sfi.installment_amount FROM std_fee_details as sfd INNER JOIN std_fee_installments as sfi ON sfi.std_fee_id = sfd.fee_id WHERE sfd.std_id  = '$stdID'")->queryAll();
-
 					$totalFee += $stdFeePakg[0]['tuition_fee'];
 					if (empty($stdFee[0]['installment_amount'])) {
 						$total1st += 0;
@@ -197,13 +196,27 @@
 					else{
 						$total6th += $stdFee[5]['installment_amount'];
 					}
+					for ($i=0; $i <6; $i++) {
+						if(!empty($stdFee[$i]['installment_no'])){
+							$installNo = $stdFee[$i]['installment_no'];
+							$stdCollectedAmount = Yii::$app->db->createCommand("SELECT ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdID' AND ftd.fee_type_id = 2 AND fth.installment_no ='$installNo'")->queryAll();
+							echo $id. "<br>";
+							var_dump($stdCollectedAmount);
+							//$paid1st += $stdCollectedAmount[$id]['collected_fee_amount'];
+								//$paid2nd += $stdCollectedAmount[0]['collected_fee_amount'];
+						}
+					}	
+					$tuitionFee = $stdFeePakg[0]['tuition_fee'];
 				?>
 				<tr>
 					<td><?php echo $id+1; ?></td>
 					<td><?php echo  $students[$id]['std_roll_no']; ?></td>
 					<td><?php echo $stdName[0]['std_name']; ?></td>
-					<td align="center"><?php echo $stdFeePakg[0]['tuition_fee']; ?></td>
-					<?php for ($i=0; $i <6; $i++) { ?>
+					<td align="center"><?php echo $tuitionFee;  ?></td>
+					<?php 
+					$installSum = 0;
+					$paidTotal = 0;
+					for ($i=0; $i <6; $i++) { ?>
 						<td class="tdcolor" align="center" style="background-color: #ccc">
 							<?php
 								if (empty($stdFee[$i]['installment_amount'])) {
@@ -221,17 +234,21 @@
 							$stdCollectedAmount = Yii::$app->db->createCommand("SELECT ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdID' AND ftd.fee_type_id = 2 AND fth.installment_no ='$installNo'")->queryAll();
 							if(!empty($stdCollectedAmount) AND $stdCollectedAmount[0]['collected_fee_amount'] > 0){
 								echo $stdCollectedAmount[0]['collected_fee_amount']; 
+								$installSum += $stdCollectedAmount[0]['collected_fee_amount'];
+								$paid1st += $stdCollectedAmount[0]['collected_fee_amount'];
+								$paidArray[] = $stdCollectedAmount[0]['collected_fee_amount'];
 							}
 							else {
 								echo "";
-							}
-							
-							} ?>
+							} 
+						}?>
 					
 						</td>
-					<?php } ?>
-					<td style="background-color: gray;" class="a text-center">---</td>
+					<?php } var_dump($paidArray); ?>
+
+					<td style="background-color: gray;" class="a text-center"><?php echo ($tuitionFee - $installSum); ?></td>
 					<td style="width: 60px">---</td>
+
 				</tr>
 			<?php } ?>
 				
@@ -241,9 +258,9 @@
 					</th>
 					<td class="tdcolor"><b><?php echo $totalFee; ?></b></td>
 					<td class="tdcolor"><b><?php echo $total1st; ?></b></td>
-					<td style="background-color: gray;" class="a">---</td>
+					<td style="background-color: gray;" class="a"><?php echo $paidTotal; ?></td>
 					<td class="tdcolor"><b><?php echo $total2nd; ?></b></td>
-					<td style="background-color: gray;" class="a">---</td>
+					<td style="background-color: gray;" class="a"><?php // echo $paid2nd; ?></td>
 					<td class="tdcolor"><b><?php echo $total3rd; ?></b></td>
 					<td style="background-color: gray;" class="a">---</td>
 					<td class="tdcolor"><b><?php echo $total4th; ?></b></td>
