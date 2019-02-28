@@ -107,7 +107,7 @@ class StdSectionsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Create new Student Section</b>",
+                    'title'=> "<b>Create Section</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),

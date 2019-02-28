@@ -70,11 +70,12 @@ class EmpTypeController extends Controller
      */
     public function actionView($id)
     {   
+        $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "EmpType #".$id,
+                    'title'=> "Employee Type: ".$model->emp_type,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -106,7 +107,7 @@ class EmpTypeController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new EmpType",
+                    'title'=> "Create Employee Type",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -173,7 +174,7 @@ class EmpTypeController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update EmpType #".$id,
+                    'title'=> "Update Employee Type: ".$model->emp_type,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

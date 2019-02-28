@@ -10,7 +10,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel common\models\StdFeePkgSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Std Fee Pkgs';
+$this->title = 'Standard Fee Packages';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -39,7 +39,7 @@ CrudAsset::register($this);
             'responsive' => true,          
             'panel' => [
                 'type' => 'primary', 
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Std Fee Pkgs listing',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> Standard Fee Packages',
                 'before'=>'<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
                 'after'=>BulkButtonWidget::widget([
                             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

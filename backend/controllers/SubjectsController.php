@@ -70,11 +70,12 @@ class SubjectsController extends Controller
      */
     public function actionView($id)
     {   
+        $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "<b>Subject: </b>".$id,
+                    'title'=> "<b>Subject: </b>".$model->subject_name,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -106,7 +107,7 @@ class SubjectsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Create new Subject</b>",
+                    'title'=> "<b>Create Subject</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -168,7 +169,7 @@ class SubjectsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Update Subject: </b>".$id,
+                    'title'=> "<b>Update Subject: </b>".$model->subject_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
