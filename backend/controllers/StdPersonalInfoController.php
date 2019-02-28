@@ -119,7 +119,7 @@ class StdPersonalInfoController extends Controller
             if($request->isGet){
                 return [
 
-                    'title'=> "<h2 class='well well-sm label-primary text-center'><i class='fa fa-user-circle-o'></i> Student Registration Form</h2>".$model->std_name,
+                    'title'=> "Create Student Personal Information".$model->std_name,
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                         'stdGuardianInfo' => $stdGuardianInfo,

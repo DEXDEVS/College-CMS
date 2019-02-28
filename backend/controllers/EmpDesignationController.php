@@ -107,7 +107,7 @@ class EmpDesignationController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Create new Employee Designation</b>",
+                    'title'=> "<b>Create Employee Designation</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),

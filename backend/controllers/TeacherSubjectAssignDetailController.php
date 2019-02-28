@@ -108,7 +108,7 @@ class TeacherSubjectAssignDetailController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Create new Teacher Subject Assign Detail</b>",
+                    'title'=> "<b>Create Teacher Subject Assign</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                         'teacherSubjectAssignHead' => $teacherSubjectAssignHead,

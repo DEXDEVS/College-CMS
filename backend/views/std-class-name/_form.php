@@ -15,6 +15,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'class_name')->textInput(['maxlength' => true]) ?>
 	<i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 161px; top: 18px"></i>
     <?= $form->field($model, 'class_name_description')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'status')->dropDownList([ 'Active' => 'Active', 'Inactive' => 'Inactive', ], ['prompt' => '']) ?>
+    
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

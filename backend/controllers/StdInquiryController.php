@@ -70,11 +70,12 @@ class StdInquiryController extends Controller
      */
     public function actionView($id)
     {   
+        $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "StdInquiry #".$id,
+                    'title'=> "Student Inquiry: ".$model->std_inquiry_no,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -106,7 +107,7 @@ class StdInquiryController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new StdInquiry",
+                    'title'=> "Create Student Inquiry",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -173,7 +174,7 @@ class StdInquiryController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update StdInquiry #".$id,
+                    'title'=> "Update Student Inquiry: ".$model->std_inquiry_no,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

@@ -22,41 +22,6 @@ use dosamigos\datetimepicker\DateTimePicker;
                 <?= $form->field($model, 'fee_type_description')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 98px; top: 6px"></i> -->
-                <?= $form->field($model, 'fee_amount')->textInput() ?>
-            </div>
-            <div class="col-md-6">
-                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 104px; top: 6px"></i> -->
-                <label>Starting Date</label>
-                <?= DateTimePicker::widget([
-                    'model' => $model,
-                    'attribute' => 'starting_date',
-                    'language' => 'en',
-                    'size' => 'ms',
-                    'clientOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd HH:ii:ss',
-                        'todayBtn' => true
-                    ]
-                ]);?>
-            </div>
-        </div>
-                 
-                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 78px; top:169px"></i> -->
-                <label>End Date</label>
-                <?= DateTimePicker::widget([
-                    'model' => $model,
-                    'attribute' => 'ending_date',
-                    'language' => 'en',
-                    'size' => 'ms',
-                    'clientOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd HH:ii:ss',
-                        'todayBtn' => true
-                    ]
-                ]);?>
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

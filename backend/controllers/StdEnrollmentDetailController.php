@@ -108,7 +108,7 @@ class StdEnrollmentDetailController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Create new Stdudent Enrollment Detail</b>",
+                    'title'=> "<b>Create Stdudent Enrollment</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                         'stdEnrollmentHead' => $stdEnrollmentHead,
@@ -258,9 +258,7 @@ class StdEnrollmentDetailController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);   
-        $stdEnrollmentHead = new StdEnrollmentHead(); 
-    
-
+        $stdEnrollmentHead = new StdEnrollmentHead();
         if($request->isAjax){
             /*
             *   Process for ajax request
@@ -268,7 +266,7 @@ class StdEnrollmentDetailController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Update Student Enrollment Detail: </b>".$id,
+                    'title'=> "<b>Update Student Enrollment: </b>".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                         'stdEnrollmentHead' => $stdEnrollmentHead,

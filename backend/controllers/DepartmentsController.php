@@ -97,7 +97,7 @@ class DepartmentsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new Departments",
+                    'title'=> "Create Department",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -164,7 +164,7 @@ class DepartmentsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update Departments #".$id,
+                    'title'=> "Update Department: ".$model->department_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

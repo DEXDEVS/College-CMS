@@ -19,8 +19,7 @@ class FeeTypeSearch extends FeeType
     {
         return [
             [['fee_type_id', 'created_by', 'updated_by'], 'integer'],
-            [['fee_type_name', 'fee_type_description', 'starting_date', 'ending_date', 'created_at', 'updated_at'], 'safe'],
-            [['fee_amount'], 'number'],
+            [['fee_type_name', 'fee_type_description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -58,9 +57,6 @@ class FeeTypeSearch extends FeeType
 
         $query->andFilterWhere([
             'fee_type_id' => $this->fee_type_id,
-            'fee_amount' => $this->fee_amount,
-            'starting_date' => $this->starting_date,
-            'ending_date' => $this->ending_date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,

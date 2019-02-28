@@ -55,11 +55,12 @@ class StdSubjectsController extends Controller
      */
     public function actionView($id)
     {   
+         $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "StdSubjects #".$id,
+                    'title'=> "Subjects Combination: ".$model->std_subject_name,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -91,7 +92,7 @@ class StdSubjectsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new StdSubjects",
+                    'title'=> "Create Subjects Combination",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -99,7 +100,18 @@ class StdSubjectsController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->validate() && $model->save()){
+            }else if($model->load($request->post())){
+
+                    $array = $model->subId;
+                    foreach ($array as  $value) {
+                        $subName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$value'")->queryAll();
+                        $subjectArray[] = $subName[0]['subject_name'];
+                    }
+                    $subject = implode(",", $subjectArray);
+                    $model->std_subject_name = $subject;
+                    //var_dump($model->std_subject_name);
+                    $model->save();
+        
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new StdSubjects",
@@ -153,7 +165,7 @@ class StdSubjectsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update StdSubjects #".$id,
+                    'title'=> "Update Subjects Combination: ".$model->std_subject_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

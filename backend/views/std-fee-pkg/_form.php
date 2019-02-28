@@ -18,14 +18,14 @@ use common\models\StdSessions;
         <div class="col-md-6">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 54px; top: 18px"></i>
             <?= $form->field($model, 'session_id')->dropDownList(
-                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1])->all(),'session_id','session_name'),
+                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1 , 'status'=>'Active'])->all(),'session_id','session_name'),
                     ['prompt'=>'Select Session',]
                 )?>
         </div>
         <div class="col-md-6">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 84px; top: 18px"></i>
             <?= $form->field($model, 'class_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
+                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1, 'status'=>'Active'])->all(),'class_name_id','class_name'),
                     ['prompt'=>'Select Class',]
                 )?>
         </div>

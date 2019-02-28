@@ -22,18 +22,6 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'fee_type_description',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'fee_amount',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'starting_date',
-    ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'ending_date',
-    // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',

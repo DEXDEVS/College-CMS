@@ -106,7 +106,7 @@ class BranchesController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new Branches",
+                    'title'=> "Create Branche",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -173,7 +173,11 @@ class BranchesController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update Branches #".$id,
+
+                    'title'=> "Update Branche: ".$model->branch_name,
+
+                    'title'=> "Update Branches #".$model->branch_name,
+
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

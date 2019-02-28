@@ -70,11 +70,12 @@ class FeeTypeController extends Controller
      */
     public function actionView($id)
     {   
+        $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "FeeType #".$id,
+                    'title'=> "Fee Type: ".$model->fee_type_name,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -106,7 +107,7 @@ class FeeTypeController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new FeeType",
+                    'title'=> "Create Fee Type",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -173,7 +174,7 @@ class FeeTypeController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update FeeType #".$id,
+                    'title'=> "Update Fee Type: ".$model->fee_type_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
