@@ -2,11 +2,6 @@
 <html>
 <head>
 	<title>Voucher</title>
-	<style type="text/css">
-		/*td p{
-		font-size:16px;
-	}*/
-	</style>
 </head>
 <body class="text">
 <?php $id = $_GET['id']; ?>

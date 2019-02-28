@@ -119,7 +119,7 @@ class StdPersonalInfoController extends Controller
             if($request->isGet){
                 return [
 
-                    'title'=> "<b>Create new Student Personal Info</b>".$model->std_name,
+                    'title'=> "<h2 class='well well-sm label-primary text-center'><i class='fa fa-user-circle-o'></i> Student Registration Form</h2>".$model->std_name,
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                         'stdGuardianInfo' => $stdGuardianInfo,
@@ -132,89 +132,89 @@ class StdPersonalInfoController extends Controller
                                 Html::button('Save',['class'=>'btn btn-info','type'=>"submit",'id'=>'save'])
         
                 ];         
-            }else if($model->load($request->post()) && $stdGuardianInfo->load($request->post()) && $stdIceInfo->load($request->post()) && $stdAcademicInfo->load($request->post()) && $stdFeeDetails->load($request->post()) && $stdFeeInstallments->load($request->post())){
-                        $model->std_photo = UploadedFile::getInstance($model,'std_photo');
-                        if(!empty($model->std_photo)){
-                            $imageName = $model->std_name.'_photo'; 
-                            $model->std_photo->saveAs('uploads/'.$imageName.'.'.$model->std_photo->extension);
-                            //save the path in the db column
-                            $model->std_photo = 'uploads/'.$imageName.'.'.$model->std_photo->extension;
-                        } else {
-                           $model->std_photo = '0'; 
-                        }
-                        $model->created_by = Yii::$app->user->identity->id; 
-                        $model->created_at = new \yii\db\Expression('NOW()');
-                        $model->updated_by = '0'; 
-                        $model->updated_at = '0';
-                        $model->save();
-
-                        $stdGuardianInfo->std_id = $model->std_id;
-                        $stdGuardianInfo->created_by = Yii::$app->user->identity->id; 
-                        $stdGuardianInfo->created_at = new \yii\db\Expression('NOW()');
-                        $stdGuardianInfo->updated_by = '0'; 
-                        $stdGuardianInfo->updated_at = '0';
-                        $stdGuardianInfo->save();
-
-                        $stdIceInfo->std_id = $model->std_id;
-                        $stdIceInfo->created_by = Yii::$app->user->identity->id; 
-                        $stdIceInfo->created_at = new \yii\db\Expression('NOW()');
-                        $stdIceInfo->updated_by = '0'; 
-                        $stdIceInfo->updated_at = '0';
-                        $stdIceInfo->save();
-
-                        $stdAcademicInfo->std_id = $model->std_id;
-                        $stdAcademicInfo->std_enroll_status = 'unsign'; 
-                        $stdAcademicInfo->created_by = Yii::$app->user->identity->id; 
-                        $stdAcademicInfo->created_at = new \yii\db\Expression('NOW()');
-                        $stdAcademicInfo->updated_by = '0'; 
-                        $stdAcademicInfo->updated_at = '0';
-                        $stdAcademicInfo->save();
-
-                        $count = $stdFeeDetails->no_of_installment;
-                        $stdFeeDetails->std_id = $model->std_id;
-                        $stdFeeDetails->created_by = Yii::$app->user->identity->id; 
-                        $stdFeeDetails->created_at = new \yii\db\Expression('NOW()');
-                        $stdFeeDetails->updated_by = '0'; 
-                        $stdFeeDetails->updated_at = '0';
-                        $stdFeeDetails->save();
-
-                        $amounts[1] = $stdFeeInstallments->amount1;
-                        $amounts[2] = $stdFeeInstallments->amount2; 
-                        $amounts[3] = $stdFeeInstallments->amount3;
-                        $amounts[4] = $stdFeeInstallments->amount4;
-                        $amounts[5] = $stdFeeInstallments->amount5;
-                        $amounts[6] = $stdFeeInstallments->amount6;
-
-                        for ($i=1; $i <= $count ; $i++) { 
-                            $stdFeeInstallments = new StdFeeInstallments();
-
-                            $stdFeeInstallments->std_fee_id = $stdFeeDetails->fee_id;
-                            $stdFeeInstallments->installment_no = $i;
-                            $stdFeeInstallments->installment_amount = $amounts[$i];
-                            $stdFeeInstallments->created_by = Yii::$app->user->identity->id; 
-                            $stdFeeInstallments->created_at = new \yii\db\Expression('NOW()');
-                            $stdFeeInstallments->updated_by = '0'; 
-                            $stdFeeInstallments->updated_at = '0';
-                            $stdFeeInstallments->save();
-                        }
-
+            }else if($model->load($request->post()) && $model->validate() && $stdGuardianInfo->load($request->post()) && $stdGuardianInfo->validate() && $stdIceInfo->load($request->post()) && $stdIceInfo->validate() && $stdAcademicInfo->load($request->post()) && $stdAcademicInfo->validate() && $stdFeeDetails->load($request->post()) && $stdFeeDetails->validate() && $stdFeeInstallments->load($request->post()) && $stdFeeInstallments->validate()){
+                    $model->std_photo = UploadedFile::getInstance($model,'std_photo');
+                    if(!empty($model->std_photo)){
+                        $imageName = $model->std_name.'_photo'; 
+                        $model->std_photo->saveAs('uploads/'.$imageName.'.'.$model->std_photo->extension);
+                        //save the path in the db column
+                        $model->std_photo = 'uploads/'.$imageName.'.'.$model->std_photo->extension;
+                    } else {
+                       $model->std_photo = '0'; 
+                    }
+                    $model->created_by = Yii::$app->user->identity->id; 
+                    $model->created_at = new \yii\db\Expression('NOW()');
+                    $model->updated_by = '0'; 
+                    $model->updated_at = '0';
+                    $model->save();
+                    // stdGuardianInfo...
+                    $stdGuardianInfo->std_id = $model->std_id;
+                    $stdGuardianInfo->created_by = Yii::$app->user->identity->id; 
+                    $stdGuardianInfo->created_at = new \yii\db\Expression('NOW()');
+                    $stdGuardianInfo->updated_by = '0'; 
+                    $stdGuardianInfo->updated_at = '0';
+                    $stdGuardianInfo->save();
+                    // stdIceInfo...
+                    $stdIceInfo->std_id = $model->std_id;
+                    $stdIceInfo->created_by = Yii::$app->user->identity->id; 
+                    $stdIceInfo->created_at = new \yii\db\Expression('NOW()');
+                    $stdIceInfo->updated_by = '0'; 
+                    $stdIceInfo->updated_at = '0';
+                    $stdIceInfo->save();
+                    // stdAcademicInfo...
+                    $stdAcademicInfo->std_id = $model->std_id;
+                    $stdAcademicInfo->std_enroll_status = 'unsign'; 
+                    $stdAcademicInfo->created_by = Yii::$app->user->identity->id; 
+                    $stdAcademicInfo->created_at = new \yii\db\Expression('NOW()');
+                    $stdAcademicInfo->updated_by = '0'; 
+                    $stdAcademicInfo->updated_at = '0';
+                    $stdAcademicInfo->save();
+                    // stdFeeDetails...
+                    $count = $stdFeeDetails->no_of_installment;
+                    $stdFeeDetails->std_id = $model->std_id;
+                    $stdFeeDetails->created_by = Yii::$app->user->identity->id; 
+                    $stdFeeDetails->created_at = new \yii\db\Expression('NOW()');
+                    $stdFeeDetails->updated_by = '0'; 
+                    $stdFeeDetails->updated_at = '0';
+                    $stdFeeDetails->save();
+                    //stdFeeInstallments...
+                    $amounts[1] = $stdFeeInstallments->amount1;
+                    $amounts[2] = $stdFeeInstallments->amount2; 
+                    $amounts[3] = $stdFeeInstallments->amount3;
+                    $amounts[4] = $stdFeeInstallments->amount4;
+                    $amounts[5] = $stdFeeInstallments->amount5;
+                    $amounts[6] = $stdFeeInstallments->amount6;
+                    for ($i=1; $i <= $count ; $i++) { 
+                        $stdFeeInstallments = new StdFeeInstallments();
+                        $stdFeeInstallments->std_fee_id = $stdFeeDetails->fee_id;
+                        $stdFeeInstallments->installment_no = $i;
+                        $stdFeeInstallments->installment_amount = $amounts[$i];
+                        $stdFeeInstallments->created_by = Yii::$app->user->identity->id; 
+                        $stdFeeInstallments->created_at = new \yii\db\Expression('NOW()');
+                        $stdFeeInstallments->updated_by = '0'; 
+                        $stdFeeInstallments->updated_at = '0';
+                        $stdFeeInstallments->save();
+                    }
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "<b>Create new Student Personal Info</b>",
                     'content'=>'<span class="text-success">Create Student Personal Info successfully</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-success','role'=>'modal-remote'])
-        
                 ];         
             }else{           
                 return [
                     'title'=> "Create new Student Personal Info",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'stdGuardianInfo' => $stdGuardianInfo,
+                        'stdIceInfo' => $stdIceInfo,
+                        'stdAcademicInfo' => $stdAcademicInfo,
+                        'stdFeeDetails' => $stdFeeDetails,
+                        'stdFeeInstallments' => $stdFeeInstallments,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])
-        
                 ];         
             }
         }else{
@@ -229,7 +229,6 @@ class StdPersonalInfoController extends Controller
                 ]);
             }
         }
-       
     }
 
     /**
@@ -348,8 +347,6 @@ class StdPersonalInfoController extends Controller
             */
             return $this->redirect(['index']);
         }
-
-
     }
 
     public function actionFetchFee()

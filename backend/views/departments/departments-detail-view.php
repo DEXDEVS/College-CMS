@@ -16,7 +16,7 @@
   $empDeptName = Yii::$app->db->createCommand("SELECT emp_designation_id FROM emp_designation WHERE emp_designation = 'HOD'")->queryAll();
   $empHODId = $empDeptName[0]['emp_designation_id'];
 
-  $empHODName = Yii::$app->db->createCommand("SELECT ei.emp_name,ei.emp_reg_no,ei.emp_designation_id FROM emp_info as ei INNER Join emp_departments as ed ON ei.emp_id = ed.emp_id WHERE ed.dept_id = '$id' AND ei.emp_designation_id = '$empHODId'")->queryAll();
+  $empHODName = Yii::$app->db->createCommand("SELECT ei.emp_photo,ei.emp_name,ei.emp_reg_no,ei.emp_designation_id FROM emp_info as ei INNER Join emp_departments as ed ON ei.emp_id = ed.emp_id WHERE ed.dept_id = '$id' AND ei.emp_designation_id = '$empHODId'")->queryAll();
  
 ?>
 <div class="container-fluid">
@@ -37,11 +37,21 @@
         <!-- Profile Image Start -->
         <div class="box box-primary">
           <div class="box-body box-profile">
+            <?php
+            if(empty($empHODName[0]['emp_photo'])) { ?>
+              <img class="profile-user-img img-responsive img-circle" src="images/default.png">
+            <?php } else { ?>
+              <img class="profile-user-img img-responsive img-circle" src="<?php echo $empHODName[0]['emp_photo']; ?>"> 
+           <?php } ?>
+                <h3 class="profile-username text-center">
+                  <p style="font-size: 20px; color: #3C8DBC;">
+                 Department HOD
+              </p>
+              <hr>
+                </h3>
             <p class="text-muted text-center"><!-- Software Engineer --></p>
             <ul class="list-group list-group-unbordered">
-              <p style="font-size: 20px; color: #3C8DBC;">
-                <i class="fa fa-user" style="font-size: 20px;"></i> Department HOD
-              </p>
+              
               <h4> 
                 <?php
                 if (empty($empHODName[0]['emp_name'])) {
@@ -104,6 +114,7 @@
                 <th style="width: 200px">Registration #</th>
                 <th>Employee Name</th>
                 <th>Employee Designation</th>
+                <th>Employee Photo</th>
               </tr>
             </thead>
             <tbody>
@@ -111,16 +122,16 @@
               $sr = 0;
              for ($i=0; $i <$empCount ; $i++) { 
                $empId = $empDept[$i]['emp_id'];
-                $empInfo = Yii::$app->db->createCommand("SELECT emp_name,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
-                $empDesignationId = $empInfo[0]['emp_designation_id'];
+                $empInfo = Yii::$app->db->createCommand("SELECT emp_name,emp_photo,emp_reg_no,emp_designation_id FROM emp_info WHERE emp_id = '$empId'")->queryAll();
+                  $empDesignationId = $empInfo[0]['emp_designation_id'];
                 $empDesignationName = Yii::$app->db->createCommand("SELECT emp_designation FROM emp_designation WHERE emp_designation_id = '$empDesignationId'")->queryAll();
                 
                ?>
               <tr>
                 <?php 
-                  // if ($empDesignationName[0]['emp_designation'] == "HOD") {
-                  //    continue;
-                  //  }else {
+                  if ($empDesignationName[0]['emp_designation'] == "HOD") {
+                     continue;
+                   }else {
 
                 ?>
                 <td align="center"><b><?php echo $sr+1; ?></b></td>
@@ -128,12 +139,20 @@
                 <td><?php echo $empInfo[0]['emp_name']; ?></td>
                 <td><?php echo $empDesignationName[0]['emp_designation']; ?></td>
                 <td>
+                  <?php
+                      if(empty($empInfo[0]['emp_photo'])) { ?>
+                       <img class="profile-user-img img-responsive img-circle" src="images/brookfield_logo.jpg" width="50px" height="50px">
+                      <?php } else { ?>
+                        <img class="profile-user-img img-responsive img-circle" src="<?php echo $empInfo[0]['emp_photo']; ?>" width="50px" height="50px"> 
+                  <?php } ?>
+                </td>
+                <!-- <td>
                   <a href="../std-personal-info-view&id=<?php //echo $value['std_enroll_detail_std_id'];?>">
                     <?php //echo $value['std_enroll_detail_std_name'];?>
                   </a>
-                  </td>
+                  </td> -->
               </tr>
-              <?php } ?>
+              <?php } }?>
             </tbody>
           </table>
         </div>

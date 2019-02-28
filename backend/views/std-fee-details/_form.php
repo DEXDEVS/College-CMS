@@ -51,7 +51,7 @@ use common\models\StdSessions
     </div>
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'no_of_installment')->textInput(['type' => 'number','id' => 'noOfInstallment']) ?>
+            <?= $form->field($model, 'no_of_installment')->textInput(['id' => 'noOfInstallment']) ?>
         </div>
     </div>
     <div class="row" >

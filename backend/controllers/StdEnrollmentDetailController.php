@@ -117,7 +117,7 @@ class StdEnrollmentDetailController extends Controller
                                 Html::button('Save',['class'=>'btn btn-danger','type'=>"submit"])
         
                 ];         
-            }else if($stdEnrollmentHead->load($request->post()) && $model->load($request->post())){
+            }else if($stdEnrollmentHead->load($request->post()) && $stdEnrollmentHead->validate() && $model->load($request->post()) && $model->validate()){
 
                 $std_enrollment_head = Yii::$app->db->createCommand("SELECT * FROM std_enrollment_head where class_name_id = $stdEnrollmentHead->class_name_id AND session_id = $stdEnrollmentHead->session_id AND section_id = $stdEnrollmentHead->section_id")->queryAll();
 
@@ -225,6 +225,7 @@ class StdEnrollmentDetailController extends Controller
                     'title'=> "Create new Stdudent Enrollment Detail",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'stdEnrollmentHead' => $stdEnrollmentHead,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-danger pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-success','type'=>"submit"])

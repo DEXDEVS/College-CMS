@@ -11,12 +11,14 @@ use yii\web\UploadedFile;
 <div class="institute-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+     <h3 style="color: #337AB7; margin-top: -10px"><small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
     <div class="row">
         <div class="col-md-6">
+             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 97px; top: 18px"></i>
             <?= $form->field($model, 'institute_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-6">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 137px; top: 17px"></i>
             <?= $form->field($model, 'institute_account_no')->textInput(['maxlength' => true]) ?>
         </div>        
     </div>

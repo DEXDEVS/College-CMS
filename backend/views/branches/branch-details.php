@@ -44,11 +44,10 @@
   	        <li><a href="./branches" style="color: #3C8DBC;">Back</a></li>
   	    </ol>
       </section>
-      <!--  -->
+    <!--  -->
   	<section class="content">
         <div class="row">
           <div class="col-md-3">
-
             <!-- Profile Image -->
             <div class="box box-primary">
               <div class="box-body box-profile">
@@ -57,7 +56,6 @@
                 <p class="text-muted text-center">
                   <h4 align="center" style="color: #3C8DBC;"><?php echo $instituteInfo[0]['institute_name'];?></h4>
                 </p>
-
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
                     <b>Principal:</b>
@@ -78,15 +76,12 @@
                     </a>
                   </li>
                 </ul>
-
                 <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
               </div>
               <!-- /.box-body -->
             </div>
             <!-- /.box -->
-
             <!-- About Me Box -->
-            
             <!-- /.box -->
           </div>
           <!-- /.col -->
@@ -212,24 +207,30 @@
                         <table class="table table-striped table-hover table-responsive table-bordered table-condensed" style="width: 100%;">
                           <thead>
                            <tr class="label-primary">
-                          		<th class="text-center">Sr #:</th>
-                          		<th>Session Name:</th>
-                          		<th>Session Start Date</th>
-                          		<th>Session End Date</th>
-                          		<th>Status</th>
+                          		<th class="text-center">Sr.#</th>
+                          		<th class="text-center">Session Name</th>
+                          		<th class="text-center">Session Start Date</th>
+                          		<th class="text-center">Session End Date</th>
+                          		<th class="text-center">Status</th>
                           	</tr>
                           </thead>
                           <tbody>  
                           	<?php foreach ($sessions as $key => $val){  ?>
-                            <tr>
-                              <td class="text-center"><?php echo $key+1; ?></td>
+                            <tr class="text-center">
+                              <td class="text-center"><b><?php echo $key+1; ?></b></td>
                               <td><?php echo $val['session_name'];?></td>
                               <td><?php echo $val['session_start_date'];?></td>
                               <td><?php echo $val['session_end_date'];?></td>
                               <td>
-                                <span class="label label-success">
-                                  <?php echo $val['status'];?>
-                                </span>
+                                <?php if ($val['status'] == "Active") { ?>
+                                  <span class="label label-success">
+                                    <?php echo $val['status'];?>
+                                  </span>
+                                <?php } else { ?>
+                                  <span class="label label-danger">
+                                    <?php echo $val['status'];?>
+                                  </span>
+                                <?php } ?>
                               </td>
                             </tr>
                         	<?php } ?>
@@ -255,11 +256,11 @@
                           <thead>
                           	<tr class="label-primary">
                           		<th class="text-center">Sr #:</th>
-                          		<th>Section Name</th>
+                          		<th style="width: 110px">Section Name</th>
                           		<th>Section Description</th>
-                          		<th class="text-center">Section<br> Intake</th>
-                          		<th class="text-center">Enroll<br> Students</th>
-                              <th class="text-center">Remaining<br> Intake</th>
+                          		<th class="text-center">Section Intake</th>
+                          		<th class="text-center">Enrolled Students</th>
+                              <th class="text-center">Remaining</th>
                           	</tr>
                           </thead>
                           <tbody>  
@@ -268,16 +269,11 @@
                               $countStudent = 0;
                               $countRemainingIntake = 0;
                               foreach ($sections as $key => $val){ 
-                              $students = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_std_id 
-                                FROM std_enrollment_detail as sed 
-                                INNER JOIN std_enrollment_head as seh 
-                                ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
-                                WHERE seh.section_id = $key+1")->queryAll();
+                              $students = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_std_id FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.section_id = $key+1")->queryAll();
                                 $studentCount = count($students);
-
                             ?>  
                             <tr>
-                              <td class="text-center"><?php echo $key+1; ?></td>
+                              <td class="text-center"><b><?php echo $key+1; ?></b></td>
                               <td><?php echo $val['section_name'];?></td>
                               <td><?php echo $val['section_description'];?></td>
                               <td align="center">
@@ -305,8 +301,8 @@
                           </tr>
                           <tr class="label-info">
                             <th class="text-center">Intake</th>
-                            <th class="text-center">Enroll Students</th>
-                            <th class="text-center">Remaining Intake</th>
+                            <th class="text-center">Enrolled Students</th>
+                            <th class="text-center">Remaining</th>
                           </tr>
                           <tr align="center">
                               <td width="78px">
@@ -353,7 +349,7 @@
                           <tbody>
                             <tr>
                             <?php foreach ($classes as $key => $val){ ?>
-                              <td class="text-center"><?php echo $key+1;?></td>
+                              <td class="text-center"><b><?php echo $key+1;?></b></td>
                               <td><?php echo $val['class_name'];?></td>
                               <td><?php echo $val['class_name_description'];?></td>
                             </tr>
@@ -393,7 +389,7 @@
                                 WHERE emInfo.emp_designation_id = $key+1")->queryAll();
                                 $empCount = count($emp);
                               ?>
-                                <td class="text-center"><?php echo $key+1; ?></td>
+                                <td class="text-center"><b><?php echo $key+1; ?></b></td>
                                 <td><?php echo $value['emp_designation'] ?></td>
                                 <td align="center">
                                   <span class="label-warning" style="border-radius: 50%; padding: 3px 7px">

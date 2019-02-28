@@ -45,10 +45,12 @@
     // Stduent Fee Info..... 
     $stdFeeInfo = Yii::$app->db->createCommand("SELECT * FROM std_fee_details WHERE std_id = '$id'")->queryAll();
 
-
-    // $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
-
-    // $sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
+    // fetching student roll number from `std_enrollment_detail` against selected student `$id`
+    $stdRollNo = Yii::$app->db->createCommand("SELECT sed.std_roll_no
+    FROM std_enrollment_detail as sed
+    INNER JOIN std_enrollment_head as seh
+    ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
+    WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll(); 
 
 ?>
 <div class="container-fluid">
@@ -77,7 +79,15 @@
                 <p class="text-muted text-center"><!-- Software Engineer --></p>
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
-                    <b>Roll #:</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_id'] ?></a>
+                    <b>Roll #:</b> <a class="pull-right"><?php 
+                    if (empty($stdRollNo[0]['std_roll_no'])) {
+                      echo "N/A";
+                    }
+                    else
+                    {
+                      echo $stdRollNo[0]['std_roll_no'];
+                    }
+                     ?></a>
                   </li>
                   <li class="list-group-item" style="height: 75px;">
                     <b>Class:</b><br>
