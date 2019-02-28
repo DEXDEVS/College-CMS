@@ -125,7 +125,7 @@ use common\models\Branches;
                 <?= Html::submitButton($model->isNewRecord ? 'Create' : ' Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary btn-sm fa fa-edit']) ?>
             </div>
             <div class="col-md-1">
-                <a href="index.php?r=emp-info/view&id=<?php echo $model->emp_id; ?>" class="btn btn-warning btn-sm fa fa-step-backward"> Back</a>
+                <a href="./emp-info-view?id=<?php echo $model->emp_id; ?>" class="btn btn-warning btn-sm fa fa-step-backward"> Back</a>
             </div>
         </div>
     <?php } ?>

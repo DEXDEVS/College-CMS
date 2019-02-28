@@ -60,7 +60,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Section</label>
-                    <select class="form-control" name="sectionid" id="section" >
+                    <select class="form-control" name="sectionid" id="sectionId" >
                     		<option value="">Select Section</option>
 					</select>      
                 </div>    
@@ -69,15 +69,8 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Subject</label>
-                    <select class="form-control" name="classid" id="">
-							<?php 
-								$className = Yii::$app->db->createCommand("SELECT * FROM std_class_name")->queryAll();
-								
-								  	foreach ($className as  $value) { ?>	
-									<option value="<?php echo $value["class_name_id"]; ?>">
-										<?php echo $value["class_name"]; ?>	
-									</option>
-							<?php } ?>
+                    <select class="form-control" name="subjectId" id="">
+							<option value="">Select Subject</option>
 					</select>      
                 </div>    
             </div>              
@@ -232,19 +225,17 @@
 </body>
 </html>
 <?php
-$url = \yii\helpers\Url::to("index.php?r=std-attendance/fetch-section");
+$url = \yii\helpers\Url::to("std-attendance/fetch-section");
 
 $script = <<< JS
 $('#classId').on('change',function(){
    var classId = $('#classId').val();
-   //alert(classId);
    $.ajax({
         type:'post',
         data:{class_Id:classId},
         url: "$url",
 
         success: function(result){
-            //console.log(result);
             var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
             var options = '';
             $('#sessionId').empty();
@@ -264,15 +255,40 @@ $('#sessionId').on('change',function(){
 
 	$.ajax({
         type:'post',
-        data:{class_Id:classId,sessionId:sessionId},
+        data:{class_Id:classId,session_Id:sessionId},
+        url: "$url",
+
+        success: function(result){
+        var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
+            var options = '';
+            $('#sectionId').empty();
+            $('#sectionId').append("<option>"+"Select Section"+"</option>");
+            for(var i=0; i<jsonResult.length; i++) { 
+		        options += '<option value="'+jsonResult[i].section_id+'">'+jsonResult[i].section_name+'</option>';
+		    }
+		    // Append to the html
+		    $('#sectionId').append(options);
+        }           
+    });       
+});
+
+$('#sectionId').on('change',function(){
+	var classId = $('#classId').val();
+	var sessionId = $('#sessionId').val();
+	var sectionId = $('#sectionId').val();
+
+	$.ajax({
+        type:'post',
+        data:{class_Id:classId,session_Id:sessionId,section_Id:sectionId},
         url: "$url",
 
         success: function(result){
         console.log(result);
       
-         }         
+         }           
     });       
 });
+
 JS;
 $this->registerJs($script);
 ?>

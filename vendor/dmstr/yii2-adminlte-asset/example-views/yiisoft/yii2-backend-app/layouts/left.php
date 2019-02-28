@@ -143,7 +143,7 @@
                     // ------------------------------------------------
                     // Fee Registration start...
                     [
-                        'label' => 'Fee Voucher',
+                        'label' => 'Fee Module',
                         'icon' => 'credit-card',
                         'url' => '#',
                         'items' => [

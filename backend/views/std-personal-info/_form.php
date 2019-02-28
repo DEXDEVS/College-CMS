@@ -194,7 +194,7 @@ use common\models\StdSubjects;
             <div class="col-md-4">
                 <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i> -->
                     <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
-                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1])->all(),'class_name_id','class_name'),
+                    ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1 , 'status'=>'Active'])->all(),'class_name_id','class_name'),
                     ['prompt'=>'Select Class', 'id'=>'classId']
 
                 )?>
@@ -256,7 +256,7 @@ use common\models\StdSubjects;
         <div class="row">
             <div class="col-md-3">
                 <?= $form->field($stdFeeDetails, 'feeSession')->dropDownList(
-                    ArrayHelper::map(StdSessions::find()->all(),'session_id','session_name'),
+                    ArrayHelper::map(StdSessions::find()->where(['status'=>'Active'])->all(),'session_id','session_name'),
                         ['prompt'=>'Select Session','id'=>'sessionId']
                 )?>
             </div>

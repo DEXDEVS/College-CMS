@@ -22,7 +22,7 @@ use common\models\Departments;
 
 <div class="emp-info-form" style="border:1px solid; padding: 12px;">
     <?php $form = ActiveForm::begin(); ?>
-    <h3 style="color: #337AB7; margin-top: -10px"> Employee Info <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
+    <h3 style="color: #337AB7; margin-top: -10px"> Employee Information <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
     <div class="row">
         <div class="col-md-4">
             <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 120px; top: 6px"></i> -->

@@ -22,6 +22,10 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'class_name_description',
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'status',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',

@@ -118,7 +118,10 @@ class EmpInfoController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
+
                     'title'=> "Create Employee Information",
+
+                    'title'=> "<h2 class='well well-sm label-primary text-center'><i class='fa fa-user-circle-o'></i> Employee Registration Form</h2>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                         'empDepartments' => $empDepartments,
