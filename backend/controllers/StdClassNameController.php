@@ -70,11 +70,13 @@ class StdClassNameController extends Controller
      */
     public function actionView($id)
     {   
+         $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
+
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "<b>Student Class Name: </b>".$id,
+                    'title'=> "<b>Class Name: </b>".$model->class_name,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -106,7 +108,7 @@ class StdClassNameController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Create new Stduent Class Name</b>",
+                    'title'=> "<b>Create Class Name</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -173,7 +175,7 @@ class StdClassNameController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update StdClassName #".$id,
+                    'title'=> "Updat ClassName: ".$model->class_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

@@ -70,11 +70,19 @@ class StdFeePkgController extends Controller
      */
     public function actionView($id)
     {   
+        $model = $this->findModel($id);
+        
+        // getting `session_id` from `std_fee_pkg`
+        $sessionId = Yii::$app->db->createCommand("SELECT session_id FROM std_fee_pkg WHERE std_fee_id = '$id'")->queryAll();
+        $sessionID = $sessionId[0]['session_id'];
+        // getting `session_name` from `std_sessions` against `session_id`
+        $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionID'")->queryAll();
+        
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "StdFeePkg #".$id,
+                    'title'=> "Standard Fee Packages: ".$sessionName[0]['session_name'],
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -106,7 +114,7 @@ class StdFeePkgController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new StdFeePkg",
+                    'title'=> "Create Standard Fee Packages",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -164,7 +172,12 @@ class StdFeePkgController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id); 
+        // getting `session_id` from `std_fee_pkg`
+        $sessionId = Yii::$app->db->createCommand("SELECT session_id FROM std_fee_pkg WHERE std_fee_id = '$id'")->queryAll();
+        $sessionID = $sessionId[0]['session_id'];
+        // getting `session_name` from `std_sessions` against `session_id`
+        $sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionID'")->queryAll();      
 
         if($request->isAjax){
             /*
@@ -173,7 +186,7 @@ class StdFeePkgController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update StdFeePkg #".$id,
+                    'title'=> "Update Standard Fee Packages: ".$sessionName[0]['session_name'],
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

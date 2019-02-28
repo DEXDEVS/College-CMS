@@ -70,11 +70,12 @@ class StdSessionsController extends Controller
      */
     public function actionView($id)
     {   
+        $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "<b>Student Sessions: </b>".$id,
+                    'title'=> "<b>Session: </b>".$model->session_name,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -106,7 +107,7 @@ class StdSessionsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Create new Student Session</b>",
+                    'title'=> "<b>Create Session</b>",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -173,7 +174,7 @@ class StdSessionsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Update Student Sessions</b>".$id,
+                    'title'=> "<b>Update Sessions: </b>".$model->session_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

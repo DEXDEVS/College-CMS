@@ -11,17 +11,19 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'sms_name')->textInput(['maxlength' => true]) ?>
-
+    <?php 
+        if (isset($_GET['id'])) {
+          $id = $_GET['id'];
+          
+           $getStdInfo = Yii::$app->db->createCommand("SELECT std.std_name FROM std_personal_info as std WHERE std.std_id = '$id'")->queryAll();
+           $StdName = $getStdInfo[0]['std_name'];
+    ?>        
+            <?= $form->field($model, 'sms_name')->textInput(['maxlength' => true, 'value'=>"$StdName", 'readonly' => true]) ?>
+    <?php } else{ ?>
+            <?= $form->field($model, 'sms_name')->textInput(['maxlength' => true]) ?>
+    <?php } ?> 
+   
     <?= $form->field($model, 'sms_template')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

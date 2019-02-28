@@ -10,7 +10,6 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="emails-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <!-- /.col -->
@@ -21,6 +20,27 @@ use yii\widgets\ActiveForm;
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+              <?php 
+                if (isset($_GET['id'])) {
+                  $id = $_GET['id'];
+                  
+                   $getStdInfo = Yii::$app->db->createCommand("SELECT std.std_name, std.std_email FROM std_personal_info as std WHERE std.std_id = '$id'")->queryAll();
+                   $StdName = $getStdInfo[0]['std_name'];
+                   $StdEmail = $getStdInfo[0]['std_email'];
+                  ?>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <?= $form->field($model, 'receiver_name')->textInput(['maxlength' => true, 'placeholder'=>"Name:", 'value'=>"$StdName", 'readonly' => true]) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <?= $form->field($model, 'receiver_email')->textInput(['maxlength' => true, 'Placeholder' => 'To:', 'value'=>"$StdEmail", 'readonly' => true]) ?>
+                      </div>
+                    </div>
+                </div>
+          <?php } else { ?>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -33,6 +53,8 @@ use yii\widgets\ActiveForm;
                       </div>
                     </div>
                 </div>
+          <?php } ?>
+                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

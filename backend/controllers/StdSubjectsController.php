@@ -55,11 +55,12 @@ class StdSubjectsController extends Controller
      */
     public function actionView($id)
     {   
+         $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "StdSubjects #".$id,
+                    'title'=> "Subjects Combination: ".$model->std_subject_name,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -91,7 +92,7 @@ class StdSubjectsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new StdSubjects",
+                    'title'=> "Create Subjects Combination",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -164,7 +165,7 @@ class StdSubjectsController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update StdSubjects #".$id,
+                    'title'=> "Update Subjects Combination: ".$model->std_subject_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

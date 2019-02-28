@@ -80,11 +80,11 @@
         <table class="table table-bordered">
             <tbody>
                 <tr class="bg-navy">
-                    <th colspan="2" class=" text-center"><b>Voucher #: <?php echo $voucherNo; ?></b></th>
+                    <th colspan="3" class=" text-center"><b>Voucher #: <?php echo $voucherNo; ?></b></th>
                 </tr>
                 <tr class="bg-info">
                     <th><b>Fee Types</b></th>
-                    <th class="text-center">Amount</th>
+                    <th colspan="2" class="text-center">Amount</th>
                 </tr>
                 <form method="post" action="fee-transaction-detail-collect-voucher">
                     <div class="row">
@@ -94,17 +94,21 @@
                             </div>    
                         </div>    
                     </div>
-                    <?php for ($i=0; $i < $count ; $i++) { 
+                    <?php for ($i=0; $i <$count; $i++) { 
                         $typeId = $transactionDetail[$i]['fee_type_id'];
                         $typeIdArray[$i] = $typeId;
                         $feeAmount = $transactionDetail[$i]['fee_amount'];
                         $collectedAmount = $transactionDetail[$i]['collected_fee_amount'];
                         $netFee = $feeAmount - $collectedAmount;
                         $feeTypeName = Yii::$app->db->createCommand("SELECT fee_type_name FROM fee_type WHERE fee_type_id = '$typeId'")->queryAll();
-
                     ?>
                         <tr>
                             <td width="150px"><?php echo $feeTypeName[0]['fee_type_name'];?></td>
+                            <td width="80px">
+                                <div class="form-group">
+                                    <input type="number" class="form-control" value="<?php echo $netFee;?>"  readonly="" style="width:80px">
+                                </div>
+                            </td>
                             <td width="80px">
                                 <div class="form-group">
                                     <input type="text" name="amount<?php echo $i;?>" class="form-control" value="<?php echo $netFee;?>" style="width:80px">

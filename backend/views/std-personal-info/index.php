@@ -11,7 +11,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel common\models\StdPersonalInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Std Personal Infos');
+$this->title = Yii::t('app', 'Student Personal Information');
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -41,7 +41,7 @@ CrudAsset::register($this);
             'responsive' => true,          
             'panel' => [
                 'type' => 'primary', 
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Std Personal Infos listing',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> Student Personal Information',
                 'before'=>'<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
                 'after'=>BulkButtonWidget::widget([
                             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

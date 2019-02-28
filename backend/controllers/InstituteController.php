@@ -56,11 +56,12 @@ class InstituteController extends Controller
      */
     public function actionView($id)
     {   
+        $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Institute #".$id,
+                    'title'=> "Institute: ".$model->institute_name,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -92,7 +93,7 @@ class InstituteController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new Institute",
+                    'title'=> "Create Institute",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -174,7 +175,7 @@ class InstituteController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update Institute #".$id,
+                    'title'=> "Update Institute: ".$model->institute_name,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
