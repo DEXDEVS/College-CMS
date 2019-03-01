@@ -56,7 +56,7 @@
                     <select class="form-control" name="sessionid" id="sessionId" required="">
                             <option value="">Select Session</option>
                             <?php 
-                                $sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1")->queryAll();
+                                $sessionName = Yii::$app->db->createCommand("SELECT * FROM std_sessions where delete_status=1 AND status ='Active'")->queryAll();
                                     foreach ($sessionName as  $value) { ?>  
                                     <option value="<?php echo $value["session_id"]; ?>">
                                         <?php echo $value["session_name"]; ?>   
@@ -150,7 +150,8 @@
 			</thead>
 			<tbody>
 				<?php
-					$totalFee = $total1st = $total2nd = $total3rd = $total4th = $total5th = $total6th = $paid1st = $paid2nd = $paid3rd = $paid4th = $paid5th = $paid6th = 0;
+					$totalFee = $total1st = $total2nd = $total3rd = $total4th = $total5th = $total6th  = $paid2nd = $paid3rd = $paid4th = $paid5th = $paid6th = 0;
+					$paid1st = Array(0,0,0,0,0,0);
 					foreach ($students as $id => $value) {
 					// students `id`
 					$stdID = $students[$id]['std_enroll_detail_std_id'];
@@ -200,10 +201,6 @@
 						if(!empty($stdFee[$i]['installment_no'])){
 							$installNo = $stdFee[$i]['installment_no'];
 							$stdCollectedAmount = Yii::$app->db->createCommand("SELECT ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdID' AND ftd.fee_type_id = 2 AND fth.installment_no ='$installNo'")->queryAll();
-							echo $id. "<br>";
-							var_dump($stdCollectedAmount);
-							//$paid1st += $stdCollectedAmount[$id]['collected_fee_amount'];
-								//$paid2nd += $stdCollectedAmount[0]['collected_fee_amount'];
 						}
 					}	
 					$tuitionFee = $stdFeePakg[0]['tuition_fee'];
@@ -215,7 +212,9 @@
 					<td align="center"><?php echo $tuitionFee;  ?></td>
 					<?php 
 					$installSum = 0;
-					$paidTotal = 0;
+					
+
+					$paidArray[][] = Array();
 					for ($i=0; $i <6; $i++) { ?>
 						<td class="tdcolor" align="center" style="background-color: #ccc">
 							<?php
@@ -235,8 +234,9 @@
 							if(!empty($stdCollectedAmount) AND $stdCollectedAmount[0]['collected_fee_amount'] > 0){
 								echo $stdCollectedAmount[0]['collected_fee_amount']; 
 								$installSum += $stdCollectedAmount[0]['collected_fee_amount'];
-								$paid1st += $stdCollectedAmount[0]['collected_fee_amount'];
-								$paidArray[] = $stdCollectedAmount[0]['collected_fee_amount'];
+								//$paid1st += $stdCollectedAmount[0]['collected_fee_amount'];
+								$paidArray[$id][$i] = $stdCollectedAmount[0]['collected_fee_amount'];
+								
 							}
 							else {
 								echo "";
@@ -244,13 +244,52 @@
 						}?>
 					
 						</td>
-					<?php } var_dump($paidArray); ?>
+					<?php  }   ?>
 
 					<td style="background-color: gray;" class="a text-center"><?php echo ($tuitionFee - $installSum); ?></td>
 					<td style="width: 60px">---</td>
 
 				</tr>
-			<?php } ?>
+			<?php 
+				if (empty($paidArray[$id][0])) {
+					$paid1st[0] += 0;
+				}
+				else{
+					$paid1st[0] += $paidArray[$id][0];
+				}
+				if (empty($paidArray[$id][1])) {
+					$paid1st[1] += 0;
+				}
+				else{
+					$paid1st[1] += $paidArray[$id][1];
+				}
+				if (empty($paidArray[$id][2])) {
+					$paid1st[2] += 0;
+				}
+				else{
+					$paid1st[2] += $paidArray[$id][2];
+				}
+				if (empty($paidArray[$id][3])) {
+					$paid1st[3] += 0;
+				}
+				else{
+					$paid1st[3] += $paidArray[$id][3];
+				}
+				if (empty($paidArray[$id][4])) {
+					$paid1st[4] += 0;
+				}
+				else{
+					$paid1st[4] += $paidArray[$id][4];
+				}
+				if (empty($paidArray[$id][5])) {
+					$paid1st[5] += 0;
+				}
+				else{
+					$paid1st[5] += $paidArray[$id][5];
+				}
+				} 
+				var_dump($paidArray);	
+			?>
 				
 				<tr align="center" style="background-color: #ccc;">
 					<th colspan="3" align="center" class="bg-navy text-center tdcolor" >
@@ -258,17 +297,17 @@
 					</th>
 					<td class="tdcolor"><b><?php echo $totalFee; ?></b></td>
 					<td class="tdcolor"><b><?php echo $total1st; ?></b></td>
-					<td style="background-color: gray;" class="a"><?php echo $paidTotal; ?></td>
+					<td style="background-color: gray;" class="a"><?php echo $paid1st[0]; ?></td>
 					<td class="tdcolor"><b><?php echo $total2nd; ?></b></td>
-					<td style="background-color: gray;" class="a"><?php // echo $paid2nd; ?></td>
+					<td style="background-color: gray;" class="a"><?php  echo $paid1st[1]; ?></td>
 					<td class="tdcolor"><b><?php echo $total3rd; ?></b></td>
-					<td style="background-color: gray;" class="a">---</td>
+					<td style="background-color: gray;" class="a"><?php  echo $paid1st[2]; ?></td>
 					<td class="tdcolor"><b><?php echo $total4th; ?></b></td>
-					<td style="background-color: gray;" class="a">---</td>
+					<td style="background-color: gray;" class="a"><?php  echo $paid1st[3]; ?></td>
 					<td class="tdcolor"><b><?php echo $total5th; ?></b></td>
-					<td style="background-color: gray;" class="a">---</td>
+					<td style="background-color: gray;" class="a"><?php  echo $paid1st[4]; ?></td>
 					<td class="tdcolor"><b><?php echo $total6th; ?></b></td>
-					<td style="background-color: gray;" class="a">---</td>
+					<td style="background-color: gray;" class="a"><?php  echo $paid1st[5]; ?></td>
 					<td style="background-color: gray;" class="a">---</td>
 					<td></td>
 				</tr>
