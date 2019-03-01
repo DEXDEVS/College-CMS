@@ -41,7 +41,7 @@ class StdEnrollmentDetailController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['get'],
                     'bulk-delete' => ['post'],
                 ],
             ],
@@ -117,7 +117,7 @@ class StdEnrollmentDetailController extends Controller
                                 Html::button('Save',['class'=>'btn btn-danger','type'=>"submit"])
         
                 ];         
-            }else if($stdEnrollmentHead->load($request->post()) && $stdEnrollmentHead->validate() && $model->load($request->post()) && $model->validate()){
+            }else if($stdEnrollmentHead->load($request->post())  && $model->load($request->post())){
 
                 $std_enrollment_head = Yii::$app->db->createCommand("SELECT * FROM std_enrollment_head where class_name_id = $stdEnrollmentHead->class_name_id AND session_id = $stdEnrollmentHead->session_id AND section_id = $stdEnrollmentHead->section_id")->queryAll();
 
@@ -148,7 +148,6 @@ class StdEnrollmentDetailController extends Controller
                         $model->std_reg_no =$stdName[0]['std_reg_no'];
                         //assign roll no
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $std_enrollment_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
-                        var_dump($StdEnrollmentDetail);
 
                         if(empty($StdEnrollmentDetail)){
                             $rollNo = 001;
@@ -188,7 +187,6 @@ class StdEnrollmentDetailController extends Controller
                         $model->std_reg_no =$stdName[0]['std_reg_no'];
                         // assign roll no 
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $stdEnrollmentHead->std_enroll_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
-                        var_dump($StdEnrollmentDetail);
 
                         if(empty($StdEnrollmentDetail)){
                             $rollNo = 001;
@@ -197,7 +195,6 @@ class StdEnrollmentDetailController extends Controller
                             $rollNo = substr($rolNo,14,3)+1;    
                         } 
                         $model->std_roll_no = $branchCode."-".$sectionName."-".$date.$rollNo;
-                        var_dump($model->std_roll_no);
                         $model->std_enroll_detail_std_id = $value;
                         $model->std_enroll_detail_std_name = $stdName[0]['std_name'];
 
@@ -349,11 +346,12 @@ class StdEnrollmentDetailController extends Controller
         return $this->render('fetch-students');
     }
 
-    public function actionDelete($id)
+    public function actionDelete($ids, $id)
     {
+        $deleteStd = Yii::$app->db->createCommand("SELECT std_enroll_detail_std_id FROM std_enrollment_detail WHERE std_enroll_detail_id =' $ids'")->queryAll();
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
-
+        $this->findModel($ids)->delete();
+        
         if($request->isAjax){
             /*
             *   Process for ajax request
@@ -364,7 +362,9 @@ class StdEnrollmentDetailController extends Controller
             /*
             *   Process for non-ajax request
             */
-            return $this->redirect(['index']);
+            $stdId = $deleteStd[0]['std_enroll_detail_std_id'];
+            $update = Yii::$app->db->createCommand()->update('std_academic_info',['std_enroll_status' => 'unsign'],['std_id' => $stdId])->execute();
+            return $this->redirect(['std-enrollment-head/index']);
         }
     }
 

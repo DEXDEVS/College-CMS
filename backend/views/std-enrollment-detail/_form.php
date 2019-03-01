@@ -29,7 +29,7 @@ use kartik\select2\Select2;
             <div class="col-md-6">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 55px; top: 18px"></i>
                 <?= $form->field($stdEnrollmentHead, 'session_id')->dropDownList(
-                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1])->all(),'session_id','session_name'),
+                    ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1 , 'status' => 'Active'])->all(),'session_id','session_name'),
                     [
                         'prompt'=>'Select Session',
                         'id' => 'sessionId',
@@ -73,7 +73,7 @@ use kartik\select2\Select2;
     
 </div>
 <?php
-$url = \yii\helpers\Url::to("index.php?r=std-enrollment-detail/fetch-students");
+$url = \yii\helpers\Url::to("std-enrollment-detail/fetch-students");
 
 $script = <<< JS
 $('#classId').on('change',function(){
