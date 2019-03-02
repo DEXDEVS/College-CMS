@@ -111,7 +111,7 @@
                             </td>
                             <td width="80px">
                                 <div class="form-group">
-                                    <input type="text" name="amount<?php echo $i;?>" class="form-control" value="<?php echo $netFee;?>" style="width:80px">
+                                    <input type="text" name="amount<?php echo $i;?>" class="form-control" value="<?php echo $netFee;?>" required="" style="width:80px">
                                 </div>
                             </td>
                         </tr>
