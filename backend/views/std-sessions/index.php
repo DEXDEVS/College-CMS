@@ -23,6 +23,13 @@ CrudAsset::register($this);
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax'=>true,
+            'rowOptions' => function($model){
+                        if($model->status == 'Inactive'){
+                            return ['class' => 'warning'];
+                        }else {
+                            return ['class' => 'success']; 
+                        }
+                    },
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
