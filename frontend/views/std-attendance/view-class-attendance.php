@@ -44,7 +44,7 @@
                 	<td>01</td>
                 	<td>Nadia</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -54,7 +54,7 @@
                 	<td>02</td>
                 	<td>Kinza</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -64,7 +64,7 @@
                 	<td>03</td>
                 	<td>Ali</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -74,7 +74,7 @@
                 	<td>04</td>
                 	<td>Sajid</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -84,7 +84,7 @@
                 	<td>05</td>
                 	<td>Adnan</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -94,7 +94,7 @@
                 	<td>06</td>
                 	<td>Qasim</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -104,7 +104,7 @@
                 	<td>07</td>
                 	<td>Rehan</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -114,7 +114,7 @@
                 	<td>08</td>
                 	<td>Zeeshan</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -124,7 +124,7 @@
                 	<td>09</td>
                 	<td>Shahzaib</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
@@ -134,7 +134,7 @@
                 	<td>010</td>
                 	<td>Muneeb</td>
                 	<?php 
-                		for($i=0; $i<186; $i++){
+                		for($i=0; $i<42; $i++){
                 			echo "<td></td>";
                 		}
                 	?>
