@@ -10,31 +10,27 @@
     //echo $photo;
     // Stduent Guardian Info.....  
     $stdGuardianInfo = Yii::$app->db->createCommand("SELECT * FROM std_guardian_info WHERE std_id = '$id'")->queryAll();
+    $stdGuardianId = $stdGuardianInfo[0]['std_guardian_info_id'];
     // Stduent ICE Info.....  
     $stdICEInfo = Yii::$app->db->createCommand("SELECT * FROM std_ice_info WHERE std_id = '$id'")->queryAll();
     // student ICE Name.... 
     if($stdICEInfo==null){
       $stdICEName = 'Not updated...';
-    }
-    else{
-      $stdICEName = $stdICEInfo[0]['std_ice_name'];  
-    }
-    // Student ICE Relation...
-    if($stdICEInfo==null){
       $stdICERelation = 'Not updated...';
-    }
-    else{
-      $stdICERelation = $stdICEInfo[0]['std_ice_relation'];  
-    }
-    // Student ICE Contact...
-    if($stdICEInfo==null){
       $stdICEContact = 'Not updated...';
+      $stdICEAddress = 'Not updated...';
+      $stdICEId = 0;
     }
     else{
-      $stdICEContact = $stdICEInfo[0]['std_ice_contact_no'];  
+      $stdICEId = $stdICEInfo[0]['std_ice_id'];
+      $stdICEName = $stdICEInfo[0]['std_ice_name'];  
+      $stdICERelation = $stdICEInfo[0]['std_ice_relation'];  
+      $stdICEContact = $stdICEInfo[0]['std_ice_contact_no'];
+      $stdICEAddress = $stdICEInfo[0]['std_ice_address'];  
     }
     // Stduent Academic Info..... 
     $stdAcademicInfo = Yii::$app->db->createCommand("SELECT * FROM std_academic_info WHERE std_id = '$id'")->queryAll();
+    $stdAcademicId = $stdAcademicInfo[0]['academic_id'];
     $stdAcademicClass = $stdAcademicInfo[0]['class_name_id'];  
     $stdSubjectID = $stdAcademicInfo[0]['subject_combination']; 
     $stdSubject = Yii::$app->db->createCommand("SELECT std_subject_name FROM std_subjects WHERE std_subject_id = '$stdSubjectID'")->queryAll();
@@ -44,6 +40,7 @@
 
     // Stduent Fee Info..... 
     $stdFeeInfo = Yii::$app->db->createCommand("SELECT * FROM std_fee_details WHERE std_id = '$id'")->queryAll();
+    $stdFeeId = $stdFeeInfo[0]['fee_id'];
 
     // fetching student roll number from `std_enrollment_detail` against selected student `$id`
     $stdRollNo = Yii::$app->db->createCommand("SELECT sed.std_roll_no
@@ -132,7 +129,7 @@
                         <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./email?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send Email </a>
+                      <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send Email </a>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
                       <a href="./sms?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send SMS </a>
@@ -216,7 +213,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Guardian Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./std-guardian-info-update?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="./std-guardian-info-update?id=<?php echo $stdGuardianId;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- guardian info start -->
@@ -281,7 +278,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> ICE Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./std-ice-info-update?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="./std-ice-info-update?id=<?php echo $stdICEId; ?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- ICE info start -->
@@ -301,6 +298,10 @@
                               <th>ICE Contact No:</th>
                               <td><?php echo $stdICEContact; ?></td>
                             </tr>
+                            <tr>
+                              <th>ICE Address:</th>
+                              <td><?php echo $stdICEAddress; ?></td>
+                            </tr>
                           </thead>
                         </table>
                       </div>
@@ -316,7 +317,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Academic Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./std-academic-info-update?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="./std-academic-info-update?id=<?php echo $stdAcademicId;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- Academic info start -->
@@ -391,7 +392,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Fee Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./std-fee-details-update?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <a href="./std-fee-details-update?id=<?php echo $stdFeeId;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                     </div>
                   </div><hr>
                   <!-- Fee info start -->
