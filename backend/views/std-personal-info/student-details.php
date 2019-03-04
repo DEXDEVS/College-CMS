@@ -106,10 +106,45 @@
                     <b>Email</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_email'] ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Contact #:</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_contact_no'] ?></a>
+                    <b>Contact #:</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_contact_no']; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Status:</b> <a class="pull-right"><span class="label label-success">Active</span></a>
+                    <b>Status:</b> <a class="pull-right">
+                      
+                      <?php 
+                        if ($stdPersonalInfo[0]['status'] == "Active") {?>
+                        <span class="label label-success"> 
+                        <?php echo $stdPersonalInfo[0]['status']; ?> 
+                        </span>
+                    <?php } else {?>
+                        <span class="label label-danger"> 
+                        <?php echo $stdPersonalInfo[0]['status']; ?> 
+                        </span>
+                    <?php } ?>
+                  </a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Academic Status:</b> <a class="pull-right">
+                      
+                      <?php 
+                        if ($stdPersonalInfo[0]['academic_status'] == "Active") {?>
+                        <span class="label label-success"> 
+                        <?php echo $stdPersonalInfo[0]['academic_status']; ?> 
+                        </span>
+                    <?php } else if ($stdPersonalInfo[0]['academic_status'] == "Promote"){?>
+                        <span class="label label-primary"> 
+                        <?php echo $stdPersonalInfo[0]['academic_status']; ?> 
+                        </span>
+                    <?php } else if ($stdPersonalInfo[0]['academic_status'] == "Left"){?>
+                      <span class="label label-danger"> 
+                        <?php echo $stdPersonalInfo[0]['academic_status']; ?> 
+                        </span>
+                      <?php }else{ ?>
+                        <span class="label label-warning"> 
+                        <?php echo $stdPersonalInfo[0]['academic_status']; ?> 
+                        </span>
+                      <?php } ?>
+                  </a>
                   </li>
                 </ul>
                 <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
@@ -140,8 +175,8 @@
                     <div class="col-md-7">
                       <div  style="float: right;">
                         <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
-                        <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-warning btn-sm fa fa-edit" style='color: white;'> Send Email </a>
-                        <a href="./sms?id=<?php echo $id;?>" class="btn btn-info btn-sm fa fa-edit" style='color: white;'> Send SMS </a>
+                        <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-warning btn-sm fa fa-envelope-o" style='color: white;'> Send Email </a>
+                        <a href="./sms?id=<?php echo $id;?>" class="btn btn-info btn-sm fa fa-comments-o" style='color: white;'> Send SMS </a>
                       </div>
                     </div>
                   </div><hr>

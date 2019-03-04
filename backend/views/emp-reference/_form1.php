@@ -33,9 +33,14 @@ use yii\widgets\ActiveForm;
     </div>
 
 	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	    </div>
+        <div class="row">
+            <div class="col-md-1">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : ' Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary btn-sm fa fa-edit']) ?>
+            </div>
+            <div class="col-md-1">
+                <a href="./emp-info-view?id=<?php echo $model->emp_id; ?>" class="btn btn-warning btn-sm fa fa-step-backward"> Back</a>
+            </div>
+        </div>
 	<?php } ?>
 
     <?php ActiveForm::end(); ?>
