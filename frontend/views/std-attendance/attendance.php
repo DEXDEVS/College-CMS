@@ -69,7 +69,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Subject</label>
-                    <select class="form-control" name="subjectId" id="">
+                    <select class="form-control" name="subjectid" id="subjectId">
 							<option value="">Select Subject</option>
 					</select>      
                 </div>    
@@ -90,10 +90,12 @@
 		$classid= $_POST["classid"];
 		$sessionid = $_POST["sessionid"];
 		$sectionid = $_POST["sectionid"];
+		$subjectid = $_POST["subjectid"];
 		$date = $_POST["date"];
 
-		$student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
+		$student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id, sed.std_roll_no FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
 		?>
+		
 	<div class="container-fluid" style="margin-top: -30px">
 		<hr>
 		<form method="POST" action="student-attendance">
@@ -112,7 +114,7 @@
 						for( $i=0; $i<$length; $i++) { ?>
 							<tr>
 								<td><?php echo $i+1 ?></td>
-								<td><?php echo $student[$i]['std_enroll_detail_std_id'] ?></td>
+								<td><?php echo $student[$i]['std_roll_no'] ?></td>
 								<?php $stdId = $student[$i]['std_enroll_detail_std_id'];
 									  $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll();?>
 								<td><?php echo $stdName[0]['std_name'] ?></td>
@@ -135,10 +137,13 @@
 						<?php 
 							// Select Class Name
 							$className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
-							// Select Section 
+							// Select Session 
 							$sessionName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessionid'")->queryAll();
 							// Select Section
 							$sectionName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$sectionid'")->queryAll();
+							// Select Subject
+							$subjectName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$subjectid'")->queryAll();
+
 						?>
 
 						<table width="100%" class="table table-responsive table-bordered table-responsive table-condensed table-hover">
@@ -160,6 +165,10 @@
 							<tr>
 								<th>Section </th>
 								<td><?php echo $sectionName[0]['section_name']; ?></td>
+							</tr>
+							<tr>
+								<th>Subject </th>
+								<td><?php echo $subjectName[0]['subject_name']; ?></td>
 							</tr>
 						</table>
 					</div>
@@ -184,6 +193,7 @@
 	                	<input type="hidden" name="classid" value="<?php echo $classid; ?>">
 	                	<input type="hidden" name="sessionid" value="<?php echo $sessionid; ?>">
 	                	<input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
+	                	<input type="hidden" name="subjectid" value="<?php echo $subjectid; ?>">
 	                	<input type="hidden" name="date" value="<?php echo $date; ?>">
 	                </div>    
 	        </div>
@@ -199,6 +209,7 @@
 				$classid = $_POST["classid"];
 				$sessionid = $_POST["sessionid"];
 				$sectionid = $_POST["sectionid"];
+				$subjectid = $_POST["subjectid"];
 				$date = $_POST["date"];
 				$length = $_POST["length"];
 				$stdAttendId = $_POST["stdAttendance"];
@@ -215,6 +226,7 @@
 						'class_name_id' => $classid,
 						'session_id'=> $sessionid,
 						'section_id'=> $sectionid,
+						'subject_id'=> $subjectid,
 						'date' => $date,
 						'student_id' => $stdAttendId[$i],
 						'status' => $status[$i],
@@ -264,7 +276,7 @@ $('#sessionId').on('change',function(){
             $('#sectionId').empty();
             $('#sectionId').append("<option>"+"Select Section"+"</option>");
             for(var i=0; i<jsonResult.length; i++) { 
-		        options += '<option value="'+jsonResult[i].section_id+'">'+jsonResult[i].section_name+'</option>';
+		        options += '<option value="'+ jsonResult[i].section_id +'">'+ jsonResult[i].section_name +'</option>';
 		    }
 		    // Append to the html
 		    $('#sectionId').append(options);
@@ -273,18 +285,31 @@ $('#sessionId').on('change',function(){
 });
 
 $('#sectionId').on('change',function(){
-	var classId = $('#classId').val();
-	var sessionId = $('#sessionId').val();
-	var sectionId = $('#sectionId').val();
-
+	var clsId = $('#classId').val();
+	var sessId = $('#sessionId').val();
+	var sectId = $('#sectionId').val();
+	
 	$.ajax({
         type:'post',
-        data:{class_Id:classId,session_Id:sessionId,section_Id:sectionId},
+        data:{class:clsId,session:sessId,section:sectId},
         url: "$url",
 
         success: function(result){
         console.log(result);
-      
+        var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
+            
+            var len =jsonResult[0].length;
+            var option = "";
+            $('#subjectId').empty();
+            $('#subjectId').append("<option>"+"Select Subject"+"</option>");
+            for(var i=0; i<len; i++)
+            {
+            var subId = jsonResult[0][i];
+            var subName = jsonResult[1][i];
+            
+            option += '<option value="'+ subId +'">'+ subName +'</option>';
+            }
+            $('#subjectId').append(option);      
          }           
     });       
 });

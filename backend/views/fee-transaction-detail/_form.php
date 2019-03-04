@@ -164,7 +164,6 @@ $('#sectionId').on('change',function(){
         url: "$url",
 
         success: function(result){
-            console.log(result);
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
             
             var len =jsonResult[0].length;
