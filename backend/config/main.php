@@ -85,6 +85,9 @@ return [
                 'fee-transaction-detail-class-account-info' => 'fee-transaction-detail/class-account-info',
                 'fee-transaction-detail-voucher' => 'fee-transaction-detail/voucher',
 
+                'emails-create' => 'emails/create',
+
+                'sms' => 'sms/create',
                 'sms-absent-sms' => 'sms/absent-sms',
 
 

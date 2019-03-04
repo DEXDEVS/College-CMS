@@ -306,7 +306,7 @@ $('#sectionId').on('change',function(){
             {
             var subId = jsonResult[0][i];
             var subName = jsonResult[1][i];
-            alert(subName);
+            
             option += '<option value="'+ subId +'">'+ subName +'</option>';
             }
             $('#subjectId').append(option);      
