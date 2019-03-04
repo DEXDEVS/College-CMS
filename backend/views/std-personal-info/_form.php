@@ -10,6 +10,7 @@ use common\models\StdClassName;
 use common\models\StdSessions;
 use common\models\Concession;
 use common\models\StdSubjects;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StdPersonalInfo */
@@ -23,7 +24,11 @@ use common\models\StdSubjects;
 ?>
 
 <div class="std-personal-info-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+                                'id'=>$model->formName(),
+                                'enableAjaxValidation'=>true,
+                                'validationUrl'=>Url::toRoute('std-personal-info/validation')
+    ]); ?>
     <div style="border: 2px solid #337AB7; padding: 15px;">       
         <h3 style="color: #337AB7; margin-top: -10px"> Personal Information <small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
         <div class="row">
@@ -302,22 +307,22 @@ use common\models\StdSubjects;
         </div>
         <!-- Fee Installments start -->
         <div class="row" >
-            <div class="col-md-2">
+            <div class="col-md-2" style="display:none;" id = "f1">
                 <?= $form->field($stdFeeInstallments, 'amount1')->textInput(['id'=>'amnt1']) ?>               
             </div>   
-            <div class="col-md-2">
+            <div class="col-md-2" style="display:none;" id = "f2">
                 <?= $form->field($stdFeeInstallments, 'amount2')->textInput(['id'=>'amnt2']) ?>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="display:none;" id = "f3">
                 <?= $form->field($stdFeeInstallments, 'amount3')->textInput(['id'=>'amnt3']) ?>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="display:none;" id = "f4">
                 <?= $form->field($stdFeeInstallments, 'amount4')->textInput(['id'=>'amnt4']) ?>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="display:none;" id = "f5">
                 <?= $form->field($stdFeeInstallments, 'amount5')->textInput(['id'=>'amnt5']) ?>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="display:none;" id = "f6">
                 <?= $form->field($stdFeeInstallments, 'amount6')->textInput(['id'=>'amnt6']) ?>
             </div>     
         </div>
@@ -341,18 +346,21 @@ use common\models\StdSubjects;
         var value2 = document.getElementById('admissionFeeDiscount').value;
         document.getElementById('netAdmissionFee').value = value1 - value2 ;
     }
-    
+
     $('#noOfInstallment').on('change',function(){
         for (var i = 1 ; i<= 6; i++) {
             $('#amnt'+i).val('');
+            $('#f'+i).hide();
         }
         var noOfInstallment = $('#noOfInstallment').val();
         var tuitionFee = $('#tuitionFee').val();
         var amountPerInstallment = parseInt(tuitionFee / noOfInstallment);
 
         for (var i = 1 ; i<= noOfInstallment; i++) {
+            $('#f'+i).show();
             $('#amnt'+i).val(amountPerInstallment);
         }
+
     });
 
 	// calculate concession start....
@@ -407,6 +415,28 @@ use common\models\StdSubjects;
 $url = \yii\helpers\Url::to("std-personal-info/fetch-fee");
 
 $script = <<< JS
+
+$('form#{$model->formName()}').on('beforeSubmit',function(e)
+{
+    var \$form = $(this);
+    $.post(
+        \$form.attr("action"), //serialize Yii2 form
+        \$form.serialize()
+    )
+        .done(function(result){
+        if(result == 1)
+        {
+            $(\$form).trigger("reset");
+            $.pjax.reload({container:'#stdPersonal'});
+        }else{ 
+            $("#message").html(result);
+        }
+        }).fail(function()
+        {
+            console.log("server error");
+        });
+    return false;
+});
 
 // getting std-personal-info- by std inquiry no...
 $('#inquiryNo').on('change',function(){

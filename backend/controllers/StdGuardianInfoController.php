@@ -88,6 +88,15 @@ class StdGuardianInfoController extends Controller
         }
     }
 
+    public function actionValidation(){
+        $model = new StdGuardianInfo();
+
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+                Yii::$app->response->format = 'json';
+                return ActiveForm::validate($model);
+            }
+    }
+
     /**
      * Creates a new StdGuardianInfo model.
      * For ajax request will return json object

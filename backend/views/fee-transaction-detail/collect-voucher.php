@@ -111,7 +111,7 @@
                             </td>
                             <td width="80px">
                                 <div class="form-group">
-                                    <input type="text" name="amount<?php echo $i;?>" class="form-control" value="<?php echo $netFee;?>" style="width:80px">
+                                    <input type="text" name="amount<?php echo $i;?>" class="form-control" value="<?php echo $netFee;?>" required="" style="width:80px">
                                 </div>
                             </td>
                         </tr>
@@ -207,13 +207,8 @@
     }
     // if close...
     else{
-        echo 
-            "<br><div class='row container-fluid'>
-                <div class='col-md-12 alert alert-success'>
-                    <p style='text-align:center'><b>This voucher has already paid...!
-                    </b></p>
-                </div>
-            </div>";
+        // alert message...
+        Yii::$app->session->setFlash('warning', "This voucher has already paid...!");
     }
  }
 // isset close.... 
@@ -245,21 +240,11 @@ if(isset($_POST['save'])){
     }
     
     if ($updateTransactionHead) {
-        //Success
-        echo "<br><div class='row container-fluid'>
-                <div class='col-md-12 alert alert-success'>
-                    <p style='text-align:center'><b>Voucher paid Successfully...!
-                    </b></p>
-                </div>
-            </div>";
+        // success alert message...
+        Yii::$app->session->setFlash('success', "Voucher paid Successfully...!");    
         } else {
-        //Failure
-        echo "<br><div class='row container-fluid'>
-                <div class='col-md-12 alert alert-danger'>
-                    <p style='text-align:center'><b>Voucher not paid...!
-                    </b></p>
-                </div>
-            </div>";
+        // failure alert message
+        Yii::$app->session->setFlash('danger', "Voucher not paid, Try again...!");      
     }
 }
 ?>  

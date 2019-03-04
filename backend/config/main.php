@@ -81,6 +81,7 @@ return [
                 'fee-transaction-detail-fee-voucher' => 'fee-transaction-detail/fee-voucher',
                 'fee-transaction-detail-collect-voucher' => 'fee-transaction-detail/collect-voucher',
                 'fee-transaction-detail-class-account-fee-report' => 'fee-transaction-detail/class-account-fee-report',
+                'class-fee-report-detail' => 'fee-transaction-detail/class-fee-report-detail',
                 'fee-transaction-detail-class-account-info' => 'fee-transaction-detail/class-account-info',
                 'fee-transaction-detail-voucher' => 'fee-transaction-detail/voucher',
 

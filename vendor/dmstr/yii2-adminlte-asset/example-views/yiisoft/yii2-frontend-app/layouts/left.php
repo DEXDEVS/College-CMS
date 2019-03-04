@@ -53,6 +53,13 @@
                             ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],]
                         ],
                     ],
+
+                    [
+                        'label' => 'Test Attendance',
+                        'icon' => 'user-plus',
+                        'url' => 'std-attendance/test-attendance',
+                    ],
+                    
                     // ------------------------------------------------
                     // Student Attendance end...
                     // ------------------------------------------------

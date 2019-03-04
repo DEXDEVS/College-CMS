@@ -42,6 +42,12 @@
     $stdFeeInfo = Yii::$app->db->createCommand("SELECT * FROM std_fee_details WHERE std_id = '$id'")->queryAll();
     $stdFeeId = $stdFeeInfo[0]['fee_id'];
 
+     $stdFeeInstallmentDetails = Yii::$app->db->createCommand("SELECT sfi.installment_no,sfi.installment_amount
+       FROM std_fee_installments as sfi
+       INNER JOIN std_fee_details as sfd
+       ON sfd.fee_id = sfi.std_fee_id
+       WHERE sfd.std_id = '$id'")->queryAll();
+
     // fetching student roll number from `std_enrollment_detail` against selected student `$id`
     $stdRollNo = Yii::$app->db->createCommand("SELECT sed.std_roll_no
     FROM std_enrollment_detail as sed
@@ -416,16 +422,16 @@
                               <th>Net Admission Fee:</th>
                               <td><?php echo  $stdFeeInfo[0]['net_addmission_fee'] ?></td>
                             </tr>
+                            <tr>
+                              <th>Tuition Fee:</th>
+                              <td><?php echo  $stdFeeInfo[0]['tuition_fee'] ?></td>
+                            </tr>
                           </thead>
                         </table>
                       </div>
                       <div class="col-md-6">
                          <table class="table table-striped table-hover">
                           <thead>
-                            <tr>
-                              <th>Tuition Fee:</th>
-                              <td><?php echo  $stdFeeInfo[0]['tuition_fee'] ?></td>
-                            </tr>
                             <!-- <tr>
                               <th>Net Tuition Fee:</th>
                               <td><?php //echo  $stdFeeInfo[0]['net_tuition_fee'] ?></td>
@@ -434,6 +440,18 @@
                               <th>Number Of Installments:</th>
                               <td><?php echo  $stdFeeInfo[0]['no_of_installment'] ?></td>
                             </tr>
+                            <?php foreach ($stdFeeInstallmentDetails as $key => $value) {
+                              $instNo = $stdFeeInstallmentDetails[$key]['installment_no'];
+                              $instAmount = $stdFeeInstallmentDetails[$key]['installment_amount'];
+                              $instName = Yii::$app->db->createCommand("SELECT installment_name FROM installment WHERE installment_id = '$instNo'")->queryAll();
+                             ?>
+                            <tr>
+                              <th><?php echo $instName[0]['installment_name']; ?></th>
+                              <td>
+                                <?php echo $instAmount; ?>
+                              </td>
+                            </tr>
+                            <?php } ?>
                           </thead>
                         </table> 
                       </div>

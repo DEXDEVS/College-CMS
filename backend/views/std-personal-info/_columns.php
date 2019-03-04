@@ -42,10 +42,10 @@ return [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_temporary_address',
     // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'std_email',
-    // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'std_email',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_photo',

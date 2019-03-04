@@ -49,6 +49,7 @@ class StdGuardianInfo extends \yii\db\ActiveRecord
             [['guardian_cnic', 'guardian_contact_no_1', 'guardian_contact_no_2'], 'string', 'max' => 15],
             [['guardian_email'], 'string', 'max' => 84],
             ['guardian_email', 'unique'],
+            ['guardian_email','email'],
             [['guardian_monthly_income'], 'integer'],
             [['guardian_designation'], 'string', 'max' => 100],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
