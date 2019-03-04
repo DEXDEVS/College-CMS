@@ -132,7 +132,7 @@
                         <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./email?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send Email </a>
+                      <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send Email </a>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
                       <a href="./sms?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send SMS </a>
