@@ -22,8 +22,6 @@ use Yii;
  * @property string $updated_at
  * @property int $created_by
  * @property int $updated_by
- * @property int $delete_status
- *
  * @property StdPersonalInfo $std
  */
 class StdGuardianInfo extends \yii\db\ActiveRecord
@@ -43,7 +41,7 @@ class StdGuardianInfo extends \yii\db\ActiveRecord
     {
         return [
             [['std_id', 'guardian_name', 'guardian_relation', 'guardian_cnic', 'guardian_contact_no_1', 'guardian_monthly_income', 'guardian_occupation'], 'required'],
-            [['std_id', 'guardian_monthly_income', 'created_by', 'updated_by', 'delete_status'], 'integer'],
+            [['std_id', 'guardian_monthly_income', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at', 'created_by', 'updated_by', 'guardian_email', 'guardian_contact_no_2', 'guardian_designation'], 'safe'],
             [['guardian_name', 'guardian_relation', 'guardian_occupation'], 'string', 'max' => 50],
             [['guardian_cnic', 'guardian_contact_no_1', 'guardian_contact_no_2'], 'string', 'max' => 15],
@@ -77,7 +75,6 @@ class StdGuardianInfo extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
-            'delete_status' => 'Delete Status',
         ];
     }
 
