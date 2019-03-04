@@ -136,14 +136,12 @@
                 <div class="col-md-5">
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Personal Information</p>
                 </div>
-                <div class="col-md-2 col-md-offset-5">
-                  <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
-                </div>
-                <div class="col-md-2 col-md-offset-5">
-                      <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send Email </a>
-                </div>
-                <div class="col-md-2 col-md-offset-5">
-                      <a href="./sms?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send SMS </a>
+                <div class="col-md-7">
+                  <div style="float: right;">
+                    <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
+                     <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-warning btn-sm fa fa-edit" style='color: white;'> Send Email </a>
+                     <a href="./sms?id=<?php echo $id;?>" class="btn btn-info btn-sm fa fa-edit" style='color: white;'> Send SMS </a>
+                   </div>
                 </div>
               </div><hr>
               <!-- Employee info start -->
@@ -228,7 +226,7 @@
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Refrence Information</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
-                  <a href="./emp-reference-update?id=<?php echo $empRefID;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                  <a href="emp-reference-update?id=<?php echo $empRefID;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
                 </div>
               </div><hr>
               <!-- Employee refrence info start -->
