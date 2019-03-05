@@ -55,6 +55,12 @@
     ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
     WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll(); 
 
+    $stdSessSecInfo = Yii::$app->db->createCommand("SELECT seh.session_id,seh.section_id
+      FROM std_enrollment_head as seh
+      INNER JOIN std_academic_info as sai
+      ON seh.class_name_id = sai.class_name_id
+      WHERE sai.std_id = '$id'")->queryAll(); 
+
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -100,10 +106,45 @@
                     <b>Email</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_email'] ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Contact #:</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_contact_no'] ?></a>
+                    <b>Contact #:</b> <a class="pull-right"><?php echo $stdPersonalInfo[0]['std_contact_no']; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Status:</b> <a class="pull-right"><span class="label label-success">Active</span></a>
+                    <b>Status:</b> <a class="pull-right">
+                      
+                      <?php 
+                        if ($stdPersonalInfo[0]['status'] == "Active") {?>
+                        <span class="label label-success"> 
+                        <?php echo $stdPersonalInfo[0]['status']; ?> 
+                        </span>
+                    <?php } else {?>
+                        <span class="label label-danger"> 
+                        <?php echo $stdPersonalInfo[0]['status']; ?> 
+                        </span>
+                    <?php } ?>
+                  </a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Academic Status:</b> <a class="pull-right">
+                      
+                      <?php 
+                        if ($stdPersonalInfo[0]['academic_status'] == "Active") {?>
+                        <span class="label label-success"> 
+                        <?php echo $stdPersonalInfo[0]['academic_status']; ?> 
+                        </span>
+                    <?php } else if ($stdPersonalInfo[0]['academic_status'] == "Promote"){?>
+                        <span class="label label-primary"> 
+                        <?php echo $stdPersonalInfo[0]['academic_status']; ?> 
+                        </span>
+                    <?php } else if ($stdPersonalInfo[0]['academic_status'] == "Left"){?>
+                      <span class="label label-danger"> 
+                        <?php echo $stdPersonalInfo[0]['academic_status']; ?> 
+                        </span>
+                      <?php }else{ ?>
+                        <span class="label label-warning"> 
+                        <?php echo $stdPersonalInfo[0]['academic_status']; ?> 
+                        </span>
+                      <?php } ?>
+                  </a>
                   </li>
                 </ul>
                 <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
@@ -131,14 +172,12 @@
                     <div class="col-md-5">
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Personal Information</p>
                     </div>
-                    <div class="col-md-2 col-md-offset-5">
+                    <div class="col-md-7">
+                      <div  style="float: right;">
                         <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
-                    </div>
-                    <div class="col-md-2 col-md-offset-5">
-                      <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send Email </a>
-                    </div>
-                    <div class="col-md-2 col-md-offset-5">
-                      <a href="./sms?id=<?php echo $id;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Send SMS </a>
+                        <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-warning btn-sm fa fa-envelope-o" style='color: white;'> Send Email </a>
+                        <a href="./sms?id=<?php echo $id;?>" class="btn btn-info btn-sm fa fa-comments-o" style='color: white;'> Send SMS </a>
+                      </div>
                     </div>
                   </div><hr>
                   <!-- student info start -->
@@ -333,11 +372,23 @@
                           <thead>
                             <tr>
                               <th>Session:</th>
-                              <td></td>
+                              <td>
+                                <?php 
+                                $sessId = $stdSessSecInfo[0]['session_id'];
+                                $sessName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessId'")->queryAll();
+                                echo $sessName[0]['session_name'];
+                                ?>
+                              </td>
                             </tr>
                             <tr>
                               <th>Section:</th>
-                              <td></td>
+                              <td>
+                                <?php 
+                                $secId = $stdSessSecInfo[0]['section_id'];
+                                $secName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$secId'")->queryAll();
+                                echo $secName[0]['section_name'];
+                                ?>
+                              </td>
                             </tr>
                             <tr  colspan="2">
                               <th>Class:</th>
