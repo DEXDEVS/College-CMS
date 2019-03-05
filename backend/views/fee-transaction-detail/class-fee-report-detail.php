@@ -163,14 +163,19 @@
 							<?php 
 								if(!empty($stdFee[$i]['installment_no'])){
 								$installNo = $stdFee[$i]['installment_no'];
-								$stdCollectedAmount = Yii::$app->db->createCommand("SELECT ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdID' AND ftd.fee_type_id = 2 AND fth.installment_no ='$installNo'")->queryAll();
+								$stdCollectedAmount = Yii::$app->db->createCommand("SELECT ftd.collected_fee_amount, ftd.fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdID' AND ftd.fee_type_id = 2 AND fth.installment_no ='$installNo'")->queryAll();
 								if(!empty($stdCollectedAmount) AND $stdCollectedAmount[0]['collected_fee_amount'] > 0){
 									echo $stdCollectedAmount[0]['collected_fee_amount']; 
 									$installSum += $stdCollectedAmount[0]['collected_fee_amount'];
 									$paidArray[$id][$i] = $stdCollectedAmount[0]['collected_fee_amount'];	
 								}
 								else {
-									echo "<p style='padding: 0px 20px;' class='label-danger'>.</p>";
+									if (!empty($stdCollectedAmount) AND $stdCollectedAmount[0]['fee_amount'] >0 AND $stdCollectedAmount[0]['collected_fee_amount'] == 0) {
+										echo "<p style='padding: 0px 20px;' class='label-danger'>.</p>";
+									}
+									else{
+										echo "";
+									}
 								} 
 							}?>
 							</td>
@@ -351,7 +356,12 @@
 									$paidArray[$id][$i] = $stdCollectedAmount[0]['collected_fee_amount'];	
 								}
 								else {
-									echo "<p style='padding: 0px 20px;' class='label-danger'>.</p>";
+									if (!empty($stdCollectedAmount) AND $stdCollectedAmount[0]['fee_amount'] >0 AND $stdCollectedAmount[0]['collected_fee_amount'] == 0) {
+										echo "<p style='padding: 0px 20px;' class='label-danger'>.</p>";
+									}
+									else{
+										echo "";
+									}
 								} 
 							}?>
 							</td>
@@ -411,10 +421,9 @@
 						else{
 							$badPaid1st[5] += $paidArray[$id][5];
 						}
-						var_dump($badPaid1st);	
 					?>
 					<tr align="center" style="background-color: #ccc;">
-						<th colspan="3" style="text-align: center">Total Left</th>
+						<td colspan="3" style="text-align: center"><b>Total Left</b></td>
 						<td class="tdcolor"><b><?php echo $badTotalFee; ?></b></td>
 						<td class="tdcolor"><b><?php echo $badTotal1st; ?></b></td>
 						<th style="background-color: gray; color: #FFF;" class="a text-center"><?php echo $badPaid1st[0]; ?></th>
