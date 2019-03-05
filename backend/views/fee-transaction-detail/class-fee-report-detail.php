@@ -91,7 +91,7 @@
 						// students `id`
 						$stdID = $students[$id]['std_enroll_detail_std_id'];
 						// get students `std_name`
-						$stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdID'")->queryAll();
+						$stdName = Yii::$app->db->createCommand("SELECT std_name,academic_status FROM std_personal_info  WHERE std_id = '$stdID'")->queryAll();
 						// get student fee pakg
 						$stdFeePakg = Yii::$app->db->createCommand("SELECT tuition_fee FROM std_fee_details WHERE std_id = '$stdID'")->queryAll();
 						$stdFee = Yii::$app->db->createCommand("SELECT sfd.fee_id, sfi.installment_no, sfi.installment_amount FROM std_fee_details as sfd INNER JOIN std_fee_installments as sfi ON sfi.std_fee_id = sfd.fee_id WHERE sfd.std_id  = '$stdID'")->queryAll();
@@ -182,7 +182,16 @@
 								$totalRemaining += $remaining;
 							?>
 						</th>
-						<td style="width: 60px">---</td>
+						<td style="width: 60px">
+							<?php 
+								if ($stdName[0]['academic_status'] == 'Left') {
+									echo $stdName[0]['academic_status'];
+								}
+								else{
+									echo '';
+								}
+							 ?>
+						</td>
 					</tr>
 					<?php 
 						if (empty($paidArray[$id][0])) {
@@ -244,6 +253,8 @@
 						<th style="background-color: gray; color: #FFF;" class="a text-center"><?php echo $totalRemaining; ?></th>
 						<td></td>
 					</tr>
+					<?php //end of for each 
+						}?>
 					<tr align="center">
 						<td colspan="18" style="font-size: 20px;">
 							<b>Bad debts
@@ -251,101 +262,217 @@
 							</b>
 						</td>
 					</tr>
+
 					<?php
-				for ($i=1; $i <=3 ; $i++) { 
-				?>
-				<tr>
-					<td><?php echo $i; ?></td>
-					<td><?php echo "RYK-01-FMG1-19-".$i; ?></td>
-					<td>nauman hashmi</td>
-					<td></td>
-					<td class="tdcolor" align="center" style="background-color: #ccc;">
-					<td></td>
-					<td class="tdcolor" align="center" style="background-color: #ccc;">
-					<td></td>
-					<td class="tdcolor" align="center" style="background-color: #ccc;">
-					<td></td>
-					<td class="tdcolor" align="center" style="background-color: #ccc;">
-					<td></td>
-					<td class="tdcolor" align="center" style="background-color: #ccc;">
-					<td></td>
-					<td class="tdcolor" align="center" style="background-color: #ccc;">
-					<td></td>
-					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php //echo $totalRemaining; ?></th>
-					<td></td>
-				</tr>
+					// bad debts start....
+					
+						$badTotalFee = $badTotal1st = $badTotal2nd = $badTotal3rd = $badTotal4th = $badTotal5th = $badTotal6th  = $badTotalRemaining = 0;
+						$badPaid1st = Array(0,0,0,0,0,0);
+						foreach ($students as $id => $value) {
+						// students `id`
+						$stdID = $students[$id]['std_enroll_detail_std_id'];
+						// get students `std_name`
+						$stdName = Yii::$app->db->createCommand("SELECT std_name,academic_status FROM std_personal_info  WHERE std_id = '$stdID'")->queryAll();
+						if ($stdName[0]['academic_status'] == 'Left') { 
+						// get student fee pakg
+						$stdFeePakg = Yii::$app->db->createCommand("SELECT tuition_fee FROM std_fee_details WHERE std_id = '$stdID'")->queryAll();
+						$stdFee = Yii::$app->db->createCommand("SELECT sfd.fee_id, sfi.installment_no, sfi.installment_amount FROM std_fee_details as sfd INNER JOIN std_fee_installments as sfi ON sfi.std_fee_id = sfd.fee_id WHERE sfd.std_id  = '$stdID'")->queryAll();
+						$badTotalFee += $stdFeePakg[0]['tuition_fee'];
+						if (empty($stdFee[0]['installment_amount'])) {
+							$badTotal1st += 0;
+						}
+						else{
+							$badTotal1st += $stdFee[0]['installment_amount'];
+						}
+						if (empty($stdFee[1]['installment_amount'])) {
+							$badTotal2nd += 0;
+						}
+						else{
+							$badTotal2nd += $stdFee[1]['installment_amount'];
+						}
+						if (empty($stdFee[2]['installment_amount'])) {
+							$badTotal3rd += 0;
+						}
+						else{
+							$badTotal3rd += $stdFee[2]['installment_amount'];
+						}				
+						if (empty($stdFee[3]['installment_amount'])) {
+							$badTotal4th += 0;
+						}
+						else{
+							$badTotal4th += $stdFee[3]['installment_amount'];
+						}
+						if (empty($stdFee[4]['installment_amount'])) {
+							$badTotal5th += 0;
+						}
+						else{
+							$badTotal5th += $stdFee[4]['installment_amount'];
+						}
+						if (empty($stdFee[5]['installment_amount'])) {
+							$badTotal6th += 0;
+						}
+						else{
+							$badTotal6th += $stdFee[5]['installment_amount'];
+						}
+						for ($i=0; $i <6; $i++) {
+							if(!empty($stdFee[$i]['installment_no'])){
+								$installNo = $stdFee[$i]['installment_no'];
+								$stdCollectedAmount = Yii::$app->db->createCommand("SELECT ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdID' AND ftd.fee_type_id = 2 AND fth.installment_no ='$installNo'")->queryAll();
+							}
+						}	
+						$tuitionFee = $stdFeePakg[0]['tuition_fee']; ?>
+					<tr>
+						<td><?php echo $id+1; ?></td>
+						<td><?php echo  $students[$id]['std_roll_no']; ?></td>
+						<td><?php echo $stdName[0]['std_name']; ?></td>
+						<td align="center"><?php echo $tuitionFee;  ?></td>
+						<?php 
+						$installSum = 0;
+						$paidArray[][] = Array();
+						for ($i=0; $i <6; $i++) { ?>
+							<td class="tdcolor" align="center" style="background-color: #ccc;">
+								<?php
+									if (empty($stdFee[$i]['installment_amount'])) {
+										echo '';
+									}
+									else{
+										echo $stdFee[$i]['installment_amount'];
+									}
+								?>
+							</td>
+							<td align="center">
+							<?php 
+								if(!empty($stdFee[$i]['installment_no'])){
+								$installNo = $stdFee[$i]['installment_no'];
+								$stdCollectedAmount = Yii::$app->db->createCommand("SELECT ftd.collected_fee_amount FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdID' AND ftd.fee_type_id = 2 AND fth.installment_no ='$installNo'")->queryAll();
+								if(!empty($stdCollectedAmount) AND $stdCollectedAmount[0]['collected_fee_amount'] > 0){
+									echo $stdCollectedAmount[0]['collected_fee_amount']; 
+									$installSum += $stdCollectedAmount[0]['collected_fee_amount'];
+									$paidArray[$id][$i] = $stdCollectedAmount[0]['collected_fee_amount'];	
+								}
+								else {
+									echo "<p style='padding: 0px 20px;' class='label-danger'>.</p>";
+								} 
+							}?>
+							</td>
+						<?php } ?>
+						<th style="background-color: gray; color: #FFF;" class="a text-center">
+							<?php 
+								$remaining = $tuitionFee - $installSum; 
+								echo $remaining;
+								$badTotalRemaining += $remaining;
+							?>
+						</th>
+						<td style="width: 60px">
+							<?php 
+								if ($stdName[0]['academic_status'] == 'Left') {
+									echo $stdName[0]['academic_status'];
+								}
+								else{
+									echo '';
+								}
+							 ?>
+						</td>
+					</tr>
 				<?php
-				}
+						if (empty($paidArray[$id][0])) {
+							$badPaid1st[0] += 0;
+						}
+						else{
+							$badPaid1st[0] += $paidArray[$id][0];
+						}
+						if (empty($paidArray[$id][1])) {
+							$badPaid1st[1] += 0;
+						}
+						else{
+							$badPaid1st[1] += $paidArray[$id][1];
+						}
+						if (empty($paidArray[$id][2])) {
+							$badPaid1st[2] += 0;
+						}
+						else{
+							$badPaid1st[2] += $paidArray[$id][2];
+						}
+						if (empty($paidArray[$id][3])) {
+							$badPaid1st[3] += 0;
+						}
+						else{
+							$badPaid1st[3] += $paidArray[$id][3];
+						}
+						if (empty($paidArray[$id][4])) {
+							$badPaid1st[4] += 0;
+						}
+						else{
+							$badPaid1st[4] += $paidArray[$id][4];
+						}
+						if (empty($paidArray[$id][5])) {
+							$badPaid1st[5] += 0;
+						}
+						else{
+							$badPaid1st[5] += $paidArray[$id][5];
+						}
+						var_dump($badPaid1st);	
+					?>
+					<tr align="center" style="background-color: #ccc;">
+						<th colspan="3" style="text-align: center">Total Left</th>
+						<td class="tdcolor"><b><?php echo $badTotalFee; ?></b></td>
+						<td class="tdcolor"><b><?php echo $badTotal1st; ?></b></td>
+						<th style="background-color: gray; color: #FFF;" class="a text-center"><?php echo $badPaid1st[0]; ?></th>
+						<td class="tdcolor"><b><?php echo $badTotal2nd; ?></b></td>
+						<th style="background-color: gray; color: #FFF;" class="a text-center">
+							<?php  echo $badPaid1st[1]; ?></th>
+						<td class="tdcolor"><b><?php echo $badTotal3rd; ?></b></td>
+						<th style="background-color: gray; color: #FFF;" class="a text-center"><?php  echo $badPaid1st[2]; ?></th>
+						<td class="tdcolor"><b><?php echo $badTotal4th; ?></b></td>
+						<th style="background-color: gray; color: #FFF;" class="a text-center"><?php  echo $badPaid1st[3]; ?></th>
+						<td class="tdcolor"><b><?php echo $badTotal5th; ?></b></td>
+						<th style="background-color: gray; color: #FFF;" class="a text-center"><?php  echo $badPaid1st[4]; ?></th>
+						<td class="tdcolor"><b><?php echo $badTotal6th; ?></b></td>
+						<th style="background-color: gray; color: #FFF;" class="a text-center"><?php  echo $badPaid1st[5]; ?></th>
+						<th style="background-color: gray; color: #FFF;" class="a text-center"><?php echo $badTotalRemaining; ?></th>
+						<td></td>
+					</tr>
+					<?php
+					// end of foreach loop...
+				 	}	
+				// end of if
+				}	
 				?>
-				<tr>
-					<td colspan="3" align="center" style="background-color: lightgray;">
-						<b>Total Left</b>
-					</td>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $totalFee; ?></b></td>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total1st; ?></b></td>
-					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[0]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total2nd; ?></b></td>
-					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php //echo $paid1st[1]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total3rd; ?></b></td>
-					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php //echo $paid1st[2]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total4th; ?></b></td>
-					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[3]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total5th; ?></b></td>
-					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[4]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total6th; ?></b></td>
-					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[5]; ?></th>
-					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php //echo $totalRemaining; ?></th>
-					<td></td>
-				</tr>
 				<tr>
 					<td colspan="3" align="center" style="background-color: lightgray;">
 						<b>Actual After Bad Debts</b>
 					</td>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $totalFee; ?></b></td>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total1st; ?></b></td>
+					<td class="tdcolor" style="background-color: #ccc;" align="center"><b>
+						<?php echo ($totalFee-$badTotalFee); ?></b></td>
+					<td class="tdcolor" style="background-color: #ccc;" align="center"><b>
+						<?php echo ($total1st - $badTotal1st); ?></b></td>
 					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php //echo $paid1st[0]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total2nd; ?></b></td>
+						<?php echo ($paid1st[0] - $badPaid1st[0]); ?></th>
+					<td class="tdcolor" style="background-color: #ccc;" align="center"><b>
+						<?php echo ($total2nd - $badTotal2nd); ?></b></td>
 					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[1]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total3rd; ?></b></td>
+						<?php echo ($paid1st[1] - $badPaid1st[1]); ?></th>
+					<td class="tdcolor" style="background-color: #ccc;" align="center"><b>
+						<?php echo ($total3rd - $badTotal3rd); ?></b></td>
 					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[2]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total4th; ?></b></td>
+						<?php echo ($paid1st[2] - $badPaid1st[2]); ?></th>
+					<td class="tdcolor" style="background-color: #ccc;" align="center"><b>
+						<?php echo ($total4th - $badTotal4th); ?></b></td>
 					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[3]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total5th; ?></b></td>
+						<?php echo ($paid1st[3] - $badPaid1st[3]); ?></th>
+					<td class="tdcolor" style="background-color: #ccc;" align="center"><b>
+						<?php echo ($total5th - $badTotal5th); ?></b></td>
 					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[4]; ?></th>
-					<td class="tdcolor" style="background-color: #ccc;"><b>
-						<?php //echo $total6th; ?></b></td>
+						<?php echo ($paid1st[4] - $badPaid1st[4]); ?></th>
+					<td class="tdcolor" style="background-color: #ccc;" align="center"><b>
+						<?php echo ($total6th - $badTotal6th); ?></b></td>
 					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php // echo $paid1st[5]; ?></th>
+						<?php echo $paid1st[5] - $badPaid1st[5]; ?></th>
 					<th style="background-color: gray; color: #FFF;" class="a text-center">
-						<?php //echo $totalRemaining; ?></th>
+						<?php echo ($totalRemaining - $badTotalRemaining); ?></th>
 					<td></td>
 				</tr>
+				
 				</tbody>
 			</table>
 		</div>
@@ -364,7 +491,7 @@
 			</tbody> -->
 		</table>
 	</div>
-	<?php } ?>
+	
 </div>
 <!-- class fee account report end-->
 </body>
