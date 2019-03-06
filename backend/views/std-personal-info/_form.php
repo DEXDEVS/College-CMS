@@ -416,27 +416,27 @@ $url = \yii\helpers\Url::to("std-personal-info/fetch-fee");
 
 $script = <<< JS
 
-$('form#{$model->formName()}').on('beforeSubmit',function(e)
-{
-    var \$form = $(this);
-    $.post(
-        \$form.attr("action"), //serialize Yii2 form
-        \$form.serialize()
-    )
-        .done(function(result){
-        if(result == 1)
-        {
-            $(\$form).trigger("reset");
-            $.pjax.reload({container:'#stdPersonal'});
-        }else{ 
-            $("#message").html(result);
-        }
-        }).fail(function()
-        {
-            console.log("server error");
-        });
-    return false;
-});
+// $('form#{$model->formName()}').on('beforeSubmit',function(e)
+// {
+//     var \$form = $(this);
+//     $.post(
+//         \$form.attr("action"), //serialize Yii2 form
+//         \$form.serialize()
+//     )
+//         .done(function(result){
+//         if(result == 1)
+//         {
+//             $(\$form).trigger("reset");
+//             $.pjax.reload({container:'#stdPersonal'});
+//         }else{ 
+//             $("#message").html(result);
+//         }
+//         }).fail(function()
+//         {
+//             console.log("server error");
+//         });
+//     return false;
+// });
 
 // getting std-personal-info- by std inquiry no...
 $('#inquiryNo').on('change',function(){
@@ -477,7 +477,6 @@ $('#inquiryNo').on('change',function(){
     $('#percentage').on('focus',function(){
        var percent = $('#percentage').val();
        
-
        var percentage = parseInt(percent);
        if (percentage>=90){
             $('#grade').val('A+');
