@@ -31,7 +31,7 @@ class StdAttendanceController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','attendance','view','update','delete','attendance','fetch-section','view-class-attendance','test-attendance'],
+                        'actions' => ['logout', 'index','attendance','view','update','delete','attendance','fetch-section','view-class-attendance','test-attendance','take-attendance'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -95,6 +95,11 @@ class StdAttendanceController extends Controller
     public function actionTestAttendance()
     { 
         return $this->render('test-attendance');
+    }
+
+    public function actionTakeAttendance()
+    { 
+        return $this->render('take-attendance');
     }
 
     /**
