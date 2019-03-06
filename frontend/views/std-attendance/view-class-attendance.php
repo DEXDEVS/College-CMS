@@ -67,14 +67,14 @@
                 </div>    
             </div> 
 
-            <div class="col-md-3">
+            <!-- <div class="col-md-3">
                 <div class="form-group">
                     <label>Select Subject</label>
                     <select class="form-control" name="subjectid" id="subjectId">
                             <option value="">Select Subject</option>
                     </select>      
                 </div>    
-            </div>              
+            </div>  -->             
             <div class="col-md-2 col-md-offset-10">
                 <div class="form-group">
                     <label></label>
@@ -91,15 +91,32 @@
         $classid= $_POST["classid"];
         $sessionid = $_POST["sessionid"];
         $sectionid = $_POST["sectionid"];
-        $subjectid = $_POST["subjectid"];
         $date = $_POST["date"];
-        var_dump($date);
-        
+
+        //Select studnet roll no and name
         $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id, sed.std_roll_no FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
         
-        // Select Class Name
+        // Selected Class Name
         $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
-        
+        // get Sbjects for selected class
+        $subjectComb = Yii::$app->db->createCommand("SELECT std_subject_name FROM std_subjects WHERE class_id = '$classid'")->queryAll();
+        $sub = $subjectComb[0]['std_subject_name'];
+        $subject = explode(',', $sub);
+        $subjectAls = array();
+        foreach ($subject as $key => $subj) {
+            
+            // get subject alias
+        //$sub = $subj;
+        $subAls = Yii::$app->db->createCommand("SELECT subject_alias FROM subjects WHERE subject_name like '$subj'")->queryAll();
+
+        var_dump($subj);
+        echo "<br>";
+        var_dump($subAls);
+        echo "<br>";
+         //$subjectAls = $subAls[0]['subject_alias'];
+        }
+        // Select attandance
+        // $attendance = Yii::$app->db->createCommand("SELECT subject_id, status FROM std_attendance  WHERE subject_id = '$subjectid'")->queryAll();        
         ?> 
 
 <div class="container-fluid">
@@ -118,22 +135,20 @@
 					<th rowspan="2">Roll<br>#</th>
 					<th rowspan="2">Student<br>Name</th>
 					<?php 
-						for ($i=1; $i <=7 ; $i++) { 
-							echo "<th colspan='6' style='text-align: center;'>$i-01-2019</th>";
+						for ($i=0; $i <7 ; $i++) { 
+                            list($y,$m,$d)=explode('-',$date);
+                            $date2 = Date("d-m-Y", mktime(0,0,0,$m,$d+$i,$y));
+							echo "<th colspan='6' style='text-align: center;'>",$date2,"</th>";
 						} 
 					?>
                 </tr>
                 <tr>
                 	<?php 
-                		for ($i=1; $i <=7 ; $i++) { 
-						echo 
-							"<th style='padding: 1px 5px'>P</th>
-		                	<th style='padding: 1px 5px'>C</th>
-		                	<th style='padding: 1px 5px'>M</th>
-		                	<th style='padding: 1px 5px'>E</th>
-		                	<th style='padding: 1px 5px'>U</th>
-		                	<th style='padding: 1px 7.6px'>I</th>";
-						} 
+                    $len = count($subject);
+                		for ($i=0; $i <$len ; $i++) { 
+					?>
+						<th style='padding: 1px 5px'><?php //echo $subject[$i]; ?></th>;
+					<?php	} 
                 	?>
                 </tr>
 
@@ -148,12 +163,13 @@
                                       ?>
 
                                 <td><?php echo $stdName[0]['std_name'] ?></td>
-                                
-                                <!-- <td align="center">
-                                    <input type="radio" name="std<?php echo $i+1?>" value="P" checked="checked"/> <b  style="color: green">Present </b> &nbsp; &nbsp;| &nbsp; 
-                                    <input type="radio" name="std<?php echo $i+1?>" value="A" /> <b style="color: red">Absent </b> &nbsp; &nbsp;| &nbsp; 
-                                    <input type="radio" name="std<?php echo $i+1?>" value="L" /><b style="color: #F7C564;"> Leave</b>
-                                </td> -->
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><?php //echo $attendance[$i]['status'] ?></td>
                             </tr>
                     <?php
                        // $stdAttendId[$i] = $stdId;

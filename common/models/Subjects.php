@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $subject_id
  * @property string $subject_name
+ * @property string $subject_alias
  * @property string $subject_description
  * @property string $created_at
  * @property string $updated_at
@@ -16,6 +17,7 @@ use Yii;
  * @property int $updated_by
  * @property int $delete_status
  *
+ * @property StdAttendance[] $stdAttendances
  * @property TeacherSubjectAssignDetail[] $teacherSubjectAssignDetails
  */
 class Subjects extends \yii\db\ActiveRecord
@@ -34,11 +36,11 @@ class Subjects extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subject_name', 'subject_description', 'created_by', 'updated_by'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['subject_name', 'subject_alias'], 'required'],
+            [['created_at', 'updated_at', 'subject_description', 'created_by', 'updated_by'], 'safe'],
             [['created_by', 'updated_by', 'delete_status'], 'integer'],
             [['subject_name'], 'string', 'max' => 32],
-            ['subject_name','unique'],
+            [['subject_alias'], 'string', 'max' => 10],
             [['subject_description'], 'string', 'max' => 100],
         ];
     }
@@ -51,6 +53,7 @@ class Subjects extends \yii\db\ActiveRecord
         return [
             'subject_id' => 'Subject ID',
             'subject_name' => 'Subject Name',
+            'subject_alias' => 'Subject Alias',
             'subject_description' => 'Subject Description',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -58,6 +61,14 @@ class Subjects extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'delete_status' => 'Delete Status',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStdAttendances()
+    {
+        return $this->hasMany(StdAttendance::className(), ['subject_id' => 'subject_id']);
     }
 
     /**
