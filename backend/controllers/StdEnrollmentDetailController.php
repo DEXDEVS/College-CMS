@@ -132,7 +132,6 @@ class StdEnrollmentDetailController extends Controller
 
                 $branchName = Yii::$app->db->createCommand("SELECT br.branch_code FROM branches as br INNER JOIN emp_info as einfo ON br.branch_id = einfo.emp_branch_id WHERE einfo.emp_id =' $teacher_id'")->queryAll();
                 $branchCode = $branchName[0]['branch_code'];
-
                 $date = date('y');
 
                 if(!empty($std_enrollment_head)){
@@ -150,10 +149,10 @@ class StdEnrollmentDetailController extends Controller
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $std_enrollment_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
 
                         if(empty($StdEnrollmentDetail)){
-                            $rollNo = 001;
+                            $rollNo = 01;
                         } else {
                             $rolNo = $StdEnrollmentDetail[0]['std_roll_no'];
-                            $rollNo = substr($rolNo,14,3)+1;    
+                            $rollNo = substr($rolNo,14,3);    
                         } 
                         $model->std_roll_no = $branchCode."-".$sectionName."-".$date.$rollNo;
                         $model->std_enroll_detail_std_id = $value;
