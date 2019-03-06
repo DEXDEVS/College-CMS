@@ -72,6 +72,7 @@ return [
                 'std-ice-info-update' => 'std-ice-info/update',
                 'std-academic-info-update' => 'std-academic-info/update',
                 'std-fee-details-update' => 'std-fee-details/update',
+                'inquiry-report' => 'std-inquiry/inquiry-report',
 
                 'emp-info-view' => 'emp-info/view',
                 'emp-info-update' => 'emp-info/update',

@@ -16,6 +16,7 @@ use Yii;
  * @property string $std_inquiry_date
  * @property string $std_intrested_class
  * @property string $std_previous_class
+ * @property string $previous_institute
  * @property string $std_roll_no
  * @property int $std_obtained_marks
  * @property int $std_total_marks
@@ -45,11 +46,13 @@ class StdInquiry extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'std_roll_no', 'std_obtained_marks', 'std_total_marks','std_address', 'created_by', 'updated_by'], 'required'],
-            [['std_inquiry_date', 'created_at', 'updated_at','refrence_name', 'refrence_contact_no', 'refrence_designation', 'std_percentage'], 'safe'],
+            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'previous_institute', 'std_roll_no', 'std_obtained_marks', 'std_total_marks', 'std_percentage', 'refrence_name', 'refrence_contact_no', 'refrence_designation', 'std_address'], 'required'],
+            [['std_inquiry_date', 'created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['std_obtained_marks', 'std_total_marks', 'created_by', 'updated_by'], 'integer'],
             [['std_inquiry_no', 'std_contact_no', 'std_father_contact_no', 'refrence_contact_no'], 'string', 'max' => 15],
-            [['std_name', 'std_father_name', 'std_intrested_class', 'std_previous_class', 'refrence_name'], 'string', 'max' => 32],
+            [['std_name', 'std_father_name', 'std_previous_class', 'refrence_name'], 'string', 'max' => 32],
+            [['std_intrested_class'], 'string', 'max' => 50],
+            [['previous_institute'], 'string', 'max' => 120],
             [['std_roll_no'], 'string', 'max' => 10],
             [['std_percentage'], 'string', 'max' => 6],
             [['refrence_designation'], 'string', 'max' => 30],
@@ -63,23 +66,24 @@ class StdInquiry extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'std_inquiry_id' => 'Student Inquiry ID',
-            'std_inquiry_no' => 'Student Inquiry No.',
+            'std_inquiry_id' => 'Std Inquiry ID',
+            'std_inquiry_no' => 'Std Inquiry No',
             'std_name' => 'Student Name',
-            'std_father_name' => "Father's Name",
-            'std_contact_no' => 'Student Contact No.',
-            'std_father_contact_no' => "Father's Contact No.",
+            'std_father_name' => 'Father Name',
+            'std_contact_no' => 'Contact No',
+            'std_father_contact_no' => 'Father Contact No',
             'std_inquiry_date' => 'Inquiry Date',
-            'std_intrested_class' => 'Interested Class',
+            'std_intrested_class' => 'Intrested Class',
             'std_previous_class' => 'Previous Class',
-            'std_roll_no' => 'Previous Class Roll No.',
-            'std_obtained_marks' => 'Previous Class Obtained Marks',
-            'std_total_marks' => 'Previous Class Total Marks',
+            'previous_institute' => 'Previous Institute',
+            'std_roll_no' => 'Roll No',
+            'std_obtained_marks' => 'Obtained Marks',
+            'std_total_marks' => 'Total Marks',
             'std_percentage' => 'Percentage',
             'refrence_name' => 'Refrence Name',
-            'refrence_contact_no' => 'Refrence Contact No.',
+            'refrence_contact_no' => 'Refrence Contact No',
             'refrence_designation' => 'Refrence Designation',
-            'std_address' => 'Address',
+            'std_address' => 'Std Address',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

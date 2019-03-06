@@ -59,6 +59,12 @@
                         'icon' => 'user-plus',
                         'url' => 'std-attendance/test-attendance',
                     ],
+
+                    [
+                        'label' => 'Take Attendance',
+                        'icon' => 'user-plus',
+                        'url' => 'std-attendance/take-attendance',
+                    ],
                     
                     // ------------------------------------------------
                     // Student Attendance end...

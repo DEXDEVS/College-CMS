@@ -57,7 +57,7 @@ use yii\helpers\Url;
         <div class="row"> 
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 113px; top: 6px"></i>
-                <label>Stdudent DOB</label>
+                <label>Student DOB</label>
                 <?= DateTimePicker::widget([
                     'model' => $model,
                     'attribute' => 'std_DOB',
