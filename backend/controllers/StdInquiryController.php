@@ -31,7 +31,7 @@ class StdInquiryController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -249,13 +249,18 @@ class StdInquiryController extends Controller
     }
 
     public function beforeAction($action) {
-    $this->enableCsrfValidation = false;
-    return parent::beforeAction($action);
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 
     public function actionInquiryReport()
     {   
         return $this->render('inquiry-report');
+    }
+
+    public function actionInquiryReportDetail()
+    {   
+        return $this->render('inquiry-report-detail');
     }
 
      /**
