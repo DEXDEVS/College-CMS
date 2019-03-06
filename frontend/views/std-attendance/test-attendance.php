@@ -67,7 +67,7 @@
             		foreach ($subjectsIDs as $key => $value) {
 
             			$SubID = $value['subject_id'];
-            			$count = count($SubID);
+            			//$count = count($SubID);
             			$subjectsNames = Yii::$app->db->createCommand("SELECT subject_id,subject_name
 						FROM subjects WHERE subject_id = '$SubID'")->queryAll();
             	?>

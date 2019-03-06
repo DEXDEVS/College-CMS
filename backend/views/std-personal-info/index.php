@@ -6,6 +6,7 @@ use yii\widgets\Pjax;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset; 
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\StdPersonalInfoSearch */
@@ -32,9 +33,31 @@ CrudAsset::register($this);
                     ['role'=>'modal-remote','title'=> 'Create new Std Personal Infos','class'=>'btn btn-success']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-warning', 'title'=>'Reset Grid']).
-                    '{toggleData}'.
-                    '{export}'
+                    '{toggleData}'
+                    //'{export}'
                 ],
+                $gridColumns = [
+                    'std_id',
+                    'std_name',
+                    'std_father_name',
+                    'std_contact_no',
+                    'std_DOB',
+                    'std_gender',
+                    'std_permanent_address',
+                    'std_temporary_address',
+                    'std_email:email',
+                    'std_photo',
+                    'std_b_form',
+                    'std_district',
+                    'std_religion',
+                    'std_nationality',
+                    'std_tehseel',
+                ],
+                //Reader a export dropdown menu
+                ExportMenu::widget([
+                    'dataProvider' => $dataProvider,
+                    'columns' => $gridColumns
+                ]),
             ],          
             'striped' => true,
             'condensed' => true,
