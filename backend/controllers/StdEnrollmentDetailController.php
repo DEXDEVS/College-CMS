@@ -346,7 +346,7 @@ class StdEnrollmentDetailController extends Controller
         return $this->render('fetch-students');
     }
 
-    public function actionDelete($ids, $id)
+    public function actionDelete($ids,$id)
     {
         $deleteStd = Yii::$app->db->createCommand("SELECT std_enroll_detail_std_id FROM std_enrollment_detail WHERE std_enroll_detail_id =' $ids'")->queryAll();
         $request = Yii::$app->request;
@@ -364,7 +364,7 @@ class StdEnrollmentDetailController extends Controller
             */
             $stdId = $deleteStd[0]['std_enroll_detail_std_id'];
             $update = Yii::$app->db->createCommand()->update('std_academic_info',['std_enroll_status' => 'unsign'],['std_id' => $stdId])->execute();
-            return $this->redirect(['std-enrollment-head/index']);
+            return $this->redirect(['/std-enrollment-head-view','id'=>$id]);
         }
     }
 
