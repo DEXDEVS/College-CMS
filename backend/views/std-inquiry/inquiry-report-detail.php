@@ -44,7 +44,7 @@
           <td><?php echo $item['std_contact_no'] ?></td>
           <td><?php echo $item['refrence_name'] ?></td>
           <td><?php echo $item['std_intrested_class'] ?></td>
-          <td><?php echo $item['std_father_name'] ?></td>
+          <td><?php echo $item['previous_institute'] ?></td>
           <td style="text-align: center;"><b><?php echo $item['std_percentage'] ?></b></td>
         </tr>
         <?php 

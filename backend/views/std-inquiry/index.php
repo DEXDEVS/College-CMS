@@ -26,16 +26,6 @@ CrudAsset::register($this);
             'pjax'=>true,
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
-                ['content'=>
-                    Html::a('<i class="fa fa-registered"></i>', ['./inquiry-report'],
-                    ['role'=>'','title'=> 'Date Range Report','class'=>'btn btn-info']).
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
-                    ['role'=>'modal-remote','title'=> 'Create new Std Inquiries','class'=>'btn btn-success']).
-                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
-                    ['data-pjax'=>1, 'class'=>'btn btn-warning', 'title'=>'Reset Grid']).
-                    '{toggleData}'
-                    //'{export}'
-                ],
                 $gridColumns = [
                     'std_inquiry_no',
                     'std_name',
@@ -60,6 +50,16 @@ CrudAsset::register($this);
                     'dataProvider' => $dataProvider,
                     'columns' => $gridColumns
                 ]),
+                ['content'=>
+                    Html::a('<i class="fa fa-registered"></i>', ['./inquiry-report'],
+                    ['role'=>'','title'=> 'Date Range Report','class'=>'btn btn-info']).
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
+                    ['role'=>'modal-remote','title'=> 'Create new Std Inquiries','class'=>'btn btn-success']).
+                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
+                    ['data-pjax'=>1, 'class'=>'btn btn-warning', 'title'=>'Reset Grid']).
+                    '{toggleData}'
+                    //'{export}'
+                ],    
             ],          
             'striped' => true,
             'condensed' => true,

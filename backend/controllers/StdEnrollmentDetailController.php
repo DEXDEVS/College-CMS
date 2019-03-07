@@ -149,10 +149,11 @@ class StdEnrollmentDetailController extends Controller
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $std_enrollment_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
 
                         if(empty($StdEnrollmentDetail)){
-                            $rollNo = 01;
+                            $rollNo = '01';
                         } else {
                             $rolNo = $StdEnrollmentDetail[0]['std_roll_no'];
-                            $rollNo = substr($rolNo,14,3);    
+                            $rollNo = substr($rolNo,13,2)+1;  
+                            $rollNo = '0'.$rollNo;
                         } 
                         $model->std_roll_no = $branchCode."-".$sectionName."-".$date.$rollNo;
                         $model->std_enroll_detail_std_id = $value;
@@ -166,7 +167,7 @@ class StdEnrollmentDetailController extends Controller
                         $model->updated_at = '0'; 
                         $model->save();
                         $updateStdAcademicInfo = Yii::$app->db->createCommand("UPDATE  std_academic_info SET std_enroll_status = '$std_enroll_status' WHERE std_id = '$value'")->execute();
-                    }    
+                    }  
                 }
                 else {
                     $stdEnrollmentHead->std_enroll_head_name = $className[0]['class_name'].'-'.$session[0]['session_name'].'-'.$section[0]['section_name'];
@@ -188,10 +189,11 @@ class StdEnrollmentDetailController extends Controller
                         $StdEnrollmentDetail = Yii::$app->db->createCommand("SELECT std_roll_no FROM std_enrollment_detail WHERE std_enroll_detail_head_id = $stdEnrollmentHead->std_enroll_head_id ORDER BY std_roll_no DESC LIMIT 1")->queryAll();
 
                         if(empty($StdEnrollmentDetail)){
-                            $rollNo = 001;
+                            $rollNo = 01;
                         } else {
                             $rolNo = $StdEnrollmentDetail[0]['std_roll_no'];
-                            $rollNo = substr($rolNo,14,3)+1;    
+                            $rollNo = substr($rolNo,13,2)+1; 
+                            $rollNo = '0'.$rollNo;   
                         } 
                         $model->std_roll_no = $branchCode."-".$sectionName."-".$date.$rollNo;
                         $model->std_enroll_detail_std_id = $value;
