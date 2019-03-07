@@ -12,7 +12,7 @@
             </div>    
         </div>    
     </div>
-        
+
     <?php
 
     	$subjID = array();
@@ -88,6 +88,7 @@
                     <!-- /.box-body -->
                 </div>
               <!-- /.box -->
+
             </div>
   <?php } ?>
 </body>

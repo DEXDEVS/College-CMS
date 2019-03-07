@@ -162,7 +162,7 @@ class StdAcademicInfoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$ids)
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);       
@@ -174,7 +174,7 @@ class StdAcademicInfoController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "<b>Update Stduent Academic Info: </b>".$id,
+                    'title'=> "<b>Update Stduent Academic Info: </b>".$ids,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -212,7 +212,7 @@ class StdAcademicInfoController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['std-personal-info/view', 'id' => $model->academic_id]);
+                return $this->redirect(['std-personal-info/view', 'id' => $ids]);
             } else {
                 return $this->render('update', [
                     'model' => $model,

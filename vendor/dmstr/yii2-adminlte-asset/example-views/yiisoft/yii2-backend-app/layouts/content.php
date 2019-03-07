@@ -39,10 +39,9 @@ use dmstr\widgets\Alert;
 
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 1.0
+        <b>Beta Version</b> 1.0
     </div>
-    <strong>Copyright &copy; <?php echo date('Y'); ?>   <a href="http://www.dexdevs.com" target="_blank">DEXDEVS</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; <?php echo date('Y'); ?>   <a href="http://www.dexdevs.com" target="_blank">DEXDEVS</a>.</strong> All Rights Reserved.
 </footer>
 
 <!-- Control Sidebar -->

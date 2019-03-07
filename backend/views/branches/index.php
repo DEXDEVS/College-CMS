@@ -5,6 +5,7 @@ use yii\bootstrap\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset; 
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\BranchesSearch */
@@ -30,9 +31,22 @@ CrudAsset::register($this);
                     ['role'=>'modal-remote','title'=> 'Create new Branches','class'=>'btn btn-success']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-warning', 'title'=>'Reset Grid']).
-                    '{toggleData}'.
-                    '{export}'
+                    '{toggleData}'
+                    //'{export}'
                 ],
+                $gridColumns = [
+                'institute_id',
+                'branch_code',
+                'branch_name',
+                'branch_type',
+                'branch_location',
+                'branch_contact_no',
+                ],
+                //Reader a export dropdown menu
+                ExportMenu::widget([
+                    'dataProvider' => $dataProvider,
+                    'columns' => $gridColumns
+                ]),
             ],          
             'striped' => true,
             'condensed' => true,

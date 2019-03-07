@@ -108,10 +108,8 @@ $('#sessionId').on('change',function(){
         url: "$url",
 
         success: function(result){
-     
             var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
             var options = '';
-           
             for(var i=0; i<jsonResult.length; i++) { 
                 options += '<option value="'+jsonResult[i].section_id+'">'+jsonResult[i].section_name+'</option>';
             }

@@ -59,14 +59,18 @@ $year = date('y');
         </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
+            <?= $form->field($model, 'previous_institute')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
             <?= $form->field($model, 'std_previous_class')->textInput(['maxlength' => true]) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 154px; top: 18px"></i>
             <?= $form->field($model, 'std_roll_no')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 209px; top: 18px"></i>
             <?= $form->field($model, 'std_obtained_marks')->textInput(['id' => 'obtainedMarks']) ?>
@@ -75,16 +79,16 @@ $year = date('y');
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 181px; top: 18px"></i>
             <?= $form->field($model, 'std_total_marks')->textInput(['id' => 'totalMarks']) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
            <?= $form->field($model, 'std_percentage')->textInput(['maxlength' => true, 'id'=> 'percentage', 'readonly'=> true]) ?> 
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 100px; top: 18px"></i>
             <?= $form->field($model, 'std_intrested_class')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 57px; top: 18px"></i>
             <?= $form->field($model, 'std_address')->textInput(['maxlength' => true]) ?>
         </div>

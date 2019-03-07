@@ -14,15 +14,6 @@ return [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'branch_id',
     // ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'institute_id',
-    //     'value'=>'institute.institute_name',
-    // ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'branch_code',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'institute_id',
@@ -32,14 +23,6 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'branch_name',
     ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'branch_type',
-    // ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'branch_location',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'branch_type',
