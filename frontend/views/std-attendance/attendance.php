@@ -121,7 +121,7 @@
 								<td><?php echo $stdName[0]['std_name'] ?></td>
 								<td align="center">
 									<input type="radio" name="std<?php echo $i+1?>" value="P" checked="checked"/> <b  style="color: green">Present </b> &nbsp; &nbsp;| &nbsp; 
-									<input type="radio" name="std<?php echo $i+1?>" value="A" /> <b style="color: red">Absent </b> &nbsp; &nbsp;| &nbsp; 
+									<input type="radio" name="std<?php echo $i+1?>" value="A" /> <b style="color: red">Absent </b> &nbsp; &nbsp;| &nbsp;
 									<input type="radio" name="std<?php echo $i+1?>" value="L" /><b style="color: #F7C564;"> Leave</b>
 								</td>
 							</tr>
@@ -195,7 +195,7 @@
 	                	<input type="hidden" name="sessionid" value="<?php echo $sessionid; ?>">
 	                	<input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>">
 	                	<input type="hidden" name="subjectid" value="<?php echo $subjectid; ?>">
-	                	<input type="hidden" name="date" value="<?php echo $date; ?>">
+	                	 <input type="hidden" name="date" value="<?php echo $date; ?>"> 
 	                </div>    
 	        </div>
 	    </form> 

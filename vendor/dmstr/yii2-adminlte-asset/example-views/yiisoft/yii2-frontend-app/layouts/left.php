@@ -42,6 +42,7 @@
                     ['label' => 'Home', 'icon' => 'dashboard', 'url' => ["./home"]],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Login', 'url' => ['./login'], 'visible' => Yii::$app->user->isGuest],
+
                     // ------------------------------------------------
                     // Student Attendance start...
                     [
@@ -57,13 +58,13 @@
                     [
                         'label' => 'Test Attendance',
                         'icon' => 'user-plus',
-                        'url' => 'std-attendance/test-attendance',
+                        'url' => './test-attendance',
                     ],
 
                     [
                         'label' => 'Take Attendance',
                         'icon' => 'user-plus',
-                        'url' => 'std-attendance/take-attendance',
+                        'url' => './take-attendance',
                     ],
                     
                     // ------------------------------------------------

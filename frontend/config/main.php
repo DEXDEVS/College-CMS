@@ -50,11 +50,14 @@ return [
             'rules' => [
                 'login' => 'site/login',
                 'logout' => 'site/login',
+                //'signup' => 'site/signup',
                 'home' => 'site/index',
                 
                 'attendance' => 'std-attendance',
                 'student-attendance' => 'std-attendance/attendance',
                 'class-attendance' => 'std-attendance/view-class-attendance',
+                'test-attendance' => 'std-attendance/test-attendance',
+                'take-attendance' => 'std-attendance/take-attendance',
             ],
         ],
         
