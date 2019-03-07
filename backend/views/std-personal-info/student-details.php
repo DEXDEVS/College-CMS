@@ -49,18 +49,11 @@
        WHERE sfd.std_id = '$id'")->queryAll();
 
     // fetching student roll number from `std_enrollment_detail` against selected student `$id`
-    $stdRollNo = Yii::$app->db->createCommand("SELECT sed.std_roll_no
+    $stdRollNo = Yii::$app->db->createCommand("SELECT sed.std_roll_no,seh.session_id,seh.section_id
     FROM std_enrollment_detail as sed
     INNER JOIN std_enrollment_head as seh
     ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
     WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll(); 
-
-    $stdSessSecInfo = Yii::$app->db->createCommand("SELECT seh.session_id,seh.section_id
-      FROM std_enrollment_head as seh
-      INNER JOIN std_academic_info as sai
-      ON seh.class_name_id = sai.class_name_id
-      WHERE sai.std_id = '$id'")->queryAll(); 
-
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -258,7 +251,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Guardian Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./std-guardian-info-update?id=<?php echo $stdGuardianId;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <?=Html::a(' Edit',['./std-guardian-info-update','id'=>$stdGuardianId,'ids'=>$id],['class'=>'fa fa-edit btn btn-primary btn-sm','title'=>'Edit', 'data-toggle'=>'tooltip']) ?>
                     </div>
                   </div><hr>
                   <!-- guardian info start -->
@@ -323,7 +316,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> ICE Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./std-ice-info-update?id=<?php echo $stdICEId; ?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <?=Html::a(' Edit',['./std-ice-info-update','id'=>$stdICEId,'ids'=>$id],['class'=>'fa fa-edit btn btn-primary btn-sm','title'=>'Edit', 'data-toggle'=>'tooltip']) ?>
                     </div>
                   </div><hr>
                   <!-- ICE info start -->
@@ -362,7 +355,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Academic Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./std-academic-info-update?id=<?php echo $stdAcademicId;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <?=Html::a(' Edit',['./std-academic-info-update','id'=>$stdAcademicId,'ids'=>$id],['class'=>'fa fa-edit btn btn-primary btn-sm','title'=>'Edit', 'data-toggle'=>'tooltip']) ?>
                     </div>
                   </div><hr>
                   <!-- Academic info start -->
@@ -374,7 +367,7 @@
                               <th>Session:</th>
                               <td>
                                 <?php 
-                                $sessId = $stdSessSecInfo[0]['session_id'];
+                                $sessId = $stdRollNo[0]['session_id'];
                                 $sessName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessId'")->queryAll();
                                 echo $sessName[0]['session_name'];
                                 ?>
@@ -384,7 +377,7 @@
                               <th>Section:</th>
                               <td>
                                 <?php 
-                                $secId = $stdSessSecInfo[0]['section_id'];
+                                $secId = $stdRollNo[0]['section_id'];
                                 $secName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$secId'")->queryAll();
                                 echo $secName[0]['section_name'];
                                 ?>
@@ -449,7 +442,7 @@
                       <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Fee Information</p>
                     </div>
                     <div class="col-md-2 col-md-offset-5">
-                      <a href="./std-fee-details-update?id=<?php echo $stdFeeId;?>" class="btn btn-primary btn-sm fa fa-edit" style='color: white;'> Edit </a>
+                      <?=Html::a(' Edit',['./std-fee-details-update','id'=>$stdFeeId,'ids'=>$id],['class'=>'fa fa-edit btn btn-primary btn-sm','title'=>'Edit', 'data-toggle'=>'tooltip']) ?>
                     </div>
                   </div><hr>
                   <!-- Fee info start -->

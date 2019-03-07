@@ -5,6 +5,7 @@ use yii\bootstrap\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset; 
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\StdInquirySearch */
@@ -26,13 +27,39 @@ CrudAsset::register($this);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
+                    Html::a('<i class="fa fa-registered"></i>', ['./inquiry-report'],
+                    ['role'=>'','title'=> 'Date Range Report','class'=>'btn btn-info']).
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
                     ['role'=>'modal-remote','title'=> 'Create new Std Inquiries','class'=>'btn btn-success']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-warning', 'title'=>'Reset Grid']).
-                    '{toggleData}'.
-                    '{export}'
+                    '{toggleData}'
+                    //'{export}'
                 ],
+                $gridColumns = [
+                    'std_inquiry_no',
+                    'std_name',
+                    'std_father_name',
+                    'std_contact_no',
+                    'std_father_contact_no',
+                    'std_inquiry_date',
+                    'previous_institute',
+                    'std_intrested_class',
+                    'std_previous_class',
+                    'std_roll_no',
+                    'std_obtained_marks',
+                    'std_total_marks',
+                    'std_percentage',
+                    'refrence_name',
+                    'refrence_contact_no',
+                    'refrence_designation',
+                    'std_address',
+                ],
+                //Reader a export dropdown menu
+                ExportMenu::widget([
+                    'dataProvider' => $dataProvider,
+                    'columns' => $gridColumns
+                ]),
             ],          
             'striped' => true,
             'condensed' => true,

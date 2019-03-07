@@ -88,6 +88,7 @@
                             ['label' => 'Student Inquiry', 'icon' => 'caret-right', 'url' => ["/std-inquiry"],],
                             ['label' => 'Student Registration', 'icon' => 'caret-right', 'url' => ["/std-personal-info"],],
                             ['label' => 'Student Enrollment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
+                            ['label' => 'Student Promotion', 'icon' => 'caret-right', 'url' => ["./std-promote"],],
                             
                             //['label' => 'Class', 'icon' => 'caret-right', 'url' => ["/std-class"],],
                             // ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
@@ -148,7 +149,7 @@
                         'url' => '#',
                         'items' => [
                             //['label' => 'Manage Fee Vouchers', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail',],
-                            ['label' => 'Manage Class Fee Accounts', 'icon' => 'caret-right', 'url' => "./fee-transaction-detail-class-account"],
+                            ['label' => 'Manage Class Fee Accounts', 'icon' => 'caret-right', 'url' => "./class-account"],
                             ['label' => 'Generate Student Vouchers', 'icon' => 'caret-right', 'url' => "./fee-transaction-detail-fee-voucher"],
                             ['label' => 'Collect Student Vouchers', 'icon' => 'caret-right', 'url' => "./fee-transaction-detail-collect-voucher"],
                              ['label' => 'Class Fee Report', 'icon' => 'caret-right', 'url' => "./fee-transaction-detail-class-account-fee-report"]

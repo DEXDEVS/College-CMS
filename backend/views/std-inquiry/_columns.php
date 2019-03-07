@@ -22,26 +22,30 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'std_name',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'std_father_name',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'std_contact_no',
-    ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'std_father_name',
+    // ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'std_contact_no',
+    // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_father_contact_no',
     // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'std_inquiry_date',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'std_intrested_class',
-    // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'std_inquiry_date',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'std_intrested_class',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'previous_institute',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_previous_class',
@@ -58,14 +62,14 @@ return [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_total_marks',
     // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'std_percentage',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'refrence_name',
-    // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'std_percentage',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'refrence_name',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'refrence_contact_no',
