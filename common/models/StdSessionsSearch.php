@@ -18,8 +18,8 @@ class StdSessionsSearch extends StdSessions
     public function rules()
     {
         return [
-            [['session_id', 'created_by', 'updated_by'], 'integer'],
-            [[ 'session_branch_id', 'session_name', 'session_start_date', 'session_end_date', 'status', 'created_at', 'updated_at'], 'safe'],
+            [['session_id', 'session_branch_id', 'installment_cycle', 'created_by', 'updated_by'], 'integer'],
+            [['session_name', 'session_start_date', 'session_end_date', 'status', 'created_at', 'updated_at', 'delete_status'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class StdSessionsSearch extends StdSessions
      */
     public function search($params)
     {
-        $query = StdSessions::find()->where(['delete_status' => 1]);
+        $query = StdSessions::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,20 +55,21 @@ class StdSessionsSearch extends StdSessions
             return $dataProvider;
         }
 
-        // $query->joinWith('sessionBranch');
-        // $query->andFilterWhere([
-        //     'session_id' => $this->session_id,
-        //     'session_start_date' => $this->session_start_date,
-        //     'session_end_date' => $this->session_end_date,
-        //     'created_at' => $this->created_at,
-        //     'updated_at' => $this->updated_at,
-        //     'created_by' => $this->created_by,
-        //     'updated_by' => $this->updated_by,
-        // ]);
+        $query->andFilterWhere([
+            'session_id' => $this->session_id,
+            'session_branch_id' => $this->session_branch_id,
+            'session_start_date' => $this->session_start_date,
+            'session_end_date' => $this->session_end_date,
+            'installment_cycle' => $this->installment_cycle,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+        ]);
 
         $query->andFilterWhere(['like', 'session_name', $this->session_name])
             ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['like', 'branches.branch_name', $this->session_branch_id]);
+            ->andFilterWhere(['like', 'delete_status', $this->delete_status]);
 
         return $dataProvider;
     }
