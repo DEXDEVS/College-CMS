@@ -9,7 +9,7 @@
 <div class="container-fluid" style="margin-top: -30px;">
 	<h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC;">Partial Voucher</h1>
     <!-- action="index.php?r=fee-transaction-detail/class-account-info" -->
-    <form method="POST" action="index.php?r=fee-transaction-detail/partial-voucher-detail&id=<?php echo $id; ?>">
+    <form method="POST" action="partial-voucher-detail?id=<?php echo $id; ?>">
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">

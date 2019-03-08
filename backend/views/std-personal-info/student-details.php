@@ -367,20 +367,28 @@
                               <th>Session:</th>
                               <td>
                                 <?php 
-                                $sessId = $stdRollNo[0]['session_id'];
-                                $sessName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessId'")->queryAll();
-                                echo $sessName[0]['session_name'];
+                                if(empty($stdRollNo[0]['session_id'])){
+                                  echo 'N/A';
+                                } else {
+                                        $sessId = $stdRollNo[0]['session_id'];
+                                        $sessName = Yii::$app->db->createCommand("SELECT session_name FROM    std_sessions WHERE session_id = '$sessId'")->queryAll();
+                                        echo $sessName[0]['session_name'];
+                                }
                                 ?>
                               </td>
                             </tr>
                             <tr>
                               <th>Section:</th>
                               <td>
-                                <?php 
-                                $secId = $stdRollNo[0]['section_id'];
-                                $secName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$secId'")->queryAll();
-                                echo $secName[0]['section_name'];
-                                ?>
+                                 <?php 
+                                if(empty($stdRollNo[0]['section_id'])){
+                                    echo 'N/A';
+                                } else {
+                                    $secId = $stdRollNo[0]['section_id'];
+                                    $secName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$secId'")->queryAll();
+                                    echo $secName[0]['section_name'];
+                                  } 
+                                ?> 
                               </td>
                             </tr>
                             <tr  colspan="2">

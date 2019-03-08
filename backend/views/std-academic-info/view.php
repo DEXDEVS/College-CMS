@@ -22,6 +22,7 @@ use yii\widgets\DetailView;
             'grades',
             'percentage',
             'Institute',
+            'std_enroll_status',
             'created_at',
             'updated_at',
             'created_by',

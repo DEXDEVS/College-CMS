@@ -12,15 +12,20 @@ return [
     ],
     //     [
     //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'sms_id',
+    //     'attribute'=>'account_register_id',
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_name',
+        'attribute'=>'account_nature_id',
+        'value'=>'accountNature.account_nature_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_template',
+        'attribute'=>'account_name',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'account_description',
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
@@ -35,8 +40,8 @@ return [
     //     'attribute'=>'created_by',
     // ],
     // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'updated_by',
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'updated_by',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

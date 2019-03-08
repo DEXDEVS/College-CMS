@@ -10,17 +10,21 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-    //     [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'sms_id',
-    // ],
-    [
+        [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_name',
+        'attribute'=>'account_register_id',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_template',
+        'attribute'=>'account_nature_id',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'account_name',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'account_description',
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
@@ -30,13 +34,13 @@ return [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'updated_at',
     // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'created_by',
+    ],
     // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'created_by',
-    // ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'updated_by',
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'updated_by',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

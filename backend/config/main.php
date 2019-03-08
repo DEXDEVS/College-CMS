@@ -88,6 +88,9 @@ return [
                 'class-fee-report-detail' => 'fee-transaction-detail/class-fee-report-detail',
                 'fee-transaction-detail-class-account-info' => 'fee-transaction-detail/class-account-info',
                 'fee-transaction-detail-voucher' => 'fee-transaction-detail/voucher',
+                'partial-voucher-detail' => 'fee-transaction-detail/partial-voucher-detail',
+                'partial-voucher-head' => 'fee-transaction-detail/partial-voucher-head',
+
 
                 'emails-create' => 'emails/create',
 
