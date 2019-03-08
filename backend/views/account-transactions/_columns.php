@@ -12,15 +12,28 @@ return [
     ],
     //     [
     //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'sms_id',
+    //     'attribute'=>'trans_id',
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_name',
+        'attribute'=>'account_nature',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'sms_template',
+        'attribute'=>'account_register_id',
+        'value'=>'accountRegister.account_name',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'date',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'description',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'total_amount',
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
@@ -31,12 +44,12 @@ return [
         // 'attribute'=>'updated_at',
     // ],
     // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'created_by',
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'created_by',
     // ],
     // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'updated_by',
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'updated_by',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

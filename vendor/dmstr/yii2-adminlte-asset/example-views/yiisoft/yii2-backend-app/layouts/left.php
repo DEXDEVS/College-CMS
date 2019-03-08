@@ -158,6 +158,19 @@
                     // ------------------------------------------------
                     // Fee Registration close...
                     // ------------------------------------------------
+                    // Account Module start...
+                    [
+                        'label' => 'Account Module',
+                        'icon' => 'credit-card',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Account Head', 'icon' => 'caret-right', 'url' => "./account-register"],
+                            ['label' => 'Account Transaction', 'icon' => 'caret-right', 'url' => "./account-transactions"]
+                        ],
+                    ],
+                    // ------------------------------------------------
+                    // Account Module close...
+                    // ------------------------------------------------
                     // Msg of Day start...
                     [
                         'label' => 'Communications',

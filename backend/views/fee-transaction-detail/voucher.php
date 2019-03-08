@@ -41,11 +41,14 @@
 				$stdInfo = Yii::$app->db->createCommand("SELECT std_name , std_father_name  FROM std_personal_info WHERE std_id = '$value[std_enroll_detail_std_id]'")->queryAll();
 				$stdId = $value['std_enroll_detail_std_id'];
 				$feeDetail = Yii::$app->db->createCommand("SELECT * FROM fee_transaction_detail as ftd INNER JOIN fee_transaction_head as fth ON fth.fee_trans_id = ftd.fee_trans_detail_head_id WHERE fth.std_id = '$stdId' AND fth.month = '$month'")->queryAll();
-				$installmentId = $feeDetail[0]['installment_no'];
-
-				$installment = Yii::$app->db->createCommand("SELECT installment_name FROM installment WHERE installment_id = '$installmentId'")->queryAll();
-				$installmentName = $installment[0]['installment_name'];
-
+				if(empty($feeDetail[0]['installment_no'])){
+					$installmentName = "Not set";
+				}
+				else {
+					$installmentId = $feeDetail[0]['installment_no'];
+					$installment = Yii::$app->db->createCommand("SELECT installment_name FROM installment WHERE installment_id = '$installmentId'")->queryAll();
+					$installmentName = $installment[0]['installment_name'];
+				}
 				$feeType = Yii::$app->db->createCommand("SELECT fee_type_id,fee_type_name  FROM fee_type")->queryAll();
     ?>
 
@@ -179,7 +182,12 @@
 			$installmentNo = $installNo -1;
 			$remaining = 0;
 			$remain = Yii::$app->db->createCommand("SELECT remaining, total_amount, paid_amount FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
-			$remainig = $remain[0]['remaining'];
+			if (empty($remain)) {
+				$remainig = 0;
+			}
+			else {
+				$remainig = $remain[0]['remaining'];
+			}
 			$paymentByDueDate = $currentTotal + $remaining;
 			$paymentAFterDueDate = $paymentByDueDate + 50;
 			?>			
@@ -207,7 +215,7 @@
 			</div>
 			<?php 
 				if($remainig > 0){
-					$message = "Your remaing dues are pending by Rs: ".$remainig."/-";
+					$message = "Your remaining dues are pending by Rs: ".$remainig."/-";
 				}
 				else {
 					$message = '';

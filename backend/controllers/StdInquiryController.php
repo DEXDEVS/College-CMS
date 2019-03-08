@@ -126,7 +126,7 @@ class StdInquiryController extends Controller
                     'title'=> "Create new StdInquiry",
                     'content'=>'<span class="text-success">Create StdInquiry success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                            Html::a('Create More',['std-enrollment-head/create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           

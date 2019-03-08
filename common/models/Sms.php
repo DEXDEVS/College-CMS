@@ -46,7 +46,7 @@ class Sms extends \yii\db\ActiveRecord
     {
         return [
             'sms_id' => 'Sms ID',
-            'sms_name' => 'Sms Name',
+            'sms_name' => 'Sms Label',
             'sms_template' => 'Sms Template',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
