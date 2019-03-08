@@ -183,15 +183,13 @@
                             <?php 
                             for ($i=1; $i <=7 ; $i++) { 
                                 $d = '0'.$i;
-                                $dd= 2019-03-$d;
-                                //$cd = explode('-',$date);
-                                if($dd == $date){
-                                    //$crruntDate = $dd;
+                                $dd= '2019-03-'.$d;
+                                //if($dd == $date){
                                     for ($j=0; $j<$subjectlength ; $j++) {  ?>
-                                        <td><?php echo 'kinza'; ?></td>
-                                         <td><?php //echo $dd; ?></td>
-                                <?php    }   
-                                }
+                                        <td><?php echo '-'; ?></td>
+                                        <!-- <td><?php //echo $dd; ?></td> -->
+                            <?php  }   
+                               // }
                             } 
                             ?>
                             </tr>

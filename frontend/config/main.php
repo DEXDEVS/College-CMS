@@ -56,6 +56,7 @@ return [
                 'attendance' => 'std-attendance',
                 'student-attendance' => 'std-attendance/attendance',
                 'class-attendance' => 'std-attendance/view-class-attendance',
+                'view-attendance' => 'std-attendance/view-attendance',
                 'test-attendance' => 'std-attendance/test-attendance',
                 'take-attendance' => 'std-attendance/take-attendance',
             ],

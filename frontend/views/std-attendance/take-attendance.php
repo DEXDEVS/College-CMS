@@ -1,6 +1,6 @@
 <?php 
-use yii\db\Connection;
-$conn = \Yii::$app->db;
+// use yii\db\Connection;
+// $conn = \Yii::$app->db;
 
 	if(isset($_GET['sub_id'])){
 		$sub_id = $_GET['sub_id'];	
@@ -117,10 +117,10 @@ $conn = \Yii::$app->db;
 				$sessionid = $classDetail[0]['session_id'];
 				$sectionid = $classDetail[0]['section_id'];
 				//var_dump($status);
-				$transection = $conn->beginTransaction();
-				try{
+				// $transection = $conn->beginTransaction();
+				// try{
 					for($i=0; $i<$countstd; $i++){
-					$attendance = $conn->createCommand()->insert('std_attendance',[
+					$attendance = Yii::$app->db->createCommand()->insert('std_attendance',[
 						'teacher_id' => $emp_id,
 						'class_name_id' => $classnameid,
 						'session_id'=> $sessionid,
@@ -131,10 +131,10 @@ $conn = \Yii::$app->db;
 						'status' => $status[$i],
 					])->execute();
 					}
-					$transection->commit();
-				} catch(Exception $e){
-					$transection->rollback();
-				}
+				// 	$transection->commit();
+				// } catch(Exception $e){
+				// 	$transection->rollback();
+				// }
 				
 		// closing of if isset
 		}
