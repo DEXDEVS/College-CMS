@@ -42,6 +42,7 @@
                     ['label' => 'Home', 'icon' => 'dashboard', 'url' => ["./home"]],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Login', 'url' => ['./login'], 'visible' => Yii::$app->user->isGuest],
+
                     // ------------------------------------------------
                     // Student Attendance start...
                     [
@@ -50,20 +51,27 @@
                         'url' => '#',
                         'items' => [
                             ['label' => 'Student Attendance', 'icon' => 'caret-right', 'url' => ["./attendance"],],
-                            ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],]
+                            ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],],
+                            ['label' => 'View Attendance', 'icon' => 'caret-right', 'url' => ["./view-attendance"],]
                         ],
                     ],
 
                     [
                         'label' => 'Test Attendance',
                         'icon' => 'user-plus',
-                        'url' => 'std-attendance/test-attendance',
+                        'url' => './test-attendance',
                     ],
 
                     [
                         'label' => 'Take Attendance',
                         'icon' => 'user-plus',
-                        'url' => 'std-attendance/take-attendance',
+                        'url' => './take-attendance',
+                    ],
+
+                    [
+                        'label' => 'View Attendance',
+                        'icon' => 'user-plus',
+                        'url' => './view-attendance',
                     ],
                     
                     // ------------------------------------------------

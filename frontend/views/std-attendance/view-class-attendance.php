@@ -18,7 +18,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Current Date</label>
-                    <input class="form-control" data-date-format="mm/dd/yyyy" type="date" name="date" required="">
+                    <input class="form-control" data-date-format="dd/mm/yyyy" type="date" name="date" required="">
                 </div>    
             </div>
             <?php
@@ -102,21 +102,33 @@
         $subjectComb = Yii::$app->db->createCommand("SELECT std_subject_name FROM std_subjects WHERE class_id = '$classid'")->queryAll();
         $sub = $subjectComb[0]['std_subject_name'];
         $subject = explode(',', $sub);
-        $subjectAls = array();
+        $subjectlength = count($subject);
+        $subjectId = array();
+        $subjectAlias = array();
         foreach ($subject as $key => $subj) {
             
             // get subject alias
         //$sub = $subj;
-        $subAls = Yii::$app->db->createCommand("SELECT subject_alias FROM subjects WHERE subject_name like '$subj'")->queryAll();
-
-        var_dump($subj);
-        echo "<br>";
-        var_dump($subAls);
-        echo "<br>";
-         //$subjectAls = $subAls[0]['subject_alias'];
+        $subAls = Yii::$app->db->createCommand("SELECT subject_id, subject_alias FROM subjects WHERE subject_name like '%$subj%'")->queryAll();
+                
+        $subjectAlias[$key] = $subAls[0]['subject_alias'];
+        $subjectId[$key] = $subAls[0]['subject_id'];
+        // var_dump($subjectAlias[$key]);
+        // echo "</br>";
+        // var_dump($subjectId[$key]);
+        // echo "</br>";
         }
+
         // Select attandance
-        // $attendance = Yii::$app->db->createCommand("SELECT subject_id, status FROM std_attendance  WHERE subject_id = '$subjectid'")->queryAll();        
+        $attendance = Yii::$app->db->createCommand("SELECT subject_id, student_id, status FROM std_attendance  WHERE class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid'")->queryAll();  
+            $attenSubId = $attendance[0]['subject_id'];
+        foreach ($subjectId as $key => $subId) {
+            if ($attenSubId == $subId) {
+                $subjAlias = $subjectAlias[$key];
+                var_dump($subjAlias);
+            }
+        }
+             
         ?> 
 
 <div class="container-fluid">
@@ -130,25 +142,31 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover table-bordered table-striped">
+                <?php $crruntDate =0; 
+                      $d = 0;
+                      $cd = 0;?>
                 <tr>
                   	<th rowspan="2">Sr<br>#</th>
 					<th rowspan="2">Roll<br>#</th>
 					<th rowspan="2">Student<br>Name</th>
 					<?php 
-						for ($i=0; $i <7 ; $i++) { 
-                            list($y,$m,$d)=explode('-',$date);
-                            $date2 = Date("d-m-Y", mktime(0,0,0,$m,$d+$i,$y));
-							echo "<th colspan='6' style='text-align: center;'>",$date2,"</th>";
+						for ($i=1; $i <=7 ; $i++) { 
+                            // list($y,$m,$d)=explode('-',$date);
+                            // $date2 = Date("Y-m-d", mktime(0,0,0,$m,$d+$i,$y));
+                            $d = '0'.$i;
+							echo "<th colspan='6' style='text-align: center;'>$d-03-2019</th>";
+                            $cd = explode('-',$date);
 						} 
 					?>
                 </tr>
                 <tr>
                 	<?php 
-                    $len = count($subject);
-                		for ($i=0; $i <$len ; $i++) { 
-					?>
-						<th style='padding: 1px 5px'><?php //echo $subject[$i]; ?></th>;
-					<?php	} 
+                    for ($i=0; $i <7 ; $i++) { 
+                		for ($j=0; $j <$subjectlength ; $j++) { ?>
+						<th style='padding: 1px 5px'><?php echo $subjectAlias[$j]; ?></th>
+					<?php	
+                        }
+                    } 
                 	?>
                 </tr>
 
@@ -156,29 +174,27 @@
                         
                         for( $i=0; $i<$length; $i++) { ?>
                             <tr>
-                                <td><?php echo $i+1 ?></td>
-                                <td><?php echo $student[$i]['std_roll_no'] ?></td>
+                                <td><?php echo $i+1; ?></td>
+                                <td><?php echo $student[$i]['std_roll_no']; ?></td>
                                 <?php $stdId = $student[$i]['std_enroll_detail_std_id'];
                                       $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll(); 
-                                      ?>
-
-                                <td><?php echo $stdName[0]['std_name'] ?></td>
-
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><?php //echo $attendance[$i]['status'] ?></td>
+                                ?>
+                               <td><?php echo $stdName[0]['std_name']; ?></td>
+                            <?php 
+                            for ($i=1; $i <=7 ; $i++) { 
+                                $d = '0'.$i;
+                                $dd= '2019-03-'.$d;
+                                //if($dd == $date){
+                                    for ($j=0; $j<$subjectlength ; $j++) {  ?>
+                                        <td><?php echo '-'; ?></td>
+                                        <!-- <td><?php //echo $dd; ?></td> -->
+                            <?php  }   
+                               // }
+                            } 
+                            ?>
                             </tr>
                     <?php
-                       // $stdAttendId[$i] = $stdId;
-                        //closing for loop
-                        }
-                    ?>
-                    <?php 
-                        for($i=0; $i<42; $i++){
-                            echo "<td></td>";
+                        //closing outter for loop
                         }
                     ?> 
                 
@@ -288,35 +304,35 @@ $('#sessionId').on('change',function(){
     });       
 });
 
-$('#sectionId').on('change',function(){
-    var clsId = $('#classId').val();
-    var sessId = $('#sessionId').val();
-    var sectId = $('#sectionId').val();
+// $('#sectionId').on('change',function(){
+//     var clsId = $('#classId').val();
+//     var sessId = $('#sessionId').val();
+//     var sectId = $('#sectionId').val();
     
-    $.ajax({
-        type:'post',
-        data:{class:clsId,session:sessId,section:sectId},
-        url: "$url",
+//     $.ajax({
+//         type:'post',
+//         data:{class:clsId,session:sessId,section:sectId},
+//         url: "$url",
 
-        success: function(result){
-        console.log(result);
-        var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
+//         success: function(result){
+//         console.log(result);
+//         var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
             
-            var len =jsonResult[0].length;
-            var option = "";
-            $('#subjectId').empty();
-            $('#subjectId').append("<option>"+"Select Subject"+"</option>");
-            for(var i=0; i<len; i++)
-            {
-            var subId = jsonResult[0][i];
-            var subName = jsonResult[1][i];
+//             var len =jsonResult[0].length;
+//             var option = "";
+//             $('#subjectId').empty();
+//             $('#subjectId').append("<option>"+"Select Subject"+"</option>");
+//             for(var i=0; i<len; i++)
+//             {
+//             var subId = jsonResult[0][i];
+//             var subName = jsonResult[1][i];
             
-            option += '<option value="'+ subId +'">'+ subName +'</option>';
-            }
-            $('#subjectId').append(option);      
-         }           
-    });       
-});
+//             option += '<option value="'+ subId +'">'+ subName +'</option>';
+//             }
+//             $('#subjectId').append(option);      
+//          }           
+//     });       
+// });
 
 JS;
 $this->registerJs($script);

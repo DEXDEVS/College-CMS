@@ -4,93 +4,95 @@
 	<title>Attendance</title>
 </head>
 <body>
-		<h1 class="well well-sm text" align="center">Attendance</h1>
-    	<div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="hidden" name="_csrf" class="form-control" value="<?=Yii::$app->request->getCsrfToken()?>">          
-                </div>    
+	<h1 class="well well-sm text" align="center">Attendance</h1>
+	<div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="hidden" name="_csrf" class="form-control" value="<?=Yii::$app->request->getCsrfToken()?>">          
             </div>    
-        </div>
-        
-            <?php
-
-            	global $subjID;
-
-            	$techerEmail = Yii::$app->user->identity->email;
-            	$teacherId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$techerEmail'")->queryAll();
-            	$teacher_id = $teacherId[0]['emp_id'];
-
-				$classId = Yii::$app->db->createCommand("SELECT DISTINCT d.class_id FROM teacher_subject_assign_detail as d INNER JOIN teacher_subject_assign_head as h ON d.teacher_subject_assign_detail_head_id = h.teacher_subject_assign_head_id WHERE h.teacher_id = '$teacher_id'")->queryAll();
-				$countClassIds = count($classId);
-            ?>
-           
-            <?php 
-            	for ($i=0; $i <$countClassIds ; $i++) {
-            	 $idd = $classId[$i]['class_id'];
-            	 $CLASSName = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name,seh.std_enroll_head_id
-					FROM std_enrollment_head as seh
-					INNER JOIN teacher_subject_assign_detail as tsad
-					ON seh.std_enroll_head_id = tsad.class_id WHERE seh.std_enroll_head_id = '$idd'")->queryAll();
-            	 $subjectsIDs = Yii::$app->db->createCommand("SELECT tsad.subject_id
-					FROM teacher_subject_assign_detail as tsad
-					INNER JOIN std_enrollment_head as seh
-					ON seh.std_enroll_head_id = tsad.class_id WHERE tsad.class_id = '$idd'")->queryAll();
-            	 ?>
-
-	<div class="col-md-6">
-          <div class="box box-success collapsed-box" >
-            <div class="box-header with-border" style="background-color: #dff0d8;">
-              <h3 class="box-title">
-              	<b>
-				<?php echo $CLASSName[0]['std_enroll_head_name']; ?>
-				</b>
-              </h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><br><i class="fa fa-plus" style="font-size:15px;"></i>
-                </button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-            	<table class="table table-hover">
-            		<thead style="background-color:#add8e6; ">
-            			<tr>
-            				<th>Sr #.</th>
-            				<th>Subjects</th>
-            				<th>Action</th>
-            			</tr>
-            		</thead>
-            	<tbody>
-            	<?php 
-            		foreach ($subjectsIDs as $key => $value) {
-
-            			$SubID = $value['subject_id'];
-            			//$count = count($SubID);
-            			$subjectsNames = Yii::$app->db->createCommand("SELECT subject_id,subject_name
-						FROM subjects WHERE subject_id = '$SubID'")->queryAll();
-            	?>
-            	<tr>
-            		<td width="50px"><?php echo $key+1; ?></td>
-            		<td>
-    					<?php echo $subjectsNames[0]['subject_name']; ?>			
-            		</td>
-            		<td>
-            			<a href="./take-attendance?sub_id=<?php echo $SubID ?>&class_id=<?php echo $CLASSName[0]['std_enroll_head_id']; ?>" class="btn btn-info btn-xs">Get Class</a>
-            		</td>
-            	</tr>		
-            	<?php } ?>
-            	</tbody>
-            	</table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+        </div>    
     </div>
-	<?php } ?>
 
+    <?php
 
+    	$subjID = array();
+        $subjectsIDs = 0;
+
+    	$empEmail = Yii::$app->user->identity->email;
+    	$empId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$empEmail'")->queryAll();
+    	$empId = $empId[0]['emp_id'];
+        $teacherId = Yii::$app->db->createCommand("SELECT teacher_subject_assign_head_id FROM teacher_subject_assign_head WHERE teacher_id = '$empId'")->queryAll();
+        $headId = $teacherId[0]['teacher_subject_assign_head_id'];
+
+		$classId = Yii::$app->db->createCommand("SELECT DISTINCT d.class_id FROM teacher_subject_assign_detail as d INNER JOIN teacher_subject_assign_head as h ON d.teacher_subject_assign_detail_head_id = h.teacher_subject_assign_head_id WHERE h.teacher_id = '$empId'")->queryAll();
+		$countClassIds = count($classId);
+
+    	for ($i=0; $i <$countClassIds ; $i++) {
+    	 $id = $classId[$i]['class_id'];
+    	 $CLASSName = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name,seh.std_enroll_head_id
+    		FROM std_enrollment_head as seh
+    		INNER JOIN teacher_subject_assign_detail as tsad
+    		ON seh.std_enroll_head_id = tsad.class_id WHERE seh.std_enroll_head_id = '$id'")->queryAll();
+        $subjectsIDs = Yii::$app->db->createCommand("SELECT tsad.subject_id
+        FROM teacher_subject_assign_detail as tsad
+        WHERE tsad.class_id = '$id' AND tsad.teacher_subject_assign_detail_head_id = '$headId'")->queryAll();
+        
+        	?>
+
+    	   <div class="col-md-6">
+                <div class="box box-success collapsed-box" >
+                    <div class="box-header with-border" style="background-color: #dff0d8;">
+                        <h3 class="box-title">
+                          	<b>
+            				<?php echo $CLASSName[0]['std_enroll_head_name']; ?>
+            				</b>
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">  <br><i class="fa fa-plus" style="font-size:15px;"></i>
+                            </button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                    	<table class="table table-hover">
+                    		<thead style="background-color:#add8e6; ">
+                    			<tr>
+                    				<th>Sr #.</th>
+                    				<th>Subjects</th>
+                    				<th>Action</th>
+                    			</tr>
+                    		</thead>
+                    	<tbody>
+                    	<?php 
+                    		foreach ($subjectsIDs as $key => $value) {
+
+                    			$SubID = $value['subject_id'];
+                    			//$count = count($SubID);
+                    			$subjectsNames = Yii::$app->db->createCommand("SELECT subject_id,subject_name
+        						FROM subjects WHERE subject_id = '$SubID'")->queryAll();
+                    	?>
+                    	<tr>
+                    		<td width="50px"><?php echo $key+1; ?></td>
+                    		<td>
+            					<?php echo $subjectsNames[0]['subject_name']; ?>			
+                    		</td>
+                    		<td>
+                    			<a href="./take-attendance?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" class="btn btn-info btn-xs">Get Class</a>
+                                
+                            <a href="./view-attendance?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" class="btn btn-info btn-xs">View</a>
+                    		</td>
+                    	</tr>		
+                    <?php   } ?>
+                    	</tbody>
+                    	</table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+              <!-- /.box -->
+
+            </div>
+  <?php } ?>
 </body>
 </html>
 <?php
