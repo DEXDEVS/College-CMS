@@ -87,8 +87,9 @@ return [
 
                 'emails-create' => 'emails/create',
 
-                'sms' => 'sms/create',
-                'sms-absent-sms' => 'sms/absent-sms',
+                'sms' => 'sms/index',
+                'absent-sms' => 'sms/absent-sms',
+                'custom-sms' => 'custom-sms/index',
 
 
             ],

@@ -4,13 +4,13 @@
 		$sub_id = $_GET['sub_id'];	
 		$class_id = $_GET['class_id'];
 	}
-	$students = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name,sed.std_enroll_detail_std_name, sed.std_roll_no
+	// fetch students against `$class_id`
+	$students = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name,sed.std_enroll_detail_std_name,sed.std_enroll_detail_std_id,sed.std_roll_no
 		FROM std_enrollment_detail as sed
 		INNER JOIN std_enrollment_head as seh
 		ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
 		WHERE sed.std_enroll_detail_head_id = '$class_id'")->queryAll();
-
-	$countstd = count($students);
+	// fetch subjects against `$sub_id`
 	$subName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$sub_id'")->queryAll();
 
 ?>
@@ -24,54 +24,50 @@
 <div class="row">
 	<div class="col-md-9">
 		<form method="POST">
-		<table class="table table-hover">
+		<table class="table table-hover table-bordered">
 			<thead>
 				<tr>
 					<td align="center" colspan="4">
-						<b style="font-size: 30px;">Class Attendance</b>
+						<b style="font-size: 30px;">
+							<?php echo $students[0]['std_enroll_head_name']."<br>"; ?>
+							<span style="color:#0080FF;">
+							<?php echo "(".$subName[0]['subject_name'].")"; ?>
+							</span>
+						</b>
 					</td>
 				</tr>
-				<tr>
-					<th>Class:</th>
-					<td><?php echo $students[0]['std_enroll_head_name']; ?></td>
-					<th>Subject:</th>
-					<td><?php echo $subName[0]['subject_name']; ?></td>
-				</tr>
 				<tr style="background-color:#add8e6; ">
-					<th >Sr #.</th>
-					<th >Roll #.</th>
-					<th >Name</th>
-					<th>Action</th>
+					<th width="50px">Sr #.</th>
+					<th style="max-width:30px;">Roll #.</th>
+					<th>Name</th>
+					<th style="text-align: center;">Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php 
-				for ($i=0; $i <$countstd ; $i++) { 
+				foreach ($students as $key => $value) {
 					
-
-				 ?>
+				?>
 				<tr>
-					<td>1</td>
-					<td><?php echo $students[0]['std_roll_no']; ?></td>
-					<td><?php echo $students[0]['std_enroll_detail_std_name'];?></td>
-					<td align="center">
-						<input type="radio" name="std<?php echo $i+1?>" value="P" checked="checked"/> <b  style="color: green">Present </b> &nbsp; &nbsp;| &nbsp; 
-						<input type="radio" name="std<?php echo $i+1?>" value="A" /> <b style="color: red">Absent </b> &nbsp; &nbsp;| &nbsp; 
-						<input type="radio" name="std<?php echo $i+1?>" value="L" /><b style="color: #F7C564;"> Leave</b>
+					<td><?php echo $key+1; ?></td>
+					<td><?php echo $value['std_roll_no']; ?></td>
+					<td><?php echo $value['std_enroll_detail_std_name'];?></td>
+					<td align="left">
+						<input type="radio" name="std<?php echo $key+1?>" value="P" checked="checked"/> <b  style="color: green">Present </b><br> 
+						<input type="radio" name="std<?php echo $key+1?>" value="A" /> <b style="color: red">Absent </b><br>
+						<input type="radio" name="std<?php echo $key+1?>" value="L" /><b style="color: #F7C564;"> Leave</b>
 					</td>
 				</tr>
 				
 				<?php } ?>
-				<tr>
-					<td>
-						<button type="submit" name="submit" class="btn btn-success btn-flat">
-							<i class="fa fa-sign-in"></i> <b>Take Attendance</b>
-						</button>
-					</td>
-				</tr>
 			</tbody>
-			</form>
+			
+			
 		</table>
+		<button type="submit" name="submit" class="btn btn-success btn-flat">
+			<i class="fa fa-sign-in"></i> <b>Take Attendance</b>
+		</button>
+		</form>
 	</div>
 </div>
 </body>

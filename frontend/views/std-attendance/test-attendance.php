@@ -40,7 +40,7 @@
 
 	<div class="col-md-6">
           <div class="box box-success collapsed-box" >
-            <div class="box-header with-border" style="background-color: #dff0d8;">
+            <div class="box-header with-border" style="background-color: #dff0d8;padding:15px;">
               <h3 class="box-title">
               	<b>
 				<?php echo $CLASSName[0]['std_enroll_head_name']; ?>
@@ -65,9 +65,7 @@
             	<tbody>
             	<?php 
             		foreach ($subjectsIDs as $key => $value) {
-
             			$SubID = $value['subject_id'];
-            			$count = count($SubID);
             			$subjectsNames = Yii::$app->db->createCommand("SELECT subject_id,subject_name
 						FROM subjects WHERE subject_id = '$SubID'")->queryAll();
             	?>

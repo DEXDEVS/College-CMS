@@ -1,3 +1,5 @@
+<!-- bootstrap wysihtml5 - text editor -->
+<!-- <link rel="stylesheet" href="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"> -->
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -19,11 +21,12 @@ use yii\widgets\ActiveForm;
            $StdName = $getStdInfo[0]['std_name'];
     ?>        
             <?= $form->field($model, 'sms_name')->textInput(['maxlength' => true, 'value'=>"$StdName", 'readonly' => true]) ?>
+            
     <?php } else{ ?>
             <?= $form->field($model, 'sms_name')->textInput(['maxlength' => true]) ?>
     <?php } ?> 
-   
-    <?= $form->field($model, 'sms_template')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'sms_template')->textarea(['rows' => 6, 'id' => 'compose-textarea']) ?>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
@@ -32,6 +35,12 @@ use yii\widgets\ActiveForm;
 	    </div>
 	<?php } ?>
 
-    <?php ActiveForm::end(); ?>
-    
+  <?php ActiveForm::end(); ?>
+
 </div>
+<script>
+  $(function () {
+    //Add text editor
+    $("#compose-textarea").wysihtml5();
+  });
+</script>
