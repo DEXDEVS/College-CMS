@@ -46,16 +46,9 @@ class StdSessions extends \yii\db\ActiveRecord
             [['session_name'], 'string', 'max' => 32],
             ['session_name','unique'],
             [['installment_cycle'],'integer'],
-            //['installment_cycle', 'check'],
             [['session_branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branches::className(), 'targetAttribute' => ['session_branch_id' => 'branch_id']],
         ];
     }
-
-    // public function check()
-    // {
-    //     // no real check at the moment to be sure that the error is triggered
-    //     $this->addError($attribute, Yii::t('user', 'You entered an invalid date format.'));
-    // }
 
     /**
      * @inheritdoc

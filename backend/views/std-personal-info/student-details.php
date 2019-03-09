@@ -53,7 +53,8 @@
     FROM std_enrollment_detail as sed
     INNER JOIN std_enrollment_head as seh
     ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
-    WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll(); 
+    WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll();
+    
 ?>
 <div class="container-fluid">
   <div class="row">

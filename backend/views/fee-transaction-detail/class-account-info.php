@@ -461,7 +461,7 @@
                 //     </div>";
                 // 
                 Yii::$app->session->setFlash('warning', "You have successfully update this class account...!"); 
-                return $this->render('./fee-transaction-detail-class-account');  
+                //return $this->render('./fee-transaction-detail-class-account');  
         // end of else 
         }
     //end of isset
