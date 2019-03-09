@@ -31,7 +31,7 @@ class CustomSmsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','class-sms'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -45,6 +45,13 @@ class CustomSmsController extends Controller
                 ],
             ],
         ];
+    }
+
+    // class-sms route
+
+     public function actionClassSms()
+    { 
+        return $this->render('class-sms');
     }
 
     /**

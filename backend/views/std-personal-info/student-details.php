@@ -53,20 +53,8 @@
     FROM std_enrollment_detail as sed
     INNER JOIN std_enrollment_head as seh
     ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
-    WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll(); 
-<<<<<<< HEAD
-
-    if (!empty($stdRollNo[0]['session_id'])) {
-      $session_id = $stdRollNo[0]['session_id'];
-    }
-    if (!empty($sec$stdRollNo[0]['section_id'])) {
-      $session_id = $stdRollNo[0]['session_id'];
-    }
-
-    //var_dump($stdRollNo);
-
-=======
->>>>>>> 621dfb795081e43b7aa3e487b295113f5da6ba83
+    WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll();
+    
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -380,17 +368,6 @@
                             <tr>
                               <th>Session:</th>
                               <td>
-<<<<<<< HEAD
-                                <?php
-                                    $sessId = $stdRollNo[0]['session_id'];
-                                    $sessName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessId'")->queryAll();
-                                    if (!empty($sessName[0]['session_name'])) {
-                                    echo $sessName[0]['session_name'];
-                                    }
-                                  else{
-                                    echo "N/A";
-                                  }
-=======
                                 <?php 
                                 if(empty($stdRollNo[0]['session_id'])){
                                   echo 'N/A';
@@ -399,25 +376,12 @@
                                         $sessName = Yii::$app->db->createCommand("SELECT session_name FROM    std_sessions WHERE session_id = '$sessId'")->queryAll();
                                         echo $sessName[0]['session_name'];
                                 }
->>>>>>> 621dfb795081e43b7aa3e487b295113f5da6ba83
                                 ?>
                               </td>
                             </tr>
                             <tr>
                               <th>Section:</th>
                               <td>
-<<<<<<< HEAD
-                                <?php
-                                    $secId = $stdRollNo[0]['section_id'];
-                                    $secName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$section_id'")->queryAll();
-                                    if (!empty($secName[0]['section_name'])) {
-                                      echo $secName[0]['section_name'];
-                                    }
-                                    else{
-                                        echo "N/A";
-                                    }
-                                ?>
-=======
                                  <?php 
                                 if(empty($stdRollNo[0]['section_id'])){
                                     echo 'N/A';
@@ -427,7 +391,6 @@
                                     echo $secName[0]['section_name'];
                                   } 
                                 ?> 
->>>>>>> 621dfb795081e43b7aa3e487b295113f5da6ba83
                               </td>
                             </tr>
                             <tr  colspan="2">
