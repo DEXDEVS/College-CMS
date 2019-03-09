@@ -14,14 +14,18 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php 
-        if (isset($_GET['id'])) {
-          $id = $_GET['id'];
-          
-           $getStdInfo = Yii::$app->db->createCommand("SELECT std.std_name FROM std_personal_info as std WHERE std.std_id = '$id'")->queryAll();
-           $StdName = $getStdInfo[0]['std_name'];
+    if (isset($_GET['id'])) {
+      $id = $_GET['id'];
+      
+       $getStdInfo = Yii::$app->db->createCommand("SELECT std.std_name FROM std_personal_info as std WHERE std.std_id = '$id'")->queryAll();
+       $StdName = $getStdInfo[0]['std_name'];
     ?>        
+<<<<<<< HEAD
             <?= $form->field($model, 'sms_name')->textInput(['maxlength' => true, 'value'=>"$StdName", 'readonly' => true]) ?>
             
+=======
+    <?= $form->field($model, 'sms_name')->textInput(['maxlength' => true, 'value'=>"$StdName", 'readonly' => true]) ?>
+>>>>>>> 621dfb795081e43b7aa3e487b295113f5da6ba83
     <?php } else{ ?>
             <?= $form->field($model, 'sms_name')->textInput(['maxlength' => true]) ?>
     <?php } ?> 

@@ -54,6 +54,7 @@
     INNER JOIN std_enrollment_head as seh
     ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id
     WHERE sed.std_enroll_detail_std_id = '$id'")->queryAll(); 
+<<<<<<< HEAD
 
     if (!empty($stdRollNo[0]['session_id'])) {
       $session_id = $stdRollNo[0]['session_id'];
@@ -64,6 +65,8 @@
 
     //var_dump($stdRollNo);
 
+=======
+>>>>>>> 621dfb795081e43b7aa3e487b295113f5da6ba83
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -180,6 +183,7 @@
                         <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
                         <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-warning btn-sm fa fa-envelope-o" style='color: white;'> Send Email </a>
                         <a href="./sms?id=<?php echo $id;?>" class="btn btn-info btn-sm fa fa-comments-o" style='color: white;'> Send SMS </a>
+                        <?=Html::a(' SMS',['sms/send-sms', 'to' => '923063772105', 'message' => 'Testing sms from brookfield web application'],['class'=>'btn btn-primary btn-sm fa fa-comments']) ?>
                       </div>
                     </div>
                   </div><hr>
@@ -376,6 +380,7 @@
                             <tr>
                               <th>Session:</th>
                               <td>
+<<<<<<< HEAD
                                 <?php
                                     $sessId = $stdRollNo[0]['session_id'];
                                     $sessName = Yii::$app->db->createCommand("SELECT session_name FROM std_sessions WHERE session_id = '$sessId'")->queryAll();
@@ -385,12 +390,23 @@
                                   else{
                                     echo "N/A";
                                   }
+=======
+                                <?php 
+                                if(empty($stdRollNo[0]['session_id'])){
+                                  echo 'N/A';
+                                } else {
+                                        $sessId = $stdRollNo[0]['session_id'];
+                                        $sessName = Yii::$app->db->createCommand("SELECT session_name FROM    std_sessions WHERE session_id = '$sessId'")->queryAll();
+                                        echo $sessName[0]['session_name'];
+                                }
+>>>>>>> 621dfb795081e43b7aa3e487b295113f5da6ba83
                                 ?>
                               </td>
                             </tr>
                             <tr>
                               <th>Section:</th>
                               <td>
+<<<<<<< HEAD
                                 <?php
                                     $secId = $stdRollNo[0]['section_id'];
                                     $secName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$section_id'")->queryAll();
@@ -401,6 +417,17 @@
                                         echo "N/A";
                                     }
                                 ?>
+=======
+                                 <?php 
+                                if(empty($stdRollNo[0]['section_id'])){
+                                    echo 'N/A';
+                                } else {
+                                    $secId = $stdRollNo[0]['section_id'];
+                                    $secName = Yii::$app->db->createCommand("SELECT section_name FROM std_sections WHERE section_id = '$secId'")->queryAll();
+                                    echo $secName[0]['section_name'];
+                                  } 
+                                ?> 
+>>>>>>> 621dfb795081e43b7aa3e487b295113f5da6ba83
                               </td>
                             </tr>
                             <tr  colspan="2">

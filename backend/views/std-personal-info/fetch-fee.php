@@ -5,7 +5,7 @@
  	$inquiryDetail = Yii::$app->db->createCommand("SELECT * FROM std_inquiry WHERE std_inquiry_no = '$stdInquiryNo'")->queryAll();
  	echo json_encode($inquiryDetail);
  	}
-	else if(isset($_POST['class_Id'])){
+	else if(isset($_POST['session_Id'])){
 	$classId = $_POST['class_Id'];
 	$sessionId = $_POST['session_Id'];
 

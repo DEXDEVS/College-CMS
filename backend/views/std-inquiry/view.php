@@ -18,6 +18,7 @@ use yii\widgets\DetailView;
             'std_father_contact_no',
             'std_inquiry_date',
             'std_intrested_class',
+            'previous_institute',
             'std_previous_class',
             'std_roll_no',
             'std_obtained_marks',

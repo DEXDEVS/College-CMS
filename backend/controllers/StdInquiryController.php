@@ -31,7 +31,7 @@ class StdInquiryController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -126,7 +126,7 @@ class StdInquiryController extends Controller
                     'title'=> "Create new StdInquiry",
                     'content'=>'<span class="text-success">Create StdInquiry success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                            Html::a('Create More',['std-enrollment-head/create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
@@ -246,6 +246,21 @@ class StdInquiryController extends Controller
         }
 
 
+    }
+
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+
+    public function actionInquiryReport()
+    {   
+        return $this->render('inquiry-report');
+    }
+
+    public function actionInquiryReportDetail()
+    {   
+        return $this->render('inquiry-report-detail');
     }
 
      /**

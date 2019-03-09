@@ -52,6 +52,29 @@ class SmsController extends Controller
         return parent::beforeAction($action);
     }
 
+    public function actionSendSms($to, $message){
+        // Configuration variables
+        $type = "xml";
+        $id = "Brookfieldclg";
+        $pass = "college42";
+        $lang = "English";
+        $mask = "Brookfield";
+        // Data for text message
+        // $to = "923317375027";
+        // $message = "Testing sms from brookfield web application";
+        $message = urlencode($message);
+        // Prepare data for POST request
+        $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
+        // Send the POST request with cURL
+        $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch); //This is the result from SMS4CONNECT
+        curl_close($ch);
+        Yii::$app->session->setFlash('success', "SMS sent successfully...!");     
+    }
+
     /**
      * Lists all Sms models.
      * @return mixed
@@ -119,7 +142,12 @@ class SmsController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                        $model->created_by = Yii::$app->user->identity->id; 
+                        $model->created_at = new \yii\db\Expression('NOW()');
+                        $model->updated_by = '0';
+                        $model->updated_at = '0'; 
+                        $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new Sms",

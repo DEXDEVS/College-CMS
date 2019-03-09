@@ -1,12 +1,12 @@
 <h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC; margin-top: -10px">Class Fee Account Information</h1>
 
 <style>
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-          -webkit-appearance: none; 
-          margin: 0; 
-        }
-    </style>
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+</style>
 <?php 
     if(isset($_POST['submit'])) { 
         $classid        = $_POST["classid"];
@@ -461,7 +461,7 @@
                 //     </div>";
                 // 
                 Yii::$app->session->setFlash('warning', "You have successfully update this class account...!"); 
-                //return $this->render('./fee-transaction-detail-class-account');  
+                return $this->render('./fee-transaction-detail-class-account');  
         // end of else 
         }
     //end of isset
