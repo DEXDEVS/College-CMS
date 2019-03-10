@@ -3,24 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Class SMS</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <br>
-              <h4>SMS to<br> Whole Class</h4>
 
-              <p></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-comments-o"></i>
-            </div>
-            <a href="./std-personal-info" class="small-box-footer">Click here to send SMS <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+		<!-- small box -->
+		<div class="small-box bg-aqua">
+			<div class="inner">
+			  <br>
+			  <h4>SMS to<br> Whole Class</h4>
+
+			  <p></p>
+			</div>
+			<div class="icon">
+			  <i class="fa fa-comments-o"></i>
+			</div>
+			<a href="./std-personal-info" class="small-box-footer">Click here to send SMS <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -43,9 +45,8 @@
           <div class="small-box bg-yellow">
             <div class="inner">
              	<br>
-              <h4>SMS to<br> Whole Sessions</h4>
-
-              <p></p>
+              	<h4>SMS to<br> Whole Sessions</h4>
+              	<p></p>
             </div>
             <div class="icon">
               <i class="fa fa-comments-o"></i>
@@ -59,8 +60,8 @@
           <div class="small-box bg-red">
             <div class="inner">
             	<br>
-              <h4>SMS to <br> Multiple Sessions</h4>
-              <p></p>
+              	<h4>SMS to <br> Multiple Sessions</h4>
+              	<p></p>
             </div>
             <div class="icon">
               <i class="fa fa-comments" style="font-size: 70px;"></i>
@@ -78,7 +79,6 @@
             	<div class="box-header with-border">
             		<i class="fa fa-comments-o"></i>
 	              	<h3 class="box-title">SMS to Class</h3>
-
 	              	<div class="box-tools pull-right">
 	                	<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
 	                	</button>
@@ -89,29 +89,53 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<?php 
-
-	              		$classInfo = Yii::$app->db->createCommand("SELECT seh.class_name_id,sed.std_enroll_detail_std_id
-	              			FROM std_enrollment_head as seh
-    						INNER JOIN std_enrollment_detail as sed
-    						ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
-    						WHERE sed.std_enroll_detail_head_id = '$id'")->queryAll();
-
+	         <?php     		
+	         //      		$classInfo = Yii::$app->db->createCommand("SELECT seh.class_name_id,sed.std_enroll_detail_std_id
+	         //      			FROM std_enrollment_head as seh
+    						// INNER JOIN std_enrollment_detail as sed
+    						// ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
+    						// WHERE sed.std_enroll_detail_head_id = '$id'")->queryAll();
 
 	              		 ?>
-	              		<select class="form-control">
+
+	              		<?php 
+		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
+		              		$countClass = count($classID);
+		              		//var_dump($classID);
+		              		// foreach ($classID as $key => $value) {
+		              		 	
+		              		// 	$class_id = $classID[0]['class_name_id'];
+		              		// 	$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
+		              		// 	var_dump($classNames);
+		              		// 	if (!empty($classNames)) {
+		              		// 		$classID = $classNames[0]['class_name_id'];
+		              		// 		$className = $classNames[0]['class_name'];
+		              		// 	}
+	              			
+	              		?> 
+	              		<select class="form-control" id="selectClass">
 	              			<option>Slect class</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
+	              			<?php 
+              				for ($i=0; $i <$countClass ; $i++) { 
+              					$class_id = $classID[$i]['class_name_id'];
+              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
+	              			?>
+	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
+	              				<?php echo $classNames[0]['class_name']; ?></option>
+	              		<?php } ?>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
 	              		<label>SMS Content</label>
-	              		<textarea name="" rows="10" class="form-control">
-	              			
-	              		</textarea>
+	              		<textarea name="" rows="10" class="form-control" id="message"></textarea>
+	              		<p>
+					      <span><b>NOTE:</b> 160 characters = 1 SMS</span>
+					        <span id="remaining" class="pull-right">160 characters remaining </span>
+					      <span id="messages" style="text-align: center;">/ Count SMS(0)</span>
+					      <input type="hidden" value="" id="count"><br>
+					      <input type="text" value="" id="sms" style="border: none; color: green; font-weight: bold;">
+					      <input type="text" name="to" id="number">
+					    </p>
 	              	</div>
 	              	<button type="submit" name="send" class="btn btn-success btn-block btn-flat">Send SMS</button>
 	              </form>
@@ -146,9 +170,7 @@
 	              	</div>
 	              	<div class="form-group">
 	              		<label>SMS Content</label>
-	              		<textarea name="" rows="10" class="form-control">
-	              			
-	              		</textarea>
+	              		<textarea name="" rows="10" class="form-control"></textarea>
 	              	</div>
 	              	<button type="submit" name="send" class="btn btn-primary btn-block btn-flat">Send SMS</button>
 	              </form>
@@ -237,3 +259,55 @@
     </div>	
 </body>
 </html>
+<?php 
+    global $count;
+    $countNumbers = 10; 
+?>
+
+<?php
+$url = \yii\helpers\Url::to("./fetch-numbers");
+
+$script = <<< JS
+// fetch student contact numbers....
+$('#selectClass').on('change',function(){
+   	var selectClass = $('#selectClass').val();
+ 	alert(selectClass);
+   	$.ajax({
+        type:'post',
+        data:{selectClass:selectClass},
+        url: "$url",
+
+        success: function(result){
+        	var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
+			var number = jsonResult['std_contact_no'];
+			
+			$('#number').val(number);
+			
+		}         
+    });       
+});
+JS;
+$this->registerJs($script);
+?>
+</script>
+<script>
+// textarea sms counter....
+$(document).ready(function(){
+    var $remaining = $('#remaining'),
+    $messages = $remaining.next();
+    var numbers = '<?php echo $countNumbers; ?>';
+    $('#message').keyup(function(){
+      	var chars = this.value.length,
+        messages = Math.ceil(chars / 160),
+        remaining = messages * 160 - (chars % (messages * 160) || messages * 160);
+      	$messages.text('/ Count SMS (' + messages + ')');
+      	$messages.css('color', 'red');
+      	$remaining.text(remaining + ' characters remaining');
+      
+      	$('#count').val(messages);
+    	var countSMS = $('#count').val();
+      	var sms = parseInt(countSMS * numbers);
+      	$('#sms').val("Your Consumed SMS: (" + sms+ ")");
+  	});
+}); 
+</script>
