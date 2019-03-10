@@ -89,29 +89,9 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	         <?php     		
-	         //      		$classInfo = Yii::$app->db->createCommand("SELECT seh.class_name_id,sed.std_enroll_detail_std_id
-	         //      			FROM std_enrollment_head as seh
-    						// INNER JOIN std_enrollment_detail as sed
-    						// ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
-    						// WHERE sed.std_enroll_detail_head_id = '$id'")->queryAll();
-
-	              		 ?>
-
 	              		<?php 
 		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
 		              		$countClass = count($classID);
-		              		//var_dump($classID);
-		              		// foreach ($classID as $key => $value) {
-		              		 	
-		              		// 	$class_id = $classID[0]['class_name_id'];
-		              		// 	$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-		              		// 	var_dump($classNames);
-		              		// 	if (!empty($classNames)) {
-		              		// 		$classID = $classNames[0]['class_name_id'];
-		              		// 		$className = $classNames[0]['class_name'];
-		              		// 	}
-	              			
 	              		?> 
 	              		<select class="form-control" id="selectClass">
 	              			<option>Slect class</option>
@@ -160,17 +140,33 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<select class="form-control">
+	              		<?php 
+		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
+		              		$countClass = count($classID);
+	              		?> 
+	              		<select class="form-control" id="selectClass">
 	              			<option>Slect class</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
+	              			<?php 
+              				for ($i=0; $i <$countClass ; $i++) { 
+              					$class_id = $classID[$i]['class_name_id'];
+              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
+	              			?>
+	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
+	              				<?php echo $classNames[0]['class_name']; ?></option>
+	              		<?php } ?>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
 	              		<label>SMS Content</label>
-	              		<textarea name="" rows="10" class="form-control"></textarea>
+	              		<textarea name="" rows="10" class="form-control" id="message2"></textarea>
+	              		<p>
+					      <span><b>NOTE:</b> 160 characters = 1 SMS</span>
+					        <span id="remaining2" class="pull-right">160 characters remaining </span>
+					      <span id="messages2" style="text-align: center;">/ Count SMS(0)</span>
+					      <input type="hidden" value="" id="count2"><br>
+					      <input type="text" value="" id="sms2" style="border: none; color: green; font-weight: bold;">
+					      <input type="text" name="to" id="to2">
+					    </p>
 	              	</div>
 	              	<button type="submit" name="send" class="btn btn-primary btn-block btn-flat">Send SMS</button>
 	              </form>
@@ -198,19 +194,33 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<select class="form-control">
+	              		<?php 
+		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
+		              		$countClass = count($classID);
+	              		?> 
+	              		<select class="form-control" id="selectClass">
 	              			<option>Slect class</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
+	              			<?php 
+              				for ($i=0; $i <$countClass ; $i++) { 
+              					$class_id = $classID[$i]['class_name_id'];
+              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
+	              			?>
+	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
+	              				<?php echo $classNames[0]['class_name']; ?></option>
+	              		<?php } ?>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
 	              		<label>SMS Content</label>
-	              		<textarea name="" rows="10" class="form-control">
-	              			
-	              		</textarea>
+	              		<textarea name="" rows="10" class="form-control" id="message3"></textarea>
+	              		<p>
+					      <span><b>NOTE:</b> 160 characters = 1 SMS</span>
+					        <span id="remaining3" class="pull-right">160 characters remaining </span>
+					      <span id="messages3" style="text-align: center;">/ Count SMS(0)</span>
+					      <input type="hidden" value="" id="count3"><br>
+					      <input type="text" value="" id="sms3" style="border: none; color: green; font-weight: bold;">
+					      <input type="text" name="to" id="to3">
+					    </p>
 	              	</div>
 	              	<button type="submit" name="send" class="btn btn-info btn-block btn-flat">Send SMS</button>
 	              </form>
@@ -235,19 +245,33 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<select class="form-control">
+	              		<?php 
+		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
+		              		$countClass = count($classID);
+	              		?> 
+	              		<select class="form-control" id="selectClass">
 	              			<option>Slect class</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
-	              			<option>Class 1</option>
+	              			<?php 
+              				for ($i=0; $i <$countClass ; $i++) { 
+              					$class_id = $classID[$i]['class_name_id'];
+              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
+	              			?>
+	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
+	              				<?php echo $classNames[0]['class_name']; ?></option>
+	              		<?php } ?>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
 	              		<label>SMS Content</label>
-	              		<textarea name="" rows="10" class="form-control">
-	              			
-	              		</textarea>
+	              		<textarea name="" rows="10" class="form-control" id="message4"></textarea>
+	              		<p>
+					      <span><b>NOTE:</b> 160 characters = 1 SMS</span>
+					        <span id="remaining4" class="pull-right">160 characters remaining </span>
+					      <span id="messages4" style="text-align: center;">/ Count SMS(0)</span>
+					      <input type="hidden" value="" id="count4"><br>
+					      <input type="text" value="" id="sms4" style="border: none; color: green; font-weight: bold;">
+					      <input type="text" name="to" id="to4">
+					    </p>
 	              	</div>
 	              	<button type="submit" name="send" class="btn btn-warning btn-block btn-flat">Send SMS</button>
 	              </form>
@@ -268,7 +292,7 @@
 $url = \yii\helpers\Url::to("./fetch-numbers");
 
 $script = <<< JS
-// fetch student contact numbers....
+// fetch student contact numbers indiviual class wise....
 $('#selectClass').on('change',function(){
    	var selectClass = $('#selectClass').val();
  	alert(selectClass);
@@ -306,6 +330,63 @@ $(document).ready(function(){
     	var countSMS = $('#count').val();
       	var sms = parseInt(countSMS * numbers);
       	$('#sms').val("Your Consumed SMS: (" + sms+ ")");
+  	});
+}); 
+// textarea2 sms counter....
+$(document).ready(function(){
+    var $remaining = $('#remaining2'),
+    $messages = $remaining.next();
+    var numbers = '<?php echo $countNumbers; ?>';
+    $('#message2').keyup(function(){
+      	var chars = this.value.length,
+        messages = Math.ceil(chars / 160),
+        remaining = messages * 160 - (chars % (messages * 160) || messages * 160);
+      	$messages.text('/ Count SMS (' + messages + ')');
+      	$messages.css('color', 'red');
+      	$remaining.text(remaining + ' characters remaining');
+      
+      	$('#count2').val(messages);
+    	var countSMS = $('#count2').val();
+      	var sms = parseInt(countSMS * numbers);
+      	$('#sms2').val("Your Consumed SMS: (" + sms+ ")");
+  	});
+}); 
+// textarea3 sms counter....
+$(document).ready(function(){
+    var $remaining = $('#remaining3'),
+    $messages = $remaining.next();
+    var numbers = '<?php echo $countNumbers; ?>';
+    $('#message3').keyup(function(){
+      	var chars = this.value.length,
+        messages = Math.ceil(chars / 160),
+        remaining = messages * 160 - (chars % (messages * 160) || messages * 160);
+      	$messages.text('/ Count SMS (' + messages + ')');
+      	$messages.css('color', 'red');
+      	$remaining.text(remaining + ' characters remaining');
+      
+      	$('#count3').val(messages);
+    	var countSMS = $('#count3').val();
+      	var sms = parseInt(countSMS * numbers);
+      	$('#sms3').val("Your Consumed SMS: (" + sms+ ")");
+  	});
+}); 
+// textarea4 sms counter....
+$(document).ready(function(){
+    var $remaining = $('#remaining4'),
+    $messages = $remaining.next();
+    var numbers = '<?php echo $countNumbers; ?>';
+    $('#message4').keyup(function(){
+      	var chars = this.value.length,
+        messages = Math.ceil(chars / 160),
+        remaining = messages * 160 - (chars % (messages * 160) || messages * 160);
+      	$messages.text('/ Count SMS (' + messages + ')');
+      	$messages.css('color', 'red');
+      	$remaining.text(remaining + ' characters remaining');
+      
+      	$('#count4').val(messages);
+    	var countSMS = $('#count4').val();
+      	var sms = parseInt(countSMS * numbers);
+      	$('#sms4').val("Your Consumed SMS: (" + sms+ ")");
   	});
 }); 
 </script>
