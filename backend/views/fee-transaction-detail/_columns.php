@@ -30,16 +30,8 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'fee_discount',
+        'attribute'=>'collected_fee_amount',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'discounted_value',
-    ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'net_total',
-    // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'remaining',
