@@ -35,6 +35,10 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'status',
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'installment_cycle',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',
