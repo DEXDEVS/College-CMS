@@ -89,30 +89,10 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	         <?php     		
-	         //      		$classInfo = Yii::$app->db->createCommand("SELECT seh.class_name_id,sed.std_enroll_detail_std_id
-	         //      			FROM std_enrollment_head as seh
-    						// INNER JOIN std_enrollment_detail as sed
-    						// ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
-    						// WHERE sed.std_enroll_detail_head_id = '$id'")->queryAll();
-
-	              		 ?>
-
 	              		<?php 
 		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
 		              		$countClass = count($classID);
-		              		//var_dump($classID);
-		              		// foreach ($classID as $key => $value) {
-		              		 	
-		              		// 	$class_id = $classID[0]['class_name_id'];
-		              		// 	$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-		              		// 	var_dump($classNames);
-		              		// 	if (!empty($classNames)) {
-		              		// 		$classID = $classNames[0]['class_name_id'];
-		              		// 		$className = $classNames[0]['class_name'];
-		              		// 	}
-	              			
-	              		?> 
+		     			?> 
 	              		<select class="form-control" id="selectClass">
 	              			<option>Slect class</option>
 	              			<?php 

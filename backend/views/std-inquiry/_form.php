@@ -49,13 +49,13 @@ $year = date('y');
         </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 131px; top: 18px"></i>
-            <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+            <?= $form->field($model, 'std_contact_no')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx']) ?>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 122px; top: 18px"></i>
-            <?= $form->field($model, 'std_father_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+            <?= $form->field($model, 'std_father_contact_no')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx']) ?>
         </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
@@ -98,7 +98,7 @@ $year = date('y');
             <?= $form->field($model, 'refrence_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-             <?= $form->field($model, 'refrence_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+             <?= $form->field($model, 'refrence_contact_no')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx']) ?>
         </div>
         <div class="col-md-4">
              <?= $form->field($model, 'refrence_designation')->textInput(['maxlength' => true]) ?>
