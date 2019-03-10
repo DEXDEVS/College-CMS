@@ -7,7 +7,7 @@
 <body>
 <div class="container-fluid" style="margin-top: -30px;">
 	<h1 class="well well-sm bg-navy" align="center">Generate Voucher</h1>
-    <form  action = "fee-transaction-detail-voucher" method="POST">
+    <form  action = "voucher" method="POST">
     	<div class="row">
             <div class="col-md-4">
                 <div class="form-group">

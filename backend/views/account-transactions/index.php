@@ -16,7 +16,83 @@ $this->params['breadcrumbs'][] = $this->title;
 CrudAsset::register($this);
 
 ?>
+
 <div class="account-transactions-index">
+    <!-- Income and Expense Widgets start -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                          <h3>Rs</h3>
+                          <h4>50,000</h4>
+                        </div>
+                        <div class="icon">
+                          <i class="fa fa-calculator"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            <i class="fa fa-money"></i><b> Current Income This Month</b>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                          <h3>Rs</h3>
+                          <h4>5000</h4>
+                        </div>
+                        <div class="icon">
+                          <i class="fa fa-calculator"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            <i class="fa fa-money"></i><b> Current Expense This Month</b>
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>Rs</h3>
+                        <h4>45,000</h4>
+                    </div>
+                    <div class="icon">
+                      <i class="fa fa-money"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        <i class="fa fa-money"></i><b> Your Current Balance</b>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-red">
+                    <div class="inner">
+                      <div class="inner">
+                      <h3>Rs</h3>
+                      <h4>5000</h4>
+                    </div>
+                    </div>
+                    <div class="icon">
+                      <i class="fa fa-expand"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        <i class="fa fa-arrow-circle-right"></i><b> Your Total Expense</b>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+            </div>
+        </div>
+    </div>
+    <!-- Income and Expense Widgets close -->
+
     <div id="ajaxCrudDatatable">
         <?=GridView::widget([
             'id'=>'crud-datatable',

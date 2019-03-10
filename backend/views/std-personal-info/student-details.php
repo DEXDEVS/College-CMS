@@ -171,6 +171,7 @@
                         <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
                         <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-warning btn-sm fa fa-envelope-o" style='color: white;'> Send Email </a>
                         <a href="./sms?id=<?php echo $id;?>" class="btn btn-info btn-sm fa fa-comments-o" style='color: white;'> Send SMS </a>
+                        
                         <?=Html::a(' SMS',['sms/send-sms', 'to' => '923063772105', 'message' => 'Testing sms from brookfield web application'],['class'=>'btn btn-primary btn-sm fa fa-comments']) ?>
                       </div>
                     </div>
