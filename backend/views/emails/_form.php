@@ -67,7 +67,6 @@ use yii\widgets\ActiveForm;
                         </div>
                     </div>
                 </div>
-              
               <div class="form-group">
                     <?= $form->field($model, 'email_content')->textarea(['rows' => 20, 'id' => 'compose-textarea']) ?>
               </div>

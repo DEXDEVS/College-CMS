@@ -57,11 +57,14 @@ use dosamigos\datetimepicker\DateTimePicker;
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                  <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 44px; top: 18px"></i>
                 <?= $form->field($model, 'status')->dropDownList([ 'Active' => 'Active', 'Inactive' => 'Inactive', ], ['prompt' => '']) ?>
             </div>
-            
+            <div class="col-md-6">
+                 <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 120px; top: 18px"></i>
+                <?= $form->field($model, 'installment_cycle')->textInput(['prompt' => 'Enter']) ?>
+            </div>
         </div>
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

@@ -31,7 +31,8 @@ class StdAttendanceController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','attendance','view','update','delete','attendance','fetch-section','view-class-attendance','test-attendance','take-attendance','view-attendance','single-student','date-range'],
+                     
+                        'actions' => ['logout', 'index','attendance','view','update','delete','attendance','fetch-section','view-class-attendance','test-attendance','take-attendance','view-attendance','datewise-class-attendance','daterangewise-class-attendance','datewise-student-attendance','daterangewise-student-attendance','single-student','date-range'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -102,7 +103,7 @@ class StdAttendanceController extends Controller
         return $this->render('take-attendance');
     }
 
-     public function actionViewAttendance()
+    public function actionViewAttendance()
     { 
         return $this->render('view-attendance');
     }
@@ -117,6 +118,25 @@ class StdAttendanceController extends Controller
         return $this->render('date-range');
     }
 
+    public function actionDatewiseClassAttendance()
+    { 
+        return $this->render('datewise-class-attendance');
+    }
+
+    public function actionDaterangewiseClassAttendance()
+    { 
+        return $this->render('daterangewise-class-attendance');
+    }
+
+    public function actionDatewiseStudentAttendance()
+    { 
+        return $this->render('datewise-student-attendance');
+    }
+
+    public function actionDaterangewiseStudentAttendance()
+    { 
+        return $this->render('daterangewise-student-attendance');
+    }
     /**
      * Creates a new StdAttendance model.
      * For ajax request will return json object

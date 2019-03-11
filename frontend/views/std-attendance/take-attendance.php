@@ -25,9 +25,6 @@ $conn = \Yii::$app->db;
 		$countstd = count($students);
 		$subName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$sub_id'")->queryAll();
 		$date = date('Y-m-d H:m:s');
-
-	
-
 ?>
 
 <!DOCTYPE html>

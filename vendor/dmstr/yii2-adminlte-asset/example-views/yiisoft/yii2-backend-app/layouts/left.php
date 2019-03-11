@@ -192,7 +192,8 @@
                         'url' => '#',
                         'items' => [
                             ['label' => 'SMS Templates', 'icon' => 'caret-right', 'url' => "./sms",],
-                            ['label' => 'Absent Students SMS', 'icon' => 'caret-right', 'url' => "./sms-absent-sms",],
+                            ['label' => 'Absent Students SMS', 'icon' => 'caret-right', 'url' => "./absent-sms",],
+                            ['label' => 'Custom SMS', 'icon' => 'caret-right', 'url' => "./custom-sms",],
                             
                             // ['label' => 'Fee Transaction Details', 'icon' => 'caret-right', 'url' => 'index.php?r=fee-transaction-detail',]
                         ],

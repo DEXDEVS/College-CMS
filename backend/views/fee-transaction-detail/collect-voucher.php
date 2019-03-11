@@ -168,16 +168,18 @@
             <tbody>
                 <tr>
                     <td>
-                       <button type="submit" name="save" id="btn" class="btn btn-success btn-flat  btn-block" style="padding: 5px 27px;"><span class="fa fa-check-square" aria-hidden="true"></span><b> Collect Voucher</b></button>
+                       <button type="submit" name="save" id="btn" class="btn btn-success btn-flat  btn-block" style="padding: 5px 27px; display: none;"><span class="fa fa-check-square" aria-hidden="true"></span><b> Collect Voucher</b></button>
+                       <div id="date" style="display: none;">
+                           <label>New Voucher Due Date</label>
+                           <input type="date" name="date" class="form-control"><br>
+                       </div>
+                       <button id="partialButton" name="save" class="btn btn-warning btn-flat  btn-block" style="display: none;"><i class="fa fa-print"></i><b> Save & Generate Partial Voucher</b></button>
                     </td>
-                    <?php 
-                    if($status == "Partially Paid"){ ?>
                     <td>
                        <a href="./partial-voucher-head?id=<?php echo $voucherNo; ?>" class="btn btn-success btn-flat">
                            <span class="fa fa-check-square" aria-hidden="true"></span><b> Generate Partial Voucher</b>
                        </a>
                     </td>
-                    <?php  }?>
                 </tr>
             </tbody>
         </table>           
@@ -254,18 +256,28 @@ if(isset($_POST['save'])){
 </html>
 
 <script type="text/javascript">
-    function setAmount(){
+   function setAmount(){
         var totalAmount = parseInt(document.getElementById('total_amount').value);
         var paidAmount = parseInt(document.getElementById('paid_amount').value);
         var remainingAmount = parseInt(totalAmount - paidAmount);
-        var paid = "Paid";
-        var partialyPaid = "Partially Paid";
+        paid = "Paid";
+        partialyPaid = "Partially Paid";
         document.getElementById('remaining_amount').value = remainingAmount;
         if (remainingAmount==0) {
-            document.getElementById('status').value = paid;
+            $('#status').val(paid); 
         }
         else{
-            document.getElementById('status').value = partialyPaid;
+            $('#status').val(partialyPaid);
+        }
+        var status = $('#status').val();
+        if (status == "Partially Paid") {
+            $('#date').show();
+            $('#partialButton').show();
+            $('#btn').hide();
+        }else{
+            $('#btn').show();
+            $('#partialButton').hide();
+            $('#date').hide();
         }
     }
 </script>

@@ -15,6 +15,7 @@ use yii\widgets\DetailView;
             'session_name',
             'session_start_date',
             'session_end_date',
+            'installment_cycle',
             'status',
             'created_at',
             'updated_at',

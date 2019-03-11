@@ -54,7 +54,7 @@ class AccountTransactions extends \yii\db\ActiveRecord
         return [
             'trans_id' => 'Trans ID',
             'account_nature' => 'Account Nature',
-            'account_register_id' => 'Account Register ID',
+            'account_register_id' => 'Account Head',
             'date' => 'Date',
             'description' => 'Description',
             'total_amount' => 'Total Amount',
