@@ -5,7 +5,6 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Hello</h1>
 <?php 
     if(isset($_GET['sub_id'])){
         $sub_id = $_GET['sub_id'];  
@@ -13,7 +12,7 @@
         $emp_id = $_GET['emp_id'];     
 ?>
 
-<form  action = "view-attendance" method="POST">
+<form  action = "datewise-class-attendance" method="POST">
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">

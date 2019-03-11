@@ -1,17 +1,11 @@
 yii2-popover-x
 =================
 
-[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-popover-x/v/stable)](https://packagist.org/packages/kartik-v/yii2-popover-x)
-[![License](https://poser.pugx.org/kartik-v/yii2-popover-x/license)](https://packagist.org/packages/kartik-v/yii2-popover-x)
-[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-popover-x/downloads)](https://packagist.org/packages/kartik-v/yii2-popover-x)
-[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-popover-x/d/monthly)](https://packagist.org/packages/kartik-v/yii2-popover-x)
-[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-popover-x/d/daily)](https://packagist.org/packages/kartik-v/yii2-popover-x)
-
 An extended popover widget for Yii Framework 2 based on the [bootstrap-popover-x jQuery plugin](http://plugins.krajee.com/popover-x) by Krajee. This plugin
 is an extended popover JQuery plugin which combines both the popover and bootstrap modal features and includes various new styling enhancements. This widget
 can be setup just like the builtin `yii\bootstrap\Modal`, with some additional enhancements.
 
-> NOTE: The latest version of the plugin v1.3.4 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-popover-x/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v1.3.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-popover-x/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -24,14 +18,7 @@ The plugin offers these enhanced features:
 - Add a close icon/button to a popover window.
 - Configure various prebuilt styles/templates. In addition to a default (grey), the bootstrap 3 contextual color styles of `primary`, 
   `info`, `success`, `danger`, and `warning` can be used.
-- Control popover placements with respect to the target element. The plugin supports 19 different placement options:
-    - auto
-    - auto-left
-    - auto-right
-    - auto-top
-    - auto-bottom
-    - horizontal
-    - vertical
+- Control popover placements with respect to the target element. The plugin supports 12 different placement options:
     - right
     - left
     - top
