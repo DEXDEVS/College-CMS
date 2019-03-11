@@ -11,72 +11,7 @@
   <link rel="stylesheet" href="jquery/AdminLTE.min.css">
 </head>
 <body>
-<div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <br>
-              <h4>SMS to<br> Whole Class</h4>
 
-              <p></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-comments-o"></i>
-            </div>
-            <a href="./std-personal-info" class="small-box-footer">Click here to send SMS <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-             <br>
-              <h4>SMS to<br> Multiple Classes </h4>
-
-              <p></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-comments"></i>
-            </div>
-            <a href="./emp-info" class="small-box-footer">Click here to send SMS <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-             	<br>
-              <h4>SMS to<br> Whole Sessions</h4>
-
-              <p></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-comments-o"></i>
-            </div>
-            <a href="#" class="small-box-footer">Click here to send SMS <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-            	<br>
-              <h4>SMS to <br> Multiple Sessions</h4>
-              <p></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-comments" style="font-size: 70px;"></i>
-            </div>
-            <a href="#" class="small-box-footer">Click here to send SMS <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
-      <!-- /.row -->
 
 	<div class="row">
       	<div class="col-md-6">
@@ -126,7 +61,7 @@
 	              		$classNames = Yii::$app->db->createCommand("SELECT class_name,class_name_id
 	              			FROM std_class_name WHERE class_name_id  = '$class_name_ID'" )->queryAll();
 	              		
-	              		 ?>
+	              		?>
 	              			
               			<?php 
               			foreach ($classNames as $key => $value) { ?>
@@ -134,23 +69,24 @@
 		          				<?php echo $value['class_name']; ?>
 		          			</option>
 	              		<?php 
-		              	}
-		              	// close foreach loop 
-		              	} 
-		              	// close for loop
+	              		
+			              	}
+			              	// close foreach loop 
+			              	} 
+			              	// close for loop
 		              	?>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
 	              		<label>SMS Content</label>
-	              		<!-- <textarea rows="10" class="form-control" id="message"></textarea>
+	              		<textarea rows="10" class="form-control" id="message"></textarea>
 	              		<p>
 					      <span><b>NOTE:</b> 160 characters = 1 SMS</span>
 					        <span id="remaining" class="pull-right">160 characters remaining </span>
 					      <span id="messages" style="text-align: center;">/ Count SMS(0)</span>
 					      <input type="text" value="" id="count"><br>
 					      <input type="text" value="" id="sms" style="border: none; color: green; font-weight: bold;">
-					    </p> -->
+					    </p>
 	              	</div>
 	              	<button type="submit" name="send" class="btn btn-success btn-block btn-flat">Send SMS</button>
 	              </form>
@@ -276,61 +212,10 @@
 		</div>
     </div>	
 
-<?php 
-    global $countNumbers;
-    $countNumbers = 10; 
-?>
-
-<script>
-	$(document).ready(function(){
-		$('#numbers').change(function(){
-			var number = $('#numbers').val();
-			alert(number);
-		})
-
-	})
 </script>
-<!-- <script src="jquery/jquery.min.js"></script>
-
-<script src="jquery/select2.full.min.js"></script>
-
+<?php global $countNumbers;
+$countNumbers = 10; ?>
 <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    
-    
-    
-  })
-</script> -->
-<script>
-
-
-// $('#class_id').on('change',function(){
-//    var class_id = $('#class_id').val();
-//    console.log(class_id);
-//    alert(class_id);
-	   
-//    $.ajax({
-//         type:'post',
-//         data:{class_Id:class_id},
-//         url: "$url",
-//         success: function(result){ 
-//         console.log(result);  
-//             var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
-//             var options = '';
-//             $('#subjectId').empty();
-//             $('#subjectId').append("<option>"+"Select Subject combination"+"</option>");
-//             for(var i=0; i<jsonResult.length; i++) { 
-//                 options += '<option value="'+jsonResult[i].std_subject_id+'">'+jsonResult[i].std_subject_name+'</option>';
-//             }
-//             // Append to the html
-//             $('#subjectId').append(options);
-//         }         
-//     }); 
-// });
-
   $(document).ready(function(){
       var $remaining = $('#remaining'),
           $messages = $remaining.next();

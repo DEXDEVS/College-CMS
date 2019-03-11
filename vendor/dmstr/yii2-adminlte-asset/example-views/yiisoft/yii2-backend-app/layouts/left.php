@@ -43,7 +43,20 @@
                     ['label' => 'Home', 'icon' => 'dashboard', 'url' => "./home"],
                     //['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Login', 'url' => ["../login"], 'visible' => Yii::$app->user->isGuest],
+
                     // ------------------------------------------------
+                    [
+                        'label' => 'Exam Module',
+                        'icon' => 'cog',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Grades', 'icon' => 'caret-right', 'url' => ["/grades"],],
+                            ['label' => 'Exams Category', 'icon' => 'caret-right', 'url' => ["/exams-category"],],
+                            ['label' => 'Exams Criteria', 'icon' => 'caret-right', 'url' => ["/exams-criteria"],],
+                            ['label' => 'Exams Schedule', 'icon' => 'caret-right', 'url' => ["/exams-schedule"],],
+                            ['label' => 'Marks Weitage', 'icon' => 'caret-right', 'url' => ["/marks-weitage"],],
+                        ],
+                    ],
                     // System Settings start...
                     [
                         'label' => 'System Settings',
