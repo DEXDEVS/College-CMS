@@ -126,7 +126,6 @@ class StdAttendanceController extends Controller
     { 
         return $this->render('daterangewise-student-attendance');
     }
-    
     /**
      * Creates a new StdAttendance model.
      * For ajax request will return json object

@@ -158,6 +158,8 @@
                     			<a href="./take-attendance?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" class="btn btn-info btn-xs">Get Class</a>
                                 
                             <a href="./view-attendance?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" class="btn btn-info btn-xs">View</a>
+                            <a href="./single-student?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" class="btn btn-info btn-xs">Std</a>
+                            <a href="./date-range?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" class="btn btn-info btn-xs">date</a>
                     		</td>
                     	</tr>		
                     <?php   } ?>
