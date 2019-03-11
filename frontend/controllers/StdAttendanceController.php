@@ -31,6 +31,7 @@ class StdAttendanceController extends Controller
                         'allow' => true,
                     ],
                     [
+                     
                         'actions' => ['logout', 'index','attendance','view','update','delete','attendance','fetch-section','view-class-attendance','test-attendance','take-attendance','view-attendance','datewise-class-attendance','daterangewise-class-attendance','datewise-student-attendance','daterangewise-student-attendance'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -126,7 +127,6 @@ class StdAttendanceController extends Controller
     { 
         return $this->render('daterangewise-student-attendance');
     }
-    
     /**
      * Creates a new StdAttendance model.
      * For ajax request will return json object
