@@ -140,20 +140,12 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<?php 
-		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
-		              		$countClass = count($classID);
-	              		?> 
-	              		<select class="form-control" id="selectClass">
-	              			<option>Slect class</option>
-	              			<?php 
-              				for ($i=0; $i <$countClass ; $i++) { 
-              					$class_id = $classID[$i]['class_name_id'];
-              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-	              			?>
-	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
-	              				<?php echo $classNames[0]['class_name']; ?></option>
-	              		<?php } ?>
+	              		<select class="form-control">
+	              			<option>Select</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
@@ -194,20 +186,12 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<?php 
-		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
-		              		$countClass = count($classID);
-	              		?> 
-	              		<select class="form-control" id="selectClass">
-	              			<option>Slect class</option>
-	              			<?php 
-              				for ($i=0; $i <$countClass ; $i++) { 
-              					$class_id = $classID[$i]['class_name_id'];
-              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-	              			?>
-	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
-	              				<?php echo $classNames[0]['class_name']; ?></option>
-	              		<?php } ?>
+	              		<select class="form-control">
+	              			<option>Select</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
@@ -245,20 +229,12 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<?php 
-		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
-		              		$countClass = count($classID);
-	              		?> 
-	              		<select class="form-control" id="selectClass">
-	              			<option>Slect class</option>
-	              			<?php 
-              				for ($i=0; $i <$countClass ; $i++) { 
-              					$class_id = $classID[$i]['class_name_id'];
-              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-	              			?>
-	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
-	              				<?php echo $classNames[0]['class_name']; ?></option>
-	              		<?php } ?>
+	              		<select class="form-control">
+	              			<option>Select</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
@@ -302,6 +278,7 @@ $('#selectClass').on('change',function(){
         url: "$url",
 
         success: function(result){
+        	
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
 	
            $('#to').val(jsonResult['std_contact_no']);

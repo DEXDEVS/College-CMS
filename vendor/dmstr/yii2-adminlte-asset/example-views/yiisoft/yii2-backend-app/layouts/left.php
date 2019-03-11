@@ -8,7 +8,7 @@
 ?>
 <aside class="main-sidebar">
 
-    <section class="sidebar">
+    <section class="sidebar" style="overflow-y: visible;">
 
         <!-- Sidebar user panel -->
         <div class="user-panel">
