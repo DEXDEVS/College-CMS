@@ -20,7 +20,7 @@
             </div>    
         </div>
       <div class="col-md-3">
-      <label>Start Date:</label>
+       <label>Start Date:</label>
         <div class="input-group">
           <div class="input-group-addon">
             <i class="fa fa-calendar" style="color: #3C8DBC"></i>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="col-md-3">
-      <label>End Date:</label>
+       <label>End Date:</label>
         <div class="input-group">
           <div class="input-group-addon">
             <i class="fa fa-calendar" style="color: #3C8DBC"></i>

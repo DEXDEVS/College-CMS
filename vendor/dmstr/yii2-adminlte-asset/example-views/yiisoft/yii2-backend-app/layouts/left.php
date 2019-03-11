@@ -45,6 +45,7 @@
                     ['label' => 'Login', 'url' => ["../login"], 'visible' => Yii::$app->user->isGuest],
 
                     // ------------------------------------------------
+                    // Exams module start here
                     [
                         'label' => 'Exam Module',
                         'icon' => 'cog',
@@ -54,9 +55,11 @@
                             ['label' => 'Exams Category', 'icon' => 'caret-right', 'url' => ["/exams-category"],],
                             ['label' => 'Exams Criteria', 'icon' => 'caret-right', 'url' => ["/exams-criteria"],],
                             ['label' => 'Exams Schedule', 'icon' => 'caret-right', 'url' => ["/exams-schedule"],],
+                            ['label' => 'Manage Exams', 'icon' => 'caret-right', 'url' => ["/exams-schedule/manage-exams"],],
                             ['label' => 'Marks Weitage', 'icon' => 'caret-right', 'url' => ["/marks-weitage"],],
                         ],
                     ],
+                    // Exams module close here
                     // System Settings start...
                     [
                         'label' => 'System Settings',
