@@ -13,7 +13,7 @@
 
 </head>
 <body>
-  <form  action = "date-range" method="POST" style="margin-top: -35px">
+  <form  action = "daterangewise-class-attendance" method="POST" style="margin-top: -35px">
         <h1 class="well well-sm text" align="center">View Attendance</h1>
         <div class="row">
             <div class="col-md-4">
@@ -68,6 +68,8 @@
         $stDate = explode('-', $startDate);
         $enDate = explode('-', $endDate);
 
+        $st = $stDate[2];
+        $en = $endDate[2];
         $rangeLen = $enDate[2] - $stDate[2];
 
   //       list($y,$m,$d)=explode('-',$startDate);
@@ -93,79 +95,76 @@
     <div class="row">
         <div class="col-md-12">
             <form method="POST" action="view-attendance">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <td align="center" colspan="4">
-                            <b style="font-size: 30px;">Class Attendance - From: <?php echo $startDate." to ".$endDate; ?></b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Class:</th>
-                        <td><?php echo $students[0]['std_enroll_head_name']; ?></td>
-                        <th>Subject:</th>
-                        <td><?php echo $subName[0]['subject_name']; ?></td>
-                    </tr>
-                    <tr style="background-color:#add8e6; ">
-                        <th >Sr #.</th>
-                        <th >Roll #.</th>
-                        <th >Name</th>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td align="center" colspan="4">
+                                <b style="font-size: 30px;">Class Attendance - From: <?php echo $startDate." to ".$endDate; ?></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Class:</th>
+                            <td><?php echo $students[0]['std_enroll_head_name']; ?></td>
+                            <th>Subject:</th>
+                            <td><?php echo $subName[0]['subject_name']; ?></td>
+                        </tr>
+                        <tr style="background-color:#add8e6; ">
+                            <th >Sr #.</th>
+                            <th >Roll #.</th>
+                            <th >Name</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php 
-                        	for($i=$stDate[2]; $i<=$enDate[2]; $i++){
-                        ?>
-                        		<th><?php echo $i; ?></th>
+                        for ($i=0; $i <$countstd ; $i++) { 
+                         ?>
+                        <tr>
+                            <td><?php echo $i+1 ?></td>
+                            <td><?php echo $students[$i]['std_roll_no']; ?></td>
+                            <td><?php echo $students[$i]['std_enroll_detail_std_name'];?></td>
+                                <?php 
+                                $stdId = $students[$i]['std_enroll_detail_std_id'];
+    					        $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll();
+                                
+    					        $coun = count($atten);
+                                 
+                                for ($j=0; $j <$coun ; $j++) { 
+    		                         $date1 = $atten[$j]['CAST(date AS DATE)'];
+    		                         $date2 = explode('-', $date1);
+    		                         $date5 = $date2[2];
+                                }
+                            
+                                for ($i=0; $i<=$en ; $i++) { 
+                            ?>
+                                     <th><?php echo $st+$i; ?></th>
+                            <?php
+
+    	                        	if($date5 >= $stDate[2] && $date5 <= $enDate[2]){
+    	                        ?>
+
+                                 	<td> <?php echo $atten[$i]['status']; ?> </td>
+    	                        <?php
+    		                        } else {
+    		                    ?>
+    		                            <td><?php  echo 'N/A'; ?> </td>
+    		                    <?php
+    		                       }
+                        		}
+                            	?>
+                        </tr>
+                        
                         <?php
-                    		}
-                        ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    for ($i=0; $i <$countstd ; $i++) { 
-                     ?>
-                    <tr>
-                        <td><?php echo $i+1 ?></td>
-                        <td><?php echo $students[$i]['std_roll_no']; ?></td>
-                        <td><?php echo $students[$i]['std_enroll_detail_std_name'];?></td>
-                            <?php 
-                            $stdId = $students[$i]['std_enroll_detail_std_id'];
-					        $atten = Yii::$app->db->createCommand("SELECT att.date, att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll();
-					        $coun = count($atten);
-	                        	for ($j=0; $j <$coun ; $j++) { 
-		                        	$date1 = $atten[$j]['date'];
-		                            $date2 = explode(' ', $date1);
-		                            $date3 = $date2[0];
-		                            $date4 = explode('-', $date3);
-		                            $date5[$j] = $date4[2];
-
-	                        		if($date5[$j] >= $stDate[2] && $date5[$j] <= $enDate[2]){
-	                        ?>
-
-	                                	<td> <?php echo $atten[$j]['status']; ?> </td>
-	                        <?php
-		                            } else {
-		                    ?>
-		                            <td><?php  echo 'N/A'; ?> </td>
-		                    <?php
-		                            }
-                    			}
-                        	?>
-                    </tr>
-                    
-                    <?php
-                    //closing for loop
-                    } ?>
-                </tbody>
-                
-                </form>
-            </table>
+                        //closing for loop
+                        } ?>
+                    </tbody>
+                </table>
+            </form>
         </div>
     </div>
 <?php
 //closing of ifisset
     }
 ?>
-
-
 </body>
 </html>
