@@ -19,7 +19,7 @@ class FeeTransactionDetailSearch extends FeeTransactionDetail
     {
         return [
             [['fee_trans_detail_id', 'fee_trans_detail_head_id', 'fee_type_id', 'created_by', 'updated_by'], 'integer'],
-            [['fee_amount', 'fee_discount', 'discounted_value', 'net_total'], 'number'],
+            [['fee_amount', 'collected_fee_amount'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -61,9 +61,7 @@ class FeeTransactionDetailSearch extends FeeTransactionDetail
             'fee_trans_detail_head_id' => $this->fee_trans_detail_head_id,
             'fee_type_id' => $this->fee_type_id,
             'fee_amount' => $this->fee_amount,
-            'fee_discount' => $this->fee_discount,
-            'discounted_value' => $this->discounted_value,
-            'net_total' => $this->net_total,
+            'collected_fee_amount' => $this->collected_fee_amount,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,

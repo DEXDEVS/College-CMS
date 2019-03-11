@@ -10,21 +10,17 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-        [
+        // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'id',
+    // ],
+    [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'account_register_id',
+        'attribute'=>'send_to',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'account_nature_id',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'account_name',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'account_description',
+        'attribute'=>'message',
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
@@ -38,10 +34,10 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'created_by',
     ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'updated_by',
-    // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'updated_by',
+    ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

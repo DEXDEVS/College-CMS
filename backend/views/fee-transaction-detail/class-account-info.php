@@ -1,12 +1,12 @@
 <h1 class="well well-sm bg-navy" align="center" style="color: #3C8DBC; margin-top: -10px">Class Fee Account Information</h1>
 
 <style>
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-          -webkit-appearance: none; 
-          margin: 0; 
-        }
-    </style>
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+</style>
 <?php 
     if(isset($_POST['submit'])) { 
         $classid        = $_POST["classid"];
@@ -216,42 +216,42 @@
                         $headID = Yii::$app->db->createCommand("SELECT fee_trans_id FROM fee_transaction_head where class_name_id= '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND month = '$month'")->queryAll();
                         $headId = $headID[$i]['fee_trans_id'];
                         for($j=0;$j<6;$j++){
-                            if($feeType[$j] == 1 && $admission_fee[$i] != 0){
+                            if($feeType[$j] == 1 && $admission_fee[$i] > 0){
                                 $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
                                 'fee_trans_detail_head_id' => $headId,
                                 'fee_type_id'=> $feeType[$j],
                                 'fee_amount'=> $admission_fee[$i], 
                                 ])->execute();
                             }
-                            if($feeType[$j] == 2 && $tuition_fee[$i] != 0){
+                            if($feeType[$j] == 2 && $tuition_fee[$i] > 0){
                                 $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
                                 'fee_trans_detail_head_id' => $headId,
                                 'fee_type_id'=> $feeType[$j],
                                 'fee_amount'=> $tuition_fee[$i], 
                                 ])->execute();
                             }
-                            if($feeType[$j] == 3 && $late_fee_fine[$i] != 0){
+                            if($feeType[$j] == 3 && $late_fee_fine[$i] > 0){
                                 $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
                                 'fee_trans_detail_head_id' => $headId,
                                 'fee_type_id'=> $feeType[$j],
                                 'fee_amount'=> $late_fee_fine[$i],
                                 ])->execute();
                             }
-                            if($feeType[$j] == 4 && $absent_fine[$i] != 0){
+                            if($feeType[$j] == 4 && $absent_fine[$i] > 0){
                                 $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
                                 'fee_trans_detail_head_id' => $headId,
                                 'fee_type_id'=> $feeType[$j],
                                 'fee_amount'=> $absent_fine[$i], 
                                 ])->execute();
                             }
-                            if($feeType[$j] == 5 && $library_dues[$i] != 0){
+                            if($feeType[$j] == 5 && $library_dues[$i] > 0){
                                 $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
                                 'fee_trans_detail_head_id' => $headId,
                                 'fee_type_id'=> $feeType[$j],
                                 'fee_amount'=> $library_dues[$i],
                                 ])->execute();
                             }
-                            if($feeType[$j] == 6 && $transport_fee[$i] != 0){
+                            if($feeType[$j] == 6 && $transport_fee[$i] > 0){
                                 $feeDetails = Yii::$app->db->createCommand()->insert('fee_transaction_detail',[
                                 'fee_trans_detail_head_id' => $headId, 
                                 'fee_type_id'=> $feeType[$j],
@@ -461,7 +461,7 @@
                 //     </div>";
                 // 
                 Yii::$app->session->setFlash('warning', "You have successfully update this class account...!"); 
-                return $this->render('./fee-transaction-detail-class-account');  
+                //return $this->render('./fee-transaction-detail-class-account');  
         // end of else 
         }
     //end of isset

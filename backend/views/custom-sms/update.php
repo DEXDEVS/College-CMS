@@ -2,13 +2,13 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
-/* @var $model common\models\AccountRegister */
-
+/* @var $model common\models\CustomSms */
 ?>
-<div class="account-register-create">
+<div class="custom-sms-update">
+
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+
 </div>

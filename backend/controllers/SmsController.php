@@ -31,7 +31,7 @@ class SmsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','sms','submit'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','sms','submit','custom-sms'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -50,6 +50,29 @@ class SmsController extends Controller
     public function beforeAction($action) {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
+    }
+
+    public function actionSendSms($to, $message){
+        // Configuration variables
+        $type = "xml";
+        $id = "Brookfieldclg";
+        $pass = "college42";
+        $lang = "English";
+        $mask = "Brookfield";
+        // Data for text message
+        // $to = "923317375027";
+        // $message = "Testing sms from brookfield web application";
+        $message = urlencode($message);
+        // Prepare data for POST request
+        $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
+        // Send the POST request with cURL
+        $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch); //This is the result from SMS4CONNECT
+        curl_close($ch);
+        Yii::$app->session->setFlash('success', "SMS sent successfully...!");     
     }
 
     /**
@@ -302,6 +325,11 @@ class SmsController extends Controller
     public function actionSms()
     {
         return $this->render('sms');
+    }
+
+    public function actionCustomSms()
+    {
+        return $this->render('custom-sms');
     }
 
 }

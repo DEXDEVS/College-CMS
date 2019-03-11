@@ -39,12 +39,13 @@ class StdSessions extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['session_branch_id', 'session_name', 'session_start_date', 'session_end_date', 'status'], 'required'],
+            [['session_branch_id', 'session_name', 'session_start_date', 'session_end_date', 'installment_cycle', 'status'], 'required'],
             [['created_by', 'updated_by'], 'integer'],
             [['session_branch_id', 'session_start_date', 'session_end_date', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['status'], 'string'],
             [['session_name'], 'string', 'max' => 32],
             ['session_name','unique'],
+            [['installment_cycle'],'integer'],
             [['session_branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branches::className(), 'targetAttribute' => ['session_branch_id' => 'branch_id']],
         ];
     }

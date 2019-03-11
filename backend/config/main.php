@@ -87,15 +87,16 @@ return [
                 'fee-transaction-detail-class-account-fee-report' => 'fee-transaction-detail/class-account-fee-report',
                 'class-fee-report-detail' => 'fee-transaction-detail/class-fee-report-detail',
                 'fee-transaction-detail-class-account-info' => 'fee-transaction-detail/class-account-info',
-                'fee-transaction-detail-voucher' => 'fee-transaction-detail/voucher',
+                'voucher' => 'fee-transaction-detail/voucher',
                 'partial-voucher-detail' => 'fee-transaction-detail/partial-voucher-detail',
                 'partial-voucher-head' => 'fee-transaction-detail/partial-voucher-head',
 
 
                 'emails-create' => 'emails/create',
 
-                'sms' => 'sms/create',
-                'sms-absent-sms' => 'sms/absent-sms',
+                'sms' => 'sms/index',
+                'absent-sms' => 'sms/absent-sms',
+                'custom-sms' => 'custom-sms/index',
 
 
             ],
