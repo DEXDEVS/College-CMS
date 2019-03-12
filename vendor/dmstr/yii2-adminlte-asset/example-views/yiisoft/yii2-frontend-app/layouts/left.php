@@ -51,8 +51,7 @@
                         'url' => '#',
                         'items' => [
                             ['label' => 'Student Attendance', 'icon' => 'caret-right', 'url' => ["./attendance"],],
-                            ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],],
-                            ['label' => 'View Attendance', 'icon' => 'caret-right', 'url' => ["./view-attendance"],]
+                            ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],]
                         ],
                     ],
 
@@ -60,18 +59,6 @@
                         'label' => 'Test Attendance',
                         'icon' => 'user-plus',
                         'url' => './test-attendance',
-                    ],
-
-                    [
-                        'label' => 'Take Attendance',
-                        'icon' => 'user-plus',
-                        'url' => './take-attendance',
-                    ],
-
-                    [
-                        'label' => 'View Attendance',
-                        'icon' => 'user-plus',
-                        'url' => './view-attendance',
                     ],
                     
                     // ------------------------------------------------

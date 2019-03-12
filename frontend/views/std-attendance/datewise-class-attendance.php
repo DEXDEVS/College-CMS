@@ -104,7 +104,12 @@
                             $atten = Yii::$app->db->createCommand("SELECT att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND CAST(date AS DATE) = '$date' AND att.student_id = '$stdId'")->queryAll();
                             ?>
                         <td align="center">
-                            <?php echo $atten[0]['status']; ?>
+                            <?php 
+                            if(empty($atten)){
+                                echo 'N/A';
+                            } else {
+                                echo $atten[0]['status']; 
+                            }?>
                         </td>
                     </tr>
                     
