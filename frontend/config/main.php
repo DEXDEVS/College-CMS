@@ -63,13 +63,7 @@ return [
                 'datewise-student-attendance' => 'std-attendance/datewise-student-attendance',
                 'daterangewise-class-attendance' => 'std-attendance/daterangewise-class-attendance',
                 'daterangewise-student-attendance' => 'std-attendance/daterangewise-student-attendance',
-
-
-               
-
-
-                'single-student' => 'std-attendance/single-student',
-                'date-range' => 'std-attendance/date-range',
+                'activity-view' => 'std-attendance/activity-view',
             ],
         ],
         

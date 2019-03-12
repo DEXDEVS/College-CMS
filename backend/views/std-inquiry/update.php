@@ -7,7 +7,7 @@ use yii\helpers\Html;
 ?>
 <div class="std-inquiry-update">
 
-    <?= $this->render('_form', [
+    <?= $this->render('_form1', [
         'model' => $model,
     ]) ?>
 
