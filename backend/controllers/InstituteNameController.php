@@ -3,19 +3,18 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Institute;
-use common\models\InstituteSearch;
+use common\models\InstituteName;
+use common\models\InstituteNameSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
-use yii\web\UploadedFile;
 
 /**
- * InstituteController implements the CRUD actions for Institute model.
+ * InstituteNameController implements the CRUD actions for InstituteName model.
  */
-class InstituteController extends Controller
+class InstituteNameController extends Controller
 {
     /**
      * @inheritdoc
@@ -34,12 +33,12 @@ class InstituteController extends Controller
     }
 
     /**
-     * Lists all Institute models.
+     * Lists all InstituteName models.
      * @return mixed
      */
     public function actionIndex()
     {    
-        $searchModel = new InstituteSearch();
+        $searchModel = new InstituteNameSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -50,18 +49,17 @@ class InstituteController extends Controller
 
 
     /**
-     * Displays a single Institute model.
+     * Displays a single InstituteName model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {   
-        $model = $this->findModel($id);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Institute: ".$model->institute_name,
+                    'title'=> "InstituteName #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -76,7 +74,7 @@ class InstituteController extends Controller
     }
 
     /**
-     * Creates a new Institute model.
+     * Creates a new InstituteName model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -84,7 +82,7 @@ class InstituteController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Institute();  
+        $model = new InstituteName();  
 
         if($request->isAjax){
             /*
@@ -93,7 +91,7 @@ class InstituteController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create Institute",
+                    'title'=> "Create new InstituteName",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -101,33 +99,18 @@ class InstituteController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->validate()){
-                $model->institute_logo = UploadedFile::getInstance($model,'institute_logo');
-                if(!empty($model->institute_logo)){
-                    $imageName = $model->institute_name.'_photo'; 
-                    $model->institute_logo->saveAs('uploads/'.$imageName.'.'.$model->institute_logo->extension);
-                    //save the path in the db column
-                    $model->institute_logo = 'uploads/'.$imageName.'.'.$model->institute_logo->extension;
-                } else {
-                   $model->institute_logo = '0'; 
-                }
-                $model->created_by = Yii::$app->user->identity->id; 
-                $model->created_at = new \yii\db\Expression('NOW()');
-                $model->updated_by = '0'; 
-                $model->updated_at = '0';
-                $model->save();
-
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Institute",
-                    'content'=>'<span class="text-success">Create Institute success</span>',
+                    'title'=> "Create new InstituteName",
+                    'content'=>'<span class="text-success">Create InstituteName success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new Institute",
+                    'title'=> "Create new InstituteName",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -140,8 +123,13 @@ class InstituteController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->institute_id]);
+            if ($model->load($request->post())) {
+                    $model->created_by = Yii::$app->user->identity->id; 
+                    $model->created_at = new \yii\db\Expression('NOW()');
+                    $model->updated_by = '0';
+                    $model->updated_at = '0';
+                    $model->save();
+                return $this->redirect(['view', 'id' => $model->Institute_name_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
@@ -152,7 +140,7 @@ class InstituteController extends Controller
     }
 
     /**
-     * Updates an existing Institute model.
+     * Updates an existing InstituteName model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -170,7 +158,7 @@ class InstituteController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update Institute: ".$model->institute_name,
+                    'title'=> "Update InstituteName #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -178,26 +166,14 @@ class InstituteController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
-
-                $instituteInfo = Yii::$app->db->createCommand("SELECT * FROM institute where institute_id = $id")->queryAll();
-                $model->institute_logo = UploadedFile::getInstance($model,'institute_logo');
-                if(!empty($model->institute_logo)){
-                    $imageName = $model->institute_name.'_photo'; 
-                    $model->institute_logo->saveAs('uploads/'.$imageName.'.'.$model->institute_logo->extension);
-                    //save the path in the db column
-                    $model->institute_logo = 'uploads/'.$imageName.'.'.$model->institute_logo->extension;
-                } else {
-                   $model->institute_logo = $instituteInfo[0]['institute_logo']; 
-                }
                 $model->updated_by = Yii::$app->user->identity->id;
                 $model->updated_at = new \yii\db\Expression('NOW()');
                 $model->created_by = $model->created_by;
                 $model->created_at = $model->created_at;
                 $model->save();
-
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Institute #".$id,
+                    'title'=> "InstituteName #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -206,7 +182,7 @@ class InstituteController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update Institute #".$id,
+                    'title'=> "Update InstituteName #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -219,7 +195,7 @@ class InstituteController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->institute_id]);
+                return $this->redirect(['view', 'id' => $model->Institute_name_id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,
@@ -229,7 +205,7 @@ class InstituteController extends Controller
     }
 
     /**
-     * Delete an existing Institute model.
+     * Delete an existing InstituteName model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -257,7 +233,7 @@ class InstituteController extends Controller
     }
 
      /**
-     * Delete multiple existing Institute model.
+     * Delete multiple existing InstituteName model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -288,15 +264,15 @@ class InstituteController extends Controller
     }
 
     /**
-     * Finds the Institute model based on its primary key value.
+     * Finds the InstituteName model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Institute the loaded model
+     * @return InstituteName the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Institute::findOne($id)) !== null) {
+        if (($model = InstituteName::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
