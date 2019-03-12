@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2019 at 06:40 AM
+-- Generation Time: Mar 12, 2019 at 07:24 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -481,7 +481,7 @@ CREATE TABLE `emp_info` (
   `emp_name` varchar(50) NOT NULL,
   `emp_father_name` varchar(50) NOT NULL,
   `emp_cnic` varchar(15) NOT NULL,
-  `emp_contact_no` int(12) NOT NULL,
+  `emp_contact_no` varchar(12) NOT NULL,
   `emp_perm_address` varchar(200) NOT NULL,
   `emp_temp_address` varchar(200) NOT NULL,
   `emp_marital_status` enum('Single','Married') NOT NULL,
@@ -512,15 +512,15 @@ CREATE TABLE `emp_info` (
 --
 
 INSERT INTO `emp_info` (`emp_id`, `emp_reg_no`, `emp_name`, `emp_father_name`, `emp_cnic`, `emp_contact_no`, `emp_perm_address`, `emp_temp_address`, `emp_marital_status`, `emp_fb_ID`, `emp_gender`, `emp_photo`, `emp_dept_id`, `emp_designation_id`, `emp_type_id`, `emp_salary_type`, `group_by`, `emp_branch_id`, `emp_email`, `emp_qualification`, `emp_passing_year`, `emp_institute_name`, `degree_scan_copy`, `emp_salary`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(1, 'EMP-Y19-1', 'Kinza Mustafa', 'G Mustafa', '45678-9876545-6', 56, 'RYK', 'RYK', 'Single', 'Kinza@gmail.com', 'Female', 'uploads/Kinza Mustafa_emp_photo.jpg', '1', 1, 4, 'Salaried', 'Faculty', 5, 'kinza.fatima.522@gmail.com', 'BSCS', 2017, 'IUB', 'uploads/Kinza Mustafa_degree_scan_copy.jpg', 10000, '2019-02-22 07:24:29', '2019-02-20 09:30:25', 3, 9, 1),
-(2, 'EMP-Y19-2', 'Nadia', 'Gull', '88888-8888888-8', 66, 'ryk', 'ryk', 'Single', 'fghj@gmail.com', 'Female', 'uploads/nadia_emp_photo.jpg', '1', 4, 5, 'Per Lecture', 'Faculty', 5, 'fghj@gmail.com', 'BSCS', 2019, 'fghjk', 'uploads/Nadia_degree_scan_copy.png', 1300, '2019-02-24 06:45:28', '2019-02-24 06:45:28', 3, 9, 1),
-(3, 'EMP-Y19-3', 'Nauman', 'shahid', '24654-5468546-5', 65, 'RYK', 'RYK', 'Single', 'nauman@gmail.com', 'Male', 'uploads/Nauman_emp_photo.jpg', '1,7', 4, 5, 'Per Lecture', 'Faculty', 5, 'nauman@gmail.com', 'BSCS', 2108, 'Superior', 'uploads/Nauman_degree_scan_copy.jpg', 1400, '2019-02-23 14:08:59', '2019-02-23 14:08:59', 8, 9, 1),
-(4, 'EMP-Y19-4', 'Ayesha', 'Ali', '46545-4654654-6', 65, 'RYK', 'RYK', 'Single', 'ayesha@gmail.com', 'Female', 'uploads/Ayesha_emp_photo.png', '1', 9, 4, 'Salaried', 'Faculty', 5, 'ayesha@gmail.com', 'BSCS', 2018, 'Superior', 'uploads/Ayesha_degree_scan_copy.xps', 40000, '2019-03-03 15:31:57', '2019-03-03 15:31:57', 8, 3, 1),
-(5, 'EMP-Y19-5', 'Qasim Khan', 'M. Ali Khan', '12345-6789098-7', 34, 'RYK', 'RYK', 'Married', 'qasim@gmail.com', 'Male', '0', '', 4, 4, 'Salaried', 'Faculty', 5, 'ali@gmail.com', 'BSCS', 2018, 'Superior College', '0', 25000, '2019-02-24 06:39:07', '0000-00-00 00:00:00', 9, 0, 1),
-(6, 'EMP-Y19-6', 'Shahzaib Akram', 'Akram Ali', '12345-6543234-5', 92, 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'shahzaib@gmail.com', 'Male', '0', '', 4, 4, 'Salaried', 'Faculty', 5, 'shahzaib@gmail.com', 'MSC Maths', 2018, 'IUB', '0', 25000, '2019-02-24 07:02:07', '2019-02-24 07:02:07', 9, 9, 1),
-(7, 'EMP-Y19-7', 'Adnan Akram', 'Akram Ali', '12345-6787654-3', 92, 'RYK', 'RYK', 'Single', 'adnan@gmail.com', 'Male', '0', '', 4, 4, 'Salaried', 'Faculty', 5, 'adnan@gmail.com', 'MSC Maths', 2018, 'IUB', '0', 25000, '2019-02-24 07:04:41', '2019-02-24 07:04:41', 9, 9, 1),
-(8, 'EMP-Y19-8', 'Sajid Umar', 'Umar Khan', '12345-6787654-7', 92, 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'sajid@gmail.com', 'Male', 'uploads/Sajid Umar_emp_photo.jpeg', '', 4, 4, 'Salaried', 'Faculty', 5, 'sajid@gmail.com', 'MSC Maths', 2018, 'IUB', '0', 25000, '2019-02-24 07:01:02', '0000-00-00 00:00:00', 9, 0, 1),
-(9, 'EMP-Y19-9', 'Zia ur Rehman', 'A. Rehman', '31303-2345678-8', 92, 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'zia@gmail.com', 'Male', 'uploads/Zia ur Rehman_emp_photo.jpg', '', 4, 4, 'Salaried', 'Faculty', 5, 'zia@gmail.com', 'MSC Physics', 2018, 'IUB', '0', 30000, '2019-02-25 04:39:20', '0000-00-00 00:00:00', 9, 0, 1);
+(1, 'EMP-Y19-1', 'Kinza Mustafa', 'G Mustafa', '45678-9876545-6', '56', 'RYK', 'RYK', 'Single', 'Kinza@gmail.com', 'Female', 'uploads/Kinza Mustafa_emp_photo.jpg', '1', 1, 4, 'Salaried', 'Faculty', 5, 'kinza.fatima.522@gmail.com', 'BSCS', 2017, 'IUB', 'uploads/Kinza Mustafa_degree_scan_copy.jpg', 10000, '2019-02-22 07:24:29', '2019-02-20 09:30:25', 3, 9, 1),
+(2, 'EMP-Y19-2', 'Nadia', 'Gull', '88888-8888888-8', '66', 'ryk', 'ryk', 'Single', 'fghj@gmail.com', 'Female', 'uploads/nadia_emp_photo.jpg', '1', 4, 5, 'Per Lecture', 'Faculty', 5, 'fghj@gmail.com', 'BSCS', 2019, 'fghjk', 'uploads/Nadia_degree_scan_copy.png', 1300, '2019-02-24 06:45:28', '2019-02-24 06:45:28', 3, 9, 1),
+(3, 'EMP-Y19-3', 'Nauman', 'shahid', '24654-5468546-5', '65', 'RYK', 'RYK', 'Single', 'nauman@gmail.com', 'Male', 'uploads/Nauman_emp_photo.jpg', '1,7', 4, 5, 'Per Lecture', 'Faculty', 5, 'nauman@gmail.com', 'BSCS', 2108, 'Superior', 'uploads/Nauman_degree_scan_copy.jpg', 1400, '2019-02-23 14:08:59', '2019-02-23 14:08:59', 8, 9, 1),
+(4, 'EMP-Y19-4', 'Ayesha', 'Ali', '46545-4654654-6', '65', 'RYK', 'RYK', 'Single', 'ayesha@gmail.com', 'Female', 'uploads/Ayesha_emp_photo.png', '1', 9, 4, 'Salaried', 'Faculty', 5, 'ayesha@gmail.com', 'BSCS', 2018, 'Superior', 'uploads/Ayesha_degree_scan_copy.xps', 40000, '2019-03-03 15:31:57', '2019-03-03 15:31:57', 8, 3, 1),
+(5, 'EMP-Y19-5', 'Qasim Khan', 'M. Ali Khan', '12345-6789098-7', '34', 'RYK', 'RYK', 'Married', 'qasim@gmail.com', 'Male', '0', '', 4, 4, 'Salaried', 'Faculty', 5, 'ali@gmail.com', 'BSCS', 2018, 'Superior College', '0', 25000, '2019-02-24 06:39:07', '0000-00-00 00:00:00', 9, 0, 1),
+(6, 'EMP-Y19-6', 'Shahzaib Akram', 'Akram Ali', '12345-6543234-5', '92', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'shahzaib@gmail.com', 'Male', '0', '', 4, 4, 'Salaried', 'Faculty', 5, 'shahzaib@gmail.com', 'MSC Maths', 2018, 'IUB', '0', 25000, '2019-02-24 07:02:07', '2019-02-24 07:02:07', 9, 9, 1),
+(7, 'EMP-Y19-7', 'Adnan Akram', 'Akram Ali', '12345-6787654-3', '92', 'RYK', 'RYK', 'Single', 'adnan@gmail.com', 'Male', '0', '', 4, 4, 'Salaried', 'Faculty', 5, 'adnan@gmail.com', 'MSC Maths', 2018, 'IUB', '0', 25000, '2019-02-24 07:04:41', '2019-02-24 07:04:41', 9, 9, 1),
+(8, 'EMP-Y19-8', 'Sajid Umar', 'Umar Khan', '12345-6787654-7', '92', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'sajid@gmail.com', 'Male', 'uploads/Sajid Umar_emp_photo.jpeg', '', 4, 4, 'Salaried', 'Faculty', 5, 'sajid@gmail.com', 'MSC Maths', 2018, 'IUB', '0', 25000, '2019-02-24 07:01:02', '0000-00-00 00:00:00', 9, 0, 1),
+(9, 'EMP-Y19-9', 'Zia ur Rehman', 'A. Rehman', '31303-2345678-8', '92', 'Gulshan Iqbal', 'Gulshan Iqbal', 'Single', 'zia@gmail.com', 'Male', 'uploads/Zia ur Rehman_emp_photo.jpg', '', 4, 4, 'Salaried', 'Faculty', 5, 'zia@gmail.com', 'MSC Physics', 2018, 'IUB', '0', 30000, '2019-02-25 04:39:20', '0000-00-00 00:00:00', 9, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -928,6 +928,44 @@ CREATE TABLE `institute` (
 
 INSERT INTO `institute` (`institute_id`, `institute_name`, `institute_logo`, `institute_account_no`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
 (2, 'BROOKFIELD GROUP OF COLLEGES', '', ' 0190 002 2965 3403 UBL Shahi Road, RYK', '2019-01-08 08:12:22', '0000-00-00 00:00:00', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `institute_name`
+--
+
+CREATE TABLE `institute_name` (
+  `Institute_name_id` int(11) NOT NULL,
+  `Institute_name` varchar(100) NOT NULL,
+  `Institutte_address` varchar(120) NOT NULL,
+  `Institute_contact_no` varchar(12) NOT NULL,
+  `head_name` varchar(20) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `institute_name`
+--
+
+INSERT INTO `institute_name` (`Institute_name_id`, `Institute_name`, `Institutte_address`, `Institute_contact_no`, `head_name`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 'NIMS School System', 'RYK', '923345678988', 'Sir Nadeem', 0, 0, '2019-03-12 06:07:06', '0000-00-00 00:00:00'),
+(2, 'National Garission School System', 'RYK', '923456789023', 'fghjklkj', 0, 0, '2019-03-12 06:10:12', '0000-00-00 00:00:00'),
+(3, 'Lahore School System', 'RYK', '923456348256', 'fghjklghj', 0, 0, '2019-03-12 06:11:07', '0000-00-00 00:00:00'),
+(4, 'The New Horizons School', 'RYK', '923569872345', 'fghjhgfghj', 0, 0, '2019-03-12 06:11:59', '0000-00-00 00:00:00'),
+(5, 'Rehnuma Public School', 'RYK', '923564337866', 'fghjkjnhgfvg', 0, 0, '2019-03-12 06:12:30', '0000-00-00 00:00:00'),
+(6, 'ABC Learning School', 'RYK', '923786547856', 'dfghjkhg', 0, 0, '2019-03-12 06:13:19', '0000-00-00 00:00:00'),
+(7, 'ESNA Public School', 'RYK', '923456789876', 'dfghjkljmhn', 0, 0, '2019-03-12 06:13:57', '0000-00-00 00:00:00'),
+(8, 'Govt. Girls Model Girls High School', 'RYK', '923456789765', 'fdghjgfghj', 0, 0, '2019-03-12 06:15:20', '0000-00-00 00:00:00'),
+(9, 'Allied School', 'RYK', '923345678987', 'fghjkgbhj', 0, 0, '2019-03-12 06:15:48', '0000-00-00 00:00:00'),
+(10, 'The Spirit School', 'RYK', '923456789876', 'ghjkfghjk', 0, 0, '2019-03-12 06:16:12', '0000-00-00 00:00:00'),
+(11, 'TCI School System', 'RYK', '923567898765', 'fghjkljhg', 0, 0, '2019-03-12 06:16:35', '0000-00-00 00:00:00'),
+(12, 'Colony High School', 'RYK', '923456789098', 'fghjkj', 0, 0, '2019-03-12 06:17:11', '0000-00-00 00:00:00'),
+(13, 'Pilot High School', 'RYK', '923456789098', 'frghjkjnhb', 0, 0, '2019-03-12 06:17:29', '0000-00-00 00:00:00'),
+(14, 'Comprehensive School', 'RYK', '923678998765', 'dcfghjklkjh', 0, 0, '2019-03-12 06:18:02', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1436,8 +1474,8 @@ CREATE TABLE `std_guardian_info` (
   `guardian_relation` varchar(50) NOT NULL,
   `guardian_cnic` varchar(15) NOT NULL,
   `guardian_email` varchar(84) NOT NULL,
-  `guardian_contact_no_1` int(12) NOT NULL,
-  `guardian_contact_no_2` int(12) NOT NULL,
+  `guardian_contact_no_1` varchar(12) NOT NULL,
+  `guardian_contact_no_2` varchar(12) NOT NULL,
   `guardian_monthly_income` int(11) NOT NULL,
   `guardian_occupation` varchar(50) NOT NULL,
   `guardian_designation` varchar(100) NOT NULL,
@@ -1453,24 +1491,24 @@ CREATE TABLE `std_guardian_info` (
 --
 
 INSERT INTO `std_guardian_info` (`std_guardian_info_id`, `std_id`, `guardian_name`, `guardian_relation`, `guardian_cnic`, `guardian_email`, `guardian_contact_no_1`, `guardian_contact_no_2`, `guardian_monthly_income`, `guardian_occupation`, `guardian_designation`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(1, 1, 'G. Mustafah', 'Father', '12345-6789123-4', 'abu@gmail.com', 92, 12, 35000, 'Businessmen', 'MD', '2019-01-14 13:21:46', '0000-00-00 00:00:00', 1, 0, 1),
-(2, 2, 'Iftkhar', 'Rehman', '12345-6789123-4', 'abu@gmail.com', 92, 12, 30000, 'Govt. Employee', 'Teacher', '2019-01-14 11:06:25', '0000-00-00 00:00:00', 1, 0, 1),
-(3, 3, 'M. Ahmed', 'Brother', '12345-6787545-6', 'ahmed@gmail.com', 92, 92, 50000, 'Employee', 'Manager', '2019-01-14 17:18:38', '0000-00-00 00:00:00', 1, 0, 1),
-(4, 9, 'Naveed Anjum', 'Father', '12345-6789098-7', 'Naveed@gmail.com', 0, 92, 0, 'abc', '', '2018-12-30 14:55:12', '0000-00-00 00:00:00', 1, 0, 1),
-(5, 10, 'M. Arshad', 'Father', '31303-0388634-5', 'arshad@gmail.com', 92, 92, 50000, 'Self Employee', '', '2019-01-03 11:45:25', '0000-00-00 00:00:00', 1, 0, 1),
-(6, 11, 'Muhammad Ameen', 'Father', '34567-8987654-5', 'ameen@gmail.com', 45, 34, 15000, 'govt employee', '', '2019-01-06 15:19:03', '0000-00-00 00:00:00', 1, 0, 1),
-(7, 12, 'Asmat Ara', 'Mother', '23456-7890987-6', 'asmat@gmail.com', 43, 34, 12000, 'house wife', '', '2019-01-06 15:39:40', '0000-00-00 00:00:00', 1, 0, 1),
-(8, 13, 'Muhammed Ameen', 'Father', '34567-8987656-7', 'ameenn@gmail.com', 45, 76, 50000, 'asd', '', '2019-01-06 15:52:57', '0000-00-00 00:00:00', 1, 0, 1),
-(10, 15, 'M. Ali', 'Brother', '31303-2345678-9', 'anas@gmail.com', 92, 92, 35000, 'Govt. Teacher', '', '2019-01-14 06:39:34', '0000-00-00 00:00:00', 1, 0, 1),
-(11, 16, 'Naeem Wahid', 'Father', '31305-6789987-6', 'naeem@gmail.com', 92, 92, 50000, 'Govt. Employe', 'Teacher', '2019-03-06 05:30:48', '0000-00-00 00:00:00', 1, 0, 1),
-(13, 18, 'abc', 'Father', '23456-7890933-4', 'abc@gmail.com', 23, 39, 2345432, 'asdds', 'dswqwsdsx', '2019-02-06 05:25:48', '0000-00-00 00:00:00', 3, 0, 1),
-(14, 19, 'Asad Ali', 'Father', '56776-5567876-5', 'asad@gmail.com', 66, 77, 3456787, 'ghjk', 'fghj', '2019-02-06 05:44:57', '0000-00-00 00:00:00', 3, 0, 1),
-(15, 4, 'Ahmed', 'Father', '45678-9098765-4', 'ahmed@gmail.com', 77, 88, 30000, 'Landlord', 'Owner', '2019-02-18 05:26:25', '0000-00-00 00:00:00', 0, 0, 1),
-(16, 5, 'Ali', 'Father', '77777-7777777-7', 'ali@gmail.com', 99, 32, 70000, 'ghjkjkk', 'fghj', '2019-02-18 05:27:30', '0000-00-00 00:00:00', 0, 0, 1),
-(17, 6, 'Shehzad', 'Brother', '22222-2222222-2', 'shahzad@gmail.com', 88, 66, 20000, 'fghj', 'GHJH', '2019-02-18 05:28:33', '0000-00-00 00:00:00', 0, 0, 1),
-(18, 7, 'M Shafqat', 'Father', '77777-7777777-7', 'shafqat@gmail.com', 88, 55, 50000, 'fghj', 'ghj', '2019-02-18 05:29:26', '0000-00-00 00:00:00', 0, 0, 1),
-(19, 8, 'M Ali', 'Father', '99999-9999999-9', 'ali@gmail.com', 99, 66, 60000, 'ghju', 'frdeh', '2019-02-18 05:30:09', '0000-00-00 00:00:00', 0, 0, 1),
-(20, 20, 'M Yaqoob', 'Father', '33333-3333333-3', 'myaqoob@gmail.com', 44, 55, 50000, 'LandLord', 'Owner', '2019-02-19 04:54:40', '0000-00-00 00:00:00', 3, 0, 1);
+(1, 1, 'G. Mustafah', 'Father', '12345-6789123-4', 'abu@gmail.com', '92', '12', 35000, 'Businessmen', 'MD', '2019-01-14 13:21:46', '0000-00-00 00:00:00', 1, 0, 1),
+(2, 2, 'Iftkhar', 'Rehman', '12345-6789123-4', 'abu@gmail.com', '92', '12', 30000, 'Govt. Employee', 'Teacher', '2019-01-14 11:06:25', '0000-00-00 00:00:00', 1, 0, 1),
+(3, 3, 'M. Ahmed', 'Brother', '12345-6787545-6', 'ahmed@gmail.com', '92', '92', 50000, 'Employee', 'Manager', '2019-01-14 17:18:38', '0000-00-00 00:00:00', 1, 0, 1),
+(4, 9, 'Naveed Anjum', 'Father', '12345-6789098-7', 'Naveed@gmail.com', '0', '92', 0, 'abc', '', '2018-12-30 14:55:12', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 10, 'M. Arshad', 'Father', '31303-0388634-5', 'arshad@gmail.com', '92', '92', 50000, 'Self Employee', '', '2019-01-03 11:45:25', '0000-00-00 00:00:00', 1, 0, 1),
+(6, 11, 'Muhammad Ameen', 'Father', '34567-8987654-5', 'ameen@gmail.com', '45', '34', 15000, 'govt employee', '', '2019-01-06 15:19:03', '0000-00-00 00:00:00', 1, 0, 1),
+(7, 12, 'Asmat Ara', 'Mother', '23456-7890987-6', 'asmat@gmail.com', '43', '34', 12000, 'house wife', '', '2019-01-06 15:39:40', '0000-00-00 00:00:00', 1, 0, 1),
+(8, 13, 'Muhammed Ameen', 'Father', '34567-8987656-7', 'ameenn@gmail.com', '45', '76', 50000, 'asd', '', '2019-01-06 15:52:57', '0000-00-00 00:00:00', 1, 0, 1),
+(10, 15, 'M. Ali', 'Brother', '31303-2345678-9', 'anas@gmail.com', '92', '92', 35000, 'Govt. Teacher', '', '2019-01-14 06:39:34', '0000-00-00 00:00:00', 1, 0, 1),
+(11, 16, 'Naeem Wahid', 'Father', '31305-6789987-6', 'naeem@gmail.com', '92', '92', 50000, 'Govt. Employe', 'Teacher', '2019-03-06 05:30:48', '0000-00-00 00:00:00', 1, 0, 1),
+(13, 18, 'abc', 'Father', '23456-7890933-4', 'abc@gmail.com', '23', '39', 2345432, 'asdds', 'dswqwsdsx', '2019-02-06 05:25:48', '0000-00-00 00:00:00', 3, 0, 1),
+(14, 19, 'Asad Ali', 'Father', '56776-5567876-5', 'asad@gmail.com', '66', '77', 3456787, 'ghjk', 'fghj', '2019-02-06 05:44:57', '0000-00-00 00:00:00', 3, 0, 1),
+(15, 4, 'Ahmed', 'Father', '45678-9098765-4', 'ahmed@gmail.com', '77', '88', 30000, 'Landlord', 'Owner', '2019-02-18 05:26:25', '0000-00-00 00:00:00', 0, 0, 1),
+(16, 5, 'Ali', 'Father', '77777-7777777-7', 'ali@gmail.com', '99', '32', 70000, 'ghjkjkk', 'fghj', '2019-02-18 05:27:30', '0000-00-00 00:00:00', 0, 0, 1),
+(17, 6, 'Shehzad', 'Brother', '22222-2222222-2', 'shahzad@gmail.com', '88', '66', 20000, 'fghj', 'GHJH', '2019-02-18 05:28:33', '0000-00-00 00:00:00', 0, 0, 1),
+(18, 7, 'M Shafqat', 'Father', '77777-7777777-7', 'shafqat@gmail.com', '88', '55', 50000, 'fghj', 'ghj', '2019-02-18 05:29:26', '0000-00-00 00:00:00', 0, 0, 1),
+(19, 8, 'M Ali', 'Father', '99999-9999999-9', 'ali@gmail.com', '99', '66', 60000, 'ghju', 'frdeh', '2019-02-18 05:30:09', '0000-00-00 00:00:00', 0, 0, 1),
+(20, 20, 'M Yaqoob', 'Father', '33333-3333333-3', 'myaqoob@gmail.com', '44', '55', 50000, 'LandLord', 'Owner', '2019-02-19 04:54:40', '0000-00-00 00:00:00', 3, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1483,7 +1521,7 @@ CREATE TABLE `std_ice_info` (
   `std_id` int(11) NOT NULL,
   `std_ice_name` varchar(64) NOT NULL,
   `std_ice_relation` varchar(64) NOT NULL,
-  `std_ice_contact_no` int(12) NOT NULL,
+  `std_ice_contact_no` varchar(12) NOT NULL,
   `std_ice_address` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL,
@@ -1497,13 +1535,13 @@ CREATE TABLE `std_ice_info` (
 --
 
 INSERT INTO `std_ice_info` (`std_ice_id`, `std_id`, `std_ice_name`, `std_ice_relation`, `std_ice_contact_no`, `std_ice_address`, `created_at`, `created_by`, `updated_at`, `updated_by`, `delete_status`) VALUES
-(1, 1, 'M. Ahmed', 'Mamu G', 92, '', '2019-02-07 09:22:31', 0, '0000-00-00 00:00:00', 0, 1),
-(3, 15, 'M. Ahmed', 'Brother', 92, '', '2019-01-14 17:19:07', 1, '0000-00-00 00:00:00', 0, 1),
-(4, 16, 'Wahid', 'Father', 92, ';lkjhgfdfghj', '2019-03-06 05:33:15', 1, '0000-00-00 00:00:00', 0, 1),
-(6, 18, 'dfdsa', 'fdswdssdcds', 23, '', '2019-02-06 05:25:48', 3, '0000-00-00 00:00:00', 0, 1),
-(7, 19, 'fghj', 'ghuj', 88, '', '2019-02-06 05:44:57', 3, '0000-00-00 00:00:00', 0, 1),
-(8, 20, 'Asad YAqoob', 'Brother', 66, 'RYK', '2019-02-19 04:54:40', 3, '0000-00-00 00:00:00', 0, 1),
-(11, 24, 'Asad Shafqat', 'Father', 98, 'RYK', '2019-03-04 08:17:35', 3, '0000-00-00 00:00:00', 0, 1);
+(1, 1, 'M. Ahmed', 'Mamu G', '92', '', '2019-02-07 09:22:31', 0, '0000-00-00 00:00:00', 0, 1),
+(3, 15, 'M. Ahmed', 'Brother', '92', '', '2019-01-14 17:19:07', 1, '0000-00-00 00:00:00', 0, 1),
+(4, 16, 'Wahid', 'Father', '92', ';lkjhgfdfghj', '2019-03-06 05:33:15', 1, '0000-00-00 00:00:00', 0, 1),
+(6, 18, 'dfdsa', 'fdswdssdcds', '23', '', '2019-02-06 05:25:48', 3, '0000-00-00 00:00:00', 0, 1),
+(7, 19, 'fghj', 'ghuj', '88', '', '2019-02-06 05:44:57', 3, '0000-00-00 00:00:00', 0, 1),
+(8, 20, 'Asad YAqoob', 'Brother', '66', 'RYK', '2019-02-19 04:54:40', 3, '0000-00-00 00:00:00', 0, 1),
+(11, 24, 'Asad Shafqat', 'Father', '98', 'RYK', '2019-03-04 08:17:35', 3, '0000-00-00 00:00:00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1517,7 +1555,7 @@ CREATE TABLE `std_inquiry` (
   `inquiry_session` varchar(20) NOT NULL,
   `std_name` varchar(32) NOT NULL,
   `std_father_name` varchar(32) NOT NULL,
-  `std_contact_no` varchar(15) NOT NULL,
+  `std_contact_no` varchar(12) NOT NULL,
   `std_father_contact_no` varchar(15) NOT NULL,
   `std_inquiry_date` date NOT NULL,
   `std_intrested_class` varchar(50) NOT NULL,
@@ -1528,7 +1566,7 @@ CREATE TABLE `std_inquiry` (
   `std_total_marks` int(4) NOT NULL,
   `std_percentage` varchar(6) NOT NULL,
   `refrence_name` varchar(32) NOT NULL,
-  `refrence_contact_no` varchar(15) NOT NULL,
+  `refrence_contact_no` varchar(12) NOT NULL,
   `refrence_designation` varchar(30) NOT NULL,
   `std_address` varchar(200) NOT NULL,
   `inquiry_status` enum('Inquiry','Registered') NOT NULL,
@@ -1543,9 +1581,9 @@ CREATE TABLE `std_inquiry` (
 --
 
 INSERT INTO `std_inquiry` (`std_inquiry_id`, `std_inquiry_no`, `inquiry_session`, `std_name`, `std_father_name`, `std_contact_no`, `std_father_contact_no`, `std_inquiry_date`, `std_intrested_class`, `std_previous_class`, `previous_institute`, `std_roll_no`, `std_obtained_marks`, `std_total_marks`, `std_percentage`, `refrence_name`, `refrence_contact_no`, `refrence_designation`, `std_address`, `inquiry_status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'STD-Y19-05', '2019 - 2021', 'nauman', 'shahid', '+92-333-7486807', '+92-300-6738133', '2019-02-13', 'ICS', 'BSCS', 'ESNA Public School', '025', 900, 1100, '82%', 'Anas', '+90-331-7375027', 'MD DEXDEVS', 'RYK', 'Inquiry', '2019-03-12 05:26:22', '2019-03-12 05:26:22', 9, 3),
-(2, 'STD-Y19-05', '2019 - 2021', 'Farhan', 'Shahid', '+92-331-5994989', '+92-331-5848948', '2019-03-06', 'ICS', 'Matric', 'ESNA Public School', '12345', 850, 1100, '77%', 'Nauman', '+92-333-7486807', 'MD', 'Satelite Town, Rahim Yar Khan', 'Inquiry', '2019-03-12 05:26:14', '2019-03-12 05:26:14', 3, 3),
-(3, 'STD-Y19-05', '2019 - 2021', 'Kinza', 'Mustafa', '+92-345-6789098', '+92-456-7890987', '2019-03-07', 'FSC', 'metric', 'Horizon School', '12365', 800, 1100, '73%', 'Nadia', '+92-987-6543345', 'hgh', 'lkjhgfdfghj', 'Inquiry', '2019-03-12 05:25:59', '2019-03-12 05:25:59', 3, 3),
+(1, 'STD-Y19-05', '2019 - 2021', 'nauman', 'shahid', '+92-333-7486', '+92-300-6738133', '2019-02-13', 'ICS', 'BSCS', 'ESNA Public School', '025', 900, 1100, '82%', 'Anas', '+90-331-7375', 'MD DEXDEVS', 'RYK', 'Inquiry', '2019-03-12 05:26:22', '2019-03-12 05:26:22', 9, 3),
+(2, 'STD-Y19-05', '2019 - 2021', 'Farhan', 'Shahid', '+92-331-5994', '+92-331-5848948', '2019-03-06', 'ICS', 'Matric', 'ESNA Public School', '12345', 850, 1100, '77%', 'Nauman', '+92-333-7486', 'MD', 'Satelite Town, Rahim Yar Khan', 'Inquiry', '2019-03-12 05:26:14', '2019-03-12 05:26:14', 3, 3),
+(3, 'STD-Y19-05', '2019 - 2021', 'Kinza', 'Mustafa', '+92-345-6789', '+92-456-7890987', '2019-03-07', 'FSC', 'metric', 'Horizon School', '12365', 800, 1100, '73%', 'Nadia', '+92-987-6543', 'hgh', 'lkjhgfdfghj', 'Inquiry', '2019-03-12 05:25:59', '2019-03-12 05:25:59', 3, 3),
 (4, 'STD-Y19-04', '2019 - 2021', 'Saif-ur-Rehman', 'M. Khalil', '923083152045', '923023836145', '2019-03-12', 'ICS', 'Matric', 'Govt. High School, Chak # 51/p', '265641', 743, 1050, '71%', 'Anas Shafqat', '923317375027', 'MD DEXDEVS', 'Chak # 145/p, Adaam Sahaba', 'Inquiry', '2019-03-12 05:25:45', '0000-00-00 00:00:00', 3, 0);
 
 -- --------------------------------------------------------
@@ -1559,7 +1597,7 @@ CREATE TABLE `std_personal_info` (
   `std_reg_no` varchar(50) NOT NULL,
   `std_name` varchar(50) NOT NULL,
   `std_father_name` varchar(50) NOT NULL,
-  `std_contact_no` int(12) NOT NULL,
+  `std_contact_no` varchar(12) NOT NULL,
   `std_DOB` date NOT NULL,
   `std_gender` enum('Male','Female') NOT NULL,
   `std_permanent_address` varchar(255) NOT NULL,
@@ -1585,25 +1623,25 @@ CREATE TABLE `std_personal_info` (
 --
 
 INSERT INTO `std_personal_info` (`std_id`, `std_reg_no`, `std_name`, `std_father_name`, `std_contact_no`, `std_DOB`, `std_gender`, `std_permanent_address`, `std_temporary_address`, `std_email`, `std_photo`, `std_b_form`, `std_district`, `std_religion`, `std_nationality`, `std_tehseel`, `status`, `academic_status`, `created_at`, `updated_at`, `created_by`, `updated_by`, `delete_status`) VALUES
-(1, 'REG-Y19-001', 'Kinza Mustafah', 'Mustafa Ali', 12, '2019-01-14', 'Female', 'RYK', 'RYK', 'kinza@gmail.com', 'uploads/Kinza Mustafah_photo.png', '12345-1234567-1', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Left', '2019-03-04 09:39:51', '2019-03-04 09:39:51', 1, 3, 1),
-(2, 'REG-Y19-002', 'Nadia Gull', 'Iftikhar Ali', 92, '2018-10-29', 'Female', 'RYK', 'RYK', 'nadia@gmail.com', 'uploads/Nadia Gull_photo.png', '12345-6789123-4', 'RYK', 'RYK', 'Pakistan', 'Islam', 'Active', 'Active', '2019-03-05 05:26:08', '2019-03-05 05:26:08', 1, 3, 1),
-(3, 'REG-Y19-003', 'Mehtab Ahmed Ali', 'M. Ahmed', 92, '1996-07-04', 'Male', 'RYK', 'RYK', 'mehtab@gmail.com', 'uploads/Mehtab Ahmed Ali_photo.jpeg', '12345-6789123-4', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-03-07 07:20:48', '2019-03-07 07:20:48', 1, 3, 1),
-(4, 'REG-Y19-004', 'Ali', '', 56, '2018-10-27', 'Male', 'seuh', 'hggyu', 'hiuuhi', '', '23456-7890987-6', 'jbjbj', 'knk', 'jjj', 'jhjh', 'Active', 'Active', '2019-02-08 05:24:41', '0000-00-00 00:00:00', 1, 0, 1),
-(5, 'REG-Y19-005', 'Hamza', '', 35, '2018-10-27', 'Male', 'tghjk', 'lkokjo', '4567kpok', 'uploads/Hamza_photo.jpg', '23678-7654345-6', 'dfhjk', 'jojoj', 'jjoijho', 'hukhukhk', 'Active', 'Active', '2019-02-08 05:24:46', '2018-11-01 06:49:57', 1, 1, 1),
-(6, 'REG-Y19-006', 'Qasim', 'Khan', 38, '2018-10-27', 'Male', 'Rahim Yar Khan', 'Rahim Yar Khan', 'qasim@gmail.com', 'uploads/Qasim_photo.jpg', '23678-8765434-5', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-02-08 05:24:51', '2019-01-12 17:09:27', 1, 1, 1),
-(7, 'REG-Y19-007', 'Anas Shafqat', 'Shafqat Ali', 92, '2018-10-27', 'Male', 'Gulshan Iqbal, Rahim Yar Khan', 'Gulshan Iqbal, Rahim Yar Khan', 'anasshafqat01@gmail.com', 'uploads/Anas Shafqat_photo.jpg', '31303-0437789-0', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-02-08 05:24:56', '2019-01-11 15:45:24', 1, 1, 1),
-(8, 'REG-Y19-008', 'Zia Ali', 'Ali Ahmed', 12, '2009-06-09', 'Male', 'Gulshan Iqbal, Rahim Yar Khan', 'Gulshan Iqbal, Rahim Yar Khan', 'zia@gmail.com', 'uploads/Zia Ali_photo.jpg', '12345-6789876-5', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-02-08 05:25:01', '2018-11-05 16:42:39', 1, 1, 1),
-(9, 'REG-Y19-009', 'Ali Naveed', 'Naveed Anjum', 12, '2018-11-03', 'Male', 'mnhgbfdsfvbghgfd', '', 'sdfghjkllkjhgvc', 'uploads/Ali Naveed_photo.jpg', '23456-7890987-6', 'RYK', 'Islam', 'Pakistani', 'RKY', 'Active', 'Active', '2019-02-08 05:25:06', '0000-00-00 00:00:00', 1, 0, 1),
-(10, 'REG-Y19-010', 'M. Rehan', 'M. Arshad', 92, '1992-04-03', 'Male', 'Rahim Yar Khan', 'Rahim Yar Khan', 'rehan@gmail.com', 'uploads/M. Rehan_photo.png', '31303-8898966-5', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-02-08 05:25:11', '0000-00-00 00:00:00', 1, 0, 1),
-(11, 'REG-Y19-011', 'Aisha Ameen', 'Muhammad Ameen', 0, '1991-01-01', 'Female', 'sdfghjkjhg678', 'xcvbnjmklkjhg6789', 'aisha@gmail.com', 'uploads/Aisha Ameen_photo.png', '34567-8765456-7', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-08 05:25:17', '0000-00-00 00:00:00', 1, 0, 1),
-(12, 'REG-Y19-012', 'Aniqa Gull', 'Iftikhar Ali', 92, '2019-01-06', 'Female', 'uytfdfghujio', 'fdfghjkl', 'aniqa@gmail.com', 'uploads/Aniqa Gull_photo.png', '34567-8987654-5', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-08 05:25:21', '0000-00-00 00:00:00', 1, 0, 1),
-(13, 'REG-Y19-013', 'Faheem Ameen', 'Muhammed Ameen', 23, '2019-01-06', 'Male', 'ghjkkjhgfdvbn', 'ddtyuioiuytr', 'faheem@gmail.com', 'uploads/Faheem Ameen_photo.jpg', '23456-7898765-4', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-08 05:25:37', '0000-00-00 00:00:00', 1, 0, 1),
-(15, 'REG-Y19-015', 'Anas', 'M.Akram', 92, '2019-01-14', 'Male', 'RYK', 'RYK', 'anas@gmail.com', 'uploads/Anas_photo.jpeg', '31302-3456789-8', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Left', '2019-03-04 09:35:23', '2019-03-04 09:35:23', 1, 3, 1),
-(16, 'REG-Y19-016', 'Waleed Bin Naeem', 'Naeem', 23, '1993-05-05', 'Male', 'Rahim Yar Khan', 'Rahim Yar Khan', 'waleed@gmail.com', '', '12367-8765432-8', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-03-06 04:57:13', '0000-00-00 00:00:00', 1, 0, 1),
-(18, 'REG-Y19-018', 'M. Akram', 'jhgfddfgh', 34, '2019-02-06', 'Male', '23456789jhgfxxfghjk', 'hgfdxszdfghj345678ijhgvc', 'xyz@gmail.com', 'uploads/M. Akram_photo.png', '34567-8909876-5', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-07 17:09:21', '2019-02-06 08:15:54', 3, 3, 1),
-(19, 'REG-Y19-019', 'anam asad', 'asad ali', 33, '2019-02-06', 'Female', 'dfghjfgh', 'fgvbhjn', 'anam@gmail.com', 'uploads/std_default.jpg', '55555-5555555-5', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-03-06 05:44:45', '0000-00-00 00:00:00', 3, 0, 1),
-(20, 'STD-Y19-20', 'Iqra Yaqoob', 'M Yaqoob', 11, '2019-02-18', 'Female', 'RYK', 'RYK', 'iqra@gmail.com', 'uploads/Iqra Yaqoob_photo.jpg', '22222-2222222-2', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-19 04:54:40', '0000-00-00 00:00:00', 3, 0, 1),
-(24, 'STD-Y19-21', 'M.Azaan', 'Asad Shafqat', 92, '2019-03-04', 'Male', 'RYK', '', 'azaan@gmail.com', '', '31303-2648948-9', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-03-06 04:55:07', '0000-00-00 00:00:00', 3, 0, 1);
+(1, 'REG-Y19-001', 'Kinza Mustafah', 'Mustafa Ali', '12', '2019-01-14', 'Female', 'RYK', 'RYK', 'kinza@gmail.com', 'uploads/Kinza Mustafah_photo.png', '12345-1234567-1', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Left', '2019-03-04 09:39:51', '2019-03-04 09:39:51', 1, 3, 1),
+(2, 'REG-Y19-002', 'Nadia Gull', 'Iftikhar Ali', '92', '2018-10-29', 'Female', 'RYK', 'RYK', 'nadia@gmail.com', 'uploads/Nadia Gull_photo.png', '12345-6789123-4', 'RYK', 'RYK', 'Pakistan', 'Islam', 'Active', 'Active', '2019-03-05 05:26:08', '2019-03-05 05:26:08', 1, 3, 1),
+(3, 'REG-Y19-003', 'Mehtab Ahmed Ali', 'M. Ahmed', '92', '1996-07-04', 'Male', 'RYK', 'RYK', 'mehtab@gmail.com', 'uploads/Mehtab Ahmed Ali_photo.jpeg', '12345-6789123-4', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-03-07 07:20:48', '2019-03-07 07:20:48', 1, 3, 1),
+(4, 'REG-Y19-004', 'Ali', '', '56', '2018-10-27', 'Male', 'seuh', 'hggyu', 'hiuuhi', '', '23456-7890987-6', 'jbjbj', 'knk', 'jjj', 'jhjh', 'Active', 'Active', '2019-02-08 05:24:41', '0000-00-00 00:00:00', 1, 0, 1),
+(5, 'REG-Y19-005', 'Hamza', '', '35', '2018-10-27', 'Male', 'tghjk', 'lkokjo', '4567kpok', 'uploads/Hamza_photo.jpg', '23678-7654345-6', 'dfhjk', 'jojoj', 'jjoijho', 'hukhukhk', 'Active', 'Active', '2019-02-08 05:24:46', '2018-11-01 06:49:57', 1, 1, 1),
+(6, 'REG-Y19-006', 'Qasim', 'Khan', '38', '2018-10-27', 'Male', 'Rahim Yar Khan', 'Rahim Yar Khan', 'qasim@gmail.com', 'uploads/Qasim_photo.jpg', '23678-8765434-5', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-02-08 05:24:51', '2019-01-12 17:09:27', 1, 1, 1),
+(7, 'REG-Y19-007', 'Anas Shafqat', 'Shafqat Ali', '92', '2018-10-27', 'Male', 'Gulshan Iqbal, Rahim Yar Khan', 'Gulshan Iqbal, Rahim Yar Khan', 'anasshafqat01@gmail.com', 'uploads/Anas Shafqat_photo.jpg', '31303-0437789-0', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-02-08 05:24:56', '2019-01-11 15:45:24', 1, 1, 1),
+(8, 'REG-Y19-008', 'Zia Ali', 'Ali Ahmed', '12', '2009-06-09', 'Male', 'Gulshan Iqbal, Rahim Yar Khan', 'Gulshan Iqbal, Rahim Yar Khan', 'zia@gmail.com', 'uploads/Zia Ali_photo.jpg', '12345-6789876-5', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-02-08 05:25:01', '2018-11-05 16:42:39', 1, 1, 1),
+(9, 'REG-Y19-009', 'Ali Naveed', 'Naveed Anjum', '12', '2018-11-03', 'Male', 'mnhgbfdsfvbghgfd', '', 'sdfghjkllkjhgvc', 'uploads/Ali Naveed_photo.jpg', '23456-7890987-6', 'RYK', 'Islam', 'Pakistani', 'RKY', 'Active', 'Active', '2019-02-08 05:25:06', '0000-00-00 00:00:00', 1, 0, 1),
+(10, 'REG-Y19-010', 'M. Rehan', 'M. Arshad', '92', '1992-04-03', 'Male', 'Rahim Yar Khan', 'Rahim Yar Khan', 'rehan@gmail.com', 'uploads/M. Rehan_photo.png', '31303-8898966-5', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-02-08 05:25:11', '0000-00-00 00:00:00', 1, 0, 1),
+(11, 'REG-Y19-011', 'Aisha Ameen', 'Muhammad Ameen', '0', '1991-01-01', 'Female', 'sdfghjkjhg678', 'xcvbnjmklkjhg6789', 'aisha@gmail.com', 'uploads/Aisha Ameen_photo.png', '34567-8765456-7', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-08 05:25:17', '0000-00-00 00:00:00', 1, 0, 1),
+(12, 'REG-Y19-012', 'Aniqa Gull', 'Iftikhar Ali', '92', '2019-01-06', 'Female', 'uytfdfghujio', 'fdfghjkl', 'aniqa@gmail.com', 'uploads/Aniqa Gull_photo.png', '34567-8987654-5', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-08 05:25:21', '0000-00-00 00:00:00', 1, 0, 1),
+(13, 'REG-Y19-013', 'Faheem Ameen', 'Muhammed Ameen', '23', '2019-01-06', 'Male', 'ghjkkjhgfdvbn', 'ddtyuioiuytr', 'faheem@gmail.com', 'uploads/Faheem Ameen_photo.jpg', '23456-7898765-4', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-08 05:25:37', '0000-00-00 00:00:00', 1, 0, 1),
+(15, 'REG-Y19-015', 'Anas', 'M.Akram', '92', '2019-01-14', 'Male', 'RYK', 'RYK', 'anas@gmail.com', 'uploads/Anas_photo.jpeg', '31302-3456789-8', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Left', '2019-03-04 09:35:23', '2019-03-04 09:35:23', 1, 3, 1),
+(16, 'REG-Y19-016', 'Waleed Bin Naeem', 'Naeem', '23', '1993-05-05', 'Male', 'Rahim Yar Khan', 'Rahim Yar Khan', 'waleed@gmail.com', '', '12367-8765432-8', 'Rahim Yar Khan', 'Islam', 'Pakistani', 'Rahim Yar Khan', 'Active', 'Active', '2019-03-06 04:57:13', '0000-00-00 00:00:00', 1, 0, 1),
+(18, 'REG-Y19-018', 'M. Akram', 'jhgfddfgh', '34', '2019-02-06', 'Male', '23456789jhgfxxfghjk', 'hgfdxszdfghj345678ijhgvc', 'xyz@gmail.com', 'uploads/M. Akram_photo.png', '34567-8909876-5', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-07 17:09:21', '2019-02-06 08:15:54', 3, 3, 1),
+(19, 'REG-Y19-019', 'anam asad', 'asad ali', '33', '2019-02-06', 'Female', 'dfghjfgh', 'fgvbhjn', 'anam@gmail.com', 'uploads/std_default.jpg', '55555-5555555-5', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-03-06 05:44:45', '0000-00-00 00:00:00', 3, 0, 1),
+(20, 'STD-Y19-20', 'Iqra Yaqoob', 'M Yaqoob', '11', '2019-02-18', 'Female', 'RYK', 'RYK', 'iqra@gmail.com', 'uploads/Iqra Yaqoob_photo.jpg', '22222-2222222-2', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-02-19 04:54:40', '0000-00-00 00:00:00', 3, 0, 1),
+(24, 'STD-Y19-21', 'M.Azaan', 'Asad Shafqat', '92', '2019-03-04', 'Male', 'RYK', '', 'azaan@gmail.com', '', '31303-2648948-9', 'RYK', 'Islam', 'Pakistani', 'RYK', 'Active', 'Active', '2019-03-06 04:55:07', '0000-00-00 00:00:00', 3, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -2028,6 +2066,12 @@ ALTER TABLE `institute`
   ADD PRIMARY KEY (`institute_id`);
 
 --
+-- Indexes for table `institute_name`
+--
+ALTER TABLE `institute_name`
+  ADD PRIMARY KEY (`Institute_name_id`);
+
+--
 -- Indexes for table `marks_weitage`
 --
 ALTER TABLE `marks_weitage`
@@ -2371,6 +2415,12 @@ ALTER TABLE `installment`
 --
 ALTER TABLE `institute`
   MODIFY `institute_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `institute_name`
+--
+ALTER TABLE `institute_name`
+  MODIFY `Institute_name_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `marks_weitage`
