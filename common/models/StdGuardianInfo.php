@@ -44,7 +44,8 @@ class StdGuardianInfo extends \yii\db\ActiveRecord
             [['std_id', 'guardian_monthly_income', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at', 'created_by', 'updated_by', 'guardian_email', 'guardian_contact_no_2', 'guardian_designation'], 'safe'],
             [['guardian_name', 'guardian_relation', 'guardian_occupation'], 'string', 'max' => 50],
-            [['guardian_cnic', 'guardian_contact_no_1', 'guardian_contact_no_2'], 'string', 'max' => 15],
+            [['guardian_cnic'], 'string', 'max' => 15],
+            [['guardian_contact_no_1', 'guardian_contact_no_2'], 'number'],
             [['guardian_email'], 'string', 'max' => 84],
             ['guardian_email', 'unique'],
             ['guardian_email','email'],
@@ -61,7 +62,7 @@ class StdGuardianInfo extends \yii\db\ActiveRecord
     {
         return [
             'std_guardian_info_id' => 'Std Guardian Info ID',
-            'std_id' => 'Std Name',
+            'std_id' => 'Student Name',
             'guardian_name' => 'Guardian Name',
             'guardian_relation' => 'Relation',
             'guardian_cnic' => 'CNIC #.',

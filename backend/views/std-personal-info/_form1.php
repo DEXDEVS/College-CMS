@@ -28,7 +28,7 @@ use yii\web\UploadedFile;
             </div>  
             <div class="col-md-4">
                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 156px; top: 6px"></i> -->
-                <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', 'id' => 'std_contact_no']) ?>
+                <?= $form->field($model, 'std_contact_no')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx', 'id' => 'std_contact_no']) ?>
             </div>     
         </div>
         <div class="row"> 

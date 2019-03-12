@@ -189,10 +189,8 @@ class CustomSmsController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch); //This is the result from SMS4CONNECT
-        
         curl_close($ch);
         return $result;
-
     }
 
     /**

@@ -46,7 +46,7 @@ use common\models\Departments;
     <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 78px; top: 17px"></i>
-            <?= $form->field($model, 'emp_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', ]) ?>
+            <?= $form->field($model, 'emp_contact_no')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx']) ?>
         </div>
         <div class="col-md-4">
              <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 39px; top: 17px"></i>

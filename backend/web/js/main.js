@@ -38,3 +38,11 @@ $(function(){
 			.load($(this).attr('value'));
 	});
 });
+// modalUpcoming....
+$(function(){
+	$('#modalSMS').click(function(){
+		$('#modalSMS').modal('show')
+			.find('#smsContent')
+			.load($(this).attr('value'));
+	});
+});
