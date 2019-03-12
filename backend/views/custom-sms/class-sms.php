@@ -88,69 +88,17 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<?php 
-	              		// get `class_name_id` from `std_enrollment_head`
-	              		$classIds = Yii::$app->db->createCommand("SELECT class_name_id
-	              			FROM std_enrollment_head")->queryAll();
-	              		$count = count($classIds);
-	              		
-	              		for ($i=0; $i <$count ; $i++) { 
-	              		$classID = $classIds[$i]['class_name_id'];
-
-	              		// getting `class_name_id` and `std__id` from `std_enrollment_head` and `std_enrollment_detail`
-	              		$classInfo = Yii::$app->db->createCommand("SELECT seh.class_name_id,sed.std_enroll_detail_std_id
-	              			FROM std_enrollment_head as seh
-    						INNER JOIN std_enrollment_detail as sed
-    						ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
-    						WHERE seh.class_name_id = '$classID'")->queryAll();
-
-	              		$class_name_ID 	  = $classInfo[0]['class_name_id'];
-	              		$classStudentId = $classInfo[0]['std_enroll_detail_std_id'];
-
-	              		print_r($classInfo);
-
-	              		$stdNumbers = Yii::$app->db->createCommand("SELECT std_contact_no FROM std_personal_info WHERE std_id  = '$classStudentId'" )->queryAll();
-	              		
-
-
-	              		// gettting `class_name` from `std_class_name`
-	              		$classNames = Yii::$app->db->createCommand("SELECT class_name,class_name_id
-	              			FROM std_class_name WHERE class_name_id  = '$class_name_ID'" )->queryAll();
-	              		
-	              		?>
-	              			
-              			<?php 
-              			foreach ($classNames as $key => $value) { ?>
-		          			<option value="<?php echo $value['class_name_id']; ?>">
-		          				<?php echo $value['class_name']; ?>
-		          			</option>
-	              		<?php 
-	              		
-			              	}
-			              	// close foreach loop 
-			              	} 
-			              	// close for loop
-		              	?>
-
-		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
-		              		$countClass = count($classID);
-	              		?> 
-	              		<select class="form-control" id="selectClass">
-	              			<option>Slect class</option>
-	              			<?php 
-              				for ($i=0; $i <$countClass ; $i++) { 
-              					$class_id = $classID[$i]['class_name_id'];
-              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-	              			?>
-	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
-	              				<?php echo $classNames[0]['class_name']; ?></option>
-	              		<?php } ?>
+	              		<select class="form-control">
+	              			<option>Select</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
 	              		<label>SMS Content</label>
 	              		<textarea rows="10" class="form-control" id="message"></textarea>
-	              		<textarea name="" rows="10" class="form-control" id="message"></textarea>
 	              		<p>
 					      <span><b>NOTE:</b> 160 characters = 1 SMS</span>
 					        <span id="remaining" class="pull-right">160 characters remaining </span>

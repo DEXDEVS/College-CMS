@@ -28,6 +28,7 @@ CrudAsset::register($this);
             'toolbar'=> [
                 $gridColumns = [
                     'std_inquiry_no',
+                    'inquiry_session',
                     'std_name',
                     'std_father_name',
                     'std_contact_no',
@@ -44,6 +45,7 @@ CrudAsset::register($this);
                     'refrence_contact_no',
                     'refrence_designation',
                     'std_address',
+                    'inquiry_status',
                 ],
                 //Reader a export dropdown menu
                 ExportMenu::widget([
