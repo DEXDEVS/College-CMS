@@ -15,6 +15,7 @@ use yii\widgets\DetailView;
             'inquiry_session',
             'std_name',
             'std_father_name',
+            'gender',
             'std_contact_no',
             'std_father_contact_no',
             'std_inquiry_date',

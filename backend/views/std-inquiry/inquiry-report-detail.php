@@ -10,12 +10,14 @@
     $startDate = $_POST["start_date"];
     $endDate = $_POST["end_date"];
     $inquiryReport = Yii::$app->db->createCommand("SELECT * FROM std_inquiry WHERE std_inquiry_date >= '$startDate' AND std_inquiry_date <= '$endDate'")->queryAll();
+    $session = $inquiryReport[0]['inquiry_session'];
 ?>
 
 <div class="container-fluid" style="margin-top: -30px;">  
   <div class="row">
     <div class="col-md-12">
-      <h2 class="well well-sm" align="center">Inquiry Report - From: <?php echo $startDate." to ".$endDate; ?></h2>
+      <h2 class="well well-sm">Inquiry Report (<?php echo $session; ?>) <span style="float: right;">From: <?php echo $startDate." to ".$endDate;?></span>
+        </h2>
     </div>
   </div>
   <div class="row">
@@ -25,7 +27,6 @@
           <th style="text-align: center;">Sr #</th> 
           <th>Inquiry Date</th>
           <th>Inquiry No</th> 
-          <th>Inquiry Session</th> 
           <th>Student Name</th>
           <th>Father Name</th>
           <th>Student Contact No.</th>
@@ -41,7 +42,6 @@
           <td style="text-align: center;"><b><?php echo $key+1; ?></b></td>
           <td><?php echo $item['std_inquiry_date'] ?></td>
           <td><?php echo $item['std_inquiry_no'] ?></td>
-          <td><?php echo $item['inquiry_session'] ?></td>
           <td><?php echo $item['std_name'] ?></td>
           <td><?php echo $item['std_father_name'] ?></td>
           <td><?php echo $item['std_contact_no'] ?></td>

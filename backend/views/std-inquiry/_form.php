@@ -58,14 +58,20 @@ $year = date('y');
              <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 131px; top: 18px"></i>
-            <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999'],['promt' => 'Number format must be 923xxxxxxxxx']) ?>
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 85px; top: 18px"></i>
+             <?= $form->field($model, 'gender')->dropDownList
+                ([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => 'Select Gender']) ?>
         </div>
+        
     </div>
     <div class="row">
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 131px; top: 18px"></i>
+            <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
+        </div>
+        <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 122px; top: 18px"></i>
-            <?= $form->field($model, 'std_father_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999'],['promt' => 'Number format must be 923xxxxxxxxx']) ?>
+            <?= $form->field($model, 'std_father_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
         </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
@@ -80,12 +86,24 @@ $year = date('y');
                 ]);
             ?>
         </div>
-        <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
-            <?= $form->field($model, 'std_previous_class')->textInput(['maxlength' => true]) ?>
+        <div style="float: right; margin-top: -20px;">    
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i>', ['institute-name/create'],
+                    ['role'=>'modal-remote','title'=> 'Create new Fee Transaction Details','class'=>'btn btn-success'])?>
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
+            <?= $form->field($model, 'std_previous_class')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(StdClassName::find()->all(),'class_name','class_name'),
+                    'language' => 'en',
+                    'options' => ['placeholder' => 'Select'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        'multiple' => true
+                    ],
+                ]); ?>
+        </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 154px; top: 18px"></i>
             <?= $form->field($model, 'std_roll_no')->textInput(['maxlength' => true]) ?>
@@ -94,12 +112,12 @@ $year = date('y');
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 209px; top: 18px"></i>
             <?= $form->field($model, 'std_obtained_marks')->textInput(['id' => 'obtainedMarks']) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 181px; top: 18px"></i>
             <?= $form->field($model, 'std_total_marks')->textInput(['id' => 'totalMarks']) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-4">
            <?= $form->field($model, 'std_percentage')->textInput(['maxlength' => true, 'id'=> 'percentage', 'readonly'=> true]) ?> 
         </div>
@@ -116,18 +134,20 @@ $year = date('y');
                 ]);
             ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 57px; top: 18px"></i>
             <?= $form->field($model, 'std_address')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-4">
             <?= $form->field($model, 'refrence_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'refrence_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999'],['promt' => 'Number format must be 923xxxxxxxxx']) ?>
+            <?= $form->field($model, 'refrence_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
              <?= $form->field($model, 'refrence_designation')->textInput(['maxlength' => true]) ?>
         </div>
@@ -153,3 +173,69 @@ $script = <<< JS
 JS;
 $this->registerJs($script);
 ?>
+
+
+<!-- <div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add Institute</h4>
+      </div>
+    <form method="get">
+        <div class="modal-body">  
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Institute Name</label>
+                        <input type="text" name="Institute_name" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">                
+                        <label>Institute Address</label>
+                        <input type="text" name="Institutte_address" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Institute Name</label>
+                        <input type="text" name="Institute_contact_no" class="form-control">
+                    </div>
+                </div>                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Institute Address</label>
+                        <input type="text" name="head_name" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              <button type="submit" name="save" class="btn btn-primary btn-sm">Save</button>
+        </div>
+    </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<?php 
+    // //if(//isset($_GET['save'])){
+    // $instituteName = $_GET['Institute_name'];
+    // $instituteAddress = $_GET['Institutte_address'];
+    // $contactNo = $_GET['Institute_contact_no'];
+    // $headName = $_GET['head_name'];
+
+    // $feeHead = //Yii::$app->db->createCommand()->insert('institute_name',[
+    //     'Institute_name' => $instituteName,
+    //     'Institutte_address'=> $instituteAddress,
+    //     'Institute_contact_no'=> $contactNo,
+    //     'head_name' => $headName,
+    // ])->//execute();
+//}
+?> 

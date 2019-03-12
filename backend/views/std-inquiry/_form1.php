@@ -19,7 +19,7 @@ use common\models\StdClassName;
     <h3 style="color: #337AB7; margin-top: -10px"><small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true, 'readonly'=> true]) ?>
+            <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true,'readonly'=> true]) ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'inquiry_session')->textInput(['maxlength' => true,'readonly'=> true]) ?>
@@ -51,14 +51,20 @@ use common\models\StdClassName;
              <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 131px; top: 18px"></i>
-            <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999'],['promt' => 'Number format must be 923xxxxxxxxx']) ?>
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 85px; top: 18px"></i>
+             <?= $form->field($model, 'gender')->dropDownList
+                ([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => 'Select Gender']) ?>
         </div>
+        
     </div>
     <div class="row">
         <div class="col-md-4">
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 131px; top: 18px"></i>
+            <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
+        </div>
+        <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 122px; top: 18px"></i>
-            <?= $form->field($model, 'std_father_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999'],['promt' => 'Number format must be 923xxxxxxxxx']) ?>
+            <?= $form->field($model, 'std_father_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
         </div>
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
@@ -73,12 +79,13 @@ use common\models\StdClassName;
                 ]);
             ?>
         </div>
+        
+    </div>
+    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
             <?= $form->field($model, 'std_previous_class')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 154px; top: 18px"></i>
             <?= $form->field($model, 'std_roll_no')->textInput(['maxlength' => true]) ?>
@@ -87,12 +94,12 @@ use common\models\StdClassName;
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 209px; top: 18px"></i>
             <?= $form->field($model, 'std_obtained_marks')->textInput(['id' => 'obtainedMarks']) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 181px; top: 18px"></i>
             <?= $form->field($model, 'std_total_marks')->textInput(['id' => 'totalMarks']) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-4">
            <?= $form->field($model, 'std_percentage')->textInput(['maxlength' => true, 'id'=> 'percentage', 'readonly'=> true]) ?> 
         </div>
@@ -109,18 +116,20 @@ use common\models\StdClassName;
                 ]);
             ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 57px; top: 18px"></i>
             <?= $form->field($model, 'std_address')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-4">
             <?= $form->field($model, 'refrence_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'refrence_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999'],['promt' => 'Number format must be 923xxxxxxxxx']) ?>
+            <?= $form->field($model, 'refrence_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
              <?= $form->field($model, 'refrence_designation')->textInput(['maxlength' => true]) ?>
         </div>
