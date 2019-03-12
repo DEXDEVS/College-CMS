@@ -173,27 +173,27 @@
 <?php  
     global $length; 
         if (isset($_POST["save"])) {
-                $classid = $_POST["classid"];
-                $sessionid = $_POST["sessionid"];
-                $sectionid = $_POST["sectionid"];
-                $date = $_POST["date"];
-                $month = $_POST["month"];
-                $installmentNo    = $_POST["installment_no"];
-                $length = $_POST["length"];
-                $studentId = $_POST["studentId"];
-                $studentName = $_POST["studentName"];
-                $total_amount = $_POST["total_amount"];
-                $discount_amount = $_POST["discount_amount"];
-                $net_total = $_POST["net_total"];
+                $classid            = $_POST["classid"];
+                $sessionid          = $_POST["sessionid"];
+                $sectionid          = $_POST["sectionid"];
+                $date               = $_POST["date"];
+                $month              = $_POST["month"];
+                $installmentNo      = $_POST["installment_no"];
+                $length             = $_POST["length"];
+                $studentId          = $_POST["studentId"];
+                $studentName        = $_POST["studentName"];
+                $total_amount       = $_POST["total_amount"];
+                $discount_amount    = $_POST["discount_amount"];
+                $net_total          = $_POST["net_total"];
                 // detail values....
-                $admission_fee = $_POST["admission_fee"];
-                $tuition_fee = $_POST["tuition_fee"];
-                $late_fee_fine = $_POST["late_fee_fine"];
-                $absent_fine = $_POST["absent_fine"];
-                $library_dues = $_POST["library_dues"];
-                $transport_fee = $_POST["transport_fee"];
-                $feeType = Array('1','2','3','4','5','6');
-                $updateStatus =-1;
+                $admission_fee      = $_POST["admission_fee"];
+                $tuition_fee        = $_POST["tuition_fee"];
+                $late_fee_fine      = $_POST["late_fee_fine"];
+                $absent_fine        = $_POST["absent_fine"];
+                $library_dues       = $_POST["library_dues"];
+                $transport_fee      = $_POST["transport_fee"];
+                $feeType            = Array('1','2','3','4','5','6');
+                $updateStatus       =-1;
 
                
                 $headTransId = Yii::$app->db->createCommand("SELECT fee_trans_id FROM fee_transaction_head where class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND month = '$month' AND installment_no = '$installmentNo'")->queryAll();

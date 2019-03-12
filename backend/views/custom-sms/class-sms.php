@@ -72,7 +72,6 @@
         <!-- ./col -->
       </div>
       <!-- /.row -->
-	
 	<div class="row">
       	<div class="col-md-6">
           	<div class="box box-success collapsed-box box-warning box-solid">
@@ -90,6 +89,49 @@
 	              <form method="post">
 	              	<div class="form-group">
 	              		<?php 
+	              		// get `class_name_id` from `std_enrollment_head`
+	              		$classIds = Yii::$app->db->createCommand("SELECT class_name_id
+	              			FROM std_enrollment_head")->queryAll();
+	              		$count = count($classIds);
+	              		
+	              		for ($i=0; $i <$count ; $i++) { 
+	              		$classID = $classIds[$i]['class_name_id'];
+
+	              		// getting `class_name_id` and `std__id` from `std_enrollment_head` and `std_enrollment_detail`
+	              		$classInfo = Yii::$app->db->createCommand("SELECT seh.class_name_id,sed.std_enroll_detail_std_id
+	              			FROM std_enrollment_head as seh
+    						INNER JOIN std_enrollment_detail as sed
+    						ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id 
+    						WHERE seh.class_name_id = '$classID'")->queryAll();
+
+	              		$class_name_ID 	  = $classInfo[0]['class_name_id'];
+	              		$classStudentId = $classInfo[0]['std_enroll_detail_std_id'];
+
+	              		print_r($classInfo);
+
+	              		$stdNumbers = Yii::$app->db->createCommand("SELECT std_contact_no FROM std_personal_info WHERE std_id  = '$classStudentId'" )->queryAll();
+	              		
+
+
+	              		// gettting `class_name` from `std_class_name`
+	              		$classNames = Yii::$app->db->createCommand("SELECT class_name,class_name_id
+	              			FROM std_class_name WHERE class_name_id  = '$class_name_ID'" )->queryAll();
+	              		
+	              		?>
+	              			
+              			<?php 
+              			foreach ($classNames as $key => $value) { ?>
+		          			<option value="<?php echo $value['class_name_id']; ?>">
+		          				<?php echo $value['class_name']; ?>
+		          			</option>
+	              		<?php 
+	              		
+			              	}
+			              	// close foreach loop 
+			              	} 
+			              	// close for loop
+		              	?>
+
 		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
 		              		$countClass = count($classID);
 	              		?> 
@@ -107,6 +149,7 @@
 	              	</div>
 	              	<div class="form-group">
 	              		<label>SMS Content</label>
+	              		<textarea rows="10" class="form-control" id="message"></textarea>
 	              		<textarea name="" rows="10" class="form-control" id="message"></textarea>
 	              		<p>
 					      <span><b>NOTE:</b> 160 characters = 1 SMS</span>
@@ -140,20 +183,12 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<?php 
-		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
-		              		$countClass = count($classID);
-	              		?> 
-	              		<select class="form-control" id="selectClass">
-	              			<option>Slect class</option>
-	              			<?php 
-              				for ($i=0; $i <$countClass ; $i++) { 
-              					$class_id = $classID[$i]['class_name_id'];
-              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-	              			?>
-	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
-	              				<?php echo $classNames[0]['class_name']; ?></option>
-	              		<?php } ?>
+	              		<select class="form-control">
+	              			<option>Select</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
@@ -194,20 +229,12 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<?php 
-		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
-		              		$countClass = count($classID);
-	              		?> 
-	              		<select class="form-control" id="selectClass">
-	              			<option>Slect class</option>
-	              			<?php 
-              				for ($i=0; $i <$countClass ; $i++) { 
-              					$class_id = $classID[$i]['class_name_id'];
-              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-	              			?>
-	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
-	              				<?php echo $classNames[0]['class_name']; ?></option>
-	              		<?php } ?>
+	              		<select class="form-control">
+	              			<option>Select</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
@@ -245,20 +272,12 @@
 	            <div class="box-body">
 	              <form method="post">
 	              	<div class="form-group">
-	              		<?php 
-		              		$classID = Yii::$app->db->createCommand("SELECT class_name_id FROM std_enrollment_head")->queryAll();
-		              		$countClass = count($classID);
-	              		?> 
-	              		<select class="form-control" id="selectClass">
-	              			<option>Slect class</option>
-	              			<?php 
-              				for ($i=0; $i <$countClass ; $i++) { 
-              					$class_id = $classID[$i]['class_name_id'];
-              					$classNames = Yii::$app->db->createCommand("SELECT class_name_id,class_name FROM std_class_name WHERE class_name_id = '$class_id'")->queryAll();
-	              			?>
-	              			<option value="<?php echo $classNames[0]['class_name_id']?>">
-	              				<?php echo $classNames[0]['class_name']; ?></option>
-	              		<?php } ?>
+	              		<select class="form-control">
+	              			<option>Select</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
+	              			<option value="">abc</option>
 	              		</select>
 	              	</div>
 	              	<div class="form-group">
@@ -281,6 +300,30 @@
 		    <!-- /.box -->
 		</div>
     </div>	
+
+</script>
+<?php global $countNumbers;
+$countNumbers = 10; ?>
+<script>
+  $(document).ready(function(){
+      var $remaining = $('#remaining'),
+          $messages = $remaining.next();
+      var numbers = '<?php echo $countNumbers; ?>';
+      $('#message').keyup(function(){
+          var chars = this.value.length,
+            messages = Math.ceil(chars / 160),
+            remaining = messages * 160 - (chars % (messages * 160) || messages * 160);
+          $messages.text('/ Count SMS (' + messages + ')');
+          $messages.css('color', 'red');
+          $remaining.text(remaining + ' characters remaining');
+          
+          $('#count').val(messages);
+        var countSMS = $('#count').val();
+          var sms = parseInt(countSMS * numbers);
+          $('#sms').val("Your Consumed SMS: (" + sms+ ")");
+      });
+  });
+
 </body>
 </html>
 <?php 
@@ -302,6 +345,7 @@ $('#selectClass').on('change',function(){
         url: "$url",
 
         success: function(result){
+        	
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
 	
            $('#to').val(jsonResult['std_contact_no']);
@@ -311,6 +355,7 @@ $('#selectClass').on('change',function(){
 JS;
 $this->registerJs($script);
 ?>
+
 </script>
 <script>
 // textarea sms counter....
