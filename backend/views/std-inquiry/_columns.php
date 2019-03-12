@@ -20,6 +20,10 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'inquiry_session',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'std_name',
     ],
     // [
@@ -81,6 +85,10 @@ return [
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_address',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'inquiry_status',
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',

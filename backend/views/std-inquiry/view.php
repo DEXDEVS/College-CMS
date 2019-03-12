@@ -12,6 +12,7 @@ use yii\widgets\DetailView;
         'attributes' => [
             'std_inquiry_id',
             'std_inquiry_no',
+            'inquiry_session',
             'std_name',
             'std_father_name',
             'std_contact_no',
@@ -28,6 +29,7 @@ use yii\widgets\DetailView;
             'refrence_contact_no',
             'refrence_designation',
             'std_address',
+            'inquiry_status',
             'created_at',
             'updated_at',
             'created_by',

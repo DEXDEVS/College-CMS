@@ -25,6 +25,7 @@
           <th style="text-align: center;">Sr #</th> 
           <th>Inquiry Date</th>
           <th>Inquiry No</th> 
+          <th>Inquiry Session</th> 
           <th>Student Name</th>
           <th>Father Name</th>
           <th>Student Contact No.</th>
@@ -32,6 +33,7 @@
           <th>Interested Class</th>
           <th>Previous Institute Name</th>
           <th style="text-align: center;">% age</th>
+          <th>Status</th> 
         </tr>
         <?php 
             foreach($inquiryReport as $key => $item) { ?>
@@ -39,6 +41,7 @@
           <td style="text-align: center;"><b><?php echo $key+1; ?></b></td>
           <td><?php echo $item['std_inquiry_date'] ?></td>
           <td><?php echo $item['std_inquiry_no'] ?></td>
+          <td><?php echo $item['inquiry_session'] ?></td>
           <td><?php echo $item['std_name'] ?></td>
           <td><?php echo $item['std_father_name'] ?></td>
           <td><?php echo $item['std_contact_no'] ?></td>
@@ -46,6 +49,7 @@
           <td><?php echo $item['std_intrested_class'] ?></td>
           <td><?php echo $item['previous_institute'] ?></td>
           <td style="text-align: center;"><b><?php echo $item['std_percentage'] ?></b></td>
+          <td><?php echo $item['inquiry_status'] ?></td>
         </tr>
         <?php 
           }
