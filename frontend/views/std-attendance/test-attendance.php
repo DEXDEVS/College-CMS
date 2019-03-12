@@ -91,7 +91,6 @@
                     <!-- /.box-body -->
                 </div>
               <!-- /.box -->
-
             </div>
   <?php 
     //end of for loop
