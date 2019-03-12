@@ -45,21 +45,6 @@
                     ['label' => 'Login', 'url' => ["../login"], 'visible' => Yii::$app->user->isGuest],
 
                     // ------------------------------------------------
-                    // Exams module start here
-                    [
-                        'label' => 'Exam Module',
-                        'icon' => 'cog',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Grades', 'icon' => 'caret-right', 'url' => ["/grades"],],
-                            ['label' => 'Exams Category', 'icon' => 'caret-right', 'url' => ["/exams-category"],],
-                            ['label' => 'Exams Criteria', 'icon' => 'caret-right', 'url' => ["/exams-criteria"],],
-                            ['label' => 'Exams Schedule', 'icon' => 'caret-right', 'url' => ["/exams-schedule"],],
-                            ['label' => 'Manage Exams', 'icon' => 'caret-right', 'url' => ["/exams-schedule/manage-exams"],],
-                            ['label' => 'Marks Weitage', 'icon' => 'caret-right', 'url' => ["/marks-weitage"],],
-                        ],
-                    ],
-                    // Exams module close here
                     // System Settings start...
                     [
                         'label' => 'System Settings',
@@ -223,16 +208,24 @@
                         'icon' => 'envelope-o',
                         'url' => ["/emails"],
                     ],
-                    // ------------------------------------------------
                     // Email close...
                     // ------------------------------------------------
-
-                    // Calender start...
-                    // ['label' => 'Calendar', 'icon' => 'calendar', 'url' => 'index.php?r=site/calendar'],
+                    // Exams module start here
+                    [
+                        'label' => 'Exam Module',
+                        'icon' => 'cog',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Grades', 'icon' => 'caret-right', 'url' => ["/grades"],],
+                            ['label' => 'Exams Category', 'icon' => 'caret-right', 'url' => ["/exams-category"],],
+                            ['label' => 'Exams Criteria', 'icon' => 'caret-right', 'url' => ["/exams-criteria"],],
+                            ['label' => 'Exams Schedule', 'icon' => 'caret-right', 'url' => ["/exams-schedule"],],
+                            ['label' => 'Manage Exams', 'icon' => 'caret-right', 'url' => ["/exams-schedule/manage-exams"],],
+                            ['label' => 'Marks Weitage', 'icon' => 'caret-right', 'url' => ["/marks-weitage"],],
+                        ],
+                    ],
+                    // Exams module close here
                     // ------------------------------------------------
-                    // Calender close...
-
-
 
                     // ------------------------------------------------
                     // Multilevel Dropdown....!
