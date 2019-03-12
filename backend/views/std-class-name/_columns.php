@@ -24,6 +24,18 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'class_nature',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'class_start_date',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'class_end_date',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'status',
     ],
     // [
@@ -35,12 +47,16 @@ return [
         // 'attribute'=>'updated_at',
     // ],
     // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'created_by',
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'created_by',
     // ],
     // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'updated_by',
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'updated_by',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'delete_status',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',

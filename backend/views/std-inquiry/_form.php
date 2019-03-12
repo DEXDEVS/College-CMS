@@ -22,6 +22,12 @@ $year = date('y');
             <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true,'value'=> 'STD-Y'.$year.'-0'.$id, 'readonly'=> true]) ?>
         </div>
         <div class="col-md-4">
+            <?php   $sDate = date('Y'); 
+                    $eDate = $sDate + 2;
+            ?>
+            <?= $form->field($model, 'inquiry_session')->textInput(['maxlength' => true,'readonly'=> true,'value' => $sDate .' - '.$eDate]) ?>
+        </div>
+        <div class="col-md-4">
             <label>Date</label>
                 <?= DateTimePicker::widget([
                     'model' => $model,

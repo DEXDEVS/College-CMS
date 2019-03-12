@@ -1,7 +1,40 @@
 <?php 
-    $voucherId   = $_GET["id"];
-    if(isset($_POST['submit'])){  	
-        $dueDate   = $_POST["due_date"];
+    $voucherId   = $_GET["id"]; 
+if(isset($_POST['save'])){
+    $voucherNo        = $_GET["id"]; 
+    $paidAmount       = $_POST["paid_amount"];
+    $remainingAmount  = $_POST["remaining_amount"];
+    $status           = $_POST["status"];
+    $typeIdArray      = $_POST["typeIdArray"];
+    $length = count($typeIdArray);
+    $dueDate   = $_POST["date"];
+     echo $dueDate;
+    for($i=0; $i<$length;$i++){ 
+        $amount = "amount".$i;
+        $feeAmount[$i] = $_POST["$amount"];
+    }
+
+    $paid_amount = Yii::$app->db->createCommand("SELECT paid_amount FROM fee_transaction_head WHERE fee_trans_id = '$voucherNo'")->queryAll();
+   $amountPaid = $paidAmount  + $paid_amount[0]['paid_amount'];
+
+    $updateTransactionHead = Yii::$app->db->createCommand()->update('fee_transaction_head', ['paid_amount'=> $amountPaid, 'remaining'=> $remainingAmount , 'status' => $status], ['fee_trans_id' => $voucherNo])->execute();
+    for ($i=0; $i <$length; $i++) { 
+        $collectedAmount = Yii::$app->db->createCommand("SELECT collected_fee_amount FROM fee_transaction_detail WHERE fee_trans_detail_head_id = $voucherNo AND fee_type_id = $typeIdArray[$i]")->queryAll();
+        
+        $amountCollected = $feeAmount[$i] + $collectedAmount[0]['collected_fee_amount'];
+
+        $updateTransactionDetail = Yii::$app->db->createCommand()->update('fee_transaction_detail', ['collected_fee_amount'=> $amountCollected], ['fee_trans_detail_head_id' => $voucherNo, 'fee_type_id'=> $typeIdArray[$i]])->execute();
+    }
+    
+    if ($updateTransactionHead) {
+        // success alert message...
+        Yii::$app->session->setFlash('success', "Partial Voucher paid Successfully...!");    
+        } else {
+        // failure alert message
+        Yii::$app->session->setFlash('danger', "Voucher not paid, Try again...!");      
+    }
+}
+
         // change the format of dates....
        
         $dueDate  = date('d-m-Y', strtotime($dueDate));
@@ -231,7 +264,3 @@
 		<?php } ?>
 	</div>
 </div>
-<?php
-	//ending of isset if
-    }
-?>

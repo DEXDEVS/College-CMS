@@ -86,7 +86,7 @@
                     <th><b>Fee Types</b></th>
                     <th colspan="2" class="text-center">Amount</th>
                 </tr>
-                <form method="post" action="fee-transaction-detail-collect-voucher">
+                <form data-ajax="false" method="post">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -111,7 +111,7 @@
                             </td>
                             <td width="80px">
                                 <div class="form-group">
-                                    <input type="text" name="amount<?php echo $i;?>" class="form-control" value="<?php echo $netFee;?>" required="" style="width:80px">
+                                    <input type="text" name="amount<?php echo $i;?>" class="form-control" required="" style="width:80px">
                                 </div>
                             </td>
                         </tr>
@@ -168,17 +168,12 @@
             <tbody>
                 <tr>
                     <td>
-                       <button type="submit" name="save" id="btn" class="btn btn-success btn-flat  btn-block" style="padding: 5px 27px; display: none;"><span class="fa fa-check-square" aria-hidden="true"></span><b> Collect Voucher</b></button>
+                       <button formaction="fee-transaction-detail-collect-voucher" type="submit" name="save" id="btn" class="btn btn-success btn-flat  btn-block" style="padding: 5px 27px; display: none;"><span class="fa fa-check-square" aria-hidden="true"></span><b> Collect Voucher</b></button>
                        <div id="date" style="display: none;">
-                           <label>New Voucher Due Date</label>
-                           <input type="date" name="date" class="form-control"><br>
-                       </div>
-                       <button id="partialButton" name="save" class="btn btn-warning btn-flat  btn-block" style="display: none;"><i class="fa fa-print"></i><b> Save & Generate Partial Voucher</b></button>
-                    </td>
-                    <td>
-                       <a href="./partial-voucher-head?id=<?php echo $voucherNo; ?>" class="btn btn-success btn-flat">
-                           <span class="fa fa-check-square" aria-hidden="true"></span><b> Generate Partial Voucher</b>
-                       </a>
+                            <label>New Voucher Due Date</label>
+                            <input type="date" name="date" class="form-control" id="date1" onchange="jstophp()"><br>
+                        </div>
+                        <button formaction="./partial-voucher-detail?id=<?php echo $voucherNo?>" type="submit" name="save" id="partialButton" class="btn btn-warning btn-flat  btn-block" style="display: none;"><i class="fa fa-print"></i><b> Save & Generate Partial Voucher</b></button>
                     </td>
                 </tr>
             </tbody>
@@ -198,11 +193,6 @@
             </tbody>        
         </form>
     </table>
-    <div class="row">
-        <div class="col-md-2">
-                      
-        </div>          
-    </div>
 </div>
 <!-- modified collect voucher close -->
 <?php 
@@ -243,7 +233,7 @@ if(isset($_POST['save'])){
     
     if ($updateTransactionHead) {
         // success alert message...
-        Yii::$app->session->setFlash('success', "Voucher paid Successfully...!");    
+        Yii::$app->session->setFlash('success', "Voucher paid Successfully...!"); 
         } else {
         // failure alert message
         Yii::$app->session->setFlash('danger', "Voucher not paid, Try again...!");      
@@ -259,15 +249,19 @@ if(isset($_POST['save'])){
    function setAmount(){
         var totalAmount = parseInt(document.getElementById('total_amount').value);
         var paidAmount = parseInt(document.getElementById('paid_amount').value);
+        $('#paid_amount2').val(paidAmount); 
         var remainingAmount = parseInt(totalAmount - paidAmount);
         paid = "Paid";
         partialyPaid = "Partially Paid";
         document.getElementById('remaining_amount').value = remainingAmount;
+        $('#remaining_amount2').val(remainingAmount);
         if (remainingAmount==0) {
-            $('#status').val(paid); 
+            $('#status').val(paid);
+            $('#status2').val(paid); 
         }
         else{
             $('#status').val(partialyPaid);
+            $('#status2').val(partialyPaid);
         }
         var status = $('#status').val();
         if (status == "Partially Paid") {
@@ -280,4 +274,6 @@ if(isset($_POST['save'])){
             $('#date').hide();
         }
     }
+    
+
 </script>
