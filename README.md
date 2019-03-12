@@ -1,7 +1,7 @@
 
 <h1 align="center">IC - Institute on Cloud</h1>
 
-Institution on Cloud is a web-based application, which not only manages every sector of an educational institute but also provide a Standardized Business Model. Whether a school or college, its spectrum encapsulates all. This application is developed using PHP framework and JavaScript technologies. The honor for developing this robust and mature management system goes to Dexterous Developers. The building block of this application are:
+Institute on Cloud is a web-based application, which not only manages every sector of an educational institute but also provide a Standardized Business Model. Whether a school or college, its spectrum encapsulates all. This application is developed using PHP framework and JavaScript technologies. The honor for developing this robust and mature management system goes to Dexterous Developers. The building block of this application are:
 
 1) Student Registration System
 2)Online Admission System
