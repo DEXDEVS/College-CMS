@@ -51,7 +51,7 @@ use yii\helpers\Url;
             </div>  
             <div class="col-md-4">
                <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 156px; top: 6px"></i> -->
-                <?= $form->field($model, 'std_contact_no')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx', 'id' => 'std_contact_no']) ?>
+                <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999', 'id' => 'std_contact_no']) ?>
             </div>     
         </div>
         <div class="row"> 
@@ -149,11 +149,11 @@ use yii\helpers\Url;
             </div>
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i>
-                <?= $form->field($model, 'guardian_contact_no_1')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx']) ?>
+                <?= $form->field($stdGuardianInfo, 'guardian_contact_no_1')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999']) ?>
             </div>
             <div class="col-md-4">
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 168px; top: 6px"></i>
-                <?= $form->field($model, 'guardian_contact_no_2')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx']) ?>
+                <?= $form->field($stdGuardianInfo, 'guardian_contact_no_2')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999']) ?>
             </div>
         </div>
         <div class="row">
@@ -180,7 +180,8 @@ use yii\helpers\Url;
             <?= $form->field($stdIceInfo, 'std_ice_relation')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-                <?= $form->field($model, 'std_ice_contact_no')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx']) ?> 
+                <?= $form->field($stdIceInfo, 'std_ice_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999']) ?>
+
         </div>
     </div>
     <div class="row">

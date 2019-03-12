@@ -11,10 +11,6 @@ use common\models\StdClassName;
 /* @var $this yii\web\View */
 /* @var $model common\models\StdInquiry */
 /* @var $form yii\widgets\ActiveForm */
- 
-$stdInquiry = StdInquiry::find()->orderBy(['std_inquiry_id'=> SORT_DESC])->one();
-$id = $stdInquiry['std_inquiry_id']+1;
-$year = date('y');
 
 ?>
 
@@ -23,13 +19,10 @@ $year = date('y');
     <h3 style="color: #337AB7; margin-top: -10px"><small> ( Fields with <span style="color: red;">red stars </span>are required )</small> </h3>
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true,'value'=> 'STD-Y'.$year.'-0'.$id, 'readonly'=> true]) ?>
+            <?= $form->field($model, 'std_inquiry_no')->textInput(['maxlength' => true, 'readonly'=> true]) ?>
         </div>
         <div class="col-md-4">
-            <?php   $sDate = date('Y'); 
-                    $eDate = $sDate + 2;
-            ?>
-            <?= $form->field($model, 'inquiry_session')->textInput(['maxlength' => true,'readonly'=> true,'value' => $sDate .' - '.$eDate]) ?>
+            <?= $form->field($model, 'inquiry_session')->textInput(['maxlength' => true,'readonly'=> true]) ?>
         </div>
         <div class="col-md-4">
             <label>Date</label>

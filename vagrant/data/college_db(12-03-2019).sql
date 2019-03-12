@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2019 at 07:24 AM
+-- Generation Time: Mar 12, 2019 at 10:14 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -1581,10 +1581,12 @@ CREATE TABLE `std_inquiry` (
 --
 
 INSERT INTO `std_inquiry` (`std_inquiry_id`, `std_inquiry_no`, `inquiry_session`, `std_name`, `std_father_name`, `std_contact_no`, `std_father_contact_no`, `std_inquiry_date`, `std_intrested_class`, `std_previous_class`, `previous_institute`, `std_roll_no`, `std_obtained_marks`, `std_total_marks`, `std_percentage`, `refrence_name`, `refrence_contact_no`, `refrence_designation`, `std_address`, `inquiry_status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'STD-Y19-05', '2019 - 2021', 'nauman', 'shahid', '+92-333-7486', '+92-300-6738133', '2019-02-13', 'ICS', 'BSCS', 'ESNA Public School', '025', 900, 1100, '82%', 'Anas', '+90-331-7375', 'MD DEXDEVS', 'RYK', 'Inquiry', '2019-03-12 05:26:22', '2019-03-12 05:26:22', 9, 3),
-(2, 'STD-Y19-05', '2019 - 2021', 'Farhan', 'Shahid', '+92-331-5994', '+92-331-5848948', '2019-03-06', 'ICS', 'Matric', 'ESNA Public School', '12345', 850, 1100, '77%', 'Nauman', '+92-333-7486', 'MD', 'Satelite Town, Rahim Yar Khan', 'Inquiry', '2019-03-12 05:26:14', '2019-03-12 05:26:14', 3, 3),
-(3, 'STD-Y19-05', '2019 - 2021', 'Kinza', 'Mustafa', '+92-345-6789', '+92-456-7890987', '2019-03-07', 'FSC', 'metric', 'Horizon School', '12365', 800, 1100, '73%', 'Nadia', '+92-987-6543', 'hgh', 'lkjhgfdfghj', 'Inquiry', '2019-03-12 05:25:59', '2019-03-12 05:25:59', 3, 3),
-(4, 'STD-Y19-04', '2019 - 2021', 'Saif-ur-Rehman', 'M. Khalil', '923083152045', '923023836145', '2019-03-12', 'ICS', 'Matric', 'Govt. High School, Chak # 51/p', '265641', 743, 1050, '71%', 'Anas Shafqat', '923317375027', 'MD DEXDEVS', 'Chak # 145/p, Adaam Sahaba', 'Inquiry', '2019-03-12 05:25:45', '0000-00-00 00:00:00', 3, 0);
+(1, 'STD-Y19-01', '2019 - 2021', 'nauman', 'shahid', '+92-333-7486', '+92-300-6738133', '2019-02-13', 'ICS', 'BSCS', 'ESNA Public School', '025', 900, 1100, '82%', 'Anas', '+90-331-7375', 'MD DEXDEVS', 'RYK', 'Inquiry', '2019-03-12 08:58:28', '2019-03-12 05:26:22', 9, 3),
+(2, 'STD-Y19-02', '2019 - 2021', 'Farhan', 'Shahid', '+92-331-5994', '+92-331-5848948', '2019-03-06', 'ICS', 'Matric', 'ESNA Public School', '12345', 850, 1100, '77%', 'Nauman', '+92-333-7486', 'MD', 'Satelite Town, Rahim Yar Khan', 'Inquiry', '2019-03-12 08:58:36', '2019-03-12 05:26:14', 3, 3),
+(3, 'STD-Y19-03', '2019 - 2021', 'Kinza', 'Mustafa', '923456789234', '924567890987', '2019-03-07', 'FSC Pre-Medical (Part - I)', 'metric', 'The New Horizons School', '12365', 800, 1100, '73%', 'Nadia', '929876543765', 'hgh', 'lkjhgfdfghj', 'Inquiry', '2019-03-12 08:58:42', '2019-03-12 08:58:12', 3, 3),
+(4, 'STD-Y19-04', '2019 - 2021', 'Saif-ur-Rehman', 'M. Khalil', '923083152045', '923023836145', '2019-03-12', 'ICS', 'Matric', 'Govt. High School, Chak # 51/p', '265641', 743, 1050, '71%', 'Anas Shafqat', '923317375027', 'MD DEXDEVS', 'Chak # 145/p, Adaam Sahaba', 'Inquiry', '2019-03-12 05:25:45', '0000-00-00 00:00:00', 3, 0),
+(5, 'STD-Y19-05', '2019 - 2021', 'Nadia gull', 'Iftikhar ali', '923158410500', '923038635458', '2019-03-12', 'FSC Pre-Engineering (Part - II)', 'Matric', 'Lahore School System', '1278', 780, 1050, '74%', 'Asmat Ara ', '929876545678', 'Ammi', 'kjhgfd', 'Inquiry', '2019-03-12 08:56:40', '2019-03-12 08:56:40', 3, 3),
+(6, 'STD-Y19-06', '2019 - 2021', 'Shahzad ', 'Saeed', '923001234567', '923101234567', '2019-03-12', 'ICS (Part - I)', 'Metric', 'The New Horizons School', '263214', 743, 1050, '71%', 'Saif Ur Rehman', '923083152045', 'student', 'Chack No 51 p ', 'Inquiry', '2019-03-12 08:40:01', '0000-00-00 00:00:00', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -2516,7 +2518,7 @@ ALTER TABLE `std_ice_info`
 -- AUTO_INCREMENT for table `std_inquiry`
 --
 ALTER TABLE `std_inquiry`
-  MODIFY `std_inquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `std_inquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `std_personal_info`
