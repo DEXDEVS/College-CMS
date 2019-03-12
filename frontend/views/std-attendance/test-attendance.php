@@ -2,16 +2,10 @@
 <html>
 <head>
 	<title>Attendance</title>
+    
 </head>
 <body>
-	<h1 class="well well-sm text" align="center">Attendance</h1>
-	<div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input type="hidden" name="_csrf" class="form-control" value="<?=Yii::$app->request->getCsrfToken()?>">          
-            </div>   
-        </div>
-        
+
     <?php
 
     	$subjID = array();
@@ -37,10 +31,10 @@
         WHERE tsad.class_id = '$id' AND tsad.teacher_subject_assign_detail_head_id = '$headId'")->queryAll();
         
         	?>
-
+   
     	   <div class="col-md-6">
                 <div class="box box-success collapsed-box" >
-                    <div class="box-header with-border" style="background-color: #dff0d8;">
+                    <div class="box-header with-border" style="background-color: #dff0d8;padding: 15px;">
                         <h3 class="box-title">
                           	<b>
             				<?php echo $CLASSName[0]['std_enroll_head_name']; ?>
@@ -54,15 +48,6 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                    	<table class="table table-hover">
-                    		<thead style="background-color:#add8e6; ">
-                    			<tr>
-                    				<th>Sr #.</th>
-                    				<th>Subjects</th>
-                    				<th>Action</th>
-                    			</tr>
-                    		</thead>
-                    	<tbody>
                     	<?php 
                     		foreach ($subjectsIDs as $key => $value) {
 
@@ -71,30 +56,32 @@
                     			$subjectsNames = Yii::$app->db->createCommand("SELECT subject_id,subject_name
         						FROM subjects WHERE subject_id = '$SubID'")->queryAll();
                     	?>
-                    	<tr>
-                    		<td width="50px"><?php echo $key+1; ?></td>
-                    		<td>
-            					<?php echo $subjectsNames[0]['subject_name']; ?>			
-                    		</td>
-                    		<td>
-                    			<a href="./take-attendance?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" class="btn btn-info btn-xs">Get Class</a>
-                                
-                            <a href="./view-attendance?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" class="btn btn-info btn-xs">View</a>
-                    		</td>
-                    	</tr>		
+                        <div class="row container">
+                            <tr>
+                                <td>
+                                    <a href="./activity-view?sub_id=<?php echo $SubID ?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>" " style="">
+                                       <i class="fa fa-book" style="background-color:  #dff0d8; border:1px solid #00a65a; padding:20px ;border-radius:20px;font-size:15px; color:#00a65a;"> <?php echo $subjectsNames[0]['subject_name']; ?></i> 
+                                    </a>  
+                                </td>
+                            </tr>
+                        </div>
+                        <br>
                     <?php   
                         //end of foreach
                         } ?>
-                    	</tbody>
-                    	</table>
+                    	
                     </div>
                     <!-- /.box-body -->
                 </div>
               <!-- /.box -->
             </div>
+    
   <?php 
     //end of for loop
     } ?>
+   
+    
+
 </body>
 </html>
 <?php
