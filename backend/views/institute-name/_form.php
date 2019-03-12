@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'Institute_contact_no')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'Institute_contact_no')->textInput(['maxlength' => 12, 'placeholder' => 'Number format must be 923xxxxxxxxx']) ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'head_name')->textInput(['maxlength' => true]) ?>
