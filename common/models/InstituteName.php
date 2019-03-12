@@ -36,9 +36,9 @@ class InstituteName extends \yii\db\ActiveRecord
             [['Institute_name', 'Institutte_address', 'Institute_contact_no', 'head_name'], 'required'],
             [['created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
-            [['Institute_name'], 'string', 'max' => 30],
+            [['Institute_name'], 'string', 'max' => 100],
             [['Institutte_address'], 'string', 'max' => 120],
-            [['Institute_contact_no'], 'string', 'max' => 12],
+            [['Institute_contact_no'], 'number'],
             [['head_name'], 'string', 'max' => 20],
         ];
     }

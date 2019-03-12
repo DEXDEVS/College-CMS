@@ -17,7 +17,7 @@
         
 ?>
 <div class="container-fluid" style="margin-top: -35px">
-    <h1 class="well well-sm text text-success" align="center" style="background-color: #DFF0D8;">View Attendance</h1>
+    <h1 class="well well-sm text text-success" align="center" style="background-color: #DFF0D8;">Attendance Report</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="row">

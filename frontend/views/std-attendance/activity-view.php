@@ -1,3 +1,11 @@
+<?php 
+
+    if(isset($_GET['sub_id'])){
+        $sub_id = $_GET['sub_id'];  
+        $class_id = $_GET['class_id'];
+        $emp_id = $_GET['emp_id'];   
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +53,7 @@ transition: all 0.4s ease-in-out;
 .offer-seagreen {	border-color: #2fcea5; }
 .offer-seagreen .shape{
 	border-color: transparent 	#2fcea5 transparent transparent;
-}#c47c48
+}
 .offer-brown {	border-color: #c47c48; }
 .offer-brown .shape{
 	border-color: transparent 	#c47c48 transparent transparent;
@@ -58,9 +66,9 @@ transition: all 0.4s ease-in-out;
 .offer-primary .shape{
 	border-color: transparent #428bca transparent transparent;
 }
-.offer-info {	border-color: #5bc0de; }
+.offer-info {	border-color: #999999; }
 .offer-info .shape{
-	border-color: transparent #5bc0de transparent transparent;
+	border-color: transparent #999999 transparent transparent;
 }
 .offer-warning {	border-color: #f0ad4e; }
 .offer-warning .shape{
@@ -115,7 +123,7 @@ transition: all 0.4s ease-in-out;
 		<div class="box-body">
 			<div class="row">
 		    	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" >
-					<div class="offer offer-danger">
+					<div class="offer offer-radius offer-danger">
 						<div class="shape">
 							<div class="shape-text">
 								<span class="glyphicon glyphicon glyphicon-th"></span>							
@@ -125,12 +133,12 @@ transition: all 0.4s ease-in-out;
 							<h3 class="lead">
 							Attendance
 							</h3>
-							<a href="">Take attendance</a>
+							<a href="./take-attendance?sub_id=<?php echo $sub_id ?>&class_id=<?php echo $class_id ?>&emp_id=<?php echo $emp_id ?>">Take attendance</a>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<div class="offer offer-success">
+					<div class="offer offer-radius offer-success">
 						<div class="shape">
 							<div class="shape-text">
 								<span class="glyphicon glyphicon glyphicon-eye-open"></span>							
@@ -140,7 +148,7 @@ transition: all 0.4s ease-in-out;
 							<h3 class="lead">
 								Reports
 							</h3>
-							<a href="">View attendance reports</a>
+							<a href="./view-attendance?sub_id=<?php echo $sub_id ?>&class_id=<?php echo $class_id ?>&emp_id=<?php echo $emp_id ?>">View attendance reports</a>
 						</div>
 					</div>
 				</div>
@@ -160,7 +168,7 @@ transition: all 0.4s ease-in-out;
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<div class="offer offer-info">
+					<div class="offer offer-radius offer-info">
 						<div class="shape">
 							<div class="shape-text">
 								<span class="glyphicon  glyphicon-bell"></span>							
@@ -178,7 +186,7 @@ transition: all 0.4s ease-in-out;
 	        <!-- row 2 start -->
 	        <div class="row">
 		    	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" >
-					<div class="offer offer-warning">
+					<div class="offer offer-radius offer-warning">
 						<div class="shape">
 							<div class="shape-text">
 								<span class="glyphicon glyphicon glyphicon-edit"></span>							
@@ -193,7 +201,7 @@ transition: all 0.4s ease-in-out;
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<div class="offer offer-pink">
+					<div class="offer offer-radius offer-pink">
 						<div class="shape">
 							<div class="shape-text">
 								<span class="glyphicon glyphicon glyphicon-eye-open"></span>							
@@ -223,7 +231,7 @@ transition: all 0.4s ease-in-out;
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<div class="offer offer-brown">
+					<div class="offer offer-radius offer-brown">
 						<div class="shape">
 							<div class="shape-text">
 								<span class="glyphicon  glyphicon-home"></span>							
@@ -247,3 +255,6 @@ transition: all 0.4s ease-in-out;
 </div>
 </body>
 </html>
+<?php
+//closing of ifisset
+}?>
