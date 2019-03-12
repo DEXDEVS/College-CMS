@@ -144,9 +144,7 @@ class StdPersonalInfoController extends Controller
         
                 ];         
             }else if($model->load($request->post()) && $stdGuardianInfo->load($request->post()) && $stdIceInfo->load($request->post()) && $stdAcademicInfo->load($request->post()) && $stdFeeDetails->load($request->post()) && $stdFeeInstallments->load($request->post())){
-                    $conn = \Yii::$app->db;
-                    $transection = $conn->beginTransaction();
-                    try{
+        
                         $model->std_photo = UploadedFile::getInstance($model,'std_photo');
                         if(!empty($model->std_photo)){
                             $imageName = $model->std_name.'_photo'; 
@@ -211,10 +209,6 @@ class StdPersonalInfoController extends Controller
                             $stdFeeInstallments->updated_at = '0';
                             $stdFeeInstallments->save();
                         }
-                        $transection->commit();
-                    } catch(Exception $e){
-                     $transection->rollback();
-                    }
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "<b>Create new Student Personal Info</b>",

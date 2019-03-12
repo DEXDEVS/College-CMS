@@ -1,10 +1,13 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <?php  
   use yii\helpers\Html;
+  use yii\bootstrap\Modal;
   use common\models\StdPersonalInfo;
 
     $id = $_GET['id'];
     // Stduent Personal Info..... 
     $stdPersonalInfo = Yii::$app->db->createCommand("SELECT * FROM std_personal_info WHERE std_id = '$id'")->queryAll();
+    $number =  $stdPersonalInfo[0]['std_contact_no'];
     // Student Photo...
     $photo = $stdPersonalInfo[0]['std_photo'];
     //echo $photo;
@@ -69,6 +72,18 @@
   </section>
     <!-- Content Start -->
   	<section class="content">
+
+      <?php 
+        // display success message
+        if (Yii::$app->session->hasFlash('success')) { ?>
+          <div class="row">
+            <div class="col-md-6 alert alert-success alert-dismissable">
+               <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+               <h4><i class="icon fa fa-check"></i>Saved!</h4>
+               <?= Yii::$app->session->getFlash('success') ?>
+          </div>
+          </div>
+      <?php } ?>
         <div class="row">
           <div class="col-md-3">
             <!-- Profile Image -->
@@ -170,9 +185,45 @@
                       <div  style="float: right;">
                         <?=Html::a(' Edit',['update','id'=>$id],['class'=>'btn btn-primary btn-sm fa fa-edit','role'=>'modal-remote']) ?>
                         <a href="./emails-create?id=<?php echo $id;?>" class="btn btn-warning btn-sm fa fa-envelope-o" style='color: white;'> Send Email </a>
-                        <a href="./sms?id=<?php echo $id;?>" class="btn btn-info btn-sm fa fa-comments-o" style='color: white;'> Send SMS </a>
+                        <!-- <a href="./sms?id=<?php echo $id;?>" class="btn btn-info btn-sm fa fa-comments-o" style='color: white;'> Send SMS </a> -->
                         
-                        <?=Html::a(' SMS',['sms/send-sms', 'to' => '923063772105', 'message' => 'Testing sms from brookfield web application'],['class'=>'btn btn-primary btn-sm fa fa-comments']) ?>
+                        <button type="button" class="btn btn-info btn-sm fa fa-comments" data-toggle="modal" data-target="#modal-default">
+                          Send SMS
+                        </button>
+                        <div class="modal fade" id="modal-default">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">SMS</h4>
+                              </div>
+                              <form method="get" action="">
+                                <div class="modal-body">  
+                                  <label>Reciever Name</label>
+                                  <input type="hidden" name="to" value="<?php echo $stdPersonalInfo[0]['std_contact_no']; ?>" class="form-control">
+                                  <input type="text" name="std_name" value="<?php echo $stdPersonalInfo[0]['std_name']; ?>" class="form-control" readonly=""><br>
+                                  <label>SMS Content</label>
+                                    <textarea name="message" rows="5" class="form-control" id="message"></textarea>
+                                    <p>
+                                    <span><b>NOTE:</b> 160 characters = 1 SMS</span>
+                                      <span id="remaining" class="pull-right">160 characters remaining </span>
+                                    <span id="messages" style="text-align: center;">/ Count SMS(0)</span>
+                                    <input type="hidden" value="" id="count"><br>
+                                    <input type="text" value="" id="sms" style="border: none; color: green; font-weight: bold;">
+                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                  <button type="submit" name="sms" class="btn btn-primary btn-sm">Send SMS</button>
+                                </div>
+                              </form>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
                       </div>
                     </div>
                   </div><hr>
@@ -527,3 +578,53 @@
 </section>
 </div>
 </div>
+
+<script>
+// textarea sms counter....
+$(document).ready(function(){
+    var $remaining = $('#remaining'),
+    $messages = $remaining.next();
+    var numbers = '<?php //echo $countNumbers; ?>';
+    $('#message').keyup(function(){
+        var chars = this.value.length,
+        messages = Math.ceil(chars / 160),
+        remaining = messages * 160 - (chars % (messages * 160) || messages * 160);
+        $messages.text('/ Count SMS (' + messages + ')');
+        $messages.css('color', 'red');
+        $remaining.text(remaining + ' characters remaining');
+      
+        $('#count').val(messages);
+      var countSMS = $('#count').val();
+        //var sms = parseInt(countSMS * numbers);
+        $('#sms').val("Your Consumed SMS: (" + countSMS+ ")");
+    });
+});
+</script>
+
+<?php 
+  if (isset($_GET['sms'])) {
+    $to = $_GET['to'];
+    $message = $_GET['message'];
+    // sms ....
+    $type = "xml";
+    $id = "Brookfieldclg";
+    $pass = "college42";
+    $lang = "English";
+    $mask = "Brookfield";
+    // Data for text message
+    $message = urlencode($message);
+    // Prepare data for POST request
+    $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
+    // Send the POST request with cURL
+    $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch); //This is the result from SMS4CONNECT
+    curl_close($ch);
+    
+    if ($result) {
+        Yii::$app->session->setFlash('success', "SMS sent successfully...");
+    }
+  }
+?>

@@ -1,12 +1,14 @@
 <?php
+
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2017
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-popover-x
- * @version 1.3.4
+ * @version 1.3.0
  */
 
 namespace kartik\popover;
-use kartik\base\PluginAssetBundle;
+
+use Yii;
 
 /**
  * Asset bundle for PopoverX widget. Includes assets from
@@ -17,11 +19,14 @@ use kartik\base\PluginAssetBundle;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
  */
-class PopoverXAsset extends PluginAssetBundle
+class PopoverXAsset extends \kartik\base\AssetBundle
 {
-    /**
-     * @inheritdoc
-     */
+    public $depends = [
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
+    ];
+    
     public function init()
     {
         $this->setSourcePath('@vendor/kartik-v/bootstrap-popover-x');

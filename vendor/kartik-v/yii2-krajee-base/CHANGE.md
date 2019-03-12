@@ -1,6 +1,45 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 2.0.4
+
+**Date:** 04-Dec-2018
+
+- (enh #106): Back and forward browser bug for PJAX.
+    - New property `pjaxDuplicationFix` available in widgets/extensions that use `kartik\base\WidgetTrait`
+    - The above property if not set will default to `Yii::$app->params['pjaxDuplicationFix']`
+    - `Yii::$app->params['pjaxDuplicationFix']` if not set will default to `true`
+    - Setting `Yii::$app->params['pjaxDuplicationFix']` will globally control the pjax duplication fix for all Krajee widgets
+
+## Version 2.0.3
+
+**Date:** 27-Nov-2018
+
+- (enh #105): Allow global setting of `AssetBundle::bsDependencyEnabled` via `Yii::$app->params`.
+
+## Version 2.0.2
+
+**Date:** 26-Nov-2018
+
+- (enh #104): Allow Bootstrap Asset Bundle dependency to be configurable.
+  - New property `bsDependencyEnabled` in `kartik\base\AssetBundle` (Note that all Krajee extension asset bundles based on bootstrap styles extend this class). The property `bsDependencyEnabled` defaults to `true` whereby based on the `bsVersion`, the asset bundle dependency is set with one of `yii\bootstrap\BootstrapAsset` or `yii\bootstrap4\BootstrapAsset`. If one needs custom control and load their own bootstrap assets - set this property to `false` via yii2 asset manager component in your yii2 application config.
+
+## Version 2.0.1
+
+**Date:** 10-Nov-2018
+
+- Return widget instance in `addCssClass` & `removeCssClass` methods in `BootstrapTrait` for easy chaining of these methods.
+- Update composer dependency to suggest `yii2-bootstrap` or `yii2-bootstrap4` installs.
+- (enh #102): Add BS_PANEL_DEFAULT contextual style.
+- Update README.
+
+## Version 2.0.0
+
+**Date:** 09-Oct-2018
+
+- (enh #101): Remove composer dependency on yii2 bootstrap.
+- Enhancements to `bsVersion` initialization.
+
 ## Version 1.9.9
 
 **Date:** 27-Sep-2018

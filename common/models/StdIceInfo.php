@@ -41,7 +41,7 @@ class StdIceInfo extends \yii\db\ActiveRecord
             [['std_id', 'created_by', 'updated_by', 'delete_status'], 'integer'],
             [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['std_ice_name', 'std_ice_relation'], 'string', 'max' => 64],
-            [['std_ice_contact_no'], 'string', 'max' => 15],
+            [['std_ice_contact_no'], 'number'],
             [['std_ice_address'], 'string', 'max' => 100],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
         ];
