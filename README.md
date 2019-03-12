@@ -3,22 +3,22 @@
 
 Institute on Cloud is a web-based application, which not only manages every sector of an educational institute but also provides a Standardized Business Model. Whether a school or college; even a university; its spectrum encapsulates all. This application is developed using PHP framework and JavaScript technologies. The honor for developing this robust and mature management system goes to Dexterous Developers. The building block of this application are:
 
-1) Student Registration System
-2)Online Admission System
-3)Session; Course; Section Management
-4)Employee Management
-5)Fee Management
-6)Payroll Management
-7)SMS/Email Alert System
-8)Attendance Management System
-9)Online Web Portal for Students; Parents; Teachers
-10)Web Portal for Executive; Portraying Balance Sheet (for individual, as well as, collective branches).
-11)Mobile Application having limited features of this management system (Mostly Views).
-12)Accounting System
-13)Time Table Management
-14)Library Management
-15)Transportation Management
-16)Examination Management
+1) Student Registration System <br />
+2)Online Admission System <br />
+3)Session; Course; Section Management <br />
+4)Employee Management <br />
+5)Fee Management <br />
+6)Payroll Management <br />
+7)SMS/Email Alert System <br />
+8)Attendance Management System <br />
+9)Online Web Portal for Students, Parents, Teachers <br />
+10)Web Portal for Executive; Portraying Balance Sheet (for individual, as well as, collective branches). <br />
+11)Mobile Application having limited features of this management system (Mostly Views). <br />
+12)Accounting System <br />
+13)Time Table Management <br />
+14)Library Management <br />
+15)Transportation Management <br />
+16)Examination Management <br />
 
 
 
