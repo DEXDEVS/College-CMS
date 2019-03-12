@@ -177,11 +177,14 @@
 							$installNo     = $feeDetail[0]['installment_no'];
 							$installmentNo = $installNo -1;
 							$remaining = 0;
-							$remain = Yii::$app->db->createCommand("SELECT remaining, total_amount, paid_amount FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
+							$remainig= 0;
+							$remain = Yii::$app->db->createCommand("SELECT status ,remaining, total_amount, paid_amount FROM fee_transaction_head WHERE installment_no = $installmentNo AND std_id = $stdId")->queryAll();
 							if (empty($remain)) {
 								$remainig = 0;
-							} else {
+							} else if($remain[0]['status'] == 'Partially Paid') {
 								$remainig = $remain[0]['remaining'];
+							} else if($remain[0]['status'] == 'Unpaid'){
+								$remainig = $remain[0]['total_amount'];
 							}
 							$paymentByDueDate = $currentTotal + $remaining;
 							$paymentAFterDueDate = $paymentByDueDate + 50;
