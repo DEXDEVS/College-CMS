@@ -30,6 +30,7 @@ use yii\widgets\DetailView;
             'refrence_contact_no',
             'refrence_designation',
             'std_address',
+            'comment',
             'inquiry_status',
             'created_at',
             'updated_at',

@@ -140,6 +140,7 @@ $year = date('y');
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 57px; top: 18px"></i>
             <?= $form->field($model, 'std_address')->textInput(['maxlength' => true]) ?>
         </div>
+        
         <div class="col-md-4">
             <?= $form->field($model, 'refrence_name')->textInput(['maxlength' => true]) ?>
         </div>
@@ -150,6 +151,9 @@ $year = date('y');
     <div class="row">
         <div class="col-md-4">
              <?= $form->field($model, 'refrence_designation')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-8">
+            <?= $form->field($model, 'comment')->textArea(['maxlength' => true]) ?>
         </div>
     </div>
     

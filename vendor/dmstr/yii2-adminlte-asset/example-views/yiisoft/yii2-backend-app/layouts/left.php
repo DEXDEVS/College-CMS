@@ -35,6 +35,8 @@
             </div>
         </form>
         <!-- /.search form -->
+        <?php if(Yii::$app->user->identity->username == 'superadmin'){ ?>
+
         <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
@@ -258,6 +260,7 @@
                 ],
             ]
         ) ?>
+        <?php } ?>
 
     </section>
 
