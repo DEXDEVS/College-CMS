@@ -30,6 +30,10 @@ return [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'std_father_name',
     // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'gender',
+    ],
     // [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'std_contact_no',

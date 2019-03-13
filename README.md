@@ -1,25 +1,26 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-</p>
 
-<h1 align="center">College Management System</h1>
+<h1 align="center">IC - Institute on Cloud</h1>
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+<b>Institute on Cloud</b> is a web-based application, which not only manages every sector of an educational institute but also provides a Standardized Business Model. Whether a school or college; even a university; its spectrum encapsulates all. This application is developed using PHP Framework and JavaScript Technologies. The honor for developing this mature management system and business model goes to <a href="www.dexdevs.com" target="_blank">Dexterous Developers</a>. The building blocks of this application are:
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+1) Student Registration System <br />
+2) Online Admission System <br />
+3) Session; Course; Section Management <br />
+4) Employee Management <br />
+5) Fee Management <br />
+6) Payroll Management <br />
+7) SMS/Email Alert System <br />
+8) Attendance Management System <br />
+9) Online Web Portal for Students, Parents, Teachers <br />
+10) Web Portal for Executive; Portraying Balance Sheet (for individual, as well as, collective branches). <br />
+11) Mobile Application having limited features of this management system (Mostly Views). <br />
+12) Accounting System <br />
+13) Time Table Management <br />
+14) Library Management <br />
+15) Transportation Management <br />
+16) Examination Management <br />
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
-
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-advanced/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-advanced/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
 
 DIRECTORY STRUCTURE
 -------------------

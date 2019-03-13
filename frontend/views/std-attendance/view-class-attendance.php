@@ -113,21 +113,16 @@
                 
         $subjectAlias[$key] = $subAls[0]['subject_alias'];
         $subjectId[$key] = $subAls[0]['subject_id'];
-        // var_dump($subjectAlias[$key]);
-        // echo "</br>";
-        // var_dump($subjectId[$key]);
-        // echo "</br>";
         }
 
         // Select attandance
-        $attendance = Yii::$app->db->createCommand("SELECT subject_id, student_id, status FROM std_attendance  WHERE class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid'")->queryAll();  
-            $attenSubId = $attendance[0]['subject_id'];
-        foreach ($subjectId as $key => $subId) {
-            if ($attenSubId == $subId) {
-                $subjAlias = $subjectAlias[$key];
-                var_dump($subjAlias);
-            }
-        }
+        // $attendance = Yii::$app->db->createCommand("SELECT subject_id, student_id, status FROM std_attendance  WHERE class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid'")->queryAll();  
+        //     $attenSubId = $attendance[0]['subject_id'];
+        // foreach ($subjectId as $key => $subId) {
+        //     if ($attenSubId == $subId) {
+        //         $subjAlias = $subjectAlias[$key];
+        //     }
+        // }
              
         ?> 
 
@@ -179,24 +174,18 @@
                                 <?php $stdId = $student[$i]['std_enroll_detail_std_id'];
                                       $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll(); 
                                 ?>
-                               <td><?php echo $stdName[0]['std_name']; ?></td>
-                            <?php 
-                            for ($i=1; $i <=7 ; $i++) { 
-                                $d = '0'.$i;
-                                $dd= '2019-03-'.$d;
-                                //if($dd == $date){
-                                    for ($j=0; $j<$subjectlength ; $j++) {  ?>
-                                        <td><?php echo '-'; ?></td>
-                                        <!-- <td><?php //echo $dd; ?></td> -->
-                            <?php  }   
-                               // }
-                            } 
-                            ?>
-                            </tr>
+                                <td><?php echo $stdName[0]['std_name']; ?></td>
+                                <?php for ($k=1; $k <=7 ; $k++) { 
+                                for ($j=0; $j<$subjectlength ; $j++) {  ?>
+                                    <td></td>
                     <?php
-                        //closing outter for loop
-                        }
-                    ?> 
+                                // end of j loop
+                                }   
+                        //end of k loop      
+                        } ?>
+                        </tr>
+                    <?php //end of i loop 
+                        } ?> 
                 
               </table>
 

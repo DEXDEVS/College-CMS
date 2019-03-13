@@ -12,6 +12,7 @@ use Yii;
  * @property string $inquiry_session
  * @property string $std_name
  * @property string $std_father_name
+ * @property string $gender
  * @property string $std_contact_no
  * @property string $std_father_contact_no
  * @property string $std_inquiry_date
@@ -48,15 +49,15 @@ class StdInquiry extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_inquiry_no', 'inquiry_session', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'previous_institute', 'std_roll_no', 'std_obtained_marks', 'std_total_marks', 'std_percentage', 'refrence_name', 'refrence_contact_no', 'refrence_designation', 'std_address'], 'required'],
-            [['std_inquiry_date', 'created_at', 'updated_at', 'created_by', 'updated_by', 'inquiry_status','previous_institute','std_intrested_class'], 'safe'],
+            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'previous_institute', 'std_roll_no', 'std_obtained_marks', 'std_total_marks', 'std_percentage','gender'], 'required'],
+            [['std_inquiry_date', 'created_at', 'updated_at', 'created_by', 'updated_by', 'inquiry_status','previous_institute','std_intrested_class', 'inquiry_session', 'refrence_name', 'refrence_contact_no', 'refrence_designation','std_address'], 'safe'],
             [['std_obtained_marks', 'std_total_marks', 'created_by', 'updated_by'], 'integer'],
-            [['inquiry_status'], 'string'],
+            [['inquiry_status','gender'], 'string'],
             [['std_inquiry_no'], 'string', 'max' => 15],
-            [['std_contact_no', 'std_father_contact_no', 'refrence_contact_no'],'string', 'max' => 12],
+            [['std_contact_no', 'std_father_contact_no', 'refrence_contact_no'],'string', 'max' => 15],
             [['inquiry_session'], 'string', 'max' => 20],
-            [['std_name', 'std_father_name', 'std_previous_class', 'refrence_name'], 'string', 'max' => 32],
-            //[['std_intrested_class'], 'string', 'max' => 50],
+            [['std_name', 'std_father_name', 'refrence_name'], 'string', 'max' => 32],
+            //[['std_intrested_class', 'std_previous_class'], 'string', 'max' => 50],
             //[['previous_institute'], 'string', 'max' => 120],
             [['std_roll_no'], 'string', 'max' => 10],
             [['std_percentage'], 'string', 'max' => 6],
@@ -76,6 +77,7 @@ class StdInquiry extends \yii\db\ActiveRecord
             'inquiry_session' => 'Inquiry Session',
             'std_name' => 'Student Name',
             'std_father_name' => 'Father Name',
+            'gender' => 'Gender',
             'std_contact_no' => 'Student Contact No',
             'std_father_contact_no' => 'Father Contact No',
             'std_inquiry_date' => 'Inquiry Date',
