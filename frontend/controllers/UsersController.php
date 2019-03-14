@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use Yii;
-use common\models\InstituteName;
-use common\models\InstituteNameSearch;
+use common\models\Users;
+use common\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,9 +12,9 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * InstituteNameController implements the CRUD actions for InstituteName model.
+ * UsersController implements the CRUD actions for Users model.
  */
-class InstituteNameController extends Controller
+class UsersController extends Controller
 {
     /**
      * @inheritdoc
@@ -33,12 +33,12 @@ class InstituteNameController extends Controller
     }
 
     /**
-     * Lists all InstituteName models.
+     * Lists all Users models.
      * @return mixed
      */
     public function actionIndex()
     {    
-        $searchModel = new InstituteNameSearch();
+        $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class InstituteNameController extends Controller
 
 
     /**
-     * Displays a single InstituteName model.
+     * Displays a single Users model.
      * @param integer $id
      * @return mixed
      */
@@ -59,7 +59,7 @@ class InstituteNameController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "InstituteName #".$id,
+                    'title'=> "Users #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -74,16 +74,15 @@ class InstituteNameController extends Controller
     }
 
     /**
-     * Creates a new InstituteName model.
+     * Creates a new Users model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        if( Yii::$app->user->can('add-institute')){
         $request = Yii::$app->request;
-        $model = new InstituteName();  
+        $model = new Users();  
 
         if($request->isAjax){
             /*
@@ -92,7 +91,7 @@ class InstituteNameController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new InstituteName",
+                    'title'=> "Create new Users",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -100,23 +99,18 @@ class InstituteNameController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post())){
-                    $model->created_by = Yii::$app->user->identity->id; 
-                    $model->created_at = new \yii\db\Expression('NOW()');
-                    $model->updated_by = '0';
-                    $model->updated_at = '0';
-                    $model->save();
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new InstituteName",
-                    'content'=>'<span class="text-success">Create InstituteName success</span>',
+                    'title'=> "Create new Users",
+                    'content'=>'<span class="text-success">Create Users success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new InstituteName",
+                    'title'=> "Create new Users",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -130,23 +124,18 @@ class InstituteNameController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                    
-                return $this->redirect(['view', 'id' => $model->Institute_name_id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
                 ]);
             }
         }
-        }else{
-            throw new ForbiddenHttpException;
-            //Yii::$app->session->setFlash('warning','Your are not allowed to perform this action');
-        } 
        
     }
 
     /**
-     * Updates an existing InstituteName model.
+     * Updates an existing Users model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -164,22 +153,17 @@ class InstituteNameController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update InstituteName #".$id,
+                    'title'=> "Update Users #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post())){
-                $model->updated_by = Yii::$app->user->identity->id;
-                $model->updated_at = new \yii\db\Expression('NOW()');
-                $model->created_by = $model->created_by;
-                $model->created_at = $model->created_at;
-                $model->save();
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "InstituteName #".$id,
+                    'title'=> "Users #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -188,7 +172,7 @@ class InstituteNameController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update InstituteName #".$id,
+                    'title'=> "Update Users #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -201,7 +185,7 @@ class InstituteNameController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->Institute_name_id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,
@@ -211,7 +195,7 @@ class InstituteNameController extends Controller
     }
 
     /**
-     * Delete an existing InstituteName model.
+     * Delete an existing Users model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -239,7 +223,7 @@ class InstituteNameController extends Controller
     }
 
      /**
-     * Delete multiple existing InstituteName model.
+     * Delete multiple existing Users model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -270,15 +254,15 @@ class InstituteNameController extends Controller
     }
 
     /**
-     * Finds the InstituteName model based on its primary key value.
+     * Finds the Users model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return InstituteName the loaded model
+     * @return Users the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = InstituteName::findOne($id)) !== null) {
+        if (($model = Users::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

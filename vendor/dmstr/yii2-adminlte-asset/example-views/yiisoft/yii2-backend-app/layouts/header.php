@@ -208,7 +208,7 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="images/anas.jpg" class="user-image" alt="User Image"/>
+                        <img src="<?php echo $userPhoto; ?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs">
                             <!--  -->
                             <?= Yii::$app->user->identity->username ?>
@@ -217,7 +217,7 @@ use yii\helpers\Html;
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header" style="height: 200px">
-                            <img src="images/anas.jpg" class="img-circle"
+                            <img src="<?php echo $userPhoto; ?>" class="img-circle"
                                  alt="User Image"/>
                             <p>
                                 <label for="">Contact Info</label><br>
