@@ -128,7 +128,7 @@
     					        $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll();
                                 
     					        $coun = count($atten);
-                                 
+                                 $date5 = 0;
                                 for ($j=0; $j <$coun ; $j++) { 
     		                         $date1 = $atten[$j]['CAST(date AS DATE)'];
     		                         $date2 = explode('-', $date1);
@@ -143,7 +143,7 @@
     	                        	if($date5 >= $stDate[2] && $date5 <= $enDate[2]){
     	                        ?>
 
-                                 	<td> <?php echo $atten[$i]['status']; ?> </td>
+                                 	<td> <?php //echo $atten[$i]['status']; ?> </td>
     	                        <?php
     		                        } else {
     		                    ?>

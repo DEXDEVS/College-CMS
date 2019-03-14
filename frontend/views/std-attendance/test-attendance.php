@@ -75,99 +75,11 @@
                 </div>
               <!-- /.box -->
             </div>
-    
   <?php 
-    //end of for loop
-    } ?>
+        //end of for loop
+        } ?>
    
     
 
 </body>
 </html>
-<?php
-$url = \yii\helpers\Url::to("std-attendance/fetch-section");
-
-$script = <<< JS
-$('#classId').on('change',function(){
-   var classId = $('#classId').val();
-   $.ajax({
-        type:'post',
-        data:{class_Id:classId},
-        url: "$url",
-
-        success: function(result){
-            var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
-            var options = '';
-            $('#sessionId').empty();
-            $('#sessionId').append("<option>"+"Select Session"+"</option>");
-            for(var i=0; i<jsonResult.length; i++) { 
-		        options += '<option value="'+jsonResult[i].session_id+'">'+jsonResult[i].session_name+'</option>';
-		    }
-		    // Append to the html
-		    $('#sessionId').append(options);
-        }         
-    });       
-});
-
-$('#sessionId').on('change',function(){
-	var sessionId = $('#sessionId').val();
-	var classId = $('#classId').val();
-
-	$.ajax({
-        type:'post',
-        data:{class_Id:classId,session_Id:sessionId},
-        url: "$url",
-
-        success: function(result){
-        var jsonResult = JSON.parse(result.substring(result.indexOf('['), result.indexOf(']')+1));
-            var options = '';
-            $('#sectionId').empty();
-            $('#sectionId').append("<option>"+"Select Section"+"</option>");
-            for(var i=0; i<jsonResult.length; i++) { 
-		        options += '<option value="'+jsonResult[i].section_id+'">'+jsonResult[i].section_name+'</option>';
-		    }
-		    // Append to the html
-		    $('#sectionId').append(options);
-        }           
-    });       
-});
-
-$('#sectionId').on('change',function(){
-	var classId = $('#classId').val();
-	var sessionId = $('#sessionId').val();
-	var sectionId = $('#sectionId').val();
-
-	$.ajax({
-        type:'post',
-        data:{class_Id:classId,session_Id:sessionId,section_Id:sectionId},
-        url: "$url",
-
-        success: function(result){
-        console.log(result);
-      
-         }           
-    });       
-});
-
-var abc='';
-var sn='';
-$('#btn_plus0').click(function(){
-	abc = $('#className').val();
-	sn = $('#SessionName').val();
-	
-});
-$('#plus0').click(function(){
-	sn = $('#SessionName').val();
-	
-});
-$('#attendance').change(function(){
-  	$('#mymodal').modal('show');
-	$('#xyz').val(abc);
-	$('#lmn').val(sn);
-});
-
-
-JS;
-$this->registerJs($script);
-?>
-</script>

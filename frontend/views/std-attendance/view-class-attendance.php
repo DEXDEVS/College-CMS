@@ -15,12 +15,6 @@
             </div>    
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Current Date</label>
-                    <input class="form-control" data-date-format="dd/mm/yyyy" type="date" name="date" required="">
-                </div>    
-            </div>
             <?php
                 $techerEmail = Yii::$app->user->identity->email;
                 $teacherId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$techerEmail'")->queryAll();
@@ -91,7 +85,7 @@
         $classid= $_POST["classid"];
         $sessionid = $_POST["sessionid"];
         $sectionid = $_POST["sectionid"];
-        $date = $_POST["date"];
+        //$date = $_POST["date"];
 
         //Select studnet roll no and name
         $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id, sed.std_roll_no FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
@@ -154,8 +148,8 @@
                             // list($y,$m,$d)=explode('-',$date);
                             // $date2 = Date("Y-m-d", mktime(0,0,0,$m,$d+$i,$y));
                             $d = '0'.$i;
-							echo "<th colspan='6' style='text-align: center;'>$d-03-2019</th>";
-                            $cd = explode('-',$date);
+							echo "<th colspan='6' style='text-align: center;'>$i-03-2019</th>";
+                           // $cd = explode('-',$date);
 						} 
 					?>
                 </tr>
