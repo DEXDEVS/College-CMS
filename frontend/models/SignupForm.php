@@ -5,16 +5,18 @@ use yii\base\Model;
 use yii\helpers\Url;
 use common\models\User;
 
+
 /**
  * Signup form
  */
 class SignupForm extends Model
 {
+    public $user_login_id;
     public $username;
     public $email;
     public $password;
     public $user_photo;
-
+    public $user_type;
 
     /**
      * @inheritdoc
@@ -23,7 +25,7 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
+            [['username','user_login_id','user_type'], 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             [['user_photo'], 'string', 'max' => 200],
@@ -36,6 +38,7 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            [['user_login_id','user_type'] ,'string']
         ];
     }
 
@@ -51,9 +54,11 @@ class SignupForm extends Model
         }
         
         $user = new User();
+        $user->user_login_id = $this->user_login_id;
         $user->username = $this->username;
         $user->email = $this->email;
         $user->user_photo = $this->user_photo;
+        $user->user_type = $this->user_type;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         

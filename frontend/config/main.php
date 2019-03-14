@@ -49,8 +49,8 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'login' => 'site/login',
-                'logout' => 'site/login',
-                //'signup' => 'site/signup',
+                //'logout' => 'site/login',
+                'signup' => 'site/signup',
                 'home' => 'site/index',
                 
                 'attendance' => 'std-attendance',

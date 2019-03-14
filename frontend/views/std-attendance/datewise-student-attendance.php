@@ -18,7 +18,7 @@
 
 </head>
 <body>
-  <form  action = "single-student" method="POST" style="margin-top: -35px">
+<form  action = "single-student" method="POST" style="margin-top: -35px">
         <h1 class="well well-sm text" align="center">View Attendance</h1>
         <div class="row">
             <div class="col-md-4">
@@ -69,7 +69,7 @@
             <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
             <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
         </div>
-    </form>
+</form>
     <?php 
         }
 
