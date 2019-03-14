@@ -360,6 +360,7 @@ class StdPersonalInfoController extends Controller
     {   
         return $this->render('fetch-fee');
     }
+    
     public function actionForm()
     {   
         return $this->render('form');
