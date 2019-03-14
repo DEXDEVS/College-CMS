@@ -108,11 +108,18 @@
                             <th>Subject:</th>
                             <td><?php echo $subName[0]['subject_name']; ?></td>
                         </tr>
+                        <?php 
+                        $stdId = $students[0]['std_enroll_detail_std_id'];
+                        $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll(); 
+                        $count = count($atten);
+                         ?>
                         <tr style="background-color:#add8e6; ">
                             <th >Sr #.</th>
                             <th >Roll #.</th>
                             <th >Name</th>
-                            
+                            <?php for ($i=0; $i <$count ; $i++) { ?>
+                            <th><?php echo $atten[$i]["CAST(date AS DATE)"]; ?></th>
+                            <?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,6 +133,7 @@
                                 <?php 
                                 $stdId = $students[$i]['std_enroll_detail_std_id'];
     					        $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll();
+
                                 
     					        $coun = count($atten);
                                  $date5 = 0;
@@ -134,24 +142,11 @@
     		                         $date2 = explode('-', $date1);
     		                         $date5 = $date2[2];
                                 }
-                            
-                                for ($i=0; $i<=$en ; $i++) { 
-                            ?>
-                                     <th><?php echo $st+$i; ?></th>
-                            <?php
 
-    	                        	if($date5 >= $stDate[2] && $date5 <= $enDate[2]){
-    	                        ?>
+                                for ($j=0; $j <$count ; $j++) { ?>
+                            <td><?php echo $atten[$j]["status"]; ?></td>
+                            <?php } ?>
 
-                                 	<td> <?php //echo $atten[$i]['status']; ?> </td>
-    	                        <?php
-    		                        } else {
-    		                    ?>
-    		                            <td><?php  echo 'N/A'; ?> </td>
-    		                    <?php
-    		                       }
-                        		}
-                            	?>
                         </tr>
                         
                         <?php

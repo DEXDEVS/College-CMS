@@ -7,11 +7,11 @@ $tempfilename = $_REQUEST['filename'].'.pdf';
 if (strstr($tempfilename,'/') || strstr($tempfilename,'\\')) {
 	throw new MpdfException('Output filename can not not contain \ or /');
 }
-
 $name = $_REQUEST['opname'];
 $dest = $_REQUEST['dest'];
 
 if ($tempfilename && file_exists($path . $tempfilename)) {
+	echo 'DEXDEVS';
 	// mPDF 5.3.17
 	if ($dest === 'I') {
 		if (PHP_SAPI != 'cli') {

@@ -1,19 +1,25 @@
 <?php
 use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
 
 <?php 
-    $userID = Yii::$app->user->id;
-    $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
-    $userPhoto = $user[0]['user_photo'];
+
+    // $userID = Yii::$app->user->id;
+    // $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
+    // // Student Photo...
+    // $userPhoto = $user[0]['user_photo'];
+    //echo $photo;
 ?>
 
 <header class="main-header">
 
     <?= Html::a('<span class="logo-mini"><b>SE</b></span><span class="logo-lg">' . "<b>SMART EDUCATION</b>" . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -153,7 +159,7 @@ use yii\helpers\Html;
                 <li class="tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-th"></i>
-                        <span class="label label-danger">9</span>
+                        <!-- <span class="label label-danger">9</span> -->
                     </a>
                     <ul class="dropdown-menu" style="width: 340px; height: 400px;">
                         <li class="header"><p align="center"><b>Menus</b></p></li>
@@ -205,46 +211,79 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php echo $userPhoto ?>" class="user-image" alt="User Image"/>
+                        <img src="images/anas.jpg" class="user-image" alt="User Image"/>
                         <span class="hidden-xs">
-                            <?php echo Yii::$app->user->identity->username;  ?>
                             <!--  -->
+                            
                         </span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header" style="height: 200px">
-                            <img src="<?php echo $userPhoto ?>" class="img-circle" alt="User Image"/>
+                            <img src="images/anas.jpg" class="img-circle"
+                                 alt="User Image"/>
                             <p>
                                 <label for="">Contact Info</label><br>
+                                
+
+                                <!-- user_phone_no -->
+
                                 <!-- email -->
-                                <?php echo Yii::$app->user->identity->email;  ?>
+                                <!-- - Web Developer
+                                <small>Member since Nov. 2012</small> -->
                             </p>
                         </li><hr>
+                        <!-- Menu Body -->
+                        <!-- <li class="user-body">
+                            <div class="col-xs-12 text-center">
+                                <label for="">User Name</label>
+                                <a href="#"></a>
+                            </div>
+                        </li>
+                        <li class="user-body">    
+                            <div class="col-xs-12 text-center">
+                                <label for="">Email</label>
+                                <a href="#"></a>
+                            </div>
+                        </li> -->
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
                                 <a href="#" class="btn btn-primary btn-flat btn-sm">Profile</a>
                             </div>
                             <div class="pull-right">
-                            <?php if(Yii::$app->user->identity->username == 'superadmin'){?>
-                                <?= Html::a(
-                                    'Add User',
-                                    ['/signup'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-success btn-flat btn-sm']
-                                ) ?>
-                                
+                                <?php
+                            NavBar::begin([
+                                //'brandLabel' => Yii::$app->name,
+                                //'brandUrl' => Yii::$app->homeUrl,
+                                'options' => [
+                                    'class' => 'navbar-inverse navbar-fixed-top',
+                                ],
+                            ]);
+                            if (Yii::$app->user->isGuest) {
+                                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+                                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                            } else {
+                                $menuItems[] = '<li>'
+                                    . Html::beginForm(['/site/logout'], 'post')
+                                    . Html::submitButton(
+                                        'Logout (' . Yii::$app->user->identity->username . ')',
+                                        ['class' => 'btn btn-link logout']
+                                    )
+                                    . Html::endForm()
+                                    . '</li>';
+                            }
+                            echo Nav::widget([
+                                'options' => ['class' => 'navbar-nav navbar-left'],
+                                'items' => $menuItems,
+                            ]);
+                            NavBar::end();
+                            ?>
                                 <?= Html::a(
                                     'Sign out',
                                     ['/site/logout'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-danger btn-flat btn-sm']) ?>
-                                <?php } 
-                                    else { ?>
-                                        <?= Html::a(
-                                            'Sign out',
-                                            ['/site/logout'],
-                                            ['data-method' => 'post', 'class' => 'btn btn-danger btn-flat btn-sm']) ?>
-                                <?php } ?>
+                                    ['data-method' => 'post', 'class' => 'btn btn-danger btn-flat btn-sm']
+                                ) ?>
                             </div>
                         </li>
                     </ul>

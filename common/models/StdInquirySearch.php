@@ -19,7 +19,7 @@ class StdInquirySearch extends StdInquiry
     {
         return [
             [['std_inquiry_id', 'std_obtained_marks', 'std_total_marks', 'created_by', 'updated_by'], 'integer'],
-            [['std_inquiry_no', 'inquiry_session', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'previous_institute', 'std_roll_no', 'std_percentage', 'refrence_name', 'refrence_contact_no', 'refrence_designation', 'std_address', 'inquiry_status', 'created_at', 'updated_at'], 'safe'],
+            [['std_inquiry_no', 'inquiry_session', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'previous_institute', 'std_roll_no', 'std_percentage', 'refrence_name', 'refrence_contact_no', 'refrence_designation', 'std_address', 'inquiry_status', 'created_at', 'updated_at','gender','comment'], 'safe'],
         ];
     }
 
@@ -70,6 +70,7 @@ class StdInquirySearch extends StdInquiry
             ->andFilterWhere(['like', 'inquiry_session', $this->inquiry_session])
             ->andFilterWhere(['like', 'std_name', $this->std_name])
             ->andFilterWhere(['like', 'std_father_name', $this->std_father_name])
+            ->andFilterWhere(['like', 'gender', $this->gender])
             ->andFilterWhere(['like', 'std_contact_no', $this->std_contact_no])
             ->andFilterWhere(['like', 'std_father_contact_no', $this->std_father_contact_no])
             ->andFilterWhere(['like', 'std_intrested_class', $this->std_intrested_class])
@@ -81,6 +82,7 @@ class StdInquirySearch extends StdInquiry
             ->andFilterWhere(['like', 'refrence_contact_no', $this->refrence_contact_no])
             ->andFilterWhere(['like', 'refrence_designation', $this->refrence_designation])
             ->andFilterWhere(['like', 'std_address', $this->std_address])
+            ->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'inquiry_status', $this->inquiry_status]);
 
         return $dataProvider;

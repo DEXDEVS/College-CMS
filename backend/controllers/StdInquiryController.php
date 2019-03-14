@@ -116,6 +116,8 @@ class StdInquiryController extends Controller
         
                 ];         
             }else if($model->load($request->post()) && $model->validate()){
+                $preClass = $model->std_previous_class[0];
+                $model->std_previous_class = $preClass;
                 $institute = $model->previous_institute[0];
                 $model->previous_institute = $institute;
                 $intrestedClass = $model->std_intrested_class[0];

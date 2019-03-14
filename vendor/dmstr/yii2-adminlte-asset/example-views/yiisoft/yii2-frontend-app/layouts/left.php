@@ -1,8 +1,8 @@
 <?php 
-    // $userID = Yii::$app->user->id;
-    // $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
-    // // Student Photo...
-    // $userPhoto = $user[0]['user_photo'];
+    $userID = Yii::$app->user->id;
+    $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
+    // Student Photo...
+    $userPhoto = $user[0]['user_photo'];
 ?>
 <aside class="main-sidebar">
     <section class="sidebar">
@@ -10,11 +10,11 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?php // echo $userPhoto ?>uploads/anasshafqat_photo.jpeg" class="img-circle" alt="User Image"/>
+                <img src="<?php echo $userPhoto ?>" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
                 <p>
-                    <?php // Yii::$app->user->identity->username;  ?>
+                    <?= Yii::$app->user->identity->username;  ?>
                     <!--  -->
                 </p>
 

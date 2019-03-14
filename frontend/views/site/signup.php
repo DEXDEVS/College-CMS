@@ -25,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 
+                <?= $form->field($model, 'user_login_id')->textInput() ?>
+
+                <?= $form->field($model, 'user_type')->textInput() ?>
+
                 <?= $form->field($model, 'user_photo')->fileInput(['maxlength' => true, 'class' => 'btn btn-default btn-block paperclip']) ?>
 
                 <div class="form-group">

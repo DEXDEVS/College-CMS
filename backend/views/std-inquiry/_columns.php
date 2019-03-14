@@ -30,6 +30,10 @@ return [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'std_father_name',
     // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'gender',
+    ],
     // [
     //     'class'=>'\kartik\grid\DataColumn',
     //     'attribute'=>'std_contact_no',
@@ -85,6 +89,10 @@ return [
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_address',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'comment',
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
