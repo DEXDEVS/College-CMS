@@ -19,6 +19,8 @@ $fieldOptions2 = [
 ];
 ?>
 
+<?php Yii::$app->session->getFlash('key', 'message'); ?>
+
 <div class="login-box" style="margin-top: 30px; background-color: #183663; margin: 25px auto; color: white;">
     <div class="login-logo" style="padding-top: 20px">
         <a href="#" style="color: white; border-bottom: 2px solid #28C0CE;"><b>DEXDEVS</b><small> - CMS</small></a>
@@ -28,6 +30,8 @@ $fieldOptions2 = [
     <div class="login-box-body" style=" border-top: 3px solid #1A3562;">
         <img src="images/logo.jpg" width="100%" style="border: 1px solid #28C0CE; border-radius: 5px 25px 5px 25px; padding:10px"><br>
         <p class="login-box-msg" style="color: #183663;"><b>Sign in to start your session</b></p>
+
+
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
