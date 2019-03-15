@@ -13,7 +13,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="images/anas.jpg" class="img-circle" alt="User Image"/>
+                <img src="<?php echo $userPhoto; ?>" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
                 <p>
@@ -35,7 +35,7 @@
             </div>
         </form>
         <!-- /.search form -->
-        <?php if(Yii::$app->user->identity->username == 'superadmin'){ ?>
+        <?php if(Yii::$app->user->can('navigation')){ ?>
 
         <?= dmstr\widgets\Menu::widget(
             [
@@ -98,30 +98,7 @@
                             // ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => ["/teacher-subject-assign-head"],],
                         ],
                     ],
-                    // Student Module close...
-                    // ------------------------------------------------
-                    // Student Registration start...
-                    // [
-                    //     'label' => 'Student Registration',
-                    //     'icon' => 'users',
-                    //     'url' => ["/std-personal-info"],
-                    //     // 'items' => [
-                    //     //     ['label' => 'Student Personal Info', 'icon' => 'caret-right', 'url' => '["/std-personal-info',],
-                    //     //     ['label' => 'Student Guardian Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-guardian-info',],
-                    //     //     ['label' => 'Student ICE Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-ice-info',],
-                    //     //     ['label' => 'Student Academic Info', 'icon' => 'caret-right', 'url' => 'index.php?r=std-academic-info',],
-                    //     //     ['label' => 'Student Fee Details', 'icon' => 'caret-right', 'url' => 'index.php?r=std-fee-details',],
-                    //     // ],
-                    // ],
-                    // Student Registration close...
-                    // // ------------------------------------------------
-                    // // Student Enrollment start...
-                    // [
-                    //     'label' => 'Student Enrollment',
-                    //     'icon' => 'hourglass-half',
-                    //     'url' => ["/std-enrollment-head"],
-                    // ],
-                    // // Student Enrollment close...
+                    
                     // ------------------------------------------------
                     // Employee Registration start...
                     [
@@ -261,6 +238,40 @@
             ]
         ) ?>
         <?php } ?>
+
+        <!-- Inquiry Nav Start -->
+        <?php if(Yii::$app->user->can('inquiry-nav')){ ?>
+
+        <?= dmstr\widgets\Menu::widget(
+            [
+                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                'items' => [
+                    ['label' => 'Menus', 'options' => ['class' => 'header center']],
+                    ['label' => 'Home', 'icon' => 'dashboard', 'url' => "./home"],
+                    //['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
+                    ['label' => 'Login', 'url' => ["../login"], 'visible' => Yii::$app->user->isGuest],
+
+                    // ------------------------------------------------
+                    // Student Module start...
+                    [
+                        'label' => 'Student Module',
+                        'icon' => 'users',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Student Inquiry', 'icon' => 'caret-right', 'url' => ["/std-inquiry"],],
+                            //['label' => 'Student Registration', 'icon' => 'caret-right', 'url' => ["/std-personal-info"],],
+                            //['label' => 'Student Enrollment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
+                            //['label' => 'Student Promotion', 'icon' => 'caret-right', 'url' => ["./std-promote"],],
+                        ],
+                    ],
+                    
+                    // ------------------------------------------------
+                    
+                ],
+            ]
+        ) ?>
+        <?php } ?>
+        <!-- Inquiry Nav end -->
 
     </section>
 

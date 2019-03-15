@@ -44,6 +44,10 @@ return [
                 ],
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -65,6 +69,7 @@ return [
                 'teacher-subject-assign-head-view' => 'teacher-subject-assign-head/view',
 
                 'std-personal-info-view' => 'std-personal-info/view',
+                'std-registration' => 'std-registration/create',
                 'std-personal-info-update' => 'std-personal-info/update',
                 'std-personal-info-std-photo' => 'std-personal-info/std-photo',
 

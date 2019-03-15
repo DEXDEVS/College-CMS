@@ -58,7 +58,7 @@ $year = date('y');
              <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 85px; top: 18px"></i>
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 50px; top: 18px"></i>
              <?= $form->field($model, 'gender')->dropDownList
                 ([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => 'Select Gender']) ?>
         </div>
@@ -73,22 +73,24 @@ $year = date('y');
             <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 122px; top: 18px"></i>
             <?= $form->field($model, 'std_father_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
         </div>
-        <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i>
-            <?= $form->field($model, 'previous_institute')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(InstituteName::find()->all(),'Institute_name','Institute_name'),
-                    'language' => 'en',
-                    'options' => ['placeholder' => 'Select'],
-                    'pluginOptions' => [
-                        'allowClear' => true,
-                        'multiple' => true
-                    ],
-                ]);
-            ?>
-        </div>
-        <div style="float: right; margin-top: -20px;">    
-        <?= Html::a('<i class="glyphicon glyphicon-plus"></i>', ['institute-name/create'],
-                    ['role'=>'modal-remote','title'=> 'Create new Fee Transaction Details','class'=>'btn btn-success'])?>
+        <div class="input-group input-flat">
+            <div class="col-md-11" style="float: left;">
+            <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 101px; top: 18px"></i> --><br>
+                <?= $form->field($model, 'previous_institute')->widget(Select2::classname(), [
+                        'data' => ArrayHelper::map(InstituteName::find()->all(),'Institute_name','Institute_name'),
+                        'language' => 'en',
+                        'options' => ['placeholder' => 'Select Institute'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                            'multiple' => true
+                        ],
+                    ]);
+                ?>
+            </div>
+            <div style="float: right; position: fixed; right: 1px; margin-top: 45px">
+                <?= Html::a('<i class="glyphicon glyphicon-plus"></i>', ['institute-name/create'],
+                    ['role'=>'modal-remote','title'=> 'Create new Fee Transaction Details','class'=>'btn btn-success btn-flat'])?>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -105,24 +107,24 @@ $year = date('y');
                 ]); ?>
         </div>
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 154px; top: 18px"></i>
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 52px; top: 18px"></i>
             <?= $form->field($model, 'std_roll_no')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 209px; top: 18px"></i>
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 109px; top: 18px"></i>
             <?= $form->field($model, 'std_obtained_marks')->textInput(['id' => 'obtainedMarks']) ?>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 181px; top: 18px"></i>
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 81px; top: 18px"></i>
             <?= $form->field($model, 'std_total_marks')->textInput(['id' => 'totalMarks']) ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4"><br>
            <?= $form->field($model, 'std_percentage')->textInput(['maxlength' => true, 'id'=> 'percentage', 'readonly'=> true]) ?> 
         </div>
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 100px; top: 18px"></i>
+            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 110px; top: 18px"></i>
             <?= $form->field($model, 'std_intrested_class')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(StdClassName::find()->all(),'class_name','class_name'),
                     'language' => 'en',
@@ -137,7 +139,7 @@ $year = date('y');
     </div>
     <div class="row">
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 57px; top: 18px"></i>
+            <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 115px; top: 18px"></i> -->
             <?= $form->field($model, 'std_address')->textInput(['maxlength' => true]) ?>
         </div>
         

@@ -81,6 +81,7 @@ class InstituteNameController extends Controller
      */
     public function actionCreate()
     {
+        if( Yii::$app->user->can('add-institute')){
         $request = Yii::$app->request;
         $model = new InstituteName();  
 
@@ -137,6 +138,10 @@ class InstituteNameController extends Controller
                 ]);
             }
         }
+        }else{
+            throw new ForbiddenHttpException;
+            //Yii::$app->session->setFlash('warning','Your are not allowed to perform this action');
+        } 
        
     }
 

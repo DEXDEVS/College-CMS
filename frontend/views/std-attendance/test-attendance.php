@@ -164,15 +164,20 @@ transition: all 0.4s ease-in-out;
     </style>
 </head>
 <body>
+<div class="container-fluid">
+    <div class="box box-danger">
+        <div class="box-header">
+           <h2 class="text-center text-danger">List of Classes</h2><hr> 
+        </div>
+        <div class="box-body">
+            <?php
 
-    <?php
-
-    	$subjID = array();
+        $subjID = array();
         $subjectsIDs = 0;
 
-    	$empEmail = Yii::$app->user->identity->email;
-    	$empId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$empEmail'")->queryAll();
-    	$empId = $empId[0]['emp_id'];
+        $empEmail = Yii::$app->user->identity->email;
+        $empId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$empEmail'")->queryAll();
+        $empId = $empId[0]['emp_id'];
         $teacherId = Yii::$app->db->createCommand("SELECT teacher_subject_assign_head_id FROM teacher_subject_assign_head WHERE teacher_id = '$empId'")->queryAll();
         $headId = $teacherId[0]['teacher_subject_assign_head_id'];
 
@@ -189,15 +194,15 @@ transition: all 0.4s ease-in-out;
         FROM teacher_subject_assign_detail as tsad
         WHERE tsad.class_id = '$id' AND tsad.teacher_subject_assign_detail_head_id = '$headId'")->queryAll();
         
-        	?>
-   
-    	   <div class="col-md-6">
-                <div class="box box-success collapsed-box" >
-                    <div class="box-header with-border" style="background-color: #dff0d8;padding: 15px;">
+            ?>
+
+           <div class="col-md-6">
+                <div class="box box-danger collapsed-box" >
+                    <div class="box-header with-border" style="background-color:#d6484838;padding: 15px;">
                         <h3 class="box-title">
-                          	<b>
-            				<?php echo $CLASSName[0]['std_enroll_head_name']; ?>
-            				</b>
+                            <b>
+                            <?php echo $CLASSName[0]['std_enroll_head_name']; ?>
+                            </b>
                         </h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse">  <br><i class="fa fa-plus" style="font-size:15px;"></i>
@@ -207,6 +212,7 @@ transition: all 0.4s ease-in-out;
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
+
                     	<?php 
                     		foreach ($subjectsIDs as $key => $value) {
                                     
@@ -215,10 +221,11 @@ transition: all 0.4s ease-in-out;
                     			$subjectsNames = Yii::$app->db->createCommand("SELECT subject_name
         						FROM subjects WHERE subject_id = '$SubID'")->queryAll();
                     	?>
+
                         <tr>
                         <td>
-                            <button type="button" class="btn btn-default" title="Click here for activity" data-toggle="modal" data-target="#<?php echo $SubID; ?>">
-                               <i class="fa fa-book" style="background-color:  #dff0d8; border:1px solid #00a65a; padding:5px ;border-radius:20px;font-size:20px; color:#00a65a;">
+                            <button type="button" class="btn" style="background-color:;" title="Click here for activity" data-toggle="modal" data-target="#<?php echo $value['subject_id']; ?>">
+                               <i class="fa fa-book" style="background-color:#d9534f; border:1px solid; padding:5px ;border-radius:20px;font-size:25px; color:white;">
                                    
                                </i>
                                <br> <?php echo $subjectsNames[0]['subject_name']; ?> 
@@ -242,19 +249,90 @@ transition: all 0.4s ease-in-out;
     //end of for loop
     } 
     ?>
-
-<div class="modal fade col-md-12" id="<?php echo $SubID; ?>">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">
-                    <b>
-                        <?php echo $CLASSName[0]['std_enroll_head_name']; ?>
-                    </b><br>
-                  <?php echo $subjectsNames[0]['subject_name']; ?>  
-                </h4>
+    <div class="modal fade col-md-12" id="<?php echo $value['subject_id']; ?>">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">
+            <b>
+                <?php echo $CLASSName[0]['std_enroll_head_name']; ?>
+            </b><br>
+          <?php echo $subjectsNames[0]['subject_name']; ?>  
+        </h4>
+      </div>
+      <form method="" action="">
+        <div class="modal-body">
+         
+          <div class="row container-fluid">
+    <div class="box box-danger">
+        <div class="box-header" style="background-color:#d6484838;">
+            <h2 style="text-align: center;">Teacher Activity Panel</h2>
+        </div>
+        
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" >
+                    <div class="offer offer-radius offer-danger">
+                        <div class="shape">
+                            <div class="shape-text">
+                                <span class="glyphicon glyphicon glyphicon-th"></span>                          
+                            </div>
+                        </div>
+                        <div class="offer-content">
+                            <h4 class="">
+                            Attendance
+                            </h4>
+                            <a href="./take-attendance?sub_id=<?php echo $SubID;?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>">Take attendance</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="offer offer-radius offer-success">
+                        <div class="shape">
+                            <div class="shape-text">
+                                <span class="glyphicon glyphicon glyphicon-eye-open"></span>                            
+                            </div>
+                        </div>
+                        <div class="offer-content">
+                            <h4 class="">
+                                Reports
+                            </h4>
+                            <a href="./view-attendance?sub_id=<?php echo $SubID;?>&class_id=<?php echo $id; ?>&emp_id=<?php echo $empId; ?>">View attendance reports</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="offer offer-radius offer-primary">
+                        <div class="shape">
+                            <div class="shape-text">
+                                <span class="glyphicon  glyphicon-user"></span>                         
+                            </div>
+                        </div>
+                        <div class="offer-content">
+                            <h4 class="">
+                                Assignment
+                            </h4>
+                            <a href="">View assignment</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="offer offer-radius offer-info">
+                        <div class="shape">
+                            <div class="shape-text">
+                                <span class="glyphicon  glyphicon-bell"></span>                         
+                            </div>
+                        </div>
+                        <div class="offer-content">
+                            <h4 class="">
+                                Quiz
+                            </h4>
+                            <a href="">View Quiz</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <form method="" action="">
                 <div class="modal-body">
@@ -404,9 +482,12 @@ transition: all 0.4s ease-in-out;
     </div>
   <!-- /.modal-dialog -->
 </div>  
-
+        </div>
+    </div>
+</div> 
 </body>
 </html>
+<<<<<<< HEAD
 
 <?php 
 if (isset($_POST["save"])) {
@@ -448,3 +529,5 @@ if (isset($_POST["save"])) {
 // closing of if isset
 }
 ?>
+=======
+>>>>>>> 7efd999e1a1e06a2b3ac257a2e7aefaefd32d41a

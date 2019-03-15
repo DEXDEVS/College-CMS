@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\web\ForbiddenHttpException; 
 
 /**
  * StdClassNameController implements the CRUD actions for StdClassName model.
@@ -153,7 +154,6 @@ class StdClassNameController extends Controller
                 ]);
             }
         }
-       
     }
 
     /**
