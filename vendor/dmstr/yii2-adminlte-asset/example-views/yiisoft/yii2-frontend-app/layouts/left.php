@@ -40,8 +40,6 @@
                 'items' => [
                     ['label' => 'Menus', 'options' => ['class' => 'header center']],
                     ['label' => 'Home', 'icon' => 'dashboard', 'url' => ["./home"]],
-                    ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Login', 'url' => ['./login'], 'visible' => Yii::$app->user->isGuest],
 
                     // ------------------------------------------------
                     // Student Attendance start...
@@ -56,7 +54,7 @@
                     ],
 
                     [
-                        'label' => 'Test Attendance',
+                        'label' => 'Classes',
                         'icon' => 'user-plus',
                         'url' => './test-attendance',
                     ],

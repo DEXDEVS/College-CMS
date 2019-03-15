@@ -34,7 +34,10 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout','signup', 'index'],
+
+                        'actions' => ['logout','signup', 'index','employe-dashboard'],
+                        'actions' => ['logout','signup','index'],
+
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -61,6 +64,11 @@ class SiteController extends Controller
         ];
     }
 
+
+    public function actionEmployeDashboard()
+    {
+        return $this->render('employe-dashboard');
+    }
     /**
      * Displays homepage.
      *
@@ -68,7 +76,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('employe-dashboard');
     }
 
     /**
@@ -111,15 +119,21 @@ class SiteController extends Controller
             if(!empty($model->user_photo)){
                 $imageName = $model->username.'_photo'; 
                 $model->user_photo->saveAs('userphotos/'.$imageName.'.'.$model->user_photo->extension);
+                $model->user_photo->saveAs('./admin/userphotos/'.$imageName.'.'.$model->user_photo->extension);
                 //save the path in the db column
                 $model->user_photo = 'userphotos/'.$imageName.'.'.$model->user_photo->extension;
             } else {
                $model->user_photo = '0'; 
             }
             if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
+                // if (Yii::$app->getUser()->login($user)) {
+                //     return $this->goHome();
+                // }
+                $user->save();
+                Yii::$app->session->setFlash('success',"User created successfully");
+                return $this->goHome();
+            } else {
+                 Yii::$app->session->setFlash('success',"User not created");
             }
         }
 

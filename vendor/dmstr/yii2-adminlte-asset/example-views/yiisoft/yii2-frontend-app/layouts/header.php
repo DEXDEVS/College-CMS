@@ -3,17 +3,17 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-?>
 
-<?php 
-    $userID = Yii::$app->user->id;
+$userID = Yii::$app->user->id;
     $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
     $userPhoto = $user[0]['user_photo'];
 ?>
 
-<header class="main-header">
 
-    <?= Html::a('<span class="logo-mini"><b>SE</b></span><span class="logo-lg">' . "<b>SMART EDUCATION</b>" . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+
+<header class="main-header">
+    
+    <?= Html::a('<span class="logo-mini"><b>IC</b></span><span class="logo-lg">' . "<b>Institute on Cloud</b>" . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -218,7 +218,7 @@ use yii\helpers\Html;
                             <p>
                                 <label for="">Contact Info</label><br>
                                 <!-- email -->
-                                <?php echo Yii::$app->user->identity->email;  ?>
+                                <?= Yii::$app->user->identity->email;  ?>
                             </p>
                         </li><hr>
                         <!-- Menu Footer-->
@@ -227,7 +227,8 @@ use yii\helpers\Html;
                                 <a href="#" class="btn btn-primary btn-flat btn-sm">Profile</a>
                             </div>
                             <div class="pull-right">
-                            <?php if(Yii::$app->user->identity->username == 'superadmin'){?>
+                                <?php if(Yii::$app->user->identity->username == 'Superadmin' OR
+                                Yii::$app->user->identity->username == 'dexdevs'){?>
                                 <?= Html::a(
                                     'Add User',
                                     ['/signup'],
@@ -251,9 +252,9 @@ use yii\helpers\Html;
                 </li>
 
                 <!-- User Account: style can be found in dropdown.less -->
-                <li>
+                <!-- <li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </nav>

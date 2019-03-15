@@ -64,6 +64,7 @@ return [
                 'daterangewise-class-attendance' => 'std-attendance/daterangewise-class-attendance',
                 'daterangewise-student-attendance' => 'std-attendance/daterangewise-student-attendance',
                 'activity-view' => 'std-attendance/activity-view',
+                'employe-dashboard'=>'site/employe-dashboard',
             ],
         ],
         
