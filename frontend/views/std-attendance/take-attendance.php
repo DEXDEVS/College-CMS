@@ -13,8 +13,8 @@ $conn = \Yii::$app->db;
 				$sessionid = $classDetail[0]['session_id'];
 				$sectionid = $classDetail[0]['section_id'];
 
-				$date1	= date('Y-m-d');
-		$checkAttendance = Yii::$app->db->createCommand("SELECT * FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND CAST(date AS DATE) = '$date1'")->queryAll();
+				//$date1	= date('Y-m-d');
+		
 ?>
 
 <!DOCTYPE html>
@@ -61,8 +61,6 @@ $conn = \Yii::$app->db;
     </form>
 
 <?php  }
-	
-	if(empty($checkAttendance)){
 
 	if(isset($_POST["submit"])){
 	 	$class_id= $_POST["class_id"];
@@ -72,6 +70,9 @@ $conn = \Yii::$app->db;
 		$emp_id = $_POST["emp_id"];
 		$sub_id = $_POST["sub_id"];
 		$date = $_POST["date"];
+
+		$checkAttendance = Yii::$app->db->createCommand("SELECT * FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND CAST(date AS DATE) = '$date'")->queryAll();
+	if(empty($checkAttendance)){
 		
 		$students = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name,sed.std_enroll_detail_std_id,sed.std_enroll_detail_std_name, sed.std_roll_no
 			FROM std_enrollment_detail as sed
@@ -86,7 +87,7 @@ $conn = \Yii::$app->db;
 
 <div class="row">
 	<div class="col-md-9">
-		<form method="POST" action="take-attendance">
+		<form method="POST" action="test-attendance">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -157,51 +158,52 @@ $conn = \Yii::$app->db;
 	</div>
 </div>
 	<?php 
-	// closing of if isset (submit)
-	}
-		//closing of if
+	//closing of if
 		} else {
 		Yii::$app->session->setFlash('warning', "You have already taken attendance for this class");
 		}
+	// closing of if isset (submit)
+	}
+		
 
-		if (isset($_POST["save"])) {
-				$classnameid = $_POST["classnameid"];
-				$sessionid = $_POST["sessionid"];
-				$sectionid = $_POST["sectionid"];
-				$emp_id = $_POST["emp_id"];
-				$sub_id = $_POST["sub_id"];
-				$date = $_POST["date"];
-				$countstd = $_POST["countstd"];
-				$stdAttendId = $_POST["stdAttendance"];
+		// if (isset($_POST["save"])) {
+		// 		$classnameid = $_POST["classnameid"];
+		// 		$sessionid = $_POST["sessionid"];
+		// 		$sectionid = $_POST["sectionid"];
+		// 		$emp_id = $_POST["emp_id"];
+		// 		$sub_id = $_POST["sub_id"];
+		// 		$date = $_POST["date"];
+		// 		$countstd = $_POST["countstd"];
+		// 		$stdAttendId = $_POST["stdAttendance"];
 				
-				for($i=0; $i<$countstd;$i++){
-					$q=$i+1;
-					$std = "std".$q;
-					$status[$i] = $_POST["$std"];
+		// 		for($i=0; $i<$countstd;$i++){
+		// 			$q=$i+1;
+		// 			$std = "std".$q;
+		// 			$status[$i] = $_POST["$std"];
 
-				}
+		// 		}
 				
-				$transection = $conn->beginTransaction();
-				try{
-					for($i=0; $i<$countstd; $i++){
-					$attendance = $conn->createCommand()->insert('std_attendance',[
-						'teacher_id' => $emp_id,
-						'class_name_id' => $classnameid,
-						'session_id'=> $sessionid,
-						'section_id'=> $sectionid,
-						'subject_id'=> $sub_id,
-						'date' => $date,
-						'student_id' => $stdAttendId[$i],
-						'status' => $status[$i],
-					])->execute();
-					}
-					$transection->commit();
-				} catch(Exception $e){
-					$transection->rollback();
-				}
-				
-		// closing of if isset
-		}
+		// 		$transection = $conn->beginTransaction();
+		// 		try{
+		// 			for($i=0; $i<$countstd; $i++){
+		// 			$attendance = $conn->createCommand()->insert('std_attendance',[
+		// 				'teacher_id' => $emp_id,
+		// 				'class_name_id' => $classnameid,
+		// 				'session_id'=> $sessionid,
+		// 				'section_id'=> $sectionid,
+		// 				'subject_id'=> $sub_id,
+		// 				'date' => $date,
+		// 				'student_id' => $stdAttendId[$i],
+		// 				'status' => $status[$i],
+		// 			])->execute();
+		// 			}
+		// 			$transection->commit();
+		// 		} catch(Exception $e){
+		// 			$transection->rollback();
+		// 		}
+		// 		Yii::$app->session->setFlash('success', "Attendance marked successfully...!");
+		// // closing of if isset
+		// }
 	 ?>
 </body>
 </html>
