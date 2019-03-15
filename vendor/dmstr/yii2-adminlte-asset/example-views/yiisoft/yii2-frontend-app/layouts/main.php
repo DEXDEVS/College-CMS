@@ -36,7 +36,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body class="hold-transition skin-green-light sidebar-mini">
+    <body class="hold-transition skin-red-light sidebar-mini">
     <?php $this->beginBody() ?>
     <div class="wrapper">
 
