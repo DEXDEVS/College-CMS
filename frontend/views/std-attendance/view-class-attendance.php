@@ -15,16 +15,10 @@
             </div>    
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Current Date</label>
-                    <input class="form-control" data-date-format="dd/mm/yyyy" type="date" name="date" required="">
-                </div>    
-            </div>
             <?php
-                $techerEmail = Yii::$app->user->identity->email;
-                $teacherId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$techerEmail'")->queryAll();
-                $teacher_id = $teacherId[0]['emp_id'];
+                $empEmail = Yii::$app->user->identity->email;
+                $empId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$empEmail'")->queryAll();
+                $teacher_id = $empId[0]['emp_id'];
                 $classId = Yii::$app->db->createCommand("SELECT DISTINCT d.class_id FROM teacher_subject_assign_detail as d INNER JOIN teacher_subject_assign_head as h ON d.teacher_subject_assign_detail_head_id = h.teacher_subject_assign_head_id WHERE h.teacher_id = '$teacher_id'")->queryAll();
             ?>
             <div class="col-md-3">
@@ -65,16 +59,7 @@
                             <option value="">Select Section</option>
                     </select>      
                 </div>    
-            </div> 
-
-            <!-- <div class="col-md-3">
-                <div class="form-group">
-                    <label>Select Subject</label>
-                    <select class="form-control" name="subjectid" id="subjectId">
-                            <option value="">Select Subject</option>
-                    </select>      
-                </div>    
-            </div>  -->             
+            </div>             
             <div class="col-md-2 col-md-offset-10">
                 <div class="form-group">
                     <label></label>
@@ -91,39 +76,71 @@
         $classid= $_POST["classid"];
         $sessionid = $_POST["sessionid"];
         $sectionid = $_POST["sectionid"];
-        $date = $_POST["date"];
 
         //Select studnet roll no and name
         $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id, sed.std_roll_no FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
-        
+        $studentLength = count($student);
+
+        //creating array for student attendance
+        $attendanceArr = array();
+        for( $sId=0; $sId<$studentLength; $sId++) {
+            $stdId = $student[$sId]['std_enroll_detail_std_id'];
+            $attendance = Yii::$app->db->createCommand("SELECT subject_id,CAST(date AS DATE),status,student_id FROM std_attendance WHERE class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND student_id = '$stdId' ")->queryAll();
+            $attendanceArr[$sId] = $attendance;
+        }
+        for($z=0; $z<$studentLength; $z++){
+            for ($y=0; $y<15; $y++){
+            }
+        }
+        // foreach ($attendanceArr as $key => $value) {
+        //     var_dump($value);
+        //     echo "<br>";
+        // }
         // Selected Class Name
         $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
         // get Sbjects for selected class
         $subjectComb = Yii::$app->db->createCommand("SELECT std_subject_name FROM std_subjects WHERE class_id = '$classid'")->queryAll();
-        $sub = $subjectComb[0]['std_subject_name'];
-        $subject = explode(',', $sub);
-        $subjectlength = count($subject);
+        $subComb = $subjectComb[0]['std_subject_name'];
+        $singleSubject = explode(',', $subComb);
+        $subjectlength = count($singleSubject);
         $subjectId = array();
         $subjectAlias = array();
-        foreach ($subject as $key => $subj) {
-            
-            // get subject alias
-        //$sub = $subj;
+        foreach ($singleSubject as $key => $subj) {
         $subAls = Yii::$app->db->createCommand("SELECT subject_id, subject_alias FROM subjects WHERE subject_name like '%$subj%'")->queryAll();
                 
         $subjectAlias[$key] = $subAls[0]['subject_alias'];
         $subjectId[$key] = $subAls[0]['subject_id'];
         }
+        //get current month and date
+        $currentMonth =date('F Y');
+        $m = date('m-Y');
+        $lastDateOfMonth = date("Y-m-t", strtotime($currentMonth));
+        $lastDate = explode('-', $lastDateOfMonth);
+        $lDate = $lastDate[2];
 
-        // Select attandance
-        // $attendance = Yii::$app->db->createCommand("SELECT subject_id, student_id, status FROM std_attendance  WHERE class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid'")->queryAll();  
-        //     $attenSubId = $attendance[0]['subject_id'];
-        // foreach ($subjectId as $key => $subId) {
-        //     if ($attenSubId == $subId) {
-        //         $subjAlias = $subjectAlias[$key];
-        //     }
-        // }
-             
+        $temp = $lDate / 7;
+        if($temp == 4){
+            $rowCount = $temp;
+        } else {
+            $rowCount = 5;
+        }
+        $d=0;
+
+        // getting sunday of the current month....
+        function getSundays($m){ 
+            $date = "$m-01";
+            $first_day = date('N',strtotime($date));
+            $first_day = 7 - $first_day + 1;
+            $last_day =  date('t',strtotime($date));
+            $days = array();
+            for($i=$first_day; $i<=$last_day; $i=$i+7 ){
+                $days[] = $i;
+            }
+            return  $days;
+        }
+
+        $days = getSundays(2016,04);
+        print_r($days);
         ?> 
 
 <div class="container-fluid">
@@ -132,109 +149,125 @@
           <div class="box">
             <div class="box-header label-success">
               <h3 class="box-title"><?php echo $className[0]['class_name']; ?></h3>
-              <h3 class="box-title" style="float: right;">Attendance (January - 2019)</h3>
+              <h3 class="box-title" style="float: right;"><?php echo "Attendance ( ".$currentMonth." )"; ?></h3>
             </div>
             <!-- /.box-header -->
+            <?php for ($row=0; $row <$rowCount ; $row++) {  ?>
             <div class="box-body table-responsive no-padding">
+                
               <table class="table table-hover table-bordered table-striped">
-                <?php $crruntDate =0; 
-                      $d = 0;
-                      $cd = 0;?>
+            
                 <tr>
                   	<th rowspan="2">Sr<br>#</th>
 					<th rowspan="2">Roll<br>#</th>
 					<th rowspan="2">Student<br>Name</th>
 					<?php 
-						for ($i=1; $i <=7 ; $i++) { 
-                            // list($y,$m,$d)=explode('-',$date);
-                            // $date2 = Date("Y-m-d", mktime(0,0,0,$m,$d+$i,$y));
-                            $d = '0'.$i;
-							echo "<th colspan='6' style='text-align: center;'>$d-03-2019</th>";
-                            $cd = explode('-',$date);
-						} 
+                        $countDate=0;
+                        for ($date=1; $date <= 7 ; $date++) { 
+                             $d++;
+                             if ($d <= $lDate) {
+                                echo "<th colspan='6' style='text-align: center;'>$d-$m</th>";  
+                                $countDate++;
+                             }
+                        }
 					?>
                 </tr>
                 <tr>
                 	<?php 
-                    for ($i=0; $i <7 ; $i++) { 
-                		for ($j=0; $j <$subjectlength ; $j++) { ?>
-						<th style='padding: 1px 5px'><?php echo $subjectAlias[$j]; ?></th>
+                    for ($r=0; $r <$countDate ; $r++) { 
+                        //loop to print subjects
+                		for ($s=0; $s <$subjectlength ; $s++) { ?>
+						<th style='padding: 1px 5px'><?php echo $subjectAlias[$s]; ?></th>
 					<?php	
                         }
                     } 
                 	?>
                 </tr>
 
-                <?php $length = count($student);
-                        
-                        for( $i=0; $i<$length; $i++) { ?>
+                <?php   for( $std=0; $std<$studentLength; $std++) { ?>
                             <tr>
-                                <td><?php echo $i+1; ?></td>
-                                <td><?php echo $student[$i]['std_roll_no']; ?></td>
-                                <?php $stdId = $student[$i]['std_enroll_detail_std_id'];
+                                <td><?php echo $std+1; ?></td>
+                                <td><?php echo $student[$std]['std_roll_no']; ?></td>
+                                <?php $stdId = $student[$std]['std_enroll_detail_std_id'];
                                       $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll(); 
+                                      
+                                      $attendanceCount = count($attendance);
+                                      $attSubject = $attendance[0]['subject_id'];
+                                      $subAls = Yii::$app->db->createCommand("SELECT subject_alias FROM subjects WHERE subject_id = '$attSubject' ")->queryAll();
+                                      $subjAlias = $subAls[0]['subject_alias'];
+                                      
+                                var_dump($attendanceArr[$std][0]['student_id']);
                                 ?>
                                 <td><?php echo $stdName[0]['std_name']; ?></td>
-                                <?php for ($k=1; $k <=7 ; $k++) { 
-                                for ($j=0; $j<$subjectlength ; $j++) {  ?>
-                                    <td></td>
-                    <?php
-                                // end of j loop
-                                }   
-                        //end of k loop      
-                        } ?>
+                                <?php for ($k=1; $k <=$countDate ; $k++) {
+                                            for ($j=0; $j<$subjectlength ; $j++) {  
+                                    ?>
+                                    <td>
+                                        <?php 
+                                            if ($subjectAlias[$j] == $subjAlias) {
+
+                                            }
+                                        ?>
+                                    </td>
+
+                                <?php       // end of j loop
+                                            } 
+                                    //end of k loop      
+                                    } ?>
                         </tr>
-                    <?php //end of i loop 
+                    <?php //end of std loop 
                         } ?> 
                 
               </table>
-
-              <hr>
+                    
               
-              <div class="row">
-              	<div class="col-md-5">
-	              <table class="table-bordered table table-condensed">
-	              	<tr class="label-success">
-	              		<th colspan="3" class="text-center">Lectures</th>
-	              	</tr>
-	              	<tr>
-	              		<th>Previous Lectures</th>
-	              		<th>Current Lectures</th>
-	              		<th>Total Lectures</th>
-	              	</tr>
-	              	<tr align="center">
-	              		<td>24</td>
-	              		<td>24</td>
-	              		<td>48</td>
-	              	</tr>		
-	              </table>
-              	</div>
-              	<div class="col-md-6 col-md-offset-1">
-	              <table class="table-bordered table table-condensed">
-	              	<tr class="label-success">
-	              		<th colspan="4" class="text-center">Attendance</th>
-	              	</tr>
-	              	<tr>
-	              		<th>Previous Percentage</th>
-	              		<th>Month Attendance</th>
-	              		<th>Total</th>
-	              		<th>% Percentage</th>
-	              	</tr>
-	              	<tr align="center">
-	              		<td>90%</td>
-	              		<td>- - -</td>
-	              		<td>- - -</td>
-	              		<td>- - -</td>
-	              	</tr>		
-	              </table>
-              	</div>
+            <?php 
+                    } ?>
+            <!-- /.box-body -->
+          </div>
+          <hr>
+          <div class="row">
+                <div class="col-md-5">
+                  <table class="table-bordered table table-condensed">
+                    <tr class="label-success">
+                        <th colspan="3" class="text-center">Lectures</th>
+                    </tr>
+                    <tr>
+                        <th>Previous Lectures</th>
+                        <th>Current Lectures</th>
+                        <th>Total Lectures</th>
+                    </tr>
+                    <tr align="center">
+                        <td>24</td>
+                        <td>24</td>
+                        <td>48</td>
+                    </tr>       
+                  </table>
+                </div>
+                <div class="col-md-6 col-md-offset-1">
+                  <table class="table-bordered table table-condensed">
+                    <tr class="label-success">
+                        <th colspan="4" class="text-center">Attendance</th>
+                    </tr>
+                    <tr>
+                        <th>Previous Percentage</th>
+                        <th>Month Attendance</th>
+                        <th>Total</th>
+                        <th>% Percentage</th>
+                    </tr>
+                    <tr align="center">
+                        <td>90%</td>
+                        <td>- - -</td>
+                        <td>- - -</td>
+                        <td>- - -</td>
+                    </tr>       
+                  </table>
+                </div>
               </div>
 
               <hr>
 
             </div>
-            <!-- /.box-body -->
-          </div>
           <!-- /.box -->
         </div>
     </div>

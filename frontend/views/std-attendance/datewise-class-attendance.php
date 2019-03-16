@@ -19,7 +19,7 @@
                 <h2 class="text-center text-danger">Date Wise Class Attendance</h2>
             </div>
             <div class="box-body">
-                <form  action = "datewise-class-attendance" method="POST">
+                <form method="POST">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
@@ -104,7 +104,7 @@
                 <div class="box-body">
                     <div class="row">
                 <div class="col-md-12">
-                    <form method="POST" action="view-attendance">
+                    <form method="POST" action="datewise-class-attendance">
                     <table class="table table-hover">
                         <thead>
                             <tr style="background-color:#d6484838; ">
