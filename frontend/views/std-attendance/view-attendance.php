@@ -127,6 +127,11 @@ body{
         $emp_id = $_GET['emp_id'];     
         
 ?>
+ <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="./activity-view?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right; margin-right: 16px;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+        </div>
+    </div>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="container-fluid" style="margin-top:5px">

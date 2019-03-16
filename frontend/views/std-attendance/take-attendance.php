@@ -84,7 +84,22 @@ $conn = \Yii::$app->db;
 
 		$subName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$sub_id'")->queryAll();
 		?>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance</title>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			
+		</div>
+		<div class="col-md-9">
+			
+		</div>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-9">
 		<form method="POST" action="test-attendance">

@@ -19,6 +19,12 @@
 </head>
 <body>
 <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-9">
+                    <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+            </div>
+        </div>
+    <br>
     <div class="box box-danger">
         <div class="box-header"style="padding:0px;background-color: #d6484838;">
             <h2 class="text-center text-danger">Date Wise Student Attendance</h2>
