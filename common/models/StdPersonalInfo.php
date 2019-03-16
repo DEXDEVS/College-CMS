@@ -29,7 +29,7 @@ use Yii;
  * @property string $updated_at
  * @property int $created_by
  * @property int $updated_by
- * @property int $delete_status
+ 
  *
  * @property FeeTransactionHead[] $feeTransactionHeads
  * @property StdAcademicInfo[] $stdAcademicInfos

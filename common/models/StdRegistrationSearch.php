@@ -17,7 +17,7 @@ class StdRegistrationSearch extends StdRegistration
     public function rules()
     {
         return [
-            [['std_id', 'created_by', 'updated_by', 'delete_status'], 'integer'],
+            [['std_id', 'created_by', 'updated_by'], 'integer'],
             [['std_reg_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_DOB', 'std_gender', 'std_permanent_address', 'std_temporary_address', 'std_email', 'std_photo', 'std_b_form', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel', 'status', 'academic_status', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -64,7 +64,6 @@ class StdRegistrationSearch extends StdRegistration
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
-            'delete_status' => $this->delete_status,
         ]);
 
         $query->andFilterWhere(['like', 'std_reg_no', $this->std_reg_no])

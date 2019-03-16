@@ -19,7 +19,7 @@ class StdGuardianInfoSearch extends StdGuardianInfo
     {
         return [
             [['std_guardian_info_id', 'std_id', 'guardian_monthly_income', 'created_by', 'updated_by'], 'integer'],
-            [['guardian_name', 'guardian_relation', 'guardian_cnic', 'guardian_email', 'guardian_contact_no_1', 'guardian_contact_no_2', 'guardian_occupation', 'guardian_designation', 'created_at', 'updated_at', 'delete_status'], 'safe'],
+            [['guardian_name', 'guardian_relation', 'guardian_cnic', 'guardian_email', 'guardian_contact_no_1', 'guardian_contact_no_2', 'guardian_occupation', 'guardian_designation', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -72,8 +72,7 @@ class StdGuardianInfoSearch extends StdGuardianInfo
             ->andFilterWhere(['like', 'guardian_contact_no_1', $this->guardian_contact_no_1])
             ->andFilterWhere(['like', 'guardian_contact_no_2', $this->guardian_contact_no_2])
             ->andFilterWhere(['like', 'guardian_occupation', $this->guardian_occupation])
-            ->andFilterWhere(['like', 'guardian_designation', $this->guardian_designation])
-            ->andFilterWhere(['like', 'delete_status', $this->delete_status]);
+            ->andFilterWhere(['like', 'guardian_designation', $this->guardian_designation]);
 
         return $dataProvider;
     }
