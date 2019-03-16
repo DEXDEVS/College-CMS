@@ -161,7 +161,7 @@ transition: all 0.4s ease-in-out;
 		<div class="col-md-9">
 			<div class="box box-danger">
 		<div class="box-header" style="background-color:#d6484838;padding: 3px;">
-			 <h2 class="text-center text-danger" style="font-family: georgia;">Activity Panel</h2><hr style="border-color:#d6484838;">
+			 <h2 class="text-center text-danger" style="font-family: georgia;">Activity Panel</h2>
 		</div>
 		
 		<div class="box-body">

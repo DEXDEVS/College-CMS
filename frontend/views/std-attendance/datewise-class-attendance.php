@@ -72,8 +72,7 @@
     $sessionid = $classDetail[0]['session_id'];
     $sectionid = $classDetail[0]['section_id'];
     
-?> 
-<div class="container-fluid">     
+?>      
     <div class="row">
         <div class="col-md-3">
             <div class="box box-danger">
@@ -111,10 +110,10 @@
                     <div class="row">
                 <div class="col-md-12">
                     <form method="POST" action="datewise-class-attendance">
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive">
                         <thead>
                             <tr style="background-color:#d6484838; ">
-                                <th >Sr #.</th>
+                                <th>Sr #.</th>
                                 <th >Roll #.</th>
                                 <th >Name</th>
                                 <th>Attendance</th>
@@ -155,7 +154,6 @@
             </div>
         </div>
     </div>
-</div>
 <?php
 //closing of $_POST
 }

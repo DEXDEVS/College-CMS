@@ -157,7 +157,7 @@
                     <li style="list-style-type: none;margin-top: -20px;">
                         <b>Class:</b>
                         <p>
-                            <?php echo $students[0]['std_enroll_head_name']; ?>
+                            <?php echo $student[0]['std_enroll_head_name']; ?>
                         </p>
                     </li><br>
                     <li style="list-style-type: none;">
@@ -180,7 +180,7 @@
                              <form method="POST" action="daterangewise-student-attendance">
                                 <table class="table table-hover">
                                     <thead>
-                                        <?php 
+                                        <?php
                                         $stdId = $students[0]['std_enroll_detail_std_id'];
                                         $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll(); 
                                         $count = count($atten);
@@ -204,8 +204,8 @@
                                     <tbody>
                                         <tr>
                                             <td><?php echo 1 ?></td>
-                                            <td><?php echo $students[0]['std_roll_no']; ?></td>
-                                            <td><?php echo $students[0]['std_enroll_detail_std_name'];?></td>
+                                            <td><?php echo $student[0]['std_roll_no']; ?></td>
+                                            <td><?php echo $student[0]['std_enroll_detail_std_name'];?></td>
                                                 <?php 
                                                 $stdId = $students[0]['std_enroll_detail_std_id'];
                                                 $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll();
@@ -215,10 +215,6 @@
                                             <?php } ?>
 
                                         </tr>
-                                        
-                                        <?php
-                                        //closing for loop
-                                        } ?>
                                     </tbody>
                                 </table>
                             </form>
