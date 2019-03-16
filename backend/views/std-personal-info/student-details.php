@@ -201,7 +201,12 @@
                               <form method="get" action="">
                                 <div class="modal-body">  
                                   <label>Reciever Name</label>
-                                  <input type="hidden" name="to" value="<?php echo $stdPersonalInfo[0]['std_contact_no']; ?>" class="form-control">
+                                  <?php 
+                                    $number = $stdPersonalInfo[0]['std_contact_no']; 
+                                    $num = str_replace('-','',$number);
+                                    $no = str_replace('+','',$num);
+                                  ?>
+                                  <input type="text" name="to" value="<?php echo $no; ?>" class="form-control">
                                   <input type="text" name="std_name" value="<?php echo $stdPersonalInfo[0]['std_name']; ?>" class="form-control" readonly=""><br>
                                   <label>SMS Content</label>
                                     <textarea name="message" rows="5" class="form-control" id="message"></textarea>

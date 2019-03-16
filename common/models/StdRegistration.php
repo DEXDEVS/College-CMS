@@ -29,7 +29,6 @@ use Yii;
  * @property string $updated_at
  * @property int $created_by
  * @property int $updated_by
- * @property int $delete_status
  *
  * @property FeeTransactionHead[] $feeTransactionHeads
  * @property StdAcademicInfo[] $stdAcademicInfos
@@ -60,9 +59,9 @@ class StdRegistration extends \yii\db\ActiveRecord
             [['std_reg_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_DOB', 'std_gender', 'std_permanent_address', 'std_temporary_address', 'std_email', 'std_photo', 'std_b_form', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel', 'status', 'academic_status', 'created_by', 'updated_by'], 'required'],
             [['std_DOB', 'created_at', 'updated_at'], 'safe'],
             [['std_gender', 'status', 'academic_status'], 'string'],
-            [['created_by', 'updated_by', 'delete_status'], 'integer'],
+            [['created_by', 'updated_by'], 'integer'],
             [['std_reg_no', 'std_name', 'std_father_name', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel'], 'string', 'max' => 50],
-            [['std_contact_no'], 'string', 'max' => 12],
+            [['std_contact_no'], 'string', 'max' => 15],
             [['std_permanent_address', 'std_temporary_address', 'std_b_form'], 'string', 'max' => 255],
             [['std_email'], 'string', 'max' => 84],
             [['std_photo'], 'string', 'max' => 200],
@@ -97,7 +96,6 @@ class StdRegistration extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
-            'delete_status' => 'Delete Status',
         ];
     }
 

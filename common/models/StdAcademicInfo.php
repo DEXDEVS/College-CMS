@@ -24,7 +24,6 @@ use Yii;
  * @property string $updated_at
  * @property int $created_by
  * @property int $updated_by
- * @property int $delete_status
  *
  * @property StdPersonalInfo $std
  * @property StdClassName $className
@@ -47,7 +46,7 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
     {
         return [
             [['std_id', 'class_name_id', 'subject_combination', 'previous_class', 'passing_year', 'previous_class_rollno', 'grades', 'Institute', 'std_enroll_status', 'created_by', 'updated_by'], 'required'],
-            [['std_id', 'class_name_id', 'subject_combination', 'previous_class_rollno', 'total_marks', 'obtained_marks', 'created_by', 'updated_by', 'delete_status'], 'integer'],
+            [['std_id', 'class_name_id', 'subject_combination', 'previous_class_rollno', 'total_marks', 'obtained_marks', 'created_by', 'updated_by'], 'integer'],
             [['grades'], 'string', 'max' => 10],
             [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['previous_class', 'Institute', 'percentage'], 'string', 'max' => 50],
@@ -82,7 +81,6 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
-            'delete_status' => 'Delete Status',
         ];
     }
 

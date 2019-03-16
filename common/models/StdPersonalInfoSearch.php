@@ -19,7 +19,7 @@ class StdPersonalInfoSearch extends StdPersonalInfo
     {
         return [
             [['std_id', 'created_by', 'updated_by'], 'integer'],
-            [['std_reg_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_DOB', 'std_gender', 'std_permanent_address', 'std_temporary_address', 'std_email', 'std_photo', 'std_b_form', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel', 'status', 'academic_status', 'created_at', 'updated_at', 'delete_status'], 'safe'],
+            [['std_reg_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_DOB', 'std_gender', 'std_permanent_address', 'std_temporary_address', 'std_email', 'std_photo', 'std_b_form', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel', 'status', 'academic_status', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -79,8 +79,7 @@ class StdPersonalInfoSearch extends StdPersonalInfo
             ->andFilterWhere(['like', 'std_nationality', $this->std_nationality])
             ->andFilterWhere(['like', 'std_tehseel', $this->std_tehseel])
             ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['like', 'academic_status', $this->academic_status])
-            ->andFilterWhere(['like', 'delete_status', $this->delete_status]);
+            ->andFilterWhere(['like', 'academic_status', $this->academic_status]);
 
         return $dataProvider;
     }
