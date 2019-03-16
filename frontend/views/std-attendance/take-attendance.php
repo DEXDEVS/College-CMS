@@ -33,6 +33,16 @@ $conn = \Yii::$app->db;
     <title>Attendance</title>
 </head>
 <body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			
+		</div>
+		<div class="col-md-9">
+			
+		</div>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-9">
 		<form method="POST" action="take-attendance">

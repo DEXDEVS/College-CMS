@@ -163,7 +163,7 @@ transition: all 0.4s ease-in-out;
 <div class="container-fluid">
     <div class="box box-danger">
         <div class="box-header">
-           <h2 class="text-center text-danger">List of Classes</h2><hr> 
+           <h2 class="text-center text-danger">List of Classes</h2><hr style="border-color:#d6484838;"> 
         </div>
         <div class="box-body">
             <?php
@@ -216,16 +216,16 @@ transition: all 0.4s ease-in-out;
                                 $subjectsNames = Yii::$app->db->createCommand("SELECT subject_name
                                 FROM subjects WHERE subject_id = '$SubID'")->queryAll();
                         ?>
-                        <tr>
+                    
                         <td>
-                            <button type="button" class="btn" style="background-color:;" title="Click here for activity" data-toggle="modal" data-target="#<?php echo $value['subject_id']; ?>">
-                               <i class="fa fa-book" style="background-color:#d9534f; border:1px solid; padding:5px ;border-radius:20px;font-size:25px; color:white;">
-                                   
-                               </i>
-                               <br> <?php echo $subjectsNames[0]['subject_name']; ?> 
-                            </button>
+                            <a href="./activity-view?sub_id=<?php echo $SubID;?>&class_id=<?php echo $id;?>&emp_id=<?php echo $empId;?>" class="btn btn-default">
+                               <i class="fa fa-book" style="background-color:#d9534f; border:1px solid; padding:5px ;border-radius:50px;font-size:25px; color:white;"> 
+                                
+                               </i><br>
+                               <?php echo $subjectsNames[0]['subject_name']; ?>  
+                            </a>
                         </td>
-                        </tr>
+                        
                     <?php   
                         //end of foreach
                         } ?>

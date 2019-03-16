@@ -28,9 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $form->field($model, 'last_name')->textInput() ?>
                     </div>
                     <div class="col-md-4">
-                        <?= $form->field($model, 'username')->dropDownList(
-                            ArrayHelper::map(Users::find()->all(),'user_name','user_name'), ['prompt'=>'Select User Name']
-                        )?>
+                        <?= $form->field($model, 'username')->textInput() ?>
                     </div>
                 </div>
                 <div class="row">
