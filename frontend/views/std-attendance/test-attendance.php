@@ -234,6 +234,7 @@ transition: all 0.4s ease-in-out;
                         </tr>
                     <?php   
                         //end of foreach
+
                         } 
 
                                 
@@ -249,6 +250,8 @@ transition: all 0.4s ease-in-out;
     //end of for loop
     } 
     ?>
+
+
     <div class="modal fade col-md-12" id="<?php echo $value['subject_id']; ?>">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

@@ -80,7 +80,22 @@
         //Select studnet roll no and name
         $student = Yii::$app->db->createCommand("SELECT sed.std_enroll_detail_id ,sed.std_enroll_detail_std_id, sed.std_roll_no FROM std_enrollment_detail as sed INNER JOIN std_enrollment_head as seh ON seh.std_enroll_head_id = sed.std_enroll_detail_head_id WHERE seh.class_name_id = '$classid' AND seh.session_id = '$sessionid' AND seh.section_id = '$sectionid'")->queryAll();
         $studentLength = count($student);
-        
+
+        //creating array for student attendance
+        $attendanceArr = array();
+        for( $sId=0; $sId<$studentLength; $sId++) {
+            $stdId = $student[$sId]['std_enroll_detail_std_id'];
+            $attendance = Yii::$app->db->createCommand("SELECT subject_id,CAST(date AS DATE),status,student_id FROM std_attendance WHERE class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND student_id = '$stdId' ")->queryAll();
+            $attendanceArr[$sId] = $attendance;
+        }
+        for($z=0; $z<$studentLength; $z++){
+            for ($y=0; $y<15; $y++){
+            }
+        }
+        // foreach ($attendanceArr as $key => $value) {
+        //     var_dump($value);
+        //     echo "<br>";
+        // }
         // Selected Class Name
         $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
         // get Sbjects for selected class
@@ -96,7 +111,7 @@
         $subjectAlias[$key] = $subAls[0]['subject_alias'];
         $subjectId[$key] = $subAls[0]['subject_id'];
         }
-        //grt current month and date
+        //get current month and date
         $currentMonth =date('F Y');
         $m = date('m-Y');
         $lastDateOfMonth = date("Y-m-t", strtotime($currentMonth));
@@ -111,20 +126,6 @@
         }
         $d=0;
 
-        //get attendance for students
-        for( $sId=0; $sId<$studentLength; $sId++) { 
-            $stdId = $student[$sId]['std_enroll_detail_std_id'];
-            $attendance = Yii::$app->db->createCommand("SELECT subject_id,CAST(date AS DATE),status,student_id FROM std_attendance WHERE class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND student_id = '$stdId' ")->queryAll();
-            $attendanceArr[$sId] = $attendance; 
-            // var_dump($attendanceArr[$sId]);
-            //  echo "<br>";
-        }
-        $attC = count($attendanceArr);
-        var_dump($attC);
-        foreach ($attendanceArr as $key => $value) {
-            // var_dump($value);
-            // echo "<br>";
-        }
         // getting sunday of the current month....
         function getSundays($m){ 
             $date = "$m-01";
@@ -190,28 +191,27 @@
                                 <?php $stdId = $student[$std]['std_enroll_detail_std_id'];
                                       $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll(); 
                                       
-                                      $c = count($attendance);
-                                      echo $c;
-                                          
+                                      $attendanceCount = count($attendance);
+                                      $attSubject = $attendance[0]['subject_id'];
+                                      $subAls = Yii::$app->db->createCommand("SELECT subject_alias FROM subjects WHERE subject_id = '$attSubject' ")->queryAll();
+                                      $subjAlias = $subAls[0]['subject_alias'];
                                       
+                                var_dump($attendanceArr[$std][0]['student_id']);
                                 ?>
                                 <td><?php echo $stdName[0]['std_name']; ?></td>
-                                <?php for ($k=1; $k <=$countDate ; $k++) { 
-                                        foreach ($attendance as $key => $value) {
+                                <?php for ($k=1; $k <=$countDate ; $k++) {
                                             for ($j=0; $j<$subjectlength ; $j++) {  
                                     ?>
                                     <td>
                                         <?php 
-                                            if ($subjectAlias[$j] == 'Cm') {
-                                                echo $attendance[$key]['status'];
+                                            if ($subjectAlias[$j] == $subjAlias) {
+
                                             }
                                         ?>
                                     </td>
 
                                 <?php       // end of j loop
                                             } 
-                                        //end of foreach
-                                        }
                                     //end of k loop      
                                     } ?>
                         </tr>
