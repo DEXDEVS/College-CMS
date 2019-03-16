@@ -59,7 +59,7 @@ use yii\helpers\Url;
                 </div>  
                 <div class="col-md-4">
                    <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 156px; top: 6px"></i> -->
-                    <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999', 'id' => 'std_contact_no']) ?>
+                    <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', 'id' => 'std_contact_no']) ?>
                 </div>     
             </div>
             <div class="row"> 
@@ -156,11 +156,11 @@ use yii\helpers\Url;
                 </div>
                 <div class="col-md-4">
                     <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i>
-                    <?= $form->field($stdGuardianInfo, 'guardian_contact_no_1')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999']) ?>
+                    <?= $form->field($stdGuardianInfo, 'guardian_contact_no_1')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
                 </div>
                 <div class="col-md-4">
                     <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 168px; top: 6px"></i>
-                    <?= $form->field($stdGuardianInfo, 'guardian_contact_no_2')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999']) ?>
+                    <?= $form->field($stdGuardianInfo, 'guardian_contact_no_2')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
                 </div>
             </div>
             <div class="row">
@@ -189,7 +189,7 @@ use yii\helpers\Url;
                     <?= $form->field($stdIceInfo, 'std_ice_relation')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-4">
-                        <?= $form->field($stdIceInfo, 'std_ice_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '999999999999']) ?>
+                        <?= $form->field($stdIceInfo, 'std_ice_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
                 </div>
             </div>
             <div class="row">
@@ -338,7 +338,7 @@ use yii\helpers\Url;
                 <!-- Fee Installment end -->
             <!-- Fee detail end -->
             <div class="form-group">
-                <?= Html::submitButton(' Save', ['class' => 'btn btn-success btn-flat']) ?>
+                <?= Html::submitButton(' Save', ['class' => 'btn btn-success btn-flat' ,'id'=>'save']) ?>
                 <a href="std-personal-info" class="btn btn-danger btn-flat">Back</a>
             </div>
             </div>
@@ -350,13 +350,6 @@ use yii\helpers\Url;
 </div>
 <!-- form body close -->
     
-
-
-    
-    
-
-    
-
     <?php ActiveForm::end(); ?>
 
 </div>
@@ -368,13 +361,45 @@ use yii\helpers\Url;
         var value2 = document.getElementById('admissionFeeDiscount').value;
         document.getElementById('netAdmissionFee').value = value1 - value2 ;
     }
+</script>
+<?php
+$url = \yii\helpers\Url::to("./std-registration/fetch-fee");
 
+$script = <<< JS
+
+// getting std-personal-info- by std inquiry no...
+$('#inquiryNo').on('change',function(){
+   var stdInquiryNo = $('#inquiryNo').val();
+   
+   $.ajax({
+        type:'post',
+        data:{stdInquiryNo:stdInquiryNo},
+        url: "$url",
+        success: function(result){
+            var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
+            $('#std_name').val(jsonResult['std_name']);
+            $('#std_father_name').val(jsonResult['std_father_name']);
+            $('#std_contact_no').val(jsonResult['std_contact_no']);
+            $('#std_father_contact_no').val(jsonResult['std_father_contact_no']);
+            $('#previous_class').val(jsonResult['std_previous_class']);
+            $('#previous_class_rollno').val(jsonResult['std_roll_no']);
+            $('#obtainedMarks').val(jsonResult['std_obtained_marks']);
+            $('#totalMarks').val(jsonResult['std_total_marks']);
+            $('#percentage').val(jsonResult['std_percentage']);
+            $('#std_permanent_address').val(jsonResult['std_address']);
+            $('#std_temporary_address').val(jsonResult['std_address']);
+        }         
+    }); 
+});
+
+    
+var noOfInstallment;
     $('#noOfInstallment').on('change',function(){
         for (var i = 1 ; i<= 6; i++) {
             $('#amnt'+i).val('');
             $('#f'+i).hide();
         }
-        var noOfInstallment = $('#noOfInstallment').val();
+        noOfInstallment = $('#noOfInstallment').val();
         var tuitionFee = $('#tuitionFee').val();
         var amountPerInstallment = parseInt(tuitionFee / noOfInstallment);
 
@@ -385,7 +410,24 @@ use yii\helpers\Url;
 
     });
 
-    // calculate concession start....
+    $('#save').on('click',function(){
+        var amount = [];
+        var sum = 0;
+
+        for(var j=1; j<=noOfInstallment; j++){
+            amount[j] = $('#amnt'+j).val();   
+        }
+
+        for(var j=1; j<=noOfInstallment; j++){
+            sum += parseInt(amount[j]);   
+        }
+        var tuitionFee = $('#tuitionFee').val();
+        if(sum != tuitionFee){
+            alert("Sum of Installments = " + sum  + " Total tution Fee = " + tuitionFee + " Your total amount is not equal to total no. of installments");
+        }
+    }); 
+
+// calculate concession start....
     $('#concession').on('change',function(){
         var concession = $('#concession :selected').text();
         var totalTuitionFee = $('#totalTuitionFee').val();
@@ -432,36 +474,6 @@ use yii\helpers\Url;
         }
     });
     // calculate concession end....
-</script>
-<?php
-$url = \yii\helpers\Url::to("./std-registration/fetch-fee");
-
-$script = <<< JS
-
-// getting std-personal-info- by std inquiry no...
-$('#inquiryNo').on('change',function(){
-   var stdInquiryNo = $('#inquiryNo').val();
-   
-   $.ajax({
-        type:'post',
-        data:{stdInquiryNo:stdInquiryNo},
-        url: "$url",
-        success: function(result){
-            var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
-            $('#std_name').val(jsonResult['std_name']);
-            $('#std_father_name').val(jsonResult['std_father_name']);
-            $('#std_contact_no').val(jsonResult['std_contact_no']);
-            $('#std_father_contact_no').val(jsonResult['std_father_contact_no']);
-            $('#previous_class').val(jsonResult['std_previous_class']);
-            $('#previous_class_rollno').val(jsonResult['std_roll_no']);
-            $('#obtainedMarks').val(jsonResult['std_obtained_marks']);
-            $('#totalMarks').val(jsonResult['std_total_marks']);
-            $('#percentage').val(jsonResult['std_percentage']);
-            $('#std_permanent_address').val(jsonResult['std_address']);
-            $('#std_temporary_address').val(jsonResult['std_address']);
-        }         
-    }); 
-});
 
 // calculate totalMarks....
     $('#totalMarks').on('change',function(){

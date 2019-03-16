@@ -23,7 +23,7 @@
             <h2 class="text-center text-danger">Date Range Wise Class Attendance</h2>
         </div>
         <div class="box-body">
-           <form  action = "daterangewise-class-attendance" method="POST">
+           <form method="POST">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -159,7 +159,7 @@
                 <div class="box-body">
                     <div class="row">
         <div class="col-md-12">
-            <form method="POST" action="view-attendance">
+            <form method="POST" action="daterangewise-class-attendance">
                 <table class="table table-hover">
                     <thead>
                         <?php 
@@ -172,7 +172,14 @@
                             <th>Roll #.</th>
                             <th >Name</th>
                             <?php for ($i=0; $i <$count ; $i++) { ?>
-                            <th><?php echo $atten[$i]["CAST(date AS DATE)"]; ?></th>
+                            <th>
+                                <?php 
+                                $datee = $atten[$i]["CAST(date AS DATE)"];
+                                $date = explode('-', $datee);
+                                $date1 = $date[2];
+                                    echo  $date1; 
+                                ?>   
+                            </th>
                             <?php } ?>
                         </tr>
                     </thead>
@@ -186,10 +193,12 @@
                             <td><?php echo $students[$i]['std_enroll_detail_std_name'];?></td>
                                 <?php 
                                 $stdId = $students[$i]['std_enroll_detail_std_id'];
-                                $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll();
+    					        $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll();
+
                                 for ($j=0; $j <$count ; $j++) { ?>
                             <td><?php echo $atten[$j]["status"]; ?></td>
                             <?php } ?>
+
                         </tr>
                         
                         <?php
