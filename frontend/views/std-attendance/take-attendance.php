@@ -145,7 +145,7 @@ $conn = \Yii::$app->db;
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-12">
-							<form method="POST" action="./activity-view?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>">
+							<form method="POST">
 								<table class="table">
 									<thead >
 										<tr style="background-color:#d6484838;">
@@ -218,44 +218,60 @@ $conn = \Yii::$app->db;
 	}
 		
 
-		// if (isset($_POST["save"])) {
-		// 		$classnameid = $_POST["classnameid"];
-		// 		$sessionid = $_POST["sessionid"];
-		// 		$sectionid = $_POST["sectionid"];
-		// 		$emp_id = $_POST["emp_id"];
-		// 		$sub_id = $_POST["sub_id"];
-		// 		$date = $_POST["date"];
-		// 		$countstd = $_POST["countstd"];
-		// 		$stdAttendId = $_POST["stdAttendance"];
-				
-		// 		for($i=0; $i<$countstd;$i++){
-		// 			$q=$i+1;
-		// 			$std = "std".$q;
-		// 			$status[$i] = $_POST["$std"];
+		if (isset($_POST["save"])) {
+				$classnameid = $_POST["classnameid"];
+				$sessionid = $_POST["sessionid"];
+				$sectionid = $_POST["sectionid"];
+				$emp_id = $_POST["emp_id"];
+				$sub_id = $_POST["sub_id"];
+				$date = $_POST["date"];
+				$countstd = $_POST["countstd"];
+				$stdAttendId = $_POST["stdAttendance"];
 
-		// 		}
+				for($i=0; $i<$countstd;$i++){
+					$q=$i+1;
+					$std = "std".$q;
+					$status[$i] = $_POST["$std"];
+
+				}
 				
-		// 		$transection = $conn->beginTransaction();
-		// 		try{
-		// 			for($i=0; $i<$countstd; $i++){
-		// 			$attendance = $conn->createCommand()->insert('std_attendance',[
-		// 				'teacher_id' => $emp_id,
-		// 				'class_name_id' => $classnameid,
-		// 				'session_id'=> $sessionid,
-		// 				'section_id'=> $sectionid,
-		// 				'subject_id'=> $sub_id,
-		// 				'date' => $date,
-		// 				'student_id' => $stdAttendId[$i],
-		// 				'status' => $status[$i],
-		// 			])->execute();
-		// 			}
-		// 			$transection->commit();
-		// 		} catch(Exception $e){
-		// 			$transection->rollback();
-		// 		}
-		// 		Yii::$app->session->setFlash('success', "Attendance marked successfully...!");
-		// // closing of if isset
-		// }
+				$transection = $conn->beginTransaction();
+				try{
+					for($i=0; $i<$countstd; $i++){
+					$attendance = $conn->createCommand()->insert('std_attendance',[
+						'teacher_id' => $emp_id,
+						'class_name_id' => $classnameid,
+						'session_id'=> $sessionid,
+						'section_id'=> $sectionid,
+						'subject_id'=> $sub_id,
+						'date' => $date,
+						'student_id' => $stdAttendId[$i],
+						'status' => $status[$i],
+					])->execute();
+					}
+					 if($attendance == 1){
+						$kinza = Yii::$app->db->createCommand("SELECT student_id,status
+						FROM std_attendance
+						WHERE teacher_id  = '1'
+						AND class_name_id = '5'
+						AND session_id 	  = '4'
+						AND section_id 	  = '5'
+						AND subject_id    = '7'
+						AND date          = '2019-03-19'
+                        AND status 		  = 'A'
+                        OR status         = 'L'")->queryAll();
+
+						var_dump($kinza);
+
+						
+					 }
+					$transection->commit();
+				} catch(Exception $e){
+					$transection->rollback();
+				}
+				Yii::$app->session->setFlash('success', "Attendance marked successfully...!");
+		// closing of if isset
+		}
 	 ?>
 </body>
 </html>

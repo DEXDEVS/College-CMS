@@ -43,15 +43,15 @@
 
                     // ------------------------------------------------
                     // Student Attendance start...
-                    // [
-                    //     'label' => 'Attendance',
-                    //     'icon' => 'user-plus',
-                    //     'url' => '#',
-                    //     'items' => [
-                    //         ['label' => 'Student Attendance', 'icon' => 'caret-right', 'url' => ["./attendance"],],
-                    //         ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],]
-                    //     ],
-                    // ],
+                    [
+                        'label' => 'Attendance',
+                        'icon' => 'user-plus',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Student Attendance', 'icon' => 'caret-right', 'url' => ["./attendance"],],
+                            ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],]
+                        ],
+                    ],
 
                     [
                         'label' => 'Classes',
