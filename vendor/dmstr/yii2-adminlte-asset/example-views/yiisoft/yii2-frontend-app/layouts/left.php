@@ -4,7 +4,7 @@
     // Student Photo...
     $userPhoto = $user[0]['user_photo'];
 ?>
-<aside class="main-sidebar">
+<aside class="main-sidebar" style="background-color:;">
     <section class="sidebar">
 
         <!-- Sidebar user panel -->
@@ -43,19 +43,19 @@
 
                     // ------------------------------------------------
                     // Student Attendance start...
-                    [
-                        'label' => 'Attendance',
-                        'icon' => 'user-plus',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Student Attendance', 'icon' => 'caret-right', 'url' => ["./attendance"],],
-                            ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],]
-                        ],
-                    ],
+                    // [
+                    //     'label' => 'Attendance',
+                    //     'icon' => 'user-plus',
+                    //     'url' => '#',
+                    //     'items' => [
+                    //         ['label' => 'Student Attendance', 'icon' => 'caret-right', 'url' => ["./attendance"],],
+                    //         ['label' => 'View Class Attendance', 'icon' => 'caret-right', 'url' => ["./class-attendance"],]
+                    //     ],
+                    // ],
 
                     [
                         'label' => 'Classes',
-                        'icon' => 'user-plus',
+                        'icon' => 'users',
                         'url' => './test-attendance',
                     ],
                     
