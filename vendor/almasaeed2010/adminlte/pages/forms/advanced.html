@@ -1196,7 +1196,13 @@
 
     //Date picker
     $('#datepicker').datepicker({
-      autoclose: true
+      minDate: 0,
+      maxDate: 0,   
+      showButtonPanel: true,
+      changeMonth: true,
+      defaultDate: 0,
+      gotoCurrent: true,
+      hideIfNoPrevNext: true,
     })
 
     //iCheck for checkbox and radio inputs

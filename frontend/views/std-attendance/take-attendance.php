@@ -21,12 +21,39 @@ $conn = \Yii::$app->db;
 <html>
 <head>
 	<title>Attendance</title>
+	<!-- <link rel="stylesheet" type="text/css" href="jquery/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="jquery/jquery-ui.js"></script> -->
+
+ <!--  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <script>
+  $( function() {
+  	$('#datepicker').datepicker({
+      minDate: 0,
+      maxDate: 0, 	
+      showButtonPanel: true,
+      changeMonth: true,
+      defaultDate: 0,
+      gotoCurrent: true,
+      hideIfNoPrevNext: true,
+    }).datepicker("setDate", new Date(),);
+  } );
+  </script> -->
+
+
 </head>
 <body>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3 col-md-offset-9">
-			<a href="./activity-view?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+			<a href="./activity-view?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>" style="float: right;background-color:#DD4B39;color: white;padding:3px;border-radius:5px;"><i class="glyphicon glyphicon-backward"></i> Back</a>
 		</div>
 	</div><br>
 	<div class="row">
@@ -48,7 +75,7 @@ $conn = \Yii::$app->db;
         	<div class="col-md-3">
                 <div class="form-group">
                 	<label>Current Date</label>
-                    <input class="form-control" data-date-format="mm/dd/yyyy" type="date" name="date" required="">
+                    <input type="date" class="form-control" name="date" required="required">
                 </div>    
             </div>  <br>         
             <div class="col-md-2">
@@ -105,7 +132,7 @@ $conn = \Yii::$app->db;
 	<div class="row container-fluid">
 		<div class="row">
 			<div class="col-md-3 col-md-offset-9">
-				<a href="./activity-view?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+				<a href="./activity-view?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>" style="float: right;background-color:#DD4B39;color: white;padding:3px;border-radius:5px;"><i class="glyphicon glyphicon-backward"></i> Back</a>
 			</div>
 		</div>
 		<br>
@@ -140,7 +167,7 @@ $conn = \Yii::$app->db;
 		<div class="col-md-9">
 			<div class="box box-danger">
 				<div class="box-header" style="padding:3px;">
-					<h2 class="text-center text-danger" style="font-family: georgia;">Take Attendan</h2><hr style="border-color:#d6484838;">
+					<h2 class="text-center text-danger" style="font-family: georgia;">Take Attendance</h2><hr style="border-color:#d6484838;">
 				</div>
 				<div class="box-body">
 					<div class="row">
@@ -164,8 +191,8 @@ $conn = \Yii::$app->db;
 											<td><?php echo $students[$i]['std_roll_no']; ?></td>
 											<td><?php echo $students[$i]['std_enroll_detail_std_name'];?></td>
 											<td align="left">
-												<input type="radio" name="std<?php echo $i+1?>" value="P" checked="checked"/> <b  style="color: green">P </b><br>
-												<input type="radio" name="std<?php echo $i+1?>" value="A" /> <b style="color: red">A </b><br>
+												<input type="radio" name="std<?php echo $i+1?>" value="P" checked="checked"/> <b  style="color: green">P </b>
+												<input type="radio" name="std<?php echo $i+1?>" value="A" /> <b style="color: red">A </b>
 												<input type="radio" name="std<?php echo $i+1?>" value="L" /><b style="color: #F7C564;"> L</b>
 											</td>
 										</tr>
