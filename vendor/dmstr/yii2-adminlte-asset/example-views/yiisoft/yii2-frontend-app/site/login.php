@@ -46,10 +46,9 @@ $fieldOptions2 = [
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
             </div>
             <div class="col-xs-6">
-                <span style="float: right;">
-                <?= Html::a('<i class="glyphicon glyphicon-refresh"></i>', ['site/request-password-reset'],
-                    ['title'=> 'Click here to reset password','class'=>'btn btn-info'])
-                ?>
+                <span style="float: right; margin-top: 8px">
+                
+                    <?= Html::a('Reset Password', ['site/request-password-reset'],['class' => 'label label-warning btn btn-flat']) ?>
                 </span>
             </div>
         </div>
