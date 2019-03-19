@@ -33,22 +33,22 @@
 ?>      
      <div class="row">
             <div class="col-md-3 col-md-offset-9">
-                    <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+                    <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>" style="float: right; margin-right:2px;background-color:#5CB85C;color: white;padding:3px;border-radius:5px;"><i class="glyphicon glyphicon-backward"></i> Back</a>
             </div>
     </div><br>
     <div class="row">
         <div class="col-md-3">
-            <div class="box box-danger">
+            <div class="box box-danger"style="border-color:#5CB85C;">
                 <div class="box-header">
-                    <h3 class="text-center" style="font-family: georgia;">Class Attendance</h3><hr style="border-color:#d6484838;">
+                    <h3 class="text-center" style="font-family: georgia;">Class Attendance</h3><hr style="border-color:#d0f2d0;">
                 </div>
                 <div class="box-body">
                     <li style="list-style-type: none;">
-                            <p class="bg-red text-center" style="padding:4px;">Date</p>
-                            <p style="background-color:#d6484838;color: red;text-align: center;">
+                            <p class="text-center" style="padding:4px; background-color:#5CB85C; color:white;">Date</p>
+                            <p style="background-color:#d0f2d0;color: red;text-align: center;">
                                 <u><?php echo $date; ?></u>
                             </p>
-                    </li><hr style="border-color:#d6484838;"><br>
+                    </li><hr style="border-color:#d0f2d0;"><br>
                     <li style="list-style-type: none;margin-top: -20px;">
                         <b>Class:</b>
                         <p>
@@ -60,14 +60,14 @@
                         <p>
                             <?php echo $subName[0]['subject_name']; ?>
                         </p>
-                    </li><hr style="border-color:#d6484838;"><br>
+                    </li><hr style="border-color:#d0f2d0;"><br>
                 </div>
             </div>
         </div>
         <div class="col-md-9">
-            <div class="box box-danger">
+            <div class="box box-danger" style="border-color:#5CB85C;">
                 <div class="box-header" style="padding:3px;">
-                    <h2 class="text-center text-danger" style="font-family: georgia;">Date Wise</h2><hr style="border-color:#d6484838;">
+                    <h2 class="text-center" style="font-family: georgia;color:#5CB85C;">Date Wise</h2><hr style="border-color:#d0f2d0;">
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -75,7 +75,7 @@
                     <form method="POST" action="datewise-class-attendance">
                     <table class="table table-hover table-responsive">
                         <thead>
-                            <tr style="background-color:#d6484838; ">
+                            <tr style="background-color:#d0f2d0; ">
                                 <th>Sr #.</th>
                                 <th >Roll #.</th>
                                 <th >Name</th>

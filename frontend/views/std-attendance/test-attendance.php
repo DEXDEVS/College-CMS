@@ -165,9 +165,14 @@ transition: all 0.4s ease-in-out;
 </head>
 <body>
 <div class="container-fluid">
-    <div class="box box-danger">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9">
+            <a href="./home"  style="float: right;background-color: #605CA8;color: white;padding:3px;border-radius:5px;"><i class="glyphicon glyphicon-backward"></i> Back</a>
+        </div>
+    </div><br>
+    <div class="box box-default" style=" border-color:#605CA8;" >
         <div class="box-header">
-           <h2 class="text-center text-danger">List of Classes</h2><hr style="border-color:#d6484838;"> 
+           <h2 class="text-center" style="color:#605CA8; font-family: georgia;"><img src="backend/web/uploads/teacher.jpg" height="40px" width="40px"> List of Classes</h2><hr  style=" border-color:#c8c6f2;" > 
         </div>
         <div class="box-body">
             <?php
@@ -197,15 +202,15 @@ transition: all 0.4s ease-in-out;
             ?>
 
            <div class="col-md-6">
-                <div class="box box-danger collapsed-box" >
-                    <div class="box-header with-border" style="background-color:#d6484838;padding: 15px;">
+                <div class="box box-danger collapsed-box" style=" border-color:#605CA8;">
+                    <div class="box-header" style="background-color:#c8c6f2;padding: 15px;">
                         <h3 class="box-title">
                             <b>
                             <?php echo $CLASSName[0]['std_enroll_head_name']; ?>
                             </b>
                         </h3>
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">  <br><i class="fa fa-plus" style="font-size:15px;"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">  <br><i class="fa fa-plus" style="font-size:15px;color:#605CA8;"></i>
                             </button>
                         </div>
                         <!-- /.box-tools -->
@@ -222,8 +227,8 @@ transition: all 0.4s ease-in-out;
                                 FROM subjects WHERE subject_id = '$SubID'")->queryAll();
                         ?>
                         <td>
-                            <a href="./activity-view?sub_id=<?php echo $SubID;?>&class_id=<?php echo $id;?>&emp_id=<?php echo $empId;?>" class="btn btn-default">
-                               <i class="fa fa-book" style="background-color:#d9534f; border:1px solid; padding:5px ;border-radius:50px;font-size:25px; color:white;"> 
+                            <a href="./activity-view?sub_id=<?php echo $SubID;?>&class_id=<?php echo $id;?>&emp_id=<?php echo $empId;?>" class="btn btn-default"  style=" border-color:#605CA8;" >
+                               <i class="fa fa-book" style="background-color:#605CA8; border:1px solid; padding:5px ;border-radius:50px;font-size:25px; color:white;"> 
                                 
                                </i><br>
                                <?php echo $subjectsNames[0]['subject_name']; ?>  
