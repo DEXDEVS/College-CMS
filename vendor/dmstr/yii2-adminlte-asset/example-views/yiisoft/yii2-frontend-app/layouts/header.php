@@ -227,8 +227,8 @@ $userID = Yii::$app->user->id;
                                 <a href="#" class="btn btn-primary btn-flat btn-sm">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <?php if(Yii::$app->user->identity->username == 'Superadmin' OR
-                                Yii::$app->user->identity->username == 'dexdevs'){?>
+                                <?php if(Yii::$app->user->identity->user_type == 'Superadmin' OR
+                                Yii::$app->user->identity->user_type == 'dexdevs'){?>
                                 <?= Html::a(
                                     'Add User',
                                     ['/signup'],
