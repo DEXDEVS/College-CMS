@@ -42,10 +42,10 @@ class StdFeeInstallments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_fee_id', 'installment_no', 'installment_amount', 'created_by', 'updated_by'], 'required'],
+            [['std_fee_id', 'installment_no', 'installment_amount'], 'required'],
             [['std_fee_id', 'installment_no', 'created_by', 'updated_by'], 'integer'],
             [['installment_amount'], 'number'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['std_fee_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdFeeDetails::className(), 'targetAttribute' => ['std_fee_id' => 'fee_id']],
             [['installment_no'], 'exist', 'skipOnError' => true, 'targetClass' => Installment::className(), 'targetAttribute' => ['installment_no' => 'installment_id']],
             [['amount1','amount2','amount3','amount4','amount5','amount6'],'number'],

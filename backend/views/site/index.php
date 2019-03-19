@@ -11,7 +11,10 @@ use yii\helpers\Url;
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <div class="row">
+      <?php 
+        $user = Yii::$app->user->identity->username;
+        if($user != 'Inquiry Head') { ?>
+          <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
@@ -79,6 +82,10 @@ use yii\helpers\Url;
         </div>
         <!-- ./col -->
       </div>
+    <?php 
+      }  
+    ?>
+      
       <!-- /.row -->
 
       <!-- Message of the day start -->
