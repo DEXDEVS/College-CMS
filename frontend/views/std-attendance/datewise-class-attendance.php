@@ -5,58 +5,16 @@
     <title>Document</title>
 </head>
 <body>
-     
-<?php 
-    if(isset($_GET['sub_id'])){
-        $sub_id = $_GET['sub_id'];  
-        $class_id = $_GET['class_id'];
-        $emp_id = $_GET['emp_id'];     
-?>
-
-    <div class="conatiner-fluid">
-        <div class="row">
-            <div class="col-md-3 col-md-offset-9">
-                    <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
-            </div>
-    </div>
-    <br>
-        <div class="box box-danger">
-            <div class="box-header" style="padding:0px;background-color:#d6484838;">
-                <h2 class="text-center text-danger">Date Wise Class Attendance</h2>
-            </div>
-            <div class="box-body">
-                <form method="POST">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Date</label>
-                        <input class="form-control" data-date-format="dd/mm/yyyy" type="date" name="date" required="">
-                    </div>    
-                </div><br><br>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <button type="submit" name="submit" class="btn btn-success btn-flat form-control" style="margin-top: -25px;">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i>    
-                        <b>View Attendance</b></button>
-                    </div>    
-                </div> 
-                <input type="hidden" name="sub_id" value="<?php echo $sub_id; ?>">
-                <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
-                <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
-            </div>
-        </form>
-            </div>
-        </div>
-    </div>
     <?php
-    // closing of $_GET.... 
-    }
 
-    if(isset($_POST["submit"])){ 
-        $sub_id = $_POST["sub_id"];
-        $class_id = $_POST["class_id"];
-        $emp_id = $_POST["emp_id"];
-        $date = $_POST["date"];
+        if (isset($_POST['submit'])) {
+            $date = $_POST["date"];
+        }
+
+       if(isset($_GET["sub_id"])){ 
+        $sub_id = $_GET["sub_id"];
+        $class_id = $_GET["class_id"];
+        $emp_id = $_GET["emp_id"];
 
         $students = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name,sed.std_enroll_detail_std_id,sed.std_enroll_detail_std_name, sed.std_roll_no
         FROM std_enrollment_detail as sed
@@ -72,8 +30,12 @@
     $sessionid = $classDetail[0]['session_id'];
     $sectionid = $classDetail[0]['section_id'];
     
-?> 
-<div class="container-fluid">     
+?>      
+     <div class="row">
+            <div class="col-md-3 col-md-offset-9">
+                    <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+            </div>
+    </div><br>
     <div class="row">
         <div class="col-md-3">
             <div class="box box-danger">
@@ -111,10 +73,10 @@
                     <div class="row">
                 <div class="col-md-12">
                     <form method="POST" action="datewise-class-attendance">
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive">
                         <thead>
                             <tr style="background-color:#d6484838; ">
-                                <th >Sr #.</th>
+                                <th>Sr #.</th>
                                 <th >Roll #.</th>
                                 <th >Name</th>
                                 <th>Attendance</th>
@@ -155,7 +117,6 @@
             </div>
         </div>
     </div>
-</div>
 <?php
 //closing of $_POST
 }

@@ -1,93 +1,22 @@
-<?php 
-
-    if(isset($_GET['sub_id'])){
-        $sub_id = $_GET['sub_id'];  
-        $class_id = $_GET['class_id'];
-        $emp_id = $_GET['emp_id'];   
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>View Attendance</title>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3 col-md-offset-9">
-            <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
-        </div>
-    </div><br>
-    <div class="box box-danger">
-        <div class="box-header" style="padding:0px;background-color:#d6484838;">
-            <h2 class="text-center text-danger">Date Range Wise Class Attendance</h2>
-        </div>
-        <div class="box-body">
-           <form method="POST">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input type="hidden" name="_csrf" class="form-control" value="<?=Yii::$app->request->getCsrfToken()?>">          
-                        </div>    
-                    </div>    
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                       <label>Start Date:</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar" style="color: #3C8DBC"></i>
-                            </div>
-                          <input type="date" class="form-control" name="start_date">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>End Date:</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar" style="color: #3C8DBC"></i>
-                            </div>
-                            <input type="date" class="form-control" name="end_date">
-                        </div>
-                    </div> <br>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label></label>
-                            <button type="submit" name="submit" class="btn btn-success form-control" style="margin-top: -25px;">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i>    
-                            <b>View Attendance</b></button>
-                        </div>    
-                    </div> 
-                            <input type="hidden" name="sub_id" value="<?php echo $sub_id; ?>">
-                            <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
-                            <input type="hidden" name="emp_id" value="<?php echo $emp_id; ?>">
-                </div>
-            </form> 
-        </div>
-    </div>
-</div>
+
     <?php 
+
+     if (isset($_POST['submit'])) {
+            $startDate = $_POST["start_date"];
+            $endDate = $_POST["end_date"];
         }
 
-    if(isset($_POST["submit"])){ 
-        $sub_id = $_POST["sub_id"];
-        $class_id = $_POST["class_id"];
-        $emp_id = $_POST["emp_id"];
-        $startDate = $_POST["start_date"];
-        $endDate = $_POST["end_date"];
+    if(isset($_GET['sub_id'])){
+        $sub_id = $_GET['sub_id'];  
+        $class_id = $_GET['class_id'];
+        $emp_id = $_GET['emp_id'];   
 
-        $stDate = explode('-', $startDate);
-        $enDate = explode('-', $endDate);
-
-        $st = $stDate[2];
-        $en = $endDate[2];
-        $rangeLen = $enDate[2] - $stDate[2];
-
-  //       list($y,$m,$d)=explode('-',$startDate);
-		// $date2 = Date("Y-m-d", mktime(0,0,0,$m,$d+1,$y));
-        // var_dump($rangeLen);
-        //echo "<br>";
-        //var_dump($enDate[2]);
         $students = Yii::$app->db->createCommand("SELECT seh.std_enroll_head_name,sed.std_enroll_detail_std_id,sed.std_enroll_detail_std_name, sed.std_roll_no
         FROM std_enrollment_detail as sed
         INNER JOIN std_enrollment_head as seh
@@ -104,6 +33,11 @@
     
 ?> 
 <div class="container-fluid">
+    <div class="row">
+            <div class="col-md-3 col-md-offset-9">
+                    <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+            </div>
+    </div><br>
     <div class="row">
         <div class="col-md-3">
             <div class="box box-danger">

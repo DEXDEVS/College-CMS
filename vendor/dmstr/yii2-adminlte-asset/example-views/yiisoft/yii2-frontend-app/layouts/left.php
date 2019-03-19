@@ -4,7 +4,7 @@
     // Student Photo...
     $userPhoto = $user[0]['user_photo'];
 ?>
-<aside class="main-sidebar">
+<aside class="main-sidebar" style="background-color:;">
     <section class="sidebar">
 
         <!-- Sidebar user panel -->
@@ -55,7 +55,7 @@
 
                     [
                         'label' => 'Classes',
-                        'icon' => 'user-plus',
+                        'icon' => 'users',
                         'url' => './test-attendance',
                     ],
                     
