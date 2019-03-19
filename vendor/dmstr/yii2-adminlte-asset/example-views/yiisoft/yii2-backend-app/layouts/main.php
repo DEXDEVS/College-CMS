@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\web\CClientScript;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -64,3 +65,4 @@ if (Yii::$app->controller->action->id === 'login') {
     </html>
     <?php $this->endPage() ?>
 <?php } ?>
+
