@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2019 at 07:52 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Mar 20, 2019 at 10:36 AM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -123,8 +123,8 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('Accountant', '6', NULL),
 ('Admin Officier', '9', NULL),
 ('dexdevs', '1', NULL),
-('Inquiry Head', '4', NULL),
 ('Principal', '3', NULL),
+('Registrar', '4', NULL),
 ('Superadmin', '2', NULL),
 ('Vice Principal', '5', NULL);
 
@@ -153,11 +153,11 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 ('add-institute', 1, 'create institute Name', NULL, NULL, NULL, NULL),
 ('Admin Officier', 1, 'Admin can perform student inquiries', NULL, NULL, NULL, NULL),
 ('dexdevs', 1, 'Admin of the application', NULL, NULL, NULL, NULL),
-('Inquiry Head', 1, 'Inquiry Head can manage activities of student inquiries only.', NULL, NULL, NULL, NULL),
 ('inquiry-nav', 1, 'can access this nav', NULL, NULL, NULL, NULL),
 ('login', 1, 'The user can login in the admin panel.', NULL, NULL, NULL, NULL),
 ('navigation ', 1, 'Navigation can be access authorized users only.', NULL, NULL, NULL, NULL),
 ('Principal', 1, 'Principal can manage whole activities in the application except account department', NULL, NULL, NULL, NULL),
+('Registrar', 1, 'Registrar can manage activities of student inquiries only.', NULL, NULL, NULL, NULL),
 ('Superadmin', 1, 'Superadmin can manage whole activities in the application.', NULL, NULL, NULL, NULL),
 ('update-institute-name', 1, 'can update the institute name.', NULL, NULL, NULL, NULL),
 ('Vice Principal', 1, 'Can view whole reports.', NULL, NULL, NULL, NULL);
@@ -184,11 +184,11 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('Admin Officier', 'login'),
 ('dexdevs', 'login'),
 ('dexdevs', 'navigation '),
-('Inquiry Head', 'add-institute'),
-('Inquiry Head', 'inquiry-nav'),
-('Inquiry Head', 'login'),
 ('Principal', 'login'),
 ('Principal', 'navigation '),
+('Registrar', 'add-institute'),
+('Registrar', 'inquiry-nav'),
+('Registrar', 'login'),
 ('Superadmin', 'login'),
 ('Superadmin', 'navigation '),
 ('Vice Principal', 'add-institute'),
@@ -1869,7 +1869,7 @@ CREATE TABLE `user` (
   `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `user_type` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `user_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `user_photo` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `is_block` tinyint(4) NOT NULL DEFAULT '1',
   `status` smallint(6) NOT NULL DEFAULT '10',
@@ -1882,15 +1882,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `user_type`, `user_photo`, `is_block`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Dexterous', 'Developers', 'dexdevs', 'jSFUcp2s4gtHGPFu0i8MaUvcOYvj8KrC', '$2y$13$QcZ9.jetAhvmIANnGqamLuhicUZyjFo/sqLBPARoutDcDm55dF/O.', NULL, 'admin@dexdevs.com', 'D', 'userphotos/dexdevs_photo.png', 1, 10, 1552543492, 1552543492),
-(2, 'Shahzad ', 'Qayoom', 'Superadmin', 'C2XaYTI3bpZa4Acon5OHpXalq6iGtyvP', '$2y$13$GR0hG.VbHrZL1CFid/tvQONzSEunIYL4I4Ni5xDcHMSX9sqMZmqSq', NULL, 'superadmin@brookfield.edu.pk', 'SA', 'userphotos/superadmin_photo.jpg', 1, 10, 1552544525, 1552544525),
-(3, 'Shahzad ', 'Qayoom', 'Principal', 'veGfXupR6QG0fQi-FUsoY4RdRSEKrnLR', '$2y$13$oLM034BqHmqM4be02YRXwuscYDOchzkIJIlVM3U5e4/0J.omuy2Nq', NULL, 'principal@brookfield.edu.pk', 'Pr', 'userphotos/Principal_photo.jpg', 1, 10, 1552546755, 1552546755),
-(4, 'Ashraf', 'Mehmood', 'Inquiry Head', 'JgsDJIQCuzuX61e2To6tqOR0p99w2LUo', '$2y$13$kBEnjYx8pbMnXSkhkZ2O2.9Kl9rL2tnzpQAsgOaoPOD31loS7hp1C', NULL, 'inquiry@brookfield.edu.pk', 'IH', 'userphotos/Inquiry Head_photo.jpg', 1, 10, 1552547518, 1552547518),
-(5, 'Abdul ', 'Manan', 'Vice Principal', '5rAa5EUZZkDX3404vDRDqxoGFSDa3Dsx', '$2y$13$c3MOKh4UBWgLZl4JgTTVeupvp7GSCDHaEEbiCsToTQbIgPNF/sjcy', NULL, 'viceprincipal@brookfield.edu.pk', 'VP', 'userphotos/Vice Principal_photo.jpg', 1, 10, 1552548030, 1552548030),
-(6, 'Shahroz', 'Bhatti', 'Accountant', 'isaAX_eC5eyfehO_J-4AoLmJ-QQRnCxj', '$2y$13$Svhv6rv0RveJzWSEZf8Fy./znYv.iZmxA1nVcKAQyywuDH42xHgaO', NULL, 'accountant@brookfield.edu.pk', 'Ac', 'userphotos/Accountant_photo.png', 1, 10, 1552548601, 1552548601),
-(7, 'Anas', 'shafqat', 'Other', 'BVfw5U-06BfiJN_t4IEb8kMOaCfHaSyd', '$2y$13$VvBKXylZqoCiejiip8JxUe5LjpzA.CmeS1goG3gF4gKpS0GbsDwva', NULL, 'anas@dexdevs.com', 'O', 'userphotos/Other_photo.jpg', 1, 10, 1552554200, 1552554200),
-(8, '', '', 'anas', 'h6L2Ji4vlcVwRSgBnrYHgCv1HhCM7fta', '$2y$13$yHFK5LTgAGLRR15EpB03UeCB72686V4KZwV8vwiDqWuj4CRO4Cdp6', NULL, 'anasshafqat01@gmail.com', '', '', 1, 10, 1553006305, 1553006379),
-(9, 'Admin', 'Officer', 'Admin Officer', 'KsCQLYRaBz1onb7CWm0SfpYxJNdHgBBg', '$2y$13$wSO9jBFyXiVY.yncFENppeCbA5XOcHehR3..lHi0x9sEOxOZpf6kO', NULL, 'admin@brookfield.edu.pk', 'Ad', 'userphotos/Admin Officer_photo.jpg', 1, 10, 1553026615, 1553026615);
+(1, 'Dexterous', 'Developers', 'dexdevs', 'jSFUcp2s4gtHGPFu0i8MaUvcOYvj8KrC', '$2y$13$QcZ9.jetAhvmIANnGqamLuhicUZyjFo/sqLBPARoutDcDm55dF/O.', NULL, 'admin@dexdevs.com', 'dexdevs', 'userphotos/dexdevs_photo.png', 1, 10, 1552543492, 1552543492),
+(2, 'Shahzad ', 'Qayoom', 'Superadmin', 'C2XaYTI3bpZa4Acon5OHpXalq6iGtyvP', '$2y$13$GR0hG.VbHrZL1CFid/tvQONzSEunIYL4I4Ni5xDcHMSX9sqMZmqSq', NULL, 'superadmin@brookfield.edu.pk', 'Superadmin', 'userphotos/superadmin_photo.jpg', 1, 10, 1552544525, 1552544525),
+(3, 'Shahzad ', 'Qayoom', 'shahzadqayoom', 'veGfXupR6QG0fQi-FUsoY4RdRSEKrnLR', '$2y$13$oLM034BqHmqM4be02YRXwuscYDOchzkIJIlVM3U5e4/0J.omuy2Nq', NULL, 'principal@brookfield.edu.pk', 'Principal', 'userphotos/Principal_photo.jpg', 1, 10, 1552546755, 1552546755),
+(4, 'Ashraf', 'Mehmood', 'ashrafmehmood', 'JgsDJIQCuzuX61e2To6tqOR0p99w2LUo', '$2y$13$kBEnjYx8pbMnXSkhkZ2O2.9Kl9rL2tnzpQAsgOaoPOD31loS7hp1C', NULL, 'inquiry@brookfield.edu.pk', 'Registrar', 'userphotos/Inquiry Head_photo.jpg', 1, 10, 1552547518, 1552547518),
+(5, 'Abdul ', 'Manan', 'abdulmanan', '5rAa5EUZZkDX3404vDRDqxoGFSDa3Dsx', '$2y$13$c3MOKh4UBWgLZl4JgTTVeupvp7GSCDHaEEbiCsToTQbIgPNF/sjcy', NULL, 'viceprincipal@brookfield.edu.pk', 'Vice Principal', 'userphotos/Vice Principal_photo.jpg', 1, 10, 1552548030, 1552548030),
+(6, 'Shahroz', 'Bhatti', 'shahrozbhatti', 'isaAX_eC5eyfehO_J-4AoLmJ-QQRnCxj', '$2y$13$Svhv6rv0RveJzWSEZf8Fy./znYv.iZmxA1nVcKAQyywuDH42xHgaO', NULL, 'accountant@brookfield.edu.pk', 'Accountant', 'userphotos/Accountant_photo.png', 1, 10, 1552548601, 1552548601),
+(7, 'Anas', 'shafqat', 'anasshafqat', 'BVfw5U-06BfiJN_t4IEb8kMOaCfHaSyd', '$2y$13$VvBKXylZqoCiejiip8JxUe5LjpzA.CmeS1goG3gF4gKpS0GbsDwva', NULL, 'anas@dexdevs.com', 'Student', 'userphotos/Other_photo.jpg', 1, 10, 1552554200, 1552554200),
+(8, '', '', 'anas', 'h6L2Ji4vlcVwRSgBnrYHgCv1HhCM7fta', '$2y$13$yHFK5LTgAGLRR15EpB03UeCB72686V4KZwV8vwiDqWuj4CRO4Cdp6', NULL, 'anasshafqat01@gmail.com', 'Parent', '', 1, 10, 1553006305, 1553006379),
+(9, 'Admin', 'Officer', 'Admin Officer', 'KsCQLYRaBz1onb7CWm0SfpYxJNdHgBBg', '$2y$13$wSO9jBFyXiVY.yncFENppeCbA5XOcHehR3..lHi0x9sEOxOZpf6kO', NULL, 'admin@brookfield.edu.pk', 'Admin Officer', 'userphotos/Admin Officer_photo.jpg', 1, 10, 1553026615, 1553026615);
 
 -- --------------------------------------------------------
 
@@ -1916,7 +1916,9 @@ INSERT INTO `users` (`id`, `user_name`) VALUES
 (6, 'Registrar'),
 (7, 'Accountant'),
 (8, 'Exams Controller'),
-(9, 'Other');
+(9, 'Parent'),
+(10, 'Student'),
+(11, 'Teacher');
 
 --
 -- Indexes for dumped tables
@@ -2634,7 +2636,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
