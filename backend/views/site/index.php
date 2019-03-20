@@ -12,8 +12,8 @@ use yii\helpers\Url;
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <?php 
-        $user = Yii::$app->user->identity->username;
-        if($user == 'Inquiry Head' OR $user == 'Admin Officer' OR $user == 'Vice Principal') { ?>
+        $user = Yii::$app->user->identity->user_type;
+        if($user == 'Inquiry Head' OR $user == 'Admin Officer' OR $user == 'Vice Principal' OR $user == 'Registrar') { ?>
           <div class="row">
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
