@@ -126,23 +126,23 @@ transition: all 0.4s ease-in-out;
 
 <div class="row container-fluid">
 	<div class="row">
-		<div class="col-md-3 col-md-offset-9">
-			<a href="./test-attendance"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
-		</div>
-	</div><br>
+        <div class="col-md-3 col-md-offset-9">
+            <a href="./test-attendance"  style="float: right;background-color: #605CA8;color: white;padding:3px;border-radius:5px;"><i class="glyphicon glyphicon-backward"></i> Back</a>
+        </div>
+    </div><br>
 	<div class="row">
 		<div class="col-md-3">
-			<div class="box box-danger">
-				<div class="box-header">
-					<h3 class="text-center" style="font-family: georgia;">Class Information</h3><hr style="border-color:#d6484838;">
+			<div class="box box-danger" style=" border-color:#605CA8;">
+				<div class="box-header" style="padding:2px;">
+					<h3 class="text-center" style="font-family: georgia;">Class Information</h3><hr  style=" border-color:#c8c6f2;" >
 				</div>
 				<div class="box-body">
 					 <li style="list-style-type: none;">
-                        <p class="bg-red text-center" style="padding:4px;">Date</p>
-                        <p style="background-color:#d6484838;color: red;text-align: center;">
+                        <p class="text-center" style="background-color: #605CA8;color:white; padding:4px;">Date</p>
+                        <p style="background-color:#c8c6f2;color: ;text-align: center;">
                             <u><?php echo $date; ?></u>
                         </p>
-                    </li><hr style="border-color:#d6484838;"><br>
+                    </li><hr  style=" border-color:#c8c6f2;" >br>
                     <li style="list-style-type: none;margin-top: -20px;">
                         <b>Class:</b>
                         <p>
@@ -154,14 +154,14 @@ transition: all 0.4s ease-in-out;
                         <p>
                             <?php echo $subjectsName[0]['subject_name']; ?>
                         </p>
-                    </li><hr style="border-color:#d6484838;"><br>
+                    </li><hr  style=" border-color:#c8c6f2;" ><br>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-9">
-			<div class="box box-danger">
-		<div class="box-header" style="background-color:#d6484838;padding: 3px;">
-			 <h2 class="text-center text-danger" style="font-family: georgia;">Activity Panel</h2>
+			<div class="box box-danger" style=" border-color:#605CA8;">
+		<div class="box-header" style="background-color:#c8c6f2;padding:8px;">
+			 <h2 class="text-center" style="font-family: georgia;color:#605CA8;margin-top: 10px;"><i class="fa fa-cogs"></i> Activity Panel</h2>
 		</div>
 		
 		<div class="box-body">
@@ -174,7 +174,7 @@ transition: all 0.4s ease-in-out;
 							</div>
 						</div>
 						<div class="offer-content">
-							<h3 class="lead">
+							<h3 class="lead" style="color:#d9534f;">
 							Attendance
 							</h3>
 							<a href="./take-attendance?sub_id=<?php echo $sub_id ?>&class_id=<?php echo $class_id ?>&emp_id=<?php echo $emp_id ?>">Take attendance</a>
@@ -189,7 +189,7 @@ transition: all 0.4s ease-in-out;
 							</div>
 						</div>
 						<div class="offer-content">
-							<h3 class="lead">
+							<h3 class="lead" style="color:#5CB85C;">
 								Reports
 							</h3>
 							<a href="./view-attendance?sub_id=<?php echo $sub_id ?>&class_id=<?php echo $class_id ?>&emp_id=<?php echo $emp_id ?>">View attendance reports</a>

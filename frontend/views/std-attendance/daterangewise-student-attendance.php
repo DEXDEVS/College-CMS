@@ -35,22 +35,22 @@
 <div class="container-fluid">
      <div class="row">
             <div class="col-md-3 col-md-offset-9">
-                    <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+                    <a href="./view-attendance?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"   style="float: right; margin-right:2px;background-color:#5CB85C;color: white;padding:3px;border-radius:5px;"><i class="glyphicon glyphicon-backward"></i> Back</a>
             </div>
     </div><br>
     <div class="row">
         <div class="col-md-3">
-            <div class="box box-danger">
+            <div class="box box-danger" style="border-color:#5CB85C;">
                 <div class="box-header">
-                    <h3 class="text-center" style="font-family: georgia;">Student Attendance</h3><hr style="border-color:#d6484838;">
+                    <h3 class="text-center" style="font-family: georgia;">Student Attendance</h3><hr style="border-color:#d0f2d0;">
                 </div>
                 <div class="box-body">
                     <li style="list-style-type: none;">
-                        <p class="bg-red text-center" style="padding:4px;">
+                        <p class="text-center" style="padding:4px;background-color:#5CB85C;color:white;">
                             Date Range
                         </p>
                         <p>
-                            <table style="background-color:#d6484838;color: red; width: 100%;">
+                            <table style="background-color:#d0f2d0;color: red; width: 100%;">
                                 <tr>
                                     <td>
                                         <b style="margin-left: 10px;">From:</b>
@@ -69,7 +69,7 @@
                                 </tr>
                             </table>
                         </p>
-                    </li><hr style="border-color:#d6484838;"><br>
+                    </li><hr style="border-color:#d0f2d0;"><br>
                     <li style="list-style-type: none;margin-top: -20px;">
                         <b>Class:</b>
                         <p>
@@ -81,14 +81,14 @@
                         <p>
                             <?php echo $subName[0]['subject_name']; ?>
                         </p>
-                    </li><hr style="border-color:#d6484838;"><br>
+                    </li><hr style="border-color:#d0f2d0;"><br>
                 </div>
             </div>
         </div>
         <div class="col-md-9">
-            <div class="box box-danger">
+            <div class="box box-danger"style="border-color:#5CB85C;">
                 <div class="box-header" style="padding:3px;">
-                    <h2 class="text-center text-danger" style="font-family: georgia;">Date Range Wise View</h2><hr style="border-color:#d6484838;">
+                    <h2 class="text-center text-danger" style="font-family: georgia;color:#5CB85C;">Date Range Wise View</h2><hr style="border-color:#d0f2d0;">
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -101,7 +101,7 @@
                                         $atten = Yii::$app->db->createCommand("SELECT CAST(date AS DATE),att.status FROM std_attendance as att WHERE att.teacher_id = '$emp_id' AND att.class_name_id = '$classnameid' AND att.session_id = '$sessionid' AND att.section_id = '$sectionid' AND att.subject_id = '$sub_id' AND att.student_id = '$stdId' AND CAST(date AS DATE) >= '$startDate' AND CAST(date AS DATE) <= '$endDate'")->queryAll(); 
                                         $count = count($atten);
                                          ?>
-                                        <tr style="background-color:#d6484838; ">
+                                        <tr style="background-color:#d0f2d0; ">
                                             <th >Sr #.</th>
                                             <th>Roll #.</th>
                                             <th >Name</th>

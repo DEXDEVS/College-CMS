@@ -56,8 +56,8 @@ class StdRegistration extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_reg_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_DOB', 'std_gender', 'std_permanent_address', 'std_temporary_address', 'std_email', 'std_photo', 'std_b_form', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel', 'status', 'academic_status', 'created_by', 'updated_by'], 'required'],
-            [['std_DOB', 'created_at', 'updated_at'], 'safe'],
+            [['std_reg_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_DOB', 'std_gender', 'std_permanent_address', 'std_photo', 'std_b_form', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel'], 'required'],
+            [['std_DOB', 'created_at', 'updated_at', 'std_temporary_address', 'created_by', 'updated_by', 'std_email', 'status', 'academic_status'], 'safe'],
             [['std_gender', 'status', 'academic_status'], 'string'],
             [['created_by', 'updated_by'], 'integer'],
             [['std_reg_no', 'std_name', 'std_father_name', 'std_district', 'std_religion', 'std_nationality', 'std_tehseel'], 'string', 'max' => 50],
@@ -65,6 +65,8 @@ class StdRegistration extends \yii\db\ActiveRecord
             [['std_permanent_address', 'std_temporary_address', 'std_b_form'], 'string', 'max' => 255],
             [['std_email'], 'string', 'max' => 84],
             [['std_photo'], 'string', 'max' => 200],
+            ['std_email','email'],
+            [['std_photo'], 'image', 'extensions' => 'jpg'],
         ];
     }
 

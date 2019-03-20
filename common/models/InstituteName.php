@@ -33,12 +33,12 @@ class InstituteName extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Institute_name', 'Institutte_address', 'Institute_contact_no', 'head_name'], 'required'],
+            [['Institute_name'], 'required'],
             [['created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by', 'Institutte_address', 'Institute_contact_no', 'head_name'], 'safe'],
             [['Institute_name'], 'string', 'max' => 100],
             [['Institutte_address'], 'string', 'max' => 120],
-            [['Institute_contact_no'], 'number'],
+            [['Institute_contact_no'], 'string', 'max' => 15],
             [['head_name'], 'string', 'max' => 20],
         ];
     }

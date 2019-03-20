@@ -11,74 +11,153 @@ use yii\helpers\Url;
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <?php 
-              $query = (new \yii\db\Query())->from('std_personal_info');
-              $id = $query->count('std_id'); ?>
-              <h3><?php echo $id; ?> </h3>
+      <?php 
+        $user = Yii::$app->user->identity->username;
+        if($user == 'Inquiry Head' OR $user == 'Admin Officer' OR $user == 'Vice Principal') { ?>
+          <div class="row">
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+              <div class="inner">
+                <?php 
+                $query = (new \yii\db\Query())->from('std_inquiry');
+                $count = $query->count('std_inquiry_id'); ?>
+                <h3><?php echo $count; ?> </h3>
+                <p>Total Students Inquiries</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-users"></i>
+              </div>
+              <a href="./std-inquiry" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+              <div class="inner">
+                <?php 
+                  $query = (new \yii\db\Query())->from('std_inquiry')->where(['gender'=>'Male']);
+                  $count = $query->count('std_inquiry_id');
+                ?>
+                <h3><?php echo $count; ?> </h3>
+                <p>Total Male Student Inquiries</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-male"></i>
+              </div>
+              <a href="./std-inquiry" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+              <div class="inner">
+               <?php 
+                  $query = (new \yii\db\Query())->from('std_inquiry')->where(['gender'=>'Female']);
+                  $count = $query->count('std_inquiry_id'); 
+                ?>
+                <h3><?php echo $count; ?> </h3>
+                <p>Total Female Student Inquiries</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-female"></i>
+              </div>
+              <a href="./std-inquiry" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+              <div class="inner">
+               <?php 
+                  $query = (new \yii\db\Query())->from('std_inquiry')->where(['inquiry_status'=>'Registered']);
+                  $count = $query->count('std_inquiry_id'); 
+                ?>
+                <h3><?php echo $count; ?> </h3>
+                <p>Total Registered Inquiries</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-registered"></i>
+              </div>
+              <a href="./std-inquiry" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+      <?php } 
+        else { ?>
+        <div class="row">
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+              <div class="inner">
+                <?php 
+                $query = (new \yii\db\Query())->from('std_personal_info');
+                $id = $query->count('std_id'); ?>
+                <h3><?php echo $id; ?> </h3>
 
-              <p>Student Registrations</p>
+                <p>Student Registrations</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-users"></i>
+              </div>
+              <a href="./std-personal-info" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-            <a href="./std-personal-info" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <?php 
-              $query = (new \yii\db\Query())->from('emp_info');
-              $id = $query->count('emp_id'); ?>
-              <h3><?php echo $id; ?> </h3>
-              <p>Employee Registrations</p>
+          <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+              <div class="inner">
+                <?php 
+                $query = (new \yii\db\Query())->from('emp_info');
+                $id = $query->count('emp_id'); ?>
+                <h3><?php echo $id; ?> </h3>
+                <p>Employee Registrations</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-user-plus"></i>
+              </div>
+              <a href="./emp-info" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon">
-              <i class="fa fa-user-plus"></i>
-            </div>
-            <a href="./emp-info" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-             <?php 
-              $query = (new \yii\db\Query())->from('user');
-              $id = $query->count('id'); ?>
-              <h3><?php echo $id; ?> </h3>
-              <p>User Registrations</p>
+          <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+              <div class="inner">
+               <?php 
+                $query = (new \yii\db\Query())->from('user');
+                $id = $query->count('id'); ?>
+                <h3><?php echo $id; ?> </h3>
+                <p>User Registrations</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-user"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon">
-              <i class="fa fa-user"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>65</h3>
-              <p>Unique Visitors</p>
+          <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+              <div class="inner">
+                <h3>65</h3>
+                <p>Unique Visitors</p>
+              </div>
+              <div class="icon">
+                <i class="glyphicon glyphicon-eye-open" style="font-size: 70px;"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon">
-              <i class="glyphicon glyphicon-eye-open" style="font-size: 70px;"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
+          <!-- ./col -->
         </div>
-        <!-- ./col -->
-      </div>
+     <?php } ?>
+      
       <!-- /.row -->
 
       <!-- Message of the day start -->

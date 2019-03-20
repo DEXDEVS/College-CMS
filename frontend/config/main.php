@@ -51,6 +51,7 @@ return [
                 'login' => 'site/login',
                 //'logout' => 'site/login',
                 'signup' => 'site/signup',
+                //'request-password-reset' => 'site/request-password-reset',
                 'home' => 'site/index',
                 
                 'attendance' => 'std-attendance',

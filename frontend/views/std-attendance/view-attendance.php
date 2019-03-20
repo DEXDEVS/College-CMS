@@ -133,17 +133,18 @@ body{
         $emp_id = $_GET['emp_id'];     
         
 ?>
- <div class="row">
+ <div class="row" style="margin-bottom:13px; ">
+        
         <div class="col-md-8 col-md-offset-2">
-            <a href="./activity-view?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right; margin-right: 16px;" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-backward"></i> Back</a>
+            <a href="./activity-view?sub_id=<?php echo $sub_id;?>&class_id=<?php echo $class_id;?>&emp_id=<?php echo $emp_id;?>"  style="float: right; margin-right: 16px;background-color:#5CB85C;color: white;padding:3px;border-radius:5px; text-decoration: none;"><i class="glyphicon glyphicon-backward"></i> Back</a>
         </div>
 </div>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="container-fluid" style="margin-top:5px">
-        <div class="box box-danger">
-            <div class="box-header"style="background-color:#d6484838;">      
-                <h2 class="text-danger" align="center">Attendance Report</h2>
+        <div class="box box-danger" style="border-color:#5CB85C;">
+            <div class="box-header"style="background-color:#d0f2d0;">      
+                <h2 style="color:#5CB85C;" align="center">Attendance Report</h2>
             </div>
             <div class="box-body">
                 <section id="">
@@ -167,14 +168,14 @@ body{
                                             <div style="text-align: center;">
                                                 <!-- Trigger the modal with a button -->
                                                 <br>
-                                                <div class="row">
-                                                    <div class="col-md-6">
+                                                <!-- <div class="row">
+                                                    <div class="col-md-6"> -->
                                                        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal1<?php echo $sub_id;?>">Date Wise</button> 
-                                                    </div>
-                                                    <div class="col-md-6">
+                                                    <!-- </div> -->
+                                                    <!-- <div class="col-md-6"> -->
                                                     <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal2<?php echo $sub_id;?>">Date Range Wise</button>
-                                                    </div>
-                                                </div>
+                                                    <!-- </div> -->
+                                                <!-- </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -199,14 +200,14 @@ body{
                                         <div class="col-xs-12">
                                             <div style="text-align: center;">
                                                 <br>
-                                                <div class="row">
-                                                    <div class="col-md-6">
+                                                <!-- <div class="row">
+                                                    <div class="col-md-6"> -->
                                                        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal3<?php echo $sub_id;?>">Date Wise</button> 
-                                                    </div>
-                                                    <div class="col-md-6">
+                                                   <!--  </div>
+                                                    <div class="col-md-6"> -->
                                                     <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal4<?php echo $sub_id;?>">Date Range Wise</button>
-                                                    </div>
-                                                </div>
+                                                <!--     </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -238,9 +239,9 @@ body{
             <div class="modal-body">
                 <div class="conatiner-fluid">
                 <br>
-                    <div class="box box-danger">
-                        <div class="box-header" style="padding:0px;background-color:#d6484838;">
-                            <h3 class="text-center text-danger">Date Wise Class Attendance</h3>
+                    <div class="box box-danger"  style="border-color:#5CB85C;">
+                        <div class="box-header" style="padding:0px;background-color:#d0f2d0;">
+                            <h3 class="text-center" style="color:#5CB85C;">Date Wise Class Attendance</h3>
                         </div>
                         <div class="box-body">
                             <form method="POST" action="./datewise-class-attendance?sub_id=<?php echo $sub_id ?>&class_id=<?php echo $class_id ?>&emp_id=<?php echo $emp_id ?>">
@@ -252,7 +253,7 @@ body{
                                 </div>    
                             </div><br><br>
                             <div class="col-md-3">
-                                <div class="form-group">
+                                <div class="form-group"  style="margin-top:3px;">
                                     
                                         <button type="submit" name="submit" class="btn btn-success btn-flat form-control" style="margin-top: -25px;">
                                         <i class="fa fa-sign-in" aria-hidden="true"></i>    
@@ -289,9 +290,9 @@ body{
         </div>
         <div class="modal-body">
           <div class="container-fluid">
-    <div class="box box-danger">
-        <div class="box-header" style="padding:0px;background-color:#d6484838;">
-            <h3 class="text-center text-danger">Date Range Wise Class Attendance</h3>
+    <div class="box" style="border-color:#5CB85C;">
+        <div class="box-header" style="padding:0px;background-color:#d0f2d0;">
+            <h3 class="text-center" style="color:#5CB85C;">Date Range Wise Class Attendance</h3>
         </div>
         <div class="box-body">
            <form method="POST" action="./daterangewise-class-attendance?sub_id=<?php echo $sub_id ?>&class_id=<?php echo $class_id ?>&emp_id=<?php echo $emp_id ?>">
@@ -320,9 +321,9 @@ body{
                             </div>
                             <input type="date" class="form-control" name="end_date">
                         </div>
-                    </div> <br>
+                    </div><br>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:4px;">
                             <label></label>
                             <button type="submit" name="submit" class="btn btn-success bt-xs">
                             <i class="fa fa-sign-in" aria-hidden="true"></i>    
@@ -357,9 +358,9 @@ body{
         <div class="modal-body">
             <div class="container-fluid">
     <br>
-    <div class="box box-danger">
-        <div class="box-header"style="padding:0px;background-color: #d6484838;">
-            <h3 class="text-center text-danger">Date Wise Student Attendance</h3>
+    <div class="box" style="border-color:#5CB85C;">
+        <div class="box-header" style="padding:0px;background-color:#d0f2d0;">
+            <h3 class="text-center" style="color:#5CB85C;">Date Wise Student Attendance</h3>
         </div>
         <div class="box-body">
             <form method="POST" action="./datewise-student-attendance?sub_id=<?php echo $sub_id ?>&class_id=<?php echo $class_id ?>&emp_id=<?php echo $emp_id ?>">
@@ -406,7 +407,7 @@ body{
                         </div>    
                     </div><br>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:2px;">
                             <label></label>
                             <button type="submit" name="submit" class="btn btn-success form-control" style="margin-top: -25px;">
                             <i class="fa fa-sign-in" aria-hidden="true"></i>    
@@ -446,9 +447,9 @@ body{
         <div class="modal-body">
           <div class="container-fluid">
     <br>
-    <div class="box box-danger">
-        <div class="box-header" style="padding:0px;background-color:#d6484838;">
-            <h3 class="text-center text-danger">Date Range Wise Class Attendance</h3>
+    <div class="box box-danger"style="border-color:#5CB85C;">
+        <div class="box-header" style="padding:0px;background-color:#d0f2d0;">
+            <h3 class="text-center" style="color:#5CB85C;">Date Range Wise Class Attendance</h3>
         </div>
         <div class="box-body">
            <form method="POST" action="./daterangewise-student-attendance?sub_id=<?php echo $sub_id ?>&class_id=<?php echo $class_id ?>&emp_id=<?php echo $emp_id ?>">
