@@ -1,3 +1,6 @@
+<?php
+    Yii::$app->session->getFlash('key', 'message');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,14 +91,8 @@
             $attendance = Yii::$app->db->createCommand("SELECT subject_id,CAST(date AS DATE),status,student_id FROM std_attendance WHERE class_name_id = '$classid' AND session_id = '$sessionid' AND section_id = '$sectionid' AND student_id = '$stdId' ")->queryAll();
             $attendanceArr[$sId] = $attendance;
         }
-        for($z=0; $z<$studentLength; $z++){
-            for ($y=0; $y<15; $y++){
-            }
-        }
-        // foreach ($attendanceArr as $key => $value) {
-        //     var_dump($value);
-        //     echo "<br>";
-        // }
+        
+            
         // Selected Class Name
         $className = Yii::$app->db->createCommand("SELECT class_name FROM std_class_name WHERE class_name_id = '$classid'")->queryAll();
         // get Sbjects for selected class
@@ -184,34 +181,38 @@
                 	?>
                 </tr>
 
-                <?php   for( $std=0; $std<$studentLength; $std++) { ?>
+                <?php   for( $std=0; $std<$studentLength; $std++) { 
+                            $stdAttendance = 0;
+                    ?>
                             <tr>
                                 <td><?php echo $std+1; ?></td>
                                 <td><?php echo $student[$std]['std_roll_no']; ?></td>
                                 <?php $stdId = $student[$std]['std_enroll_detail_std_id'];
                                       $stdName = Yii::$app->db->createCommand("SELECT std_name FROM std_personal_info  WHERE std_id = '$stdId'")->queryAll(); 
-                                      
-                                      $attendanceCount = count($attendance);
                                       $attSubject = $attendance[0]['subject_id'];
                                       $subAls = Yii::$app->db->createCommand("SELECT subject_alias FROM subjects WHERE subject_id = '$attSubject' ")->queryAll();
                                       $subjAlias = $subAls[0]['subject_alias'];
-                                      
-                                var_dump($attendanceArr[$std][0]['student_id']);
+                                      $attendanceCount = count($attendance);
+                                      for ($y=0; $y<$attendanceCount; $y++){
+                                //var_dump($attendanceArr[$std][$y]);
+                                //echo "<br>";
+                                      } 
                                 ?>
                                 <td><?php echo $stdName[0]['std_name']; ?></td>
                                 <?php for ($k=1; $k <=$countDate ; $k++) {
+                                        
                                             for ($j=0; $j<$subjectlength ; $j++) {  
                                     ?>
                                     <td>
-                                        <?php 
-                                            if ($subjectAlias[$j] == $subjAlias) {
-
-                                            }
+                                        <?php if ($subjectAlias[$j] == $subjAlias) {
+                                                echo "P";
+                                             }
                                         ?>
                                     </td>
 
                                 <?php       // end of j loop
                                             } 
+                                        
                                     //end of k loop      
                                     } ?>
                         </tr>
