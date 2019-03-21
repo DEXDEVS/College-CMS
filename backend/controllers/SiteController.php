@@ -3,10 +3,10 @@ namespace backend\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
-
 /**
  * Site controller
  */
@@ -73,9 +73,7 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        // if (!Yii::$app->user->isGuest) {
-        // return $this->goHome();
-        // }
+
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -88,10 +86,15 @@ class SiteController extends Controller
                    // put him out :P Automatically logout. 
                 //Yii::$app->user->logout();
                 // set error on login page. 
-                Yii::$app->session->setFlash('error', 'You are not authorized to login Admin\'s penal.<br /> Please use valid Username & Password.<br />Please contact Administrator for details.');
+                if (!Yii::$app->user->isGuest) {
+                    //Yii::$app->session->setFlash('error', 'You are not authorized to login Admin\'s penal.<br /> Please use valid Username & Password.<br />Please contact Administrator for details.');
+                    throw new HttpException(403, 'You are not authorized to perform this action');
+
+                //return $this->goHome();
                 //redirect again page to login form.
                 return $this->redirect(['login']);
-                }  
+                }   
+            }  
         } else {
             return $this->render('login', [
                 'model' => $model,
