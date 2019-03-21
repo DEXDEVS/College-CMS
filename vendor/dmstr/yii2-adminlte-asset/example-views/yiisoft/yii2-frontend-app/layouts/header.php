@@ -7,6 +7,7 @@ use yii\helpers\Html;
 $userID = Yii::$app->user->id;
     $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
     $userPhoto = $user[0]['user_photo'];
+
 ?>
 
 
@@ -207,7 +208,9 @@ $userID = Yii::$app->user->id;
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<?php echo $userPhoto ?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs">
-                            <?php echo Yii::$app->user->identity->username;  ?>
+                            <?php echo Yii::$app->user->identity->username; 
+                            echo $userPhoto;
+                             ?>
                             <!--  -->
                         </span>
                     </a>
