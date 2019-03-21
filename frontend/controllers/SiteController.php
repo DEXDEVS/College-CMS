@@ -116,7 +116,7 @@ class SiteController extends Controller
             if(!empty($model->user_photo)){
                 $imageName = $model->username.'_photo'; 
                 $model->user_photo->saveAs('userphotos/'.$imageName.'.'.$model->user_photo->extension);
-                $model->user_photo->saveAs('./admin/userphotos/'.$imageName.'.'.$model->user_photo->extension);
+                // $model->user_photo->saveAs('./admin/userphotos/'.$imageName.'.'.$model->user_photo->extension);
                 //save the path in the db column
                 $model->user_photo = 'userphotos/'.$imageName.'.'.$model->user_photo->extension;
             } else {

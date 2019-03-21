@@ -26,10 +26,10 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'std_name',
     ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'std_father_name',
-    // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'std_father_name',
+    ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'gender',
@@ -58,10 +58,10 @@ return [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_previous_class',
     // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'std_roll_no',
-    // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'std_roll_no',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'std_obtained_marks',

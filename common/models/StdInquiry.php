@@ -85,7 +85,7 @@ class StdInquiry extends \yii\db\ActiveRecord
             'std_intrested_class' => 'Interested Class',
             'std_previous_class' => 'Previous Class',
             'previous_institute' => 'Previous Institute',
-            'std_roll_no' => 'Roll No',
+            'std_roll_no' => 'Previous Roll No',
             'std_obtained_marks' => 'Obtained Marks',
             'std_total_marks' => 'Total Marks',
             'std_percentage' => 'Percentage',
