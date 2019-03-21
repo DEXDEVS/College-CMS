@@ -34,7 +34,7 @@ use kartik\select2\Select2;
                         'prompt'=>'Select Session',
                         'id' => 'sessionId',
                         'onchange'=>
-                            '$.post("index.php?r=std-sections/lists&id='.'"+$(this).val(), function( data ){
+                            '$.post("std-sections/lists&id='.'"+$(this).val(), function( data ){
                                 $("select#sectionId").html(data);
                             });'
                     ]);?>

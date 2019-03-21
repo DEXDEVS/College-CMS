@@ -107,7 +107,7 @@ $year = date('y');
                 ]); ?>
         </div>
         <div class="col-md-4">
-            <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 52px; top: 18px"></i>
+            <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 52px; top: 18px"></i> --><br>
             <?= $form->field($model, 'std_roll_no')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-4">

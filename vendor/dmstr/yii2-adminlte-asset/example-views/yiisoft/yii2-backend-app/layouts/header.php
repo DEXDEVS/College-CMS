@@ -221,6 +221,9 @@ use yii\helpers\Html;
                             <p>
                                 <label for="">Contact Info</label><br>
                                 <?= Yii::$app->user->identity->email ?>
+                                <label for="">Designation: </label> <?= Yii::$app->user->identity->user_type ?><br>
+                                
+                                
                                 <!-- user_phone_no -->
 
                                 <!-- email -->
