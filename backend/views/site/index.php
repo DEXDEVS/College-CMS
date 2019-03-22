@@ -848,16 +848,16 @@ Modal::end();
             $count = count($queryInstitutes); 
             for($i = 0; $i <=$count; $i++) {
                 $previousInstitute = $queryInstitutes[$i]['previous_institute'];
-                $queryInquiries = Yii::$app->db->createCommand("SELECT std_inquiry_id,previous_institute FROM std_inquiry WHERE previous_institute = '$previousInstitute' LIMIT 5")->queryAll();
-                $count = count($queryInquiries);
-                    echo "['<b>".$queryInquiries[0]['previous_institute']."</b>', ".$count."],";
+                $queryInquiries = Yii::$app->db->createCommand("SELECT std_inquiry_id,previous_institute FROM std_inquiry WHERE previous_institute = '$previousInstitute'")->queryAll();
+                $countStudents = count($queryInquiries);
+                    echo "['<b>".$queryInquiries[0]['previous_institute']."</b>', ".$countStudents."],";
                 }
             ?>
             ]
         }]
         
     });
-// 
+// Inquiry - Percentage Wise
 Highcharts.chart('container2', {
     chart: {
         plotBackgroundColor: null,
