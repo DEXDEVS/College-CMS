@@ -75,8 +75,7 @@ use yii\helpers\Url;
       <!-- Small boxes (Stat box) -->
       <?php 
         $user = Yii::$app->user->identity->user_type;
-        echo $user;
-        if($user == 'Registrar' OR $user == 'Admin' OR $user == 'Vice Principal' OR $user == 'Principal') { ?>
+        if($user == 'Registrar' OR $user == 'Admin' OR $user == 'Vice Principal' OR $user == 'Principal' OR $user == 'dexdevs') { ?>
           <div class="row">
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
