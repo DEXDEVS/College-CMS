@@ -74,8 +74,8 @@ use yii\helpers\Url;
       <!-- Message of the day close -->
       <!-- Small boxes (Stat box) -->
       <?php 
-        $user = Yii::$app->user->identity->username;
-        if($user == 'Registrar' OR $user == 'Admission' OR $user == 'Vice Principal') { ?>
+        $user = Yii::$app->user->identity->user_type;
+        if($user == 'Registrar' OR $user == 'Admission' OR $user == 'Vice Principal' OR $user == 'Principal') { ?>
           <div class="row">
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
@@ -849,8 +849,8 @@ Modal::end();
             for($i = 0; $i <=$count; $i++) {
                 $previousInstitute = $queryInstitutes[$i]['previous_institute'];
                 $queryInquiries = Yii::$app->db->createCommand("SELECT std_inquiry_id,previous_institute FROM std_inquiry WHERE previous_institute = '$previousInstitute'")->queryAll();
-                $countStudents = count($queryInquiries);
-                    echo "['<b>".$queryInquiries[0]['previous_institute']."</b>', ".$countStudents."],";
+                $count = count($queryInquiries);
+                    echo "['<b>".$queryInquiries[0]['previous_institute']."</b>', ".$count."],";
                 }
             ?>
             ]
