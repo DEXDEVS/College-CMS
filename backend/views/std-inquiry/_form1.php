@@ -133,7 +133,16 @@ use common\models\StdClassName;
         <div class="col-md-4">
              <?= $form->field($model, 'refrence_designation')->textInput(['maxlength' => true]) ?>
         </div>
+        <div class="col-md-8">
+            <?= $form->field($model, 'comment')->textArea(['maxlength' => true]) ?>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+             <?= $form->field($model, 'inquiry_status')->dropDownList([ 'Inquiry' => 'Inquiry', 'Registered' => 'Registered', ], ['prompt' => 'Select Status']) ?>
+        </div>
+    </div>
+
     
     <?php if (!Yii::$app->request->isAjax){ ?>
         <div class="form-group">
@@ -145,7 +154,7 @@ use common\models\StdClassName;
 <?php
 $script = <<< JS
 // calculate totalMarks....
-    $('#totalMarks').on('change',function(){
+    $('#percentage').on('focus',function(){
         var tMarks = $('#totalMarks').val();
         var obtMarks = $('#obtainedMarks').val();
         var percentage = ((parseInt(obtMarks) / parseInt(tMarks))*100);

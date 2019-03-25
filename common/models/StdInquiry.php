@@ -50,8 +50,8 @@ class StdInquiry extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'previous_institute', 'std_roll_no', 'std_obtained_marks', 'std_total_marks', 'std_percentage','gender'], 'required'],
-            [['std_inquiry_date', 'created_at', 'updated_at', 'created_by', 'updated_by', 'inquiry_status','previous_institute','std_intrested_class', 'inquiry_session', 'refrence_name', 'refrence_contact_no', 'refrence_designation','std_address','comment'], 'safe'],
+            [['std_inquiry_no', 'std_name', 'std_father_name', 'std_contact_no', 'std_father_contact_no', 'std_inquiry_date', 'std_intrested_class', 'std_previous_class', 'previous_institute', 'std_obtained_marks', 'std_total_marks', 'std_percentage','gender'], 'required'],
+            [['std_inquiry_date', 'created_at', 'updated_at', 'created_by', 'updated_by', 'inquiry_status','previous_institute','std_intrested_class', 'inquiry_session', 'refrence_name', 'refrence_contact_no', 'refrence_designation','std_address','comment', 'std_roll_no'], 'safe'],
             [['std_obtained_marks', 'std_total_marks', 'created_by', 'updated_by'], 'integer'],
             [['inquiry_status','gender'], 'string'],
             [['std_inquiry_no'], 'string', 'max' => 15],
@@ -85,7 +85,7 @@ class StdInquiry extends \yii\db\ActiveRecord
             'std_intrested_class' => 'Interested Class',
             'std_previous_class' => 'Previous Class',
             'previous_institute' => 'Previous Institute',
-            'std_roll_no' => 'Roll No',
+            'std_roll_no' => 'Previous Roll No',
             'std_obtained_marks' => 'Obtained Marks',
             'std_total_marks' => 'Total Marks',
             'std_percentage' => 'Percentage',

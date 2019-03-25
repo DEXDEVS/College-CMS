@@ -7,6 +7,7 @@ use yii\helpers\Html;
 $userID = Yii::$app->user->id;
     $user = Yii::$app->db->createCommand("SELECT user_photo FROM user WHERE id = $userID")->queryAll();
     $userPhoto = $user[0]['user_photo'];
+
 ?>
 
 
@@ -26,7 +27,7 @@ $userID = Yii::$app->user->id;
             <ul class="nav navbar-nav">
 
                 <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
+                <li class="dropdown messages-menu invisible">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
                         <span class="label label-success">4</span>
@@ -107,7 +108,7 @@ $userID = Yii::$app->user->id;
                         <li class="footer"><a href="#">See All Messages</a></li>
                     </ul>
                 </li>
-                <li class="dropdown notifications-menu">
+                <li class="dropdown notifications-menu invisible">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
                         <span class="label label-warning">10</span>
@@ -150,7 +151,7 @@ $userID = Yii::$app->user->id;
                     </ul>
                 </li>
                 <!-- Tasks: style can be found in dropdown.less -->
-                <li class="tasks-menu">
+                <li class="tasks-menu invisible">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-th"></i>
                         <span class="label label-danger">9</span>
@@ -207,7 +208,7 @@ $userID = Yii::$app->user->id;
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<?php echo $userPhoto ?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs">
-                            <?php echo Yii::$app->user->identity->username;  ?>
+                            <?php echo Yii::$app->user->identity->username; ?>
                             <!--  -->
                         </span>
                     </a>
@@ -227,8 +228,8 @@ $userID = Yii::$app->user->id;
                                 <a href="#" class="btn btn-primary btn-flat btn-sm">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <?php if(Yii::$app->user->identity->username == 'Superadmin' OR
-                                Yii::$app->user->identity->username == 'dexdevs'){?>
+                                <?php if(Yii::$app->user->identity->user_type == 'Superadmin' OR
+                                Yii::$app->user->identity->user_type == 'dexdevs'){?>
                                 <?= Html::a(
                                     'Add User',
                                     ['/signup'],

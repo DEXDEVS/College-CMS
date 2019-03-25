@@ -39,7 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $form->field($model, 'password')->passwordInput() ?>
                     </div>
                     <div class="col-md-4">
-                        <?= $form->field($model, 'user_type')->textInput() ?>
+                        <?= $form->field($model, 'user_type')->dropDownList(
+                            ArrayHelper::map(Users::find()->all(),'user_name','user_name'), ['prompt'=>'Select User Type']
+                        )?>
                     </div>
                 </div>
                 <div class="row">

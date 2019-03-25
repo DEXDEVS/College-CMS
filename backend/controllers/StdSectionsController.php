@@ -31,7 +31,7 @@ class StdSectionsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete','lists','bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete','bulk-delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -256,7 +256,7 @@ class StdSectionsController extends Controller
      * @return mixed
      */
 
-    public function actionLists($id){
+    public function Lists($id){
 
         $countSection = StdSections::find()
             ->where(['session_id' => $id])

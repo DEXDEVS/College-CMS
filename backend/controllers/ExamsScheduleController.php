@@ -31,7 +31,7 @@ class ExamsScheduleController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','manage-exams'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','manage-exams','exam-date-sheet'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
