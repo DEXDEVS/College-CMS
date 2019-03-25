@@ -82,9 +82,10 @@ return [
 
                 'emp-info-view' => 'emp-info/view',
                 'emp-info-update' => 'emp-info/update',
-
                 'emp-reference-update' => 'emp-reference/update',
                 'emp-documents-create' => 'emp-documents/create',
+                'emp-delete-doc' => 'emp-documents/delete-doc',
+                'emp-download-doc' => 'emp-documents/download-doc',
 
                 'class-account' => 'fee-transaction-detail/class-account',
                 'fee-transaction-detail-fee-voucher' => 'fee-transaction-detail/fee-voucher',

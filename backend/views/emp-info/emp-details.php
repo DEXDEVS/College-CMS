@@ -33,7 +33,7 @@
     $empReference = $empReference;
   }
   // Employee Documents Info..... 
-  $empDocs = Yii::$app->db->createCommand("SELECT emp_document_id, emp_document, emp_document_name FROM emp_documents WHERE emp_info_id = '$id'")->queryAll();
+  $empDocs = Yii::$app->db->createCommand("SELECT emp_document_id, emp_document, emp_document_name FROM emp_documents WHERE emp_info_id = '$id' AND delete_status = 1")->queryAll();
   $countDocs = count($empDocs);
 ?>
 <div class="container-fluid">
@@ -302,7 +302,6 @@
              <div class="row">
                 <div class="col-md-5">
                   <p style="font-size: 20px; color: #3C8DBC;"><i class="fa fa-info-circle" style="font-size: 20px;"></i> Document Information</p>
-                <?php echo $id; ?>
                 </div>
                 <div class="col-md-2 col-md-offset-4">
                   <a href="./emp-documents-create?id=<?php echo $id;?>" class="btn btn-success btn-sm fa fa-plus" style='color: white;'> Add Document </a>
@@ -310,12 +309,44 @@
               </div><hr>
               <!-- Employee Document info start -->
                 <div class="row">
-                  <?php for ($i=0; $i < $countDocs ; $i++) { ?>
-                    <div class="col-md-6">
+                  
+                   <!--  <div class="col-md-6">
                       <h3 style="color: #3C8DBC; text-align: center;"><?php echo $empDocs[$i]['emp_document_name'] ?></h3>
                       <img src="<?php echo $empDocs[$i]['emp_document'] ?>" class="img-responsive img-thumbnail" width="350px"="350px">
+                    </div> -->
+                    <div class="col-md-12">
+                      <table class="table table-bordered table-responsive">
+                      <tr class="label-primary">
+                        <th class="text-center" style="width: 50px">Sr #</th>
+                        <th>Document Name</th>
+                        <th class="text-center">Document</th>
+                        <th class="text-center">Action</th>
+                      </tr>
+                      <?php for ($i=0; $i < $countDocs ; $i++) { ?>
+                      <tr>
+                        <td class="text-center"><b><?php echo $i+1; ?></b></td>
+                        <td><?php echo $empDocs[$i]['emp_document_name'] ?></td>
+                        <td align="center"><img src="<?php echo $empDocs[$i]['emp_document'] ?>" class="img-responsive img-thumbnail" alt="Document in (.pdf/docs)" width="50px"></td>
+                        <td>
+                          <div class="col-lg-6 col-xs-12 col-sm-6 col-md-6 no-padding">
+                            <?= Html::a('<span class = "glyphicon glyphicon-download"></span>', ['/emp-download-doc', 'emp_doc_id' => $empDocs[$i]['emp_document_id']], ['class' => 'btn-sm btn btn-block btn-flat btn-primary', 'title' => 'Download Document', 'data' => ['method' => 'post']]) ?>
+                          </div>
+                          <div class="col-lg-6 col-xs-12 col-sm-6 col-md-6 no-padding">
+                            <?=  Html::a('<i class="fa fa-trash-o"></i>',['/emp-delete-doc', 'emp_doc_id' => $empDocs[$i]['emp_document_id']], [
+                                'class' => 'btn-sm btn btn-danger btn-block btn-flat',
+                                'title' => 'Delete Document',
+                                'data' => [
+                                  'confirm' => ('Are you sure you want to delete this item?'),
+                                  'method' => 'post',
+                                ],
+                            ])  ?>
+                          </div>
+                        </td>
+                      </tr>
+                      <?php } ?>
+                    </table>
                     </div>
-                  <?php } ?>
+                  
                 </div>
               <!-- Employee Document info close -->
             </div>
