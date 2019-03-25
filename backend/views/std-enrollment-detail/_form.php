@@ -30,13 +30,9 @@ use kartik\select2\Select2;
                 <i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 55px; top: 18px"></i>
                 <?= $form->field($stdEnrollmentHead, 'session_id')->dropDownList(
                     ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1 , 'status' => 'Active'])->all(),'session_id','session_name'),
-                    [
-                        'prompt'=>'Select Session',
+                    [    'prompt'=>'Select Session',
                         'id' => 'sessionId',
-                        'onchange'=>
-                            '$.post("index.php?r=std-sections/lists&id='.'"+$(this).val(), function( data ){
-                                $("select#sectionId").html(data);
-                            });'
+                    
                     ]);?>
             </div>
         </div>
@@ -76,6 +72,22 @@ use kartik\select2\Select2;
 $url = \yii\helpers\Url::to("std-enrollment-detail/fetch-students");
 
 $script = <<< JS
+//here you write all your javascript stuff
+$('#sessionId').change(function(){
+    var sessionId = $(this).val();
+    $.get('std-sections/get-section',{sessionId : sessionId},function(data){
+        var data =  $.parseJSON(data)
+        console.log(data);
+        $('#sectionId').empty();
+        $('#sectionId').append("<option>"+"Select Section"+"</option>");
+        var options = '';
+            for(var i=0; i<data.length; i++) { 
+                options += '<option value="'+data[i].section_id+'">'+data[i].section_name+'</option>';
+            }
+        // Append to the html
+        $('#sectionId').append(options);
+    });
+});
 $('#classId').on('change',function(){
    var classId = $('#classId').val();
    

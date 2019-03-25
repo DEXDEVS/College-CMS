@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\helpers\Json;
 
 /**
  * StdSectionsController implements the CRUD actions for StdSections model.
@@ -31,7 +32,7 @@ class StdSectionsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete','lists','bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete','lists','bulk-delete','get-section'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -274,6 +275,12 @@ class StdSectionsController extends Controller
             echo "<option> - </option>";
         }
     } 
+
+    public function actionGetSection($sessionId){
+        // fine the zip code from the locations table
+        $section = StdSections::find()->where(['session_id' =>$sessionId])->all();
+        echo Json::encode($section); 
+    }
 
     public function actionBulkDelete()
     {        
