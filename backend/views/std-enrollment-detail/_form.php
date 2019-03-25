@@ -32,7 +32,14 @@ use kartik\select2\Select2;
                     ArrayHelper::map(StdSessions::find()->where(['delete_status'=>1 , 'status' => 'Active'])->all(),'session_id','session_name'),
                     [    'prompt'=>'Select Session',
                         'id' => 'sessionId',
+<<<<<<< HEAD
                     
+=======
+                        'onchange'=>
+                            '$.post("std-sections/lists&id='.'"+$(this).val(), function( data ){
+                                $("select#sectionId").html(data);
+                            });'
+>>>>>>> c6de59139b51843e600e7c7f98537e3a66463108
                     ]);?>
             </div>
         </div>

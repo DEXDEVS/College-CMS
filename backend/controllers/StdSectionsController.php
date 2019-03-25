@@ -257,7 +257,7 @@ class StdSectionsController extends Controller
      * @return mixed
      */
 
-    public function actionLists($id){
+    public function Lists($id){
 
         $countSection = StdSections::find()
             ->where(['session_id' => $id])
