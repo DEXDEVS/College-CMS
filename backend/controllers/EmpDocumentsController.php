@@ -32,7 +32,7 @@ class EmpDocumentsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete', 'download-doc', 'delete-doc'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -43,6 +43,7 @@ class EmpDocumentsController extends Controller
                 'actions' => [
                     'delete' => ['post'],
                     'bulk-delete' => ['post'],
+                    'download-doc' => ['post'],
                 ],
             ],
         ];
@@ -118,11 +119,11 @@ class EmpDocumentsController extends Controller
             }else if($model->load($request->post())){
                 $model->emp_document = UploadedFile::getInstance($model,'emp_document');
                 $document = $model->emp_document;
-                var_dump($document);
-                $imageName = $model->emp_info_id."_".$document; 
-                $model->emp_document->saveAs('uploads/'.$imageName);
+                //var_dump($document);
+                $imageName = $model->emp_info_id."_".$model->emp_document_name; 
+                $model->emp_document->saveAs('uploads/'.$imageName.'.'.$model->emp_document->extension);
                 //save the path in the db column
-                $model->emp_document = 'uploads/'.$imageName;
+                $model->emp_document = 'uploads/'.$imageName.'.'.$model->emp_document->extension;
                     
                 $model->created_by = Yii::$app->user->identity->id; 
                 $model->created_at = new \yii\db\Expression('NOW()');
@@ -155,11 +156,11 @@ class EmpDocumentsController extends Controller
             if ($model->load($request->post())) {
                 $model->emp_document = UploadedFile::getInstance($model,'emp_document');
                 $document = $model->emp_document;
-                var_dump($document);
-                $imageName = $model->emp_info_id."_".$document; 
-                $model->emp_document->saveAs('uploads/'.$imageName);
+                //var_dump($document);
+                $imageName = $model->emp_info_id."_".$model->emp_document_name; 
+                $model->emp_document->saveAs('uploads/'.$imageName.'.'.$model->emp_document->extension);
                 //save the path in the db column
-                $model->emp_document = 'uploads/'.$imageName;
+                $model->emp_document = 'uploads/'.$imageName.'.'.$model->emp_document->extension;
                     
                 $model->created_by = Yii::$app->user->identity->id; 
                 $model->created_at = new \yii\db\Expression('NOW()');
@@ -239,6 +240,26 @@ class EmpDocumentsController extends Controller
                 ]);
             }
         }
+    }
+
+    // download documents.....
+    public function actionDownloadDoc($emp_doc_id)
+    {
+        $model = EmpDocuments::findOne($emp_doc_id);
+        header('Content-Type:'.pathinfo($model->emp_document, PATHINFO_EXTENSION));
+        header('Content-Disposition: uploads; filename='.$model->emp_document);
+        return readfile($model->emp_document);
+    }
+
+    // Delete Documents...
+    public function actionDeleteDoc($emp_doc_id)
+    {
+        $model = EmpDocuments::findOne($emp_doc_id);
+        $model->delete_status = 0;
+        $model->updated_by = Yii::$app->user->identity->id;
+        $model->updated_at = new \yii\db\Expression('NOW()');
+        $model->update();
+        return $this->redirect(['emp-info/view', 'id' => $model->emp_info_id]);
     }
 
     /**

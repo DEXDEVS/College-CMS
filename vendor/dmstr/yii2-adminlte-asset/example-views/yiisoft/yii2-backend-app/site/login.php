@@ -19,7 +19,6 @@ $fieldOptions2 = [
 ];
 ?>
 
-<?php Yii::$app->session->getFlash('key', 'message'); ?>
 
 <div class="login-box" style="margin-top: 30px; background-color: #183663; margin: 20px auto; color: white;">
     <div class="login-logo" style="padding-top: 10px">

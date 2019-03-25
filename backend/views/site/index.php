@@ -1,19 +1,81 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
 <?php
-
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
 //$this->title = 'SMART EDUCATION';
 ?>
+<?php  
+    // total inquiries...
+    $query = (new \yii\db\Query())->from('std_inquiry');
+    $countTotal = $query->count('std_inquiry_id');
+    // total male inquiries...
+    $query = (new \yii\db\Query())->from('std_inquiry')->where(['gender'=>'Male']);
+    $countMale = $query->count('std_inquiry_id'); 
+    // total female inquires...
+    $query = (new \yii\db\Query())->from('std_inquiry')->where(['gender'=>'Female']);
+    $countFemale = $query->count('std_inquiry_id');
+    // total registered inquiries...
+    $query = (new \yii\db\Query())->from('std_inquiry')->where(['inquiry_status'=>'Registered']);
+    $countRegistered = $query->count('std_inquiry_id'); 
 
+    $query90 = Yii::$app->db->createCommand("SELECT std_inquiry_id FROM `std_inquiry` WHERE `std_percentage` >= '90%' OR `std_percentage` <= '100%'")->queryAll();
+    $count90 = count($query90);
+    $query80 = Yii::$app->db->createCommand("SELECT std_inquiry_id FROM `std_inquiry` WHERE `std_percentage` >= '80%' AND `std_percentage` <= '89%'")->queryAll();
+    $count80 = count($query80);
+    $query70 = Yii::$app->db->createCommand("SELECT std_inquiry_id FROM `std_inquiry` WHERE `std_percentage` >= '70%' AND `std_percentage` <= '79%'")->queryAll();
+    $count70 = count($query70);
+    $query60 = Yii::$app->db->createCommand("SELECT std_inquiry_id FROM `std_inquiry` WHERE `std_percentage` >= '60%' AND `std_percentage` <= '69%'")->queryAll();
+    $count60 = count($query60);
+    $query50 = Yii::$app->db->createCommand("SELECT std_inquiry_id FROM `std_inquiry` WHERE `std_percentage` >= '50%' AND `std_percentage` <= '59%'")->queryAll();
+    $count50 = count($query50);
+
+?>
 <div class="site-index">
     <!-- Main content -->
     <section class="content">
+      <!-- Message of the day start -->
+      <div class="row">
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          <div class="info-box bg-navy callout-warning">
+            <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+            <div class="info-box-content">
+              <h4 style="float: left;">Message of the day!</h4>  
+              <h4 style="float:right">
+                <span id="hr"></span>
+                <span id="min"></span>
+                <span id="sec"></span> -
+                <?php echo date('l d-M-Y');?> 
+              </h4>
+              
+              <br><br>
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                <span class="progress-description">
+                    <marquee onmouseover="this.stop();" onmouseout="this.start();">
+                      <?php 
+                        $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
+                        $date = 2;
+                        $msg = $message[$date]['msg_details'];
+                        echo $msg;
+                      ?>
+                    </marquee>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+      </div>
+      <!-- Message of the day close -->
       <!-- Small boxes (Stat box) -->
       <?php 
         $user = Yii::$app->user->identity->user_type;
-        if($user == 'Inquiry Head' OR $user == 'Admin Officer' OR $user == 'Vice Principal' OR $user == 'Registrar') { ?>
+        if($user == 'Registrar' OR $user == 'Admin' OR $user == 'Vice Principal' OR $user == 'Principal' OR $user == 'dexdevs') { ?>
           <div class="row">
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
@@ -21,8 +83,8 @@ use yii\helpers\Url;
               <div class="inner">
                 <?php 
                 $query = (new \yii\db\Query())->from('std_inquiry');
-                $count = $query->count('std_inquiry_id'); ?>
-                <h3><?php echo $count; ?> </h3>
+                $countTotal = $query->count('std_inquiry_id'); ?>
+                <h3><?php echo $countTotal; ?> </h3>
                 <p>Total Students Inquiries</p>
               </div>
               <div class="icon">
@@ -38,9 +100,9 @@ use yii\helpers\Url;
               <div class="inner">
                 <?php 
                   $query = (new \yii\db\Query())->from('std_inquiry')->where(['gender'=>'Male']);
-                  $count = $query->count('std_inquiry_id');
+                  $countMale = $query->count('std_inquiry_id');
                 ?>
-                <h3><?php echo $count; ?> </h3>
+                <h3><?php echo $countMale; ?> </h3>
                 <p>Total Male Student Inquiries</p>
               </div>
               <div class="icon">
@@ -56,9 +118,9 @@ use yii\helpers\Url;
               <div class="inner">
                <?php 
                   $query = (new \yii\db\Query())->from('std_inquiry')->where(['gender'=>'Female']);
-                  $count = $query->count('std_inquiry_id'); 
+                  $countFemale = $query->count('std_inquiry_id'); 
                 ?>
-                <h3><?php echo $count; ?> </h3>
+                <h3><?php echo $countFemale; ?> </h3>
                 <p>Total Female Student Inquiries</p>
               </div>
               <div class="icon">
@@ -73,9 +135,9 @@ use yii\helpers\Url;
               <div class="inner">
                <?php 
                   $query = (new \yii\db\Query())->from('std_inquiry')->where(['inquiry_status'=>'Registered']);
-                  $count = $query->count('std_inquiry_id'); 
+                  $countRegistered = $query->count('std_inquiry_id'); 
                 ?>
-                <h3><?php echo $count; ?> </h3>
+                <h3><?php echo $countRegistered; ?> </h3>
                 <p>Total Registered Inquiries</p>
               </div>
               <div class="icon">
@@ -86,6 +148,10 @@ use yii\helpers\Url;
           </div>
           <!-- ./col -->
         </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6" id="container1"></div>
+          <div class="col-md-6 col-sm-6" id="container2"></div>
+      </div><br>
       <?php } 
         else { ?>
         <div class="row">
@@ -156,50 +222,15 @@ use yii\helpers\Url;
           </div>
           <!-- ./col -->
         </div>
-     <?php } ?>
-      
-      <!-- /.row -->
 
-      <!-- Message of the day start -->
-      <div class="row">
-        <div class="col-md-12 col-sm-6 col-xs-12">
-          <div class="info-box bg-navy callout-warning">
-            <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
-            <div class="info-box-content">
-              <h4 style="float: left;">Message of the day!</h4>  
-              <h4 style="float:right">
-                <span id="hr"></span>
-                <span id="min"></span>
-                <span id="sec"></span> -
-                <?php echo date('l d-M-Y');?> 
-              </h4>
-              
-              <br><br>
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                <span class="progress-description">
-                    <marquee onmouseover="this.stop();" onmouseout="this.start();">
-                      <?php 
-                        $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
-                        $date = 2;
-                        $msg = $message[$date]['msg_details'];
-                        echo $msg;
-                      ?>
-                    </marquee>
-                </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-      </div>
-      <!-- Message of the day close -->
+  <?php } ?>
+      
+      <!-- /.row --> 
       
       <!-- Notice Row Start -->
       <div class="row">
         <!-- Notice Panel Start -->
-        <div class="col-md-7">
+        <div class="col-md-6">
           <!-- Custom Tabs (Pulled to the right) -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
@@ -387,7 +418,7 @@ use yii\helpers\Url;
         <!-- Notice Panel CLose -->
 
         <!-- Notice Panel Start -->
-        <div class="col-md-5">
+        <div class="col-md-6">
           <!-- Custom Tabs (Pulled to the right) -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
@@ -786,4 +817,108 @@ Modal::end();
       document.getElementById('sec').innerHTML = secs+' '+am;
   }
   setInterval(clock, 1000)
+</script>
+<script type="text/javascript">
+    Highcharts.chart('container1', {
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45
+            }
+        },
+        title: {
+            text: '<b>Inquiry - Institute Wise</b>'
+        },
+        subtitle: {
+            text: 'Session 2019 - 2021'
+        },
+        plotOptions: {
+            pie: {
+                innerSize: 60,
+                depth: 100
+            }
+        },
+        series: [{
+            name: 'Number of Students',
+            data: [
+            <?php  
+            // SELECT all Institutes....
+            $queryInstitutes = Yii::$app->db->createCommand("SELECT DISTINCT(previous_institute) FROM std_inquiry")->queryAll();
+            $count = count($queryInstitutes); 
+            for($i = 0; $i <=$count; $i++) {
+                $previousInstitute = $queryInstitutes[$i]['previous_institute'];
+                $queryInquiries = Yii::$app->db->createCommand("SELECT std_inquiry_id,previous_institute FROM std_inquiry WHERE previous_institute = '$previousInstitute'")->queryAll();
+                $count = count($queryInquiries);
+                    echo "['<b>".$queryInquiries[0]['previous_institute']."</b>', ".$count."],";
+                }
+            ?>
+            ]
+        }]
+        
+    });
+// Inquiry - Percentage Wise
+Highcharts.chart('container2', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: '<b>Inquiry - Percentage Wise</b>'
+    },
+    subtitle: {
+            text: 'Session 2019 - 2021'
+        },
+    // tooltip: {
+    //     pointFormat: '{series.name}: <b>{point.percentage:.1f}</b>'
+    // },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.y:1f}',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Students',
+        colorByPoint: true,
+        data: [
+            {
+             "name": "<b>90% to 100%</b>",
+                "y": <?php echo $count90; ?>,              
+              sliced: true,
+              selected: true
+
+            },
+            {
+                "name": "<b>80% to 89%</b>",
+                "y": <?php echo $count80; ?>,
+                "drilldown": "Firefox"
+            },
+            {
+                "name": "<b>70% to 79%</b>",
+                "y": <?php echo $count70; ?>,
+                "drilldown": "Internet Explorer"
+            },
+            {
+                "name": "<b>60% to 69%</b>",
+                "y": <?php echo $count60; ?>,
+                "drilldown": null
+            },
+            {
+                "name": "<b>50% to 59%</b>",
+                "y": <?php echo $count50; ?>,
+                "drilldown": null
+            }
+        ]
+    }]
+});
 </script>

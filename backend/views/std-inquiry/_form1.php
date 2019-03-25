@@ -154,7 +154,7 @@ use common\models\StdClassName;
 <?php
 $script = <<< JS
 // calculate totalMarks....
-    $('#totalMarks').on('change',function(){
+    $('#percentage').on('focus',function(){
         var tMarks = $('#totalMarks').val();
         var obtMarks = $('#obtainedMarks').val();
         var percentage = ((parseInt(obtMarks) / parseInt(tMarks))*100);
