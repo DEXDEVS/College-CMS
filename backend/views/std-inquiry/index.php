@@ -53,7 +53,7 @@ CrudAsset::register($this);
     <div class="col-md-12">
       <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">
+            <h3 class="box-title" style="color: #3C8DBC;">
                 <i class="fa fa-sitemap" aria-hidden="true"></i>
                 Graphical Statistics of Student's Inquiry
             </h3>
@@ -70,14 +70,14 @@ CrudAsset::register($this);
           <div class="col-md-6">
               <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-pie-chart" aria-hidden="true"></i>
-                        Inquiry - Class Wise <small> Session 2019 - 2021</small>
+                    <h3 class="box-title" style="color: #DD4B39;"><i class="fa fa-pie-chart" aria-hidden="true"></i>
+                        Inquiry - Class Wise <small style="color: #DD4B39;"> Session 2019 - 2021</small>
                     </h3>
 
                   <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" style="color: #04e27b;"><i class="fa fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" style="color: #DD4B39;"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body">
@@ -89,16 +89,16 @@ CrudAsset::register($this);
           <!-- /.box -->
           <!-- DONUT CHART -->
           <div class="col-md-6">
-              <div class="box box-danger">
+              <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-pie-chart" aria-hidden="true"></i>
-                        Inquiry - Percentage Wise <small> Session 2019 - 2021</small>
+                    <h3 class="box-title" style="color: #00C0EF;"><i class="fa fa-pie-chart" aria-hidden="true"></i>
+                        Inquiry - Percentage Wise <small style="color: #00C0EF;"> Session 2019 - 2021</small>
                     </h3>
 
                   <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" style="color: #04e27b;"><i class="fa fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" style="color: #DD4B39;"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body">
@@ -110,16 +110,16 @@ CrudAsset::register($this);
           <!-- /.box -->
           <!-- DONUT CHART -->
           <div class="col-md-12">
-              <div class="box box-danger">
+              <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-pie-chart" aria-hidden="true"></i>
-                        Inquiry - Institute Wise <small> Session 2019 - 2021</small>
+                    <h3 class="box-title" style="color: #F39C12;"><i class="fa fa-pie-chart" aria-hidden="true"></i>
+                        Inquiry - Institute Wise <small style="color: #F39C12;"> Session 2019 - 2021</small>
                     </h3>
 
                   <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" style="color: #04e27b;"><i class="fa fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" style="color: #DD4B39;"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body">
