@@ -118,13 +118,8 @@ class StdSubjectsController extends Controller
             }else if($model->load($request->post())){
 
                     $array = $model->subId;
-                    foreach ($array as  $value) {
-                        $subName = Yii::$app->db->createCommand("SELECT subject_name FROM subjects WHERE subject_id = '$value'")->queryAll();
-                        $subjectArray[] = $subName[0]['subject_name'];
-                    }
-                    $subject = implode(",", $subjectArray);
+                    $subject = implode(",", $array);
                     $model->std_subject_name = $subject;
-                    //var_dump($model->std_subject_name);
                     $model->save();
         
                 return [

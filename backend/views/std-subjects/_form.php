@@ -22,7 +22,7 @@ use common\models\Subjects;
 	)?>
 	<i class="fa fa-star" style="font-size: 8px; color: red; position: relative; left: 120px; top: 18px"></i>
     <?= $form->field($model, 'subId')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Subjects::find()->where(['delete_status'=>1])->all(),'subject_id','subject_name'),
+        'data' => ArrayHelper::map(Subjects::find()->where(['delete_status'=>1])->all(),'subject_name','subject_name'),
         'language' => 'en',
         'options' => ['placeholder' => 'Select'],
         'pluginOptions' => [

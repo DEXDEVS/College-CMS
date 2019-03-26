@@ -83,11 +83,7 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
-<?php
-$js=<<< JS
-     $(".alert").animate({opacity: 1.0}, 3000).fadeOut("slow");
-JS;
 
-$this->registerJs($js, yii\web\View::POS_READY);
-
-?>
+<script type="text/javascript">
+    $(document).ready(function(){$(".success").fadeOut(2000);});
+</script>

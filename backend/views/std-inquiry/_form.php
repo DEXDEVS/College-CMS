@@ -79,10 +79,12 @@ $year = date('y');
                 <?= $form->field($model, 'previous_institute')->widget(Select2::classname(), [
                         'data' => ArrayHelper::map(InstituteName::find()->all(),'Institute_name','Institute_name'),
                         'language' => 'en',
+                        'showToggleAll' => false,
                         'options' => ['placeholder' => 'Select Institute'],
                         'pluginOptions' => [
                             'allowClear' => true,
-                            'multiple' => true
+                            'multiple' => true,
+                            'maximumSelectionLength' => 1,
                         ],
                     ]);
                 ?>
@@ -99,10 +101,12 @@ $year = date('y');
             <?= $form->field($model, 'std_previous_class')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(StdClassName::find()->all(),'class_name','class_name'),
                     'language' => 'en',
+                    'showToggleAll' => false,
                     'options' => ['placeholder' => 'Select'],
                     'pluginOptions' => [
                         'allowClear' => true,
-                        'multiple' => true
+                        'multiple' => true,
+                        'maximumSelectionLength' => 1,
                     ],
                 ]); ?>
         </div>
@@ -129,9 +133,11 @@ $year = date('y');
                     'data' => ArrayHelper::map(StdClassName::find()->all(),'class_name','class_name'),
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select'],
+                    'showToggleAll' => false,
                     'pluginOptions' => [
                         'allowClear' => true,
-                        'multiple' => true
+                        'multiple' => true,
+                        'maximumSelectionLength' => 1,
                     ],
                 ]);
             ?>

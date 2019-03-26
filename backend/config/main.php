@@ -19,6 +19,17 @@ return [
         ], 
     ],
     'components' => [
+        // 'clientScript'=>[
+        //     'packages'=>[
+        //         'jquery'=>[
+        //             'baseUrl'=>'js',
+        //                 'js'=>[
+        //                     'jquery-2.1.3.min.js'
+        //                 ],
+        //           'coreScriptPosition'=>CClientScript::POS_END
+        //         ],
+        //     ],
+        // ],
         'request' => [
             'class' => 'common\components\Request',
             'web'=> '/backend/web',
@@ -60,6 +71,7 @@ return [
                 'login' => 'site/login',
                 'logout' => 'site/login',
                 'home' => 'site/index',
+                'fee' => 'site/fee',
 
                 'branches-view' => 'branches/view',
                 'departments-view' => 'departments/view',

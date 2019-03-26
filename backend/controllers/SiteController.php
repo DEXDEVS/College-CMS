@@ -79,7 +79,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if (\Yii::$app->user->can('login')){
                 // yes he is Admin, so redirect page 
-                Yii::$app->session->setFlash('success', 'Mr '.$model->username.', Wellcome to Admin Panel.');
+                Yii::$app->getSession()->setFlash('success', 'Mr '.$model->username.', Wellcome to Admin Panel.');
                 return $this->goBack();
             }
             else { // if he is not an Admin then what :P
