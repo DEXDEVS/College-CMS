@@ -5,6 +5,8 @@
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use common\models\Notice;
+//use yii\web\CClientScript;
 /* @var $this yii\web\View */
 //$this->title = 'SMART EDUCATION';
 ?>
@@ -227,61 +229,79 @@ use yii\helpers\Url;
             </ul>
             <?php 
             $date = date('Y-m-d');
-            $studentNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Students' AND is_status ='Active' AND CAST(notice_start AS DATE) >= '$date'")->queryAll();
+            $studentNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Students' AND is_status ='Active' AND CAST(notice_start AS DATE) <= '$date' AND CAST(notice_end AS DATE) >= '$date'")->queryAll();
             ?>
             <!-- tab-content start -->
             <div class="tab-content">
               <!-- student tab start -->
               <div class="tab-pane active" id="student">
-                <?php if(!empty($studentNotice)) { ?>
-                  <div class="alert bg-success text-success">
-                    <div class="row">
-                      <div class="col-md-2">
-                        <span class="label label-success" style="padding: 3px;">
-                          <i class="fa fa-calendar"></i>
-                          <?php echo date('D d-M-Y'); ?>
-                        </span>
+                <?php if(!empty($studentNotice)) { 
+                        $stdNoticeCount = count($studentNotice);
+                         for ($i=0; $i < $stdNoticeCount; $i++) { 
+                  ?>
+                      <div class="alert bg-success text-success">
+                        <div class="row">
+                          <div class="col-md-2">
+                            <span class="label label-success" style="padding: 3px;">
+                              <i class="fa fa-calendar"></i>
+                              <?php echo date('D d-M-Y'); ?>
+                            </span>
+                          </div>
+                          <div class="col-md-10">
+                            <h4 style="margin: 0px 20px">
+                              <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalStudents" data-toggle="tooltip" title="Click me for event details!">
+                                <span>
+                                  <h4 style="color: #00A65A;">
+                                    <?php echo $studentNotice[$i]['notice_title']; ?>
+                                  </h4>
+                                </span>   
+                              </button>
+                            </h4>
+                          </div>
+                        </div>
+                        <div class="row">  
+                          <div class="col-md-12">
+                            <span><?php echo $studentNotice[$i]['notice_description']; ?></span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-md-10">
-                        <h4 style="margin: 0px 20px">
-                          <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalStudents" data-toggle="tooltip" title="Click me for event details!">
-                            <span>
-                              <h4 style="color: #00A65A;">
-                                <?php echo $studentNotice[0]['notice_title']; ?>
-                              </h4>
-                            </span>   
-                          </button>
-                        </h4>
+                    <?php
+                      //end of for loop
+                      } 
+                    // end of if
+                    }
+                      else {
+                        $stdNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Students' AND is_status ='Active' AND CAST(notice_end AS DATE) < '$date'")->queryAll();
+
+                        foreach ($stdNotice as $key => $value) {
+                          $stdNoticeId = $value['notice_id'];
+                          $stdNotice = Yii::$app->db->createCommand("UPDATE notice SET is_status = 'Inactive' WHERE notice_id = '$stdNoticeId'")->execute();
+                        } 
+                    ?>  
+                    <div class="alert bg-success text-success">
+                      <div class="row">  
+                        <div class="col-md-12">
+                          <i class="fa fa-warning"></i> 
+                          No notice for today! 
+                        </div>
                       </div>
-                    </div>
-                    <div class="row">  
-                      <div class="col-md-12">
-                        <span><?php echo $studentNotice[0]['notice_description']; ?></span>
-                      </div>
-                    </div>
-                  </div>
-                <?php } 
-                  else {
-                ?>  
-                <div class="alert bg-success text-success">
-                  <div class="row">  
-                    <div class="col-md-12">
-                      <i class="fa fa-warning"></i> 
-                      No notice for today! 
-                    </div>
-                  </div>
-                 </div>
-                <?php } ?>
+                     </div>
+                    <?php  // end of else
+                      } 
+                    ?>
               </div>
               <!-- students tab close -->
               <!-- ***************** -->
               <!-- employees tab start -->
               <?php 
               $date = date('Y-m-d');
-              $employeeNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Employees' AND is_status ='Active' AND CAST(created_at AS DATE) =  '$date'")->queryAll();
+              $employeeNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Employees' AND is_status ='Active' AND CAST(notice_start AS DATE) <= '$date' AND CAST(notice_end AS DATE) >= '$date'")->queryAll();
               ?>
               <div class="tab-pane" id="employees">
-                <?php if(!empty($employeeNotice)) { ?>
+                <?php if(!empty($employeeNotice)) { 
+                        $empNoticeCount = count($employeeNotice);
+                          for ($i=0; $i < $empNoticeCount; $i++) {
+                  ?>
                 <div class="alert bg-warning text-warning">
                   <div class="row">
                     <div class="col-md-2">
@@ -295,7 +315,7 @@ use yii\helpers\Url;
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalEmployees" data-toggle="tooltip" title="Click me for event details!">
                           <span>
                             <h4 style="color: #F39C12;">
-                              <?php echo $employeeNotice[0]['notice_title']; ?>
+                              <?php echo $employeeNotice[$i]['notice_title']; ?>
                             </h4>
                           </span>   
                         </button>
@@ -304,14 +324,23 @@ use yii\helpers\Url;
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span><?php echo $employeeNotice[0]['notice_description']; ?></span>
+                      <span><?php echo $employeeNotice[$i]['notice_description']; ?></span>
                     </div>
                   </div>
                 </div>
                 <?php 
+              }
+              //end of for loop
                   }
                   // end of if....
                   else {
+                    $empNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Employees' AND is_status ='Active' AND CAST(notice_end AS DATE) < '$date'")->queryAll();
+
+                        foreach ($empNotice as $key => $value) {
+                          $empNoticeId = $value['notice_id'];
+                          var_dump($empNoticeId);
+                          $empNotice = Yii::$app->db->createCommand("UPDATE notice SET is_status = 'Inactive' WHERE notice_id = '$empNoticeId'")->execute();
+                        } 
                 ?>
                 <div class="alert bg-warning text-warning">
                   <div class="row">  
@@ -332,10 +361,14 @@ use yii\helpers\Url;
               <!-- /.tab-pane -->
               <?php 
                 $date = date('Y-m-d');
-                $parentNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Parents' AND is_status ='Active' AND CAST(created_at AS DATE) =  '$date'")->queryAll();
+                $parentNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Parents' AND is_status ='Active' AND CAST(notice_start AS DATE) <= '$date' AND CAST(notice_end AS DATE) >= '$date'")->queryAll();
+              
               ?> 
               <div class="tab-pane" id="parents">
-              <?php if(!empty($employeeNotice)) { ?>  
+              <?php if(!empty($parentNotice)) { 
+                      $parentNoticeCount = count($parentNotice);
+                        for ($i=0; $i < $parentNoticeCount; $i++) {
+                ?>  
                 <div class="alert bg-info text-info">
                   <div class="row">
                     <div class="col-md-2">
@@ -349,7 +382,7 @@ use yii\helpers\Url;
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalParents" data-toggle="tooltip" title="Click me for event details!">
                           <span>
                             <h4 style="color: #00C0EF;">
-                              <?php echo $parentNotice[0]['notice_title']; ?>
+                              <?php echo $parentNotice[$i]['notice_title']; ?>
                             </h4>
                           </span>   
                         </button>
@@ -358,14 +391,23 @@ use yii\helpers\Url;
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span><?php echo $parentNotice[0]['notice_description']; ?></span>
+                      <span><?php echo $parentNotice[$i]['notice_description']; ?></span>
                     </div>
                   </div>
                 </div>
                 <?php 
+              }
+              //end of for loop
                     }
                   // ending of if...
                   else {
+                    $prntNotice = Yii::$app->db->createCommand("SELECT * FROM notice WHERE notice_user_type = 'Parents' AND is_status ='Active' AND CAST(notice_end AS DATE) < '$date'")->queryAll();
+
+                        foreach ($prntNotice as $key => $value) {
+                          $prntNoticeId = $value['notice_id'];
+                          var_dump($prntNoticeId);
+                          $prntNotice = Yii::$app->db->createCommand("UPDATE notice SET is_status = 'Inactive' WHERE notice_id = '$prntNoticeId'")->execute();
+                        }
                 ?>
                 <div class="alert bg-info text-info">
                   <div class="row">  
@@ -412,10 +454,13 @@ use yii\helpers\Url;
               <!-- general tab start -->
               <?php 
                 $date = date('Y-m-d');
-                $todayEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) =  '$date'")->queryAll();
+                $todayEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) = '$date'")->queryAll();
               ?> 
               <div class="tab-pane active" id="today">
-              <?php if(!empty($todayEvent)) { ?> 
+              <?php if(!empty($todayEvent)) { 
+                      $todayEventCount = count($todayEvent);
+                        for ($i=0; $i < $todayEventCount; $i++) {
+                ?> 
                 <div class="alert bg-info text-info">
                   <div class="row">
                     <div class="col-md-2">
@@ -429,7 +474,7 @@ use yii\helpers\Url;
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalTodays" data-toggle="tooltip" title="Click me for event details!">
                           <span>
                             <h4 style="color: #00C0EF;">
-                              <?php echo $todayEvent[0]['event_title']; ?>
+                              <?php echo $todayEvent[$i]['event_title']; ?>
                             </h4>
                           </span>   
                         </button>
@@ -438,14 +483,23 @@ use yii\helpers\Url;
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span><?php echo $todayEvent[0]['event_detail']; ?></span>
+                      <span><?php echo $todayEvent[$i]['event_detail']; ?></span>
                     </div>
                   </div>
                 </div>
                 <?php 
+              }
+              // end of for loop
                   }
                   // ending of if...
                   else {
+                    $todayEve = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) < '$date'")->queryAll();
+
+                        foreach ($todayEve as $key => $value) {
+                          $todayEveId = $value['event_id'];
+                          var_dump($todayEveId);
+                           $todayEve = Yii::$app->db->createCommand("UPDATE events SET is_status = 'Inactive' WHERE event_id = '$todayEveId'")->execute();
+                        }
                 ?>
                 <div class="alert bg-info text-info">
                   <div class="row">  
@@ -465,10 +519,14 @@ use yii\helpers\Url;
               <!-- student tab start -->
               <?php 
                 $date = date('Y-m-d');
-                $upcomingEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) = '$date' OR CAST(event_end_datetime AS DATE) >= '$date'")->queryAll();
+                $upcomingEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_end_datetime AS DATE) > '$date'")->queryAll();
               ?> 
               <div class="tab-pane" id="upcoming">
-              <?php if(!empty($upcomingEvent)) { ?> 
+              <?php if(!empty($upcomingEvent)) { 
+                      $upcomingEventCount = count($upcomingEvent);
+                        for ($i=0; $i < $upcomingEventCount; $i++) {
+
+                ?> 
                 <div class="alert bg-success text-success">
                   <div class="row">
                     <div class="col-md-2">
@@ -482,7 +540,7 @@ use yii\helpers\Url;
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalUpcomings" data-toggle="tooltip" title="Click me for event details!">
                           <span>
                             <h4 style="color: #00A65A;">
-                              <?php echo $upcomingEvent[0]['event_title']; ?>
+                              <?php echo $upcomingEvent[$i]['event_title']; ?>
                             </h4>
                           </span>   
                         </button>
@@ -491,14 +549,22 @@ use yii\helpers\Url;
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span><?php echo $upcomingEvent[0]['event_detail']; ?></span>
+                      <span><?php echo $upcomingEvent[$i]['event_detail']; ?></span>
                     </div>
                   </div>
                 </div>
                 <?php 
+              }
+              //end of for loop 
                   }
                   // ending of if...
                   else {
+                    $upcomingEve = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_end_datetime AS DATE) < '$date'")->queryAll();
+
+                        foreach ($upcomingEve as $key => $value) {
+                          $upcomingEveId = $value['event_id'];
+                          $upcomingEve = Yii::$app->db->createCommand("UPDATE events SET is_status = 'Inactive' WHERE event_id = '$upcomingEveId'")->execute();
+                         }
                 ?>
                 <div class="alert bg-success text-success">
                   <div class="row">  
@@ -788,4 +854,6 @@ Modal::end();
       document.getElementById('sec').innerHTML = secs+' '+am;
   }
   setInterval(clock, 1000)
+
 </script>
+

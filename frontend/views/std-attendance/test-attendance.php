@@ -177,9 +177,6 @@ transition: all 0.4s ease-in-out;
         <div class="box-body">
             <?php
 
-        $subjID = array();
-        $subjectsIDs = 0;
-
         $empEmail = Yii::$app->user->identity->email;
         $empId = Yii::$app->db->createCommand("SELECT emp.emp_id FROM emp_info as emp WHERE emp.emp_email = '$empEmail'")->queryAll();
         $empId = $empId[0]['emp_id'];

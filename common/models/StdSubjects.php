@@ -20,6 +20,8 @@ class StdSubjects extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public $subId;
     public static function tableName()
     {
         return 'std_subjects';
@@ -31,8 +33,9 @@ class StdSubjects extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['class_id', 'std_subject_name'], 'required'],
+            [['class_id', 'subId'], 'required'],
             [['class_id'], 'integer'],
+            [['std_subject_name'], 'safe'],
             [['std_subject_name'], 'string', 'max' => 200],
             [['class_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdClassName::className(), 'targetAttribute' => ['class_id' => 'class_name_id']],
         ];
