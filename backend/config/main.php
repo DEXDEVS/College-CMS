@@ -19,17 +19,6 @@ return [
         ], 
     ],
     'components' => [
-        // 'clientScript'=>[
-        //     'packages'=>[
-        //         'jquery'=>[
-        //             'baseUrl'=>'js',
-        //                 'js'=>[
-        //                     'jquery-2.1.3.min.js'
-        //                 ],
-        //           'coreScriptPosition'=>CClientScript::POS_END
-        //         ],
-        //     ],
-        // ],
         'request' => [
             'class' => 'common\components\Request',
             'web'=> '/backend/web',
@@ -55,10 +44,6 @@ return [
                 ],
             ],
         ],
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
-            'defaultRoles' => ['guest'],
-        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -71,7 +56,6 @@ return [
                 'login' => 'site/login',
                 'logout' => 'site/login',
                 'home' => 'site/index',
-                'fee' => 'site/fee',
 
                 'branches-view' => 'branches/view',
                 'departments-view' => 'departments/view',
@@ -81,7 +65,6 @@ return [
                 'teacher-subject-assign-head-view' => 'teacher-subject-assign-head/view',
 
                 'std-personal-info-view' => 'std-personal-info/view',
-                'std-registration' => 'std-registration/create',
                 'std-personal-info-update' => 'std-personal-info/update',
                 'std-personal-info-std-photo' => 'std-personal-info/std-photo',
 
@@ -94,10 +77,9 @@ return [
 
                 'emp-info-view' => 'emp-info/view',
                 'emp-info-update' => 'emp-info/update',
+
                 'emp-reference-update' => 'emp-reference/update',
                 'emp-documents-create' => 'emp-documents/create',
-                'emp-delete-doc' => 'emp-documents/delete-doc',
-                'emp-download-doc' => 'emp-documents/download-doc',
 
                 'class-account' => 'fee-transaction-detail/class-account',
                 'fee-transaction-detail-fee-voucher' => 'fee-transaction-detail/fee-voucher',
@@ -115,6 +97,7 @@ return [
                 'sms' => 'sms/index',
                 'absent-sms' => 'sms/absent-sms',
                 'custom-sms' => 'custom-sms/index',
+
 
             ],
         ],
