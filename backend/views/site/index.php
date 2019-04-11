@@ -33,14 +33,17 @@ use common\models\Notice;
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
                 <span class="progress-description">
-                    <marquee onmouseover="this.stop();" onmouseout="this.start();">
+                    <marquee onmouseover="this.stop();" onmouseout="this.start();"><i>
                       <?php 
                         $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
-                        $date = 2;
+                        $date = date('d');
+                        //echo $date;
+                        $countMessage = count($message);
+
                         $msg = $message[$date]['msg_details'];
                         echo $msg;
                       ?>
-                    </marquee>
+                    </marquee></i>
                 </span>
             </div>
             <!-- /.info-box-content -->

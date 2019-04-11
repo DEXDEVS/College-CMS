@@ -37,11 +37,15 @@ use dmstr\widgets\Alert;
     </section>
 </div>
 
-<footer class="main-footer">
+<footer class="main-footer" style="background-color: #3C8DBC; color: white; font-family: serif;">
     <div class="pull-right hidden-xs">
-        <b>Beta Version</b> 1.0
+        <b><i>Beta Version</b> 1.0</i>
     </div>
-    <strong>Copyright &copy; <?php echo date('Y'); ?>   <a href="http://www.dexdevs.com" target="_blank">DEXDEVS</a>.</strong> All Rights Reserved.
+    <i>Copyright &copy; <?php echo date('Y'); ?>
+        <a href="http://www.dexdevs.com" target="_blank" style="color: #001F3F;">
+            <b>DEXDEVS</b>
+        </a> /  All rights reserved / <b style="color: #001F3F;">0315-6898993</b>
+    </i>
 </footer>
 
 <!-- Control Sidebar -->
