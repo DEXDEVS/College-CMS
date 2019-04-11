@@ -49,9 +49,8 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'login' => 'site/login',
-                //'logout' => 'site/login',
-                'signup' => 'site/signup',
-                //'request-password-reset' => 'site/request-password-reset',
+                'logout' => 'site/login',
+                //'signup' => 'site/signup',
                 'home' => 'site/index',
                 
                 'attendance' => 'std-attendance',
@@ -64,8 +63,13 @@ return [
                 'datewise-student-attendance' => 'std-attendance/datewise-student-attendance',
                 'daterangewise-class-attendance' => 'std-attendance/daterangewise-class-attendance',
                 'daterangewise-student-attendance' => 'std-attendance/daterangewise-student-attendance',
-                'activity-view' => 'std-attendance/activity-view',
-                'employe-dashboard'=>'site/employe-dashboard',
+
+
+               
+
+
+                'single-student' => 'std-attendance/single-student',
+                'date-range' => 'std-attendance/date-range',
             ],
         ],
         
