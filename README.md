@@ -1,5 +1,6 @@
 
 <h1 align="center">IC - Institute on Cloud</h1>
+<h3 align="center">College Business Model</h3>
 
 <b>Institute on Cloud</b> is a web-based application, which not only manages every sector of an educational institute but also provides a Standardized Business Model. Whether a school or college; even a university; its spectrum encapsulates all. This application is developed using PHP Framework and JavaScript Technologies. The honor for developing this mature management system and business model goes to <a href="www.dexdevs.com" target="_blank">Dexterous Developers</a>. The building blocks of this application are:
 
