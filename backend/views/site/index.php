@@ -37,9 +37,7 @@ use common\models\Notice;
                       <?php 
                         $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
                         $date = date('d');
-                        //echo $date;
                         $countMessage = count($message);
-
                         $msg = $message[$date]['msg_details'];
                         echo $msg;
                       ?>
@@ -591,17 +589,6 @@ use common\models\Notice;
         <!-- Notice Panel CLose -->
       </div>
       <!-- Notice Row CLose -->
-
-  <!-- Calendar Start -->
-  <!-- <div class="row container-fluid">
-    <div class="col-md-8 bg-success bg-info well-info" style="color: #001F3F;">
-      <?= \yii2fullcalendar\yii2fullcalendar::widget(array(
-           // 'events'=> $events,
-        ));
-      ?>
-    </div>
-  </div> -->
-  <!-- Calendar Close -->
 
     </section>
     <!-- /.content -->

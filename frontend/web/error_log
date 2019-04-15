@@ -1,0 +1,353 @@
+[12-Apr-2019 03:33:20 America/New_York] An Error occurred while handling another error:
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php:1290
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1290): PDOStatement->execute()
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1158): yii\db\Command->internalExecute('SELECT user_pho...')
+#2 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(399): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/header.php(8): yii\db\Command->queryAll()
+#4 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#5 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#6 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(156): yii\base\View->renderFile('/home/ranaifwh/...', Array, NULL)
+#7 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/main.php(45): yii\base\View->render('header.php', Array)
+#8 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#9 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#10 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(399): yii\base\View->renderFile('/home/ranaifwh/...', Array, Object(frontend\controllers\SiteController))
+#11 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(385): yii\base\Controller->renderContent('<section class=...')
+#12 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#13 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#14 [internal function]: yii\web\ErrorAction->run()
+#15 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#16 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#17 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#18 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorHandler.php(108): yii\base\Module->runAction('site/error')
+#19 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/ErrorHandler.php(111): yii\web\ErrorHandler->renderException(Object(yii\web\NotFoundHttpException))
+#20 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\NotFoundHttpException))
+#21 {main}
+
+Next yii\db\Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+The SQL being executed was: SELECT user_photo FROM user WHERE id =  in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Schema.php:664
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1295): yii\db\Schema->convertException(Object(PDOException), 'SELECT user_pho...')
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1158): yii\db\Command->internalExecute('SELECT user_pho...')
+#2 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(399): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/header.php(8): yii\db\Command->queryAll()
+#4 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#5 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#6 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(156): yii\base\View->renderFile('/home/ranaifwh/...', Array, NULL)
+#7 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/main.php(45): yii\base\View->render('header.php', Array)
+#8 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#9 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#10 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(399): yii\base\View->renderFile('/home/ranaifwh/...', Array, Object(frontend\controllers\SiteController))
+#11 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(385): yii\base\Controller->renderContent('<section class=...')
+#12 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#13 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#14 [internal function]: yii\web\ErrorAction->run()
+#15 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#16 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#17 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#18 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorHandler.php(108): yii\base\Module->runAction('site/error')
+#19 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/ErrorHandler.php(111): yii\web\ErrorHandler->renderException(Object(yii\web\NotFoundHttpException))
+#20 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\NotFoundHttpException))
+#21 {main}
+Additional Information:
+Array
+(
+    [0] => 42000
+    [1] => 1064
+    [2] => You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+)
+
+Previous exception:
+yii\base\InvalidRouteException: Unable to resolve the request "login/admin". in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php:537
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/Application.php(103): yii\base\Module->runAction('login/admin', Array)
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(common\components\Request))
+#2 /home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/Application.php:115
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(common\components\Request))
+#1 /home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+$_SERVER = [
+    'LSPHP_ENABLE_USER_INI' => 'on',
+    'PATH' => '/usr/local/bin:/usr/bin:/bin',
+    'TEMP' => '/tmp',
+    'TMP' => '/tmp',
+    'TMPDIR' => '/tmp',
+    'PWD' => '/',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9',
+    'CONTENT_LENGTH' => '0',
+    'HTTP_COOKIE' => 'PHPSESSID=66522b2ed2d442769973269854d0ee3b; advanced-frontend=7f5ec33ec1400a690b2c69172fdf74b7; _csrf-frontend=2235846bafaf959cba5f6a8c0af66b7f47efbef693a08f8dcfb410ae4b625233a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22W04VmDH-2Buxo5Zfet2OKn__jfZV-Hya%22%3B%7D',
+    'HTTP_HOST' => 'brookfield.edu.pk',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
+    'HTTP_X_FORWARDED_FOR' => '103.255.5.67',
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1',
+    'REDIRECT_HTTPS' => 'off',
+    'REDIRECT_SERVER_PORT' => '80',
+    'REDIRECT_UNIQUE_ID' => 'XLA-QB7k-ct3Zvz@-2CifwAAANA',
+    'REDIRECT_STATUS' => '200',
+    'HTTPS' => 'off',
+    'SERVER_PORT' => '80',
+    'UNIQUE_ID' => 'XLA-QB7k-ct3Zvz@-2CifwAAANA',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'brookfield.edu.pk',
+    'SERVER_ADDR' => '68.65.122.244',
+    'REMOTE_ADDR' => '103.255.5.67',
+    'DOCUMENT_ROOT' => '/home/ranaifwh/brookfield.edu.pk',
+    'REQUEST_SCHEME' => 'http',
+    'CONTEXT_PREFIX' => '',
+    'CONTEXT_DOCUMENT_ROOT' => '/home/ranaifwh/brookfield.edu.pk',
+    'SERVER_ADMIN' => 'webmaster@brookfield.ranafaraz.com',
+    'SCRIPT_FILENAME' => '/home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php',
+    'REMOTE_PORT' => '38688',
+    'REDIRECT_URL' => '/ic/login/admin',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => '',
+    'REQUEST_URI' => '/ic/login/admin',
+    'SCRIPT_NAME' => '/ic/frontend/web/index.php',
+    'PHP_SELF' => '/ic/frontend/web/index.php',
+    'REQUEST_TIME_FLOAT' => 1555054400.4506549835205078125,
+    'REQUEST_TIME' => 1555054400,
+]
+[12-Apr-2019 03:33:24 America/New_York] An Error occurred while handling another error:
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php:1290
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1290): PDOStatement->execute()
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1158): yii\db\Command->internalExecute('SELECT user_pho...')
+#2 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(399): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/header.php(8): yii\db\Command->queryAll()
+#4 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#5 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#6 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(156): yii\base\View->renderFile('/home/ranaifwh/...', Array, NULL)
+#7 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/main.php(45): yii\base\View->render('header.php', Array)
+#8 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#9 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#10 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(399): yii\base\View->renderFile('/home/ranaifwh/...', Array, Object(frontend\controllers\SiteController))
+#11 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(385): yii\base\Controller->renderContent('<section class=...')
+#12 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#13 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#14 [internal function]: yii\web\ErrorAction->run()
+#15 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#16 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#17 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#18 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorHandler.php(108): yii\base\Module->runAction('site/error')
+#19 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/ErrorHandler.php(111): yii\web\ErrorHandler->renderException(Object(yii\web\NotFoundHttpException))
+#20 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\NotFoundHttpException))
+#21 {main}
+
+Next yii\db\Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+The SQL being executed was: SELECT user_photo FROM user WHERE id =  in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Schema.php:664
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1295): yii\db\Schema->convertException(Object(PDOException), 'SELECT user_pho...')
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1158): yii\db\Command->internalExecute('SELECT user_pho...')
+#2 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(399): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/header.php(8): yii\db\Command->queryAll()
+#4 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#5 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#6 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(156): yii\base\View->renderFile('/home/ranaifwh/...', Array, NULL)
+#7 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/main.php(45): yii\base\View->render('header.php', Array)
+#8 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#9 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#10 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(399): yii\base\View->renderFile('/home/ranaifwh/...', Array, Object(frontend\controllers\SiteController))
+#11 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(385): yii\base\Controller->renderContent('<section class=...')
+#12 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#13 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#14 [internal function]: yii\web\ErrorAction->run()
+#15 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#16 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#17 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#18 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorHandler.php(108): yii\base\Module->runAction('site/error')
+#19 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/ErrorHandler.php(111): yii\web\ErrorHandler->renderException(Object(yii\web\NotFoundHttpException))
+#20 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\NotFoundHttpException))
+#21 {main}
+Additional Information:
+Array
+(
+    [0] => 42000
+    [1] => 1064
+    [2] => You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+)
+
+Previous exception:
+yii\base\InvalidRouteException: Unable to resolve the request "login/admin". in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php:537
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/Application.php(103): yii\base\Module->runAction('login/admin', Array)
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(common\components\Request))
+#2 /home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/Application.php:115
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(common\components\Request))
+#1 /home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+$_SERVER = [
+    'LSPHP_ENABLE_USER_INI' => 'on',
+    'PATH' => '/usr/local/bin:/usr/bin:/bin',
+    'TEMP' => '/tmp',
+    'TMP' => '/tmp',
+    'TMPDIR' => '/tmp',
+    'PWD' => '/',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9',
+    'CONTENT_LENGTH' => '0',
+    'HTTP_COOKIE' => 'PHPSESSID=66522b2ed2d442769973269854d0ee3b; advanced-frontend=7f5ec33ec1400a690b2c69172fdf74b7; _csrf-frontend=2235846bafaf959cba5f6a8c0af66b7f47efbef693a08f8dcfb410ae4b625233a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22W04VmDH-2Buxo5Zfet2OKn__jfZV-Hya%22%3B%7D',
+    'HTTP_HOST' => 'brookfield.edu.pk',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
+    'HTTP_CACHE_CONTROL' => 'max-age=0',
+    'HTTP_X_FORWARDED_FOR' => '103.255.5.67',
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1',
+    'REDIRECT_HTTPS' => 'off',
+    'REDIRECT_SERVER_PORT' => '80',
+    'REDIRECT_UNIQUE_ID' => 'XLA-RB7k-ct3Zvz@-2Ci3wAAANE',
+    'REDIRECT_STATUS' => '200',
+    'HTTPS' => 'off',
+    'SERVER_PORT' => '80',
+    'UNIQUE_ID' => 'XLA-RB7k-ct3Zvz@-2Ci3wAAANE',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'brookfield.edu.pk',
+    'SERVER_ADDR' => '68.65.122.244',
+    'REMOTE_ADDR' => '103.255.5.67',
+    'DOCUMENT_ROOT' => '/home/ranaifwh/brookfield.edu.pk',
+    'REQUEST_SCHEME' => 'http',
+    'CONTEXT_PREFIX' => '',
+    'CONTEXT_DOCUMENT_ROOT' => '/home/ranaifwh/brookfield.edu.pk',
+    'SERVER_ADMIN' => 'webmaster@brookfield.ranafaraz.com',
+    'SCRIPT_FILENAME' => '/home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php',
+    'REMOTE_PORT' => '39030',
+    'REDIRECT_URL' => '/ic/login/admin',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => '',
+    'REQUEST_URI' => '/ic/login/admin',
+    'SCRIPT_NAME' => '/ic/frontend/web/index.php',
+    'PHP_SELF' => '/ic/frontend/web/index.php',
+    'REQUEST_TIME_FLOAT' => 1555054404.2506430149078369140625,
+    'REQUEST_TIME' => 1555054404,
+]
+[12-Apr-2019 03:33:27 America/New_York] An Error occurred while handling another error:
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php:1290
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1290): PDOStatement->execute()
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1158): yii\db\Command->internalExecute('SELECT user_pho...')
+#2 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(399): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/header.php(8): yii\db\Command->queryAll()
+#4 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#5 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#6 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(156): yii\base\View->renderFile('/home/ranaifwh/...', Array, NULL)
+#7 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/main.php(45): yii\base\View->render('header.php', Array)
+#8 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#9 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#10 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(399): yii\base\View->renderFile('/home/ranaifwh/...', Array, Object(frontend\controllers\SiteController))
+#11 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(385): yii\base\Controller->renderContent('<section class=...')
+#12 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#13 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#14 [internal function]: yii\web\ErrorAction->run()
+#15 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#16 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#17 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#18 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorHandler.php(108): yii\base\Module->runAction('site/error')
+#19 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/ErrorHandler.php(111): yii\web\ErrorHandler->renderException(Object(yii\web\NotFoundHttpException))
+#20 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\NotFoundHttpException))
+#21 {main}
+
+Next yii\db\Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+The SQL being executed was: SELECT user_photo FROM user WHERE id =  in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Schema.php:664
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1295): yii\db\Schema->convertException(Object(PDOException), 'SELECT user_pho...')
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(1158): yii\db\Command->internalExecute('SELECT user_pho...')
+#2 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/db/Command.php(399): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/header.php(8): yii\db\Command->queryAll()
+#4 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#5 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#6 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(156): yii\base\View->renderFile('/home/ranaifwh/...', Array, NULL)
+#7 /home/ranaifwh/brookfield.edu.pk/ic/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-frontend-app/layouts/main.php(45): yii\base\View->render('header.php', Array)
+#8 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(348): require('/home/ranaifwh/...')
+#9 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/ranaifwh/...', Array)
+#10 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(399): yii\base\View->renderFile('/home/ranaifwh/...', Array, Object(frontend\controllers\SiteController))
+#11 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(385): yii\base\Controller->renderContent('<section class=...')
+#12 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#13 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#14 [internal function]: yii\web\ErrorAction->run()
+#15 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#16 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#17 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#18 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/ErrorHandler.php(108): yii\base\Module->runAction('site/error')
+#19 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/ErrorHandler.php(111): yii\web\ErrorHandler->renderException(Object(yii\web\NotFoundHttpException))
+#20 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\NotFoundHttpException))
+#21 {main}
+Additional Information:
+Array
+(
+    [0] => 42000
+    [1] => 1064
+    [2] => You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+)
+
+Previous exception:
+yii\base\InvalidRouteException: Unable to resolve the request "login/admin". in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Module.php:537
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/Application.php(103): yii\base\Module->runAction('login/admin', Array)
+#1 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(common\components\Request))
+#2 /home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/web/Application.php:115
+Stack trace:
+#0 /home/ranaifwh/brookfield.edu.pk/ic/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(common\components\Request))
+#1 /home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+$_SERVER = [
+    'LSPHP_ENABLE_USER_INI' => 'on',
+    'PATH' => '/usr/local/bin:/usr/bin:/bin',
+    'TEMP' => '/tmp',
+    'TMP' => '/tmp',
+    'TMPDIR' => '/tmp',
+    'PWD' => '/',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9',
+    'CONTENT_LENGTH' => '0',
+    'HTTP_COOKIE' => 'PHPSESSID=66522b2ed2d442769973269854d0ee3b; advanced-frontend=7f5ec33ec1400a690b2c69172fdf74b7; _csrf-frontend=2235846bafaf959cba5f6a8c0af66b7f47efbef693a08f8dcfb410ae4b625233a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22W04VmDH-2Buxo5Zfet2OKn__jfZV-Hya%22%3B%7D',
+    'HTTP_HOST' => 'brookfield.edu.pk',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
+    'HTTP_CACHE_CONTROL' => 'max-age=0',
+    'HTTP_X_FORWARDED_FOR' => '103.255.5.67',
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1',
+    'REDIRECT_HTTPS' => 'off',
+    'REDIRECT_SERVER_PORT' => '80',
+    'REDIRECT_UNIQUE_ID' => 'XLA-Rx7k-ct3Zvz@-2CjDAAAAMw',
+    'REDIRECT_STATUS' => '200',
+    'HTTPS' => 'off',
+    'SERVER_PORT' => '80',
+    'UNIQUE_ID' => 'XLA-Rx7k-ct3Zvz@-2CjDAAAAMw',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'brookfield.edu.pk',
+    'SERVER_ADDR' => '68.65.122.244',
+    'REMOTE_ADDR' => '103.255.5.67',
+    'DOCUMENT_ROOT' => '/home/ranaifwh/brookfield.edu.pk',
+    'REQUEST_SCHEME' => 'http',
+    'CONTEXT_PREFIX' => '',
+    'CONTEXT_DOCUMENT_ROOT' => '/home/ranaifwh/brookfield.edu.pk',
+    'SERVER_ADMIN' => 'webmaster@brookfield.ranafaraz.com',
+    'SCRIPT_FILENAME' => '/home/ranaifwh/brookfield.edu.pk/ic/frontend/web/index.php',
+    'REMOTE_PORT' => '39214',
+    'REDIRECT_URL' => '/ic/login/admin',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => '',
+    'REQUEST_URI' => '/ic/login/admin',
+    'SCRIPT_NAME' => '/ic/frontend/web/index.php',
+    'PHP_SELF' => '/ic/frontend/web/index.php',
+    'REQUEST_TIME_FLOAT' => 1555054407.6431190967559814453125,
+    'REQUEST_TIME' => 1555054407,
+]
