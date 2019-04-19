@@ -36,7 +36,7 @@ class MsgOfDay extends \yii\db\ActiveRecord
             [['msg_user_type', 'is_status'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'integer'],
-            [['msg_details'], 'string', 'max' => 100],
+            [['msg_details'], 'string', 'max' => 256],
             [['msg_details'], 'unique'],
         ];
     }

@@ -31,7 +31,7 @@ class StdInquiryController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail', 'bulk-sms', 'sms'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -42,6 +42,7 @@ class StdInquiryController extends Controller
                 'actions' => [
                     'delete' => ['post'],
                     'bulk-delete' => ['post'],
+                    'bulk-sms' => ['post'],
                 ],
             ],
         ];
@@ -97,6 +98,7 @@ class StdInquiryController extends Controller
      */
     public function actionCreate()
     {
+        if( Yii::$app->user->can('add-inquiry')){
         $request = Yii::$app->request;
         $model = new StdInquiry();  
 
@@ -158,6 +160,10 @@ class StdInquiryController extends Controller
                 ]);
             }
         }
+        }else{
+            throw new ForbiddenHttpException(403, 'You are not authorized to perform this action');
+            //Yii::$app->session->setFlash('warning','Your are not allowed to perform this action');
+        }
        
     }
 
@@ -170,6 +176,7 @@ class StdInquiryController extends Controller
      */
     public function actionUpdate($id)
     {
+        if( Yii::$app->user->can('update-inquiry')){
         $request = Yii::$app->request;
         $model = $this->findModel($id);       
 
@@ -228,6 +235,10 @@ class StdInquiryController extends Controller
                 ]);
             }
         }
+        }else{
+            throw new ForbiddenHttpException(403, 'You are not authorized to perform this action');
+            //Yii::$app->session->setFlash('warning','Your are not allowed to perform this action');
+        }
     }
 
     /**
@@ -285,7 +296,9 @@ class StdInquiryController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-    {        
+    {    
+
+        if( Yii::$app->user->can('delete-inquiry')){   
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -305,8 +318,65 @@ class StdInquiryController extends Controller
             */
             return $this->redirect(['index']);
         }
+        } else {
+            throw new ForbiddenHttpException(403, 'You are not authorized to perform this action');
+        }
        
     }
+
+    public function actionBulkSms()
+    {      
+        $request = Yii::$app->request;
+        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
+        $array = array();
+        foreach ( $pks as $pk ) {
+            //$model = $this->findModel($pk);
+            $array[] = $pk; 
+        }
+        var_dump($array);
+        //return $this->render('bulk-sms', ['data' => $model]);
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            
+            echo "<textarea name='message' class='form-control' rows='5'></textarea><br>";
+
+            echo "<a href='std-inquiry/sms' class='btn btn-success'>SMS</a>";   
+               
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            return $this->render('bulk-sms', ['data' => $array]);
+        }
+    }
+
+    public function actionSms($to, $message){
+        // Configuration variables
+        $type = "xml";
+        $id = "Brookfieldclg";
+        $pass = "college42";
+        $lang = "English";
+        $mask = "Brookfield";
+        // Data for text message
+        // $to = "923317375027";
+        // $message = "Testing sms from brookfield web application";
+        $message = urlencode($message);
+        // Prepare data for POST request
+        $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
+        // Send the POST request with cURL
+        $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch); //This is the result from SMS4CONNECT
+        curl_close($ch);
+        Yii::$app->session->setFlash('success', "SMS sent successfully...!");     
+    }
+
+
 
     /**
      * Finds the StdInquiry model based on its primary key value.
