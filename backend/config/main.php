@@ -76,8 +76,10 @@ return [
                 'std-ice-info-update' => 'std-ice-info/update',
                 'std-academic-info-update' => 'std-academic-info/update',
                 'std-fee-details-update' => 'std-fee-details/update',
+
                 'inquiry-report' => 'std-inquiry/inquiry-report',
                 'inquiry-report-detail' => 'std-inquiry/inquiry-report-detail',
+                'bulk-sms' => 'std-inquiry/bulk-sms',
 
                 'emp-info-view' => 'emp-info/view',
                 'emp-info-update' => 'emp-info/update',
