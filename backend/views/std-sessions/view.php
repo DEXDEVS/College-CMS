@@ -10,8 +10,8 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'session_id',
-            'session_branch_id',
+            //'session_id',
+            'sessionBranch.branch_name',
             'session_name',
             'session_start_date',
             'session_end_date',

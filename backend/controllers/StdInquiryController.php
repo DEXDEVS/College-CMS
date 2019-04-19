@@ -31,7 +31,7 @@ class StdInquiryController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail', 'bulk-sms', 'sms'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail', 'bulk-sms', 'sms', 'inquiry-sms'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -288,6 +288,12 @@ class StdInquiryController extends Controller
         return $this->render('inquiry-report-detail');
     }
 
+    public function actionInquirySms($data)
+    {   
+
+        return $this->render('inquiry-sms');
+    }
+
      /**
      * Delete multiple existing StdInquiry model.
      * For ajax request will return json object
@@ -333,24 +339,26 @@ class StdInquiryController extends Controller
             //$model = $this->findModel($pk);
             $array[] = $pk; 
         }
-        var_dump($array);
+        return $this->redirect(['./std-inquiry/inquiry-sms', 'data' => $array]);
+        // var_dump($array);
         //return $this->render('bulk-sms', ['data' => $model]);
-        if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
+        // if($request->isAjax){
+        //     /*
+        //     *   Process for ajax request
+        //     */
+        //     Yii::$app->response->format = Response::FORMAT_JSON;
+        //     return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
             
-            echo "<textarea name='message' class='form-control' rows='5'></textarea><br>";
+        //     echo "<textarea name='message' class='form-control' rows='5'></textarea><br>";
 
-            echo "<a href='std-inquiry/sms' class='btn btn-success'>SMS</a>";   
+        //     echo "<a href='std-inquiry/sms' class='btn btn-success'>SMS</a>";   
                
-        }else{
+        // }else{
             /*
             *   Process for non-ajax request
             */
-            return $this->render('bulk-sms', ['data' => $array]);
-        }
+            
+        //}
     }
 
     public function actionSms($to, $message){

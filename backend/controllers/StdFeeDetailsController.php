@@ -289,8 +289,6 @@ class StdFeeDetailsController extends Controller
             */
             return $this->redirect(['index']);
         }
-
-
     }
 
      /**

@@ -32,7 +32,7 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'class_name_id',
+            //'class_name_id',
             'class_name',
             'class_name_description',
             'class_nature',
