@@ -33,14 +33,17 @@ use common\models\Notice;
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
                 <span class="progress-description">
-                    <marquee onmouseover="this.stop();" onmouseout="this.start();">
+                    <marquee onmouseover="this.stop();" onmouseout="this.start();"><i>
                       <?php 
                         $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
-                        $date = 2;
+                        $date = date('d');
+                        //echo $date;
+                        $countMessage = count($message);
+
                         $msg = $message[$date]['msg_details'];
                         echo $msg;
                       ?>
-                    </marquee>
+                    </marquee></i>
                 </span>
             </div>
             <!-- /.info-box-content -->
@@ -52,7 +55,7 @@ use common\models\Notice;
       <!-- Small boxes (Stat box) -->
       <?php 
         $user = Yii::$app->user->identity->user_type;
-        if($user == 'Registrar' OR $user == 'Admin' OR $user == 'Vice Principal' OR $user == 'Principal' OR $user == 'dexdevs') { ?>
+        if($user == 'Registrar' OR $user == 'Admin' OR $user == 'Vice Principal' OR $user == 'Principal' OR $user == 'dexdevs' OR $user == 'Director') { ?>
           <div class="row">
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
@@ -582,17 +585,6 @@ use common\models\Notice;
         <!-- Notice Panel CLose -->
       </div>
       <!-- Notice Row CLose -->
-
-  <!-- Calendar Start -->
-  <!-- <div class="row container-fluid">
-    <div class="col-md-8 bg-success bg-info well-info" style="color: #001F3F;">
-      <?= \yii2fullcalendar\yii2fullcalendar::widget(array(
-           // 'events'=> $events,
-        ));
-      ?>
-    </div>
-  </div> -->
-  <!-- Calendar Close -->
 
     </section>
     <!-- /.content -->

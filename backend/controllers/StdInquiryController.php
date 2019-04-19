@@ -97,6 +97,7 @@ class StdInquiryController extends Controller
      */
     public function actionCreate()
     {
+        if( Yii::$app->user->can('add-inquiry')){
         $request = Yii::$app->request;
         $model = new StdInquiry();  
 
@@ -158,6 +159,10 @@ class StdInquiryController extends Controller
                 ]);
             }
         }
+        }else{
+            throw new ForbiddenHttpException(403, 'You are not authorized to perform this action');
+            //Yii::$app->session->setFlash('warning','Your are not allowed to perform this action');
+        }
        
     }
 
@@ -170,6 +175,7 @@ class StdInquiryController extends Controller
      */
     public function actionUpdate($id)
     {
+        if( Yii::$app->user->can('update-inquiry')){
         $request = Yii::$app->request;
         $model = $this->findModel($id);       
 
@@ -228,6 +234,10 @@ class StdInquiryController extends Controller
                 ]);
             }
         }
+        }else{
+            throw new ForbiddenHttpException(403, 'You are not authorized to perform this action');
+            //Yii::$app->session->setFlash('warning','Your are not allowed to perform this action');
+        }
     }
 
     /**
@@ -285,7 +295,8 @@ class StdInquiryController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-    {        
+    {     
+        if( Yii::$app->user->can('delete-inquiry')){   
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -304,6 +315,9 @@ class StdInquiryController extends Controller
             *   Process for non-ajax request
             */
             return $this->redirect(['index']);
+        }
+        } else {
+            throw new ForbiddenHttpException(403, 'You are not authorized to perform this action');
         }
        
     }
