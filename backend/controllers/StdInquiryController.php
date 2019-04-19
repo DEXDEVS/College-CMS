@@ -31,7 +31,7 @@ class StdInquiryController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail', 'bulk-sms', 'sms', 'inquiry-sms'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail', 'bulk-sms'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -288,12 +288,6 @@ class StdInquiryController extends Controller
         return $this->render('inquiry-report-detail');
     }
 
-    public function actionInquirySms($data)
-    {   
-
-        return $this->render('inquiry-sms');
-    }
-
      /**
      * Delete multiple existing StdInquiry model.
      * For ajax request will return json object
@@ -336,55 +330,42 @@ class StdInquiryController extends Controller
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         $array = array();
         foreach ( $pks as $pk ) {
-            //$model = $this->findModel($pk);
-            $array[] = $pk; 
+            $inquiryStdNo = Yii::$app->db->createCommand("SELECT std_contact_no FROM std_inquiry WHERE std_inquiry_id = '$pk'")->queryAll();
+            $number = $inquiryStdNo[0]['std_contact_no'];
+            $numb = str_replace('-', '', $number);
+            $num = str_replace('+', '', $numb);
+                    
+            $array[] = $num;
         }
-        return $this->redirect(['./std-inquiry/inquiry-sms', 'data' => $array]);
-        // var_dump($array);
-        //return $this->render('bulk-sms', ['data' => $model]);
-        // if($request->isAjax){
-        //     /*
-        //     *   Process for ajax request
-        //     */
-        //     Yii::$app->response->format = Response::FORMAT_JSON;
-        //     return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
-            
-        //     echo "<textarea name='message' class='form-control' rows='5'></textarea><br>";
 
-        //     echo "<a href='std-inquiry/sms' class='btn btn-success'>SMS</a>";   
-               
-        // }else{
-            /*
-            *   Process for non-ajax request
-            */
-            
-        //}
+        $to = implode(',', $array);
+
+        if (isset($_POST['message'])) {
+            $message = $_POST['message'];
+        
+            $type = "xml";
+            $id = "Brookfieldclg";
+            $pass = "college42";
+            $lang = "English";
+            $mask = "Brookfield";
+            // Data for text message
+            // $to = "923317375027";
+            // $message = "Testing sms from brookfield web application";
+            $message = urlencode($message);
+            // Prepare data for POST request
+            $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
+            // Send the POST request with cURL
+            $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $result = curl_exec($ch); //This is the result from SMS4CONNECT
+            curl_close($ch);     
+
+            Yii::$app->session->setFlash('success', $result);
+        }
+        return $this->redirect(['./std-inquiry']);
     }
-
-    public function actionSms($to, $message){
-        // Configuration variables
-        $type = "xml";
-        $id = "Brookfieldclg";
-        $pass = "college42";
-        $lang = "English";
-        $mask = "Brookfield";
-        // Data for text message
-        // $to = "923317375027";
-        // $message = "Testing sms from brookfield web application";
-        $message = urlencode($message);
-        // Prepare data for POST request
-        $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
-        // Send the POST request with cURL
-        $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($ch); //This is the result from SMS4CONNECT
-        curl_close($ch);
-        Yii::$app->session->setFlash('success', "SMS sent successfully...!");     
-    }
-
-
 
     /**
      * Finds the StdInquiry model based on its primary key value.

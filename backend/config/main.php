@@ -71,12 +71,14 @@ return [
                 'std-personal-info-view' => 'std-personal-info/view',
                 'std-personal-info-update' => 'std-personal-info/update',
                 'std-personal-info-std-photo' => 'std-personal-info/std-photo',
+                'std-registration' => 'std-registration/create',
 
                 'std-guardian-info-update' => 'std-guardian-info/update',
                 'std-ice-info-update' => 'std-ice-info/update',
                 'std-academic-info-update' => 'std-academic-info/update',
                 'std-fee-details-update' => 'std-fee-details/update',
 
+                'std-inquiry' => 'std-inquiry/index',
                 'inquiry-report' => 'std-inquiry/inquiry-report',
                 'inquiry-report-detail' => 'std-inquiry/inquiry-report-detail',
                 'bulk-sms' => 'std-inquiry/bulk-sms',
