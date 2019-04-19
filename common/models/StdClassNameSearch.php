@@ -41,7 +41,7 @@ class StdClassNameSearch extends StdClassName
      */
     public function search($params)
     {
-        $query = StdClassName::find();
+        $query = StdClassName::find()->where(['delete_status'=>1]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

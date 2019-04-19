@@ -363,7 +363,7 @@ use yii\helpers\Url;
     }
 </script>
 <?php
-$url = \yii\helpers\Url::to("./std-registration/fetch-fee");
+$url = \yii\helpers\Url::to("./fetch-fee");
 
 $script = <<< JS
 

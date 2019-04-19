@@ -14,6 +14,7 @@ use common\models\Notice;
 <div class="site-index">
     <!-- Main content -->
     <section class="content">
+<<<<<<< HEAD
       <!-- Message of the day start -->
       <div class="row">
         <div class="col-md-12 col-sm-6 col-xs-12">
@@ -50,6 +51,8 @@ use common\models\Notice;
         </div>
       </div>
       <!-- Message of the day close -->
+=======
+>>>>>>> ba1097a476e7b10be342578be39feaed7ad05dce
       <!-- Small boxes (Stat box) -->
       <?php 
         $user = Yii::$app->user->identity->user_type;
@@ -200,6 +203,45 @@ use common\models\Notice;
   <?php } ?>
       
       <!-- /.row --> 
+
+      <!-- Message of the day start -->
+      <div class="row">
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          <div class="info-box bg-navy callout-warning">
+            <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+            <div class="info-box-content">
+              <h4 style="float: left;">Message of the day!</h4>  
+              <h4 style="float:right">
+                <span id="hr"></span>
+                <span id="min"></span>
+                <span id="sec"></span> -
+                <?php echo date('l d-M-Y');?> 
+              </h4>
+              
+              <br><br>
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                <span class="progress-description">
+                    <marquee onmouseover="this.stop();" onmouseout="this.start();"><i>
+                      <?php 
+                        $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
+                        $date = date('d');
+                        //echo $date;
+                        $countMessage = count($message);
+
+                        $msg = $message[$date]['msg_details'];
+                        echo $msg;
+                      ?>
+                    </marquee></i>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+      </div>
+      <!-- Message of the day close -->
       
       <!-- Notice Row Start -->
       <div class="row">
@@ -520,7 +562,7 @@ use common\models\Notice;
               <!-- student tab start -->
               <?php 
                 $date = date('Y-m-d');
-                $upcomingEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_end_datetime AS DATE) > '$date'")->queryAll();
+                $upcomingEvent = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_start_datetime AS DATE) > '$date'")->queryAll();
               ?> 
               <div class="tab-pane" id="upcoming">
               <?php if(!empty($upcomingEvent)) { 
@@ -530,14 +572,8 @@ use common\models\Notice;
                 ?> 
                 <div class="alert bg-success text-success">
                   <div class="row">
-                    <div class="col-md-2">
-                      <span class="label label-success" style="padding: 3px;">
-                        <i class="fa fa-calendar"></i>
-                        <?php echo date('D d-M-Y'); ?>
-                      </span>
-                    </div>
-                    <div class="col-md-10">
-                     <h4 style="margin: 0px 20px">
+                    <div class="col-md-9" style="float: left;">
+                     <h4 style="margin: 0px 0px">
                         <button class="btn btn-xs btn-link" value="index.php?r=events/view-event-popup" id="modalUpcomings" data-toggle="tooltip" title="Click me for event details!">
                           <span>
                             <h4 style="color: #00A65A;">
@@ -547,10 +583,16 @@ use common\models\Notice;
                         </button>
                       </h4>
                     </div>
+                    <div class="col-md-1">
+                      <span class="label label-success">
+                        <i class="fa fa-calendar"></i>
+                        <?php echo date('D d-M-Y'); ?>
+                      </span>
+                    </div>
                   </div>
                   <div class="row">  
                     <div class="col-md-12">
-                      <span><?php echo $upcomingEvent[$i]['event_detail']; ?></span>
+                      <span style="margin-left: 8px;"><?php echo $upcomingEvent[$i]['event_detail']; ?></span>
                     </div>
                   </div>
                 </div>
@@ -560,12 +602,6 @@ use common\models\Notice;
                   }
                   // ending of if...
                   else {
-                    $upcomingEve = Yii::$app->db->createCommand("SELECT * FROM events WHERE is_status ='Active' AND CAST(event_end_datetime AS DATE) < '$date'")->queryAll();
-
-                        foreach ($upcomingEve as $key => $value) {
-                          $upcomingEveId = $value['event_id'];
-                          $upcomingEve = Yii::$app->db->createCommand("UPDATE events SET is_status = 'Inactive' WHERE event_id = '$upcomingEveId'")->execute();
-                         }
                 ?>
                 <div class="alert bg-success text-success">
                   <div class="row">  
