@@ -348,9 +348,6 @@ class StdInquiryController extends Controller
             $pass = "college42";
             $lang = "English";
             $mask = "Brookfield";
-            // Data for text message
-            // $to = "923317375027";
-            // $message = "Testing sms from brookfield web application";
             $message = urlencode($message);
             // Prepare data for POST request
             $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;

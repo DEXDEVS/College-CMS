@@ -11,6 +11,7 @@ use common\models\StdClassName;
 use common\models\StdSessions;
 use common\models\Concession;
 use common\models\StdSubjects;
+use common\models\InstituteName;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -19,7 +20,7 @@ use yii\helpers\Url;
 ?>
 
 <div class="std-registration-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id'=>$model->formName()]); ?>
     <?php 
     $stdPersonalInfo = StdPersonalInfo::find()->orderBy(['std_id'=> SORT_DESC])->one();
     $id = $stdPersonalInfo['std_id']+1;
@@ -224,7 +225,17 @@ use yii\helpers\Url;
                 <div class="row">
                     <div class="col-md-4">
                         <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 118px; top: 6px"></i> -->
-                            <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true, 'id' => 'previous_class']) ?>
+                            <?= $form->field($stdAcademicInfo, 'previous_class')->widget(Select2::classname(), [
+                                'data' => ArrayHelper::map(StdClassName::find()->all(),'class_name','class_name'),
+                                'language' => 'en',
+                                'options' => ['placeholder' => 'Select' ,'id' => 'previousClass'],
+                                'showToggleAll' => false,
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+                                    'multiple' => true,
+                                    'maximumSelectionLength' => 1,
+                                ],
+                            ]);?>
                     </div>
                     <div class="col-md-4">
                         <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i> -->
@@ -256,7 +267,18 @@ use yii\helpers\Url;
                     </div>
                     <div class="col-md-4">
                         <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 71px; top: 6px"></i> -->
-                            <?= $form->field($stdAcademicInfo, 'Institute')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($stdAcademicInfo, 'Institute')->widget(Select2::classname(), [
+                            'data' => ArrayHelper::map(InstituteName::find()->all(),'Institute_name','Institute_name'),
+                            'language' => 'en',
+                            'showToggleAll' => false,
+                            'options' => ['placeholder' => 'Select Institute','id'=>'institute'],
+                            'pluginOptions' => [
+                                'allowClear' => true,
+                                'multiple' => true,
+                                'maximumSelectionLength' => 1,
+                            ],
+                        ]);
+                    ?>
                     </div>
                 </div>
             <hr>
@@ -338,7 +360,7 @@ use yii\helpers\Url;
                 <!-- Fee Installment end -->
             <!-- Fee detail end -->
             <div class="form-group">
-                <?= Html::submitButton(' Save', ['class' => 'btn btn-success btn-flat' ,'id'=>'save']) ?>
+                <?= Html::submitButton(' Save', ['class' => 'btn btn-success btn-flat']) ?>
                 <a href="std-personal-info" class="btn btn-danger btn-flat">Back</a>
             </div>
             </div>
@@ -363,7 +385,7 @@ use yii\helpers\Url;
     }
 </script>
 <?php
-$url = \yii\helpers\Url::to("./fetch-fee");
+$url = \yii\helpers\Url::to("./std-registration/fetch-fee");
 
 $script = <<< JS
 
@@ -376,12 +398,13 @@ $('#inquiryNo').on('change',function(){
         data:{stdInquiryNo:stdInquiryNo},
         url: "$url",
         success: function(result){
+            console.log(result);
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
             $('#std_name').val(jsonResult['std_name']);
             $('#std_father_name').val(jsonResult['std_father_name']);
             $('#std_contact_no').val(jsonResult['std_contact_no']);
             $('#std_father_contact_no').val(jsonResult['std_father_contact_no']);
-            $('#previous_class').val(jsonResult['std_previous_class']);
+            $('#std_gender').val(jsonResult['gender']);
             $('#previous_class_rollno').val(jsonResult['std_roll_no']);
             $('#obtainedMarks').val(jsonResult['std_obtained_marks']);
             $('#totalMarks').val(jsonResult['std_total_marks']);
@@ -409,11 +432,9 @@ var noOfInstallment;
         }
 
     });
-
-    $('#save').on('click',function(){
+    $('form#{$model->formName()}').on('beforeSubmit',function(e){
         var amount = [];
         var sum = 0;
-
         for(var j=1; j<=noOfInstallment; j++){
             amount[j] = $('#amnt'+j).val();   
         }
@@ -424,7 +445,11 @@ var noOfInstallment;
         var tuitionFee = $('#tuitionFee').val();
         if(sum != tuitionFee){
             alert("Sum of Installments = " + sum  + " Total tution Fee = " + tuitionFee + " Your total amount is not equal to total no. of installments");
+        } else {
+            $('form#{$model->formName()}').submit();
         }
+    }).on('submit', function(e){
+        e.preventDefault();
     }); 
 
 // calculate concession start....
@@ -434,42 +459,42 @@ var noOfInstallment;
         var fee;
         var con = parseInt(concession);
         if (con == '100') {
-            $('#tuitionFee').val(10);
+            $('#tuitionFee').val(1000);
         }
         else if(con == '90'){
-            fee = (totalTuitionFee*90)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*90)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '80'){
-            fee = (totalTuitionFee*80)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*80)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '70'){
-            fee = (totalTuitionFee*70)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*70)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '60'){
-            fee = (totalTuitionFee*60)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*60)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '50'){
-            fee = (totalTuitionFee*50)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*50)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '40'){
-            fee = (totalTuitionFee*40)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*40)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '30'){
-            fee = (totalTuitionFee*30)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*30)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '25'){
-            fee = (totalTuitionFee*25)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*25)/100);
             $('#tuitionFee').val(fee);
         }
         else{
-            fee = (totalTuitionFee*50)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*50)/100);
             $('#tuitionFee').val(fee);
         }
     });

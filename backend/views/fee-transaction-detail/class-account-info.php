@@ -115,16 +115,16 @@
                             <input class="form-control" type="number" name="tuition_fee[]" value="<?php echo $tuitionFee; ?>" readonly="" id="tuitionFee_<?php echo $id; ?>" style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]"  onChange="lateFeeFine(<?php echo $id; ?>)"  style="width: 70px; border: none;">
+                            <input class="form-control" type="number" id="lateFeeFine_<?php echo $id; ?>" name="late_fee_fine[]" value="0"  onChange="lateFeeFine(<?php echo $id; ?>)"  style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="absentFine_<?php echo $id; ?>" name="absent_fine[]"  onChange="absentFine(<?php echo $id; ?>)" style="width: 70px; border: none;">
+                            <input class="form-control" type="number" id="absentFine_<?php echo $id; ?>" name="absent_fine[]"  value="0" onChange="absentFine(<?php echo $id; ?>)" style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="libraryDues_<?php echo $id; ?>" name="library_dues[]"  onChange="libraryDues(<?php echo $id; ?>)" style="width: 70px; border: none;">
+                            <input class="form-control" type="number" id="libraryDues_<?php echo $id; ?>" name="library_dues[]" value="0"  onChange="libraryDues(<?php echo $id; ?>)" style="width: 70px; border: none;">
                         </td>
                         <td>
-                            <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]"  onChange="transportationFee(<?php echo $id; ?>)" style="width: 100px; border: none;">
+                            <input class="form-control" type="number" id="transportFee_<?php echo $id; ?>" name="transport_fee[]" value="0"  onChange="transportationFee(<?php echo $id; ?>)" style="width: 100px; border: none;">
                         </td>
                         <td>
                             <input class="form-control" type="number" id="totalAmount_<?php echo $id; ?>" readonly="" name=" total_amount[]" value="<?php echo $netTotal ; ?>"  style="width: 80px; border: none;">
@@ -171,21 +171,44 @@
 
 <script>
     var totalAmount;
+    var sum = 0;
+    var lateFine = 0;
+    var absent = 0;
+    var amount = 0;
     function lateFeeFine(i) {
-            var lateFeeFine = parseInt($('#lateFeeFine_'+i).val());
+        var lateFeeFine = parseInt($('#lateFeeFine_'+i).val());
+        if(lateFine != 0){
+            alert(amount);
+            sum = amount + lateFeeFine;
+            $('#totalAmount_'+i).val(sum);
+            $('#netTotal_'+i).val(sum);
+        } else {
             totalAmount = parseInt($('#totalAmount_'+i).val());
-            var sum = 0;
             sum = totalAmount + lateFeeFine;
             $('#totalAmount_'+i).val(sum);
             $('#netTotal_'+i).val(sum);
+            lateFine = lateFeeFine;
+            amount = totalAmount;
+            alert(amount);
+        }
     }
     function absentFine(i) {
-            var absentFine = parseInt($('#absentFine_'+i).val());
+        var absentFine = parseInt($('#absentFine_'+i).val());
+        if(absent != 0){
+            alert(amount);
+            sum = amount + absentFine;
+            $('#totalAmount_'+i).val(sum);
+            $('#netTotal_'+i).val(sum);
+
+        } else {
             totalAmount = parseInt($('#totalAmount_'+i).val());
-            var sum = 0;
             sum = totalAmount + absentFine;
             $('#totalAmount_'+i).val(sum);
             $('#netTotal_'+i).val(sum);
+            absent = absentFine;
+            amount = totalAmount;
+            alert(amount);
+        }
     }
     function libraryDues(i) {
             var libraryDues = parseInt($('#libraryDues_'+i).val());
