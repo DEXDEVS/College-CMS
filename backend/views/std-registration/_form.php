@@ -50,11 +50,11 @@ use yii\helpers\Url;
             </div> 
             <div class="row">
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 80px; top: 6px"></i>
                     <?= $form->field($model, 'std_name')->textInput(['maxlength' => true,'id' => 'std_name', 'required'=> true]) ?>
                 </div>
                 <div class="col-md-4">
-                     <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 167px; top: 6px"></i>
+                     <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 127px; top: 6px"></i>
                     <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true,'id' => 'std_father_name']) ?>
                 </div>  
                 <div class="col-md-4">
