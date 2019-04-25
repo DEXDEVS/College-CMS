@@ -7,20 +7,22 @@ use Yii;
 /**
  * This is the model class for table "fee_type".
  *
- * @property integer $fee_type_id
+ * @property int $fee_type_id
  * @property string $fee_type_name
  * @property string $fee_type_description
  * @property string $created_at
  * @property string $updated_at
- * @property integer $created_by
- * @property integer $updated_by
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int $delete_status
  *
- * @property FeeTransactionDetail[] $feeTransactionDetails
+ * @property User $createdBy
+ * @property User $updatedBy
  */
 class FeeType extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -28,22 +30,23 @@ class FeeType extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['fee_type_name', 'fee_type_description'], 'required'],
-            [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
-            [['created_by', 'updated_by',], 'integer'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['created_by', 'updated_by', 'delete_status'], 'integer'],
             [['fee_type_name'], 'string', 'max' => 64],
             [['fee_type_description'], 'string', 'max' => 120],
-            ['fee_type_name','unique'],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -55,14 +58,23 @@ class FeeType extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'delete_status' => 'Delete Status',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFeeTransactionDetails()
+    public function getCreatedBy()
     {
-        return $this->hasMany(FeeTransactionDetail::className(), ['fee_type_id' => 'fee_type_id']);
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUpdatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 }

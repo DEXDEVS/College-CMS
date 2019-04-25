@@ -10,8 +10,9 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'std_subject_id',
-            'class_id',
+            //'std_subject_id',
+            //'class_id',
+            'class.class_name',
             'std_subject_name',
         ],
     ]) ?>

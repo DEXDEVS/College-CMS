@@ -237,10 +237,10 @@
                       <div class="col-md-6" style="border-right: 1px dashed;">
                         <table class="table table-striped table-hover">
                           <thead>
-                            <tr>
+                            <!-- <tr>
                               <th>Student ID:</th>
                               <td><?php echo $stdPersonalInfo[0]['std_id'] ?></td>
-                            </tr>
+                            </tr> -->
                             <tr>
                               <th>Student Name:</th>
                               <td><?php echo $stdPersonalInfo[0]['std_name'] ?></td>
