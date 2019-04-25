@@ -44,7 +44,7 @@ use dmstr\widgets\Alert;
     <i>Copyright &copy; <?php echo date('Y'); ?>
         <a href="http://www.dexdevs.com" target="_blank" style="color: #001F3F;">
             <b>DEXDEVS</b>
-        </a> /  All Rights Reserved / <b style="color: #001F3F;">0315-6898993</b>
+        </a> /  All Rights Reserved
     </i>
 </footer>
 

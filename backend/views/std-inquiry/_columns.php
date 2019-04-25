@@ -94,10 +94,10 @@ return [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'comment',
     // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'inquiry_status',
-    // ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'inquiry_status',
+    ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'created_at',

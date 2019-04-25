@@ -31,7 +31,7 @@ class StdInquiryController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'bulk-delete','inquiry-report','inquiry-report-detail', 'bulk-sms'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -42,6 +42,7 @@ class StdInquiryController extends Controller
                 'actions' => [
                     'delete' => ['post'],
                     'bulk-delete' => ['post'],
+                    'bulk-sms' => ['post'],
                 ],
             ],
         ];
@@ -295,7 +296,8 @@ class StdInquiryController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-    {     
+    {    
+
         if( Yii::$app->user->can('delete-inquiry')){   
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
@@ -320,6 +322,46 @@ class StdInquiryController extends Controller
             throw new ForbiddenHttpException(403, 'You are not authorized to perform this action');
         }
        
+    }
+
+    public function actionBulkSms()
+    {      
+        $request = Yii::$app->request;
+        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
+        $array = array();
+        foreach ( $pks as $pk ) {
+            $inquiryStdNo = Yii::$app->db->createCommand("SELECT std_contact_no FROM std_inquiry WHERE std_inquiry_id = '$pk'")->queryAll();
+            $number = $inquiryStdNo[0]['std_contact_no'];
+            $numb = str_replace('-', '', $number);
+            $num = str_replace('+', '', $numb);
+                    
+            $array[] = $num;
+        }
+
+        $to = implode(',', $array);
+
+        if (isset($_POST['message'])) {
+            $message = $_POST['message'];
+        
+            $type = "xml";
+            $id = "Brookfieldclg";
+            $pass = "college42";
+            $lang = "English";
+            $mask = "Brookfield";
+            $message = urlencode($message);
+            // Prepare data for POST request
+            $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
+            // Send the POST request with cURL
+            $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $result = curl_exec($ch); //This is the result from SMS4CONNECT
+            curl_close($ch);     
+
+            Yii::$app->session->setFlash('success', $result);
+        }
+        return $this->redirect(['./std-inquiry']);
     }
 
     /**

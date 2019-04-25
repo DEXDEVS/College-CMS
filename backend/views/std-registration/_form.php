@@ -11,6 +11,7 @@ use common\models\StdClassName;
 use common\models\StdSessions;
 use common\models\Concession;
 use common\models\StdSubjects;
+use common\models\InstituteName;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -19,7 +20,7 @@ use yii\helpers\Url;
 ?>
 
 <div class="std-registration-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id'=>$model->formName()]); ?>
     <?php 
     $stdPersonalInfo = StdPersonalInfo::find()->orderBy(['std_id'=> SORT_DESC])->one();
     $id = $stdPersonalInfo['std_id']+1;
@@ -50,21 +51,21 @@ use yii\helpers\Url;
             </div> 
             <div class="row">
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 80px; top: 6px"></i>
                     <?= $form->field($model, 'std_name')->textInput(['maxlength' => true,'id' => 'std_name', 'required'=> true]) ?>
                 </div>
                 <div class="col-md-4">
-                     <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 167px; top: 6px"></i>
+                     <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 127px; top: 6px"></i>
                     <?= $form->field($model, 'std_father_name')->textInput(['maxlength' => true,'id' => 'std_father_name']) ?>
                 </div>  
                 <div class="col-md-4">
-                   <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 156px; top: 6px"></i> -->
+                   <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 120px; top: 6px"></i> 
                     <?= $form->field($model, 'std_contact_no')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999', 'id' => 'std_contact_no']) ?>
                 </div>     
             </div>
             <div class="row"> 
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 113px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 105px; top: 6px"></i>
                     <label>Student DOB</label>
                     <?= DateTimePicker::widget([
                         'model' => $model,
@@ -81,7 +82,7 @@ use yii\helpers\Url;
                     ]);?>
                 </div>
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 131px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 95px; top: 6px"></i>
                     <?= $form->field($model, 'std_gender')->dropDownList
                     ([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => '','id' => 'std_gender']) ?>
                 </div>
@@ -96,31 +97,31 @@ use yii\helpers\Url;
                     <?= $form->field($model, 'std_photo')->fileInput() ?>
                 </div>
                 <div class="col-md-4">
-                    <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 131px; top: 6px"></i> -->
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 95px; top: 6px"></i>
                     <?= $form->field($model, 'std_b_form')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '99999-9999999-9', ]) ?>
                 </div>
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 131px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 95px; top: 6px"></i>
                     <?= $form->field($model, 'std_district')->textInput(['maxlength' => true]) ?>
                 </div>
             </div> 
             <div class="row">  
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 133px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 95px; top: 6px"></i>
                     <?= $form->field($model, 'std_tehseel')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 153px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 115px; top: 6px"></i>
                     <?= $form->field($model, 'std_nationality')->textInput(['maxlength' => true]) ?>
                 </div>  
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 137px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 100px; top: 6px"></i>
                     <?= $form->field($model, 'std_religion')->textInput(['maxlength' => true]) ?>
                 </div>   
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 214px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 175px; top: 6px"></i>
                     <?= $form->field($model, 'std_permanent_address')->textInput(['maxlength' => true, 'id' => 'std_permanent_address']) ?>
                 </div>
                 <div class="col-md-6">
@@ -141,35 +142,35 @@ use yii\helpers\Url;
                     <?= $form->field($stdGuardianInfo, 'guardian_name')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 137px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 75px; top: 6px"></i>
                     <?= $form->field($stdGuardianInfo, 'guardian_relation')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 113px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 70px; top: 6px"></i>
                     <?= $form->field($stdGuardianInfo, 'guardian_cnic')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '99999-9999999-9', ]) ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 119px; top: 6px"></i>
+                    
                     <?= $form->field($stdGuardianInfo, 'guardian_email')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i>
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 108px; top: 6px"></i>
                     <?= $form->field($stdGuardianInfo, 'guardian_contact_no_1')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
                 </div>
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 168px; top: 6px"></i>
+                    
                     <?= $form->field($stdGuardianInfo, 'guardian_contact_no_2')->widget(yii\widgets\MaskedInput::class, [ 'mask' => '+99-999-9999999']) ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 189px; top: 6px"></i>
+                    
                     <?= $form->field($stdGuardianInfo, 'guardian_monthly_income')->textInput() ?>
                 </div>
                 <div class="col-md-4">
-                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 159px; top: 6px"></i>
+                    
                     <?= $form->field($stdGuardianInfo, 'guardian_occupation')->textInput(['maxlength' => true]) ?>
                 </div>        
                 <div class="col-md-4">
@@ -183,9 +184,11 @@ use yii\helpers\Url;
             </h3>
             <div class="row">
                 <div class="col-md-4">
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 55px; top: 6px"></i>
                     <?= $form->field($stdIceInfo, 'std_ice_name')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-4">
+                    <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 75px; top: 6px"></i>
                     <?= $form->field($stdIceInfo, 'std_ice_relation')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-4">
@@ -207,14 +210,14 @@ use yii\helpers\Url;
             </h3>
                 <div class="row">
                     <div class="col-md-4">
-                        <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 172px; top: 6px"></i> -->
+                         <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 155px; top: 6px"></i> 
                             <?= $form->field($stdAcademicInfo, 'class_name_id')->dropDownList(
                             ArrayHelper::map(StdClassName::find()->where(['delete_status'=>1 , 'status'=>'Active'])->all(),'class_name_id','class_name'),
                             ['prompt'=>'Select Class', 'id'=>'classId']
                         )?>
                     </div>
                     <div class="col-md-8">
-                        <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 158px; top: 6px"></i> -->
+                         <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 158px; top: 6px"></i> 
                             <?= $form->field($stdAcademicInfo, 'subject_combination')->dropDownList(
                                 ArrayHelper::map(StdSubjects::find()->all(),'std_subject_id','std_subject_name'),
                                 ['prompt'=>'Select Subject combination', 'id'=>'subjectId']
@@ -223,15 +226,25 @@ use yii\helpers\Url;
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 118px; top: 6px"></i> -->
-                            <?= $form->field($stdAcademicInfo, 'previous_class')->textInput(['maxlength' => true, 'id' => 'previous_class']) ?>
+                        <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 118px; top: 6px"></i>
+                            <?= $form->field($stdAcademicInfo, 'previous_class')->widget(Select2::classname(), [
+                                'data' => ArrayHelper::map(StdClassName::find()->all(),'class_name','class_name'),
+                                'language' => 'en',
+                                'options' => ['placeholder' => 'Select' ,'id' => 'previousClass'],
+                                'showToggleAll' => false,
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+                                    'multiple' => true,
+                                    'maximumSelectionLength' => 1,
+                                ],
+                            ]);?>
                     </div>
                     <div class="col-md-4">
-                        <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i> -->
+                         <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 166px; top: 6px"></i>
                             <?= $form->field($stdAcademicInfo, 'previous_class_rollno')->textInput(['id' => 'previous_class_rollno']) ?>
                     </div>
                     <div class="col-md-4">
-                        <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 106px; top: 6px"></i> -->
+                         <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 106px; top: 6px"></i> 
                             <?= $form->field($stdAcademicInfo, 'passing_year')->textInput(['maxlength' => true]) ?>
                     </div>
                 </div>
@@ -251,12 +264,23 @@ use yii\helpers\Url;
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 66px; top: 6px"></i> -->
+                        <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 66px; top: 6px"></i>
                             <?= $form->field($stdAcademicInfo, 'grades')->textInput(['maxlength' => true, 'id'=>'grade', 'readonly' => true]) ?>
                     </div>
                     <div class="col-md-4">
-                        <!-- <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 71px; top: 6px"></i> -->
-                            <?= $form->field($stdAcademicInfo, 'Institute')->textInput(['maxlength' => true]) ?>
+                        <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 71px; top: 6px"></i>
+                            <?= $form->field($stdAcademicInfo, 'Institute')->widget(Select2::classname(), [
+                            'data' => ArrayHelper::map(InstituteName::find()->all(),'Institute_name','Institute_name'),
+                            'language' => 'en',
+                            'showToggleAll' => false,
+                            'options' => ['placeholder' => 'Select Institute','id'=>'institute'],
+                            'pluginOptions' => [
+                                'allowClear' => true,
+                                'multiple' => true,
+                                'maximumSelectionLength' => 1,
+                            ],
+                        ]);
+                    ?>
                     </div>
                 </div>
             <hr>
@@ -279,7 +303,7 @@ use yii\helpers\Url;
                         <?= $form->field($stdFeeDetails, 'admission_fee')->textInput(['type' => 'number','id' => 'admissionFee']) ?>
                     </div>
                     <div class="col-md-3">
-                        <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 190px; top: 6px"></i>
+                        
                         <?= $form->field($stdFeeDetails, 'addmission_fee_discount')->textInput(['type' => 'number','id' => 'admissionFeeDiscount']) ?>
                     </div>
                     <div class="col-md-3">
@@ -293,11 +317,11 @@ use yii\helpers\Url;
                        <?= $form->field($stdFeeDetails, 'fee_category')->dropDownList([ 'Annual' => 'Annual', 'Semester' => 'Semester', ], ['prompt' => 'Select Category']) ?> 
                     </div>
                     <div class="col-md-3">
-                        <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 92px; top: 6px"></i>
+                        
                         <?= $form->field($stdFeeDetails, 'totalTuitionFee')->textInput(['type' => 'number','id' => 'totalTuitionFee', 'readonly'=> true]) ?>
                     </div>
                     <div class="col-md-3">
-                        <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 114px; top: 6px"></i>
+                        <i class="fa fa-star" style="font-size: 8px; color: red; position: absolute; left: 125px; top: 6px"></i>
                         <?= $form->field($stdFeeDetails, 'concession_id')->dropDownList(
                                 ArrayHelper::map(Concession::find()->where(['delete_status'=>1])->all(),'concession_id','concession_name'),
                                 ['prompt'=>'Select Concession Type','id'=>'concession']
@@ -338,7 +362,7 @@ use yii\helpers\Url;
                 <!-- Fee Installment end -->
             <!-- Fee detail end -->
             <div class="form-group">
-                <?= Html::submitButton(' Save', ['class' => 'btn btn-success btn-flat' ,'id'=>'save']) ?>
+                <?= Html::submitButton(' Save', ['class' => 'btn btn-success btn-flat']) ?>
                 <a href="std-personal-info" class="btn btn-danger btn-flat">Back</a>
             </div>
             </div>
@@ -376,12 +400,13 @@ $('#inquiryNo').on('change',function(){
         data:{stdInquiryNo:stdInquiryNo},
         url: "$url",
         success: function(result){
+            console.log(result);
             var jsonResult = JSON.parse(result.substring(result.indexOf('{'), result.indexOf('}')+1));
             $('#std_name').val(jsonResult['std_name']);
             $('#std_father_name').val(jsonResult['std_father_name']);
             $('#std_contact_no').val(jsonResult['std_contact_no']);
             $('#std_father_contact_no').val(jsonResult['std_father_contact_no']);
-            $('#previous_class').val(jsonResult['std_previous_class']);
+            $('#std_gender').val(jsonResult['gender']);
             $('#previous_class_rollno').val(jsonResult['std_roll_no']);
             $('#obtainedMarks').val(jsonResult['std_obtained_marks']);
             $('#totalMarks').val(jsonResult['std_total_marks']);
@@ -409,11 +434,9 @@ var noOfInstallment;
         }
 
     });
-
-    $('#save').on('click',function(){
+    $('form#{$model->formName()}').on('beforeSubmit',function(e){
         var amount = [];
         var sum = 0;
-
         for(var j=1; j<=noOfInstallment; j++){
             amount[j] = $('#amnt'+j).val();   
         }
@@ -424,7 +447,11 @@ var noOfInstallment;
         var tuitionFee = $('#tuitionFee').val();
         if(sum != tuitionFee){
             alert("Sum of Installments = " + sum  + " Total tution Fee = " + tuitionFee + " Your total amount is not equal to total no. of installments");
+        } else {
+            $('form#{$model->formName()}').submit();
         }
+    }).on('submit', function(e){
+        e.preventDefault();
     }); 
 
 // calculate concession start....
@@ -434,42 +461,42 @@ var noOfInstallment;
         var fee;
         var con = parseInt(concession);
         if (con == '100') {
-            $('#tuitionFee').val(10);
+            $('#tuitionFee').val(1000);
         }
         else if(con == '90'){
-            fee = (totalTuitionFee*90)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*90)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '80'){
-            fee = (totalTuitionFee*80)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*80)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '70'){
-            fee = (totalTuitionFee*70)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*70)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '60'){
-            fee = (totalTuitionFee*60)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*60)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '50'){
-            fee = (totalTuitionFee*50)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*50)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '40'){
-            fee = (totalTuitionFee*40)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*40)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '30'){
-            fee = (totalTuitionFee*30)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*30)/100);
             $('#tuitionFee').val(fee);
         }
         else if(con == '25'){
-            fee = (totalTuitionFee*25)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*25)/100);
             $('#tuitionFee').val(fee);
         }
         else{
-            fee = (totalTuitionFee*50)/100;
+            fee = (totalTuitionFee - (totalTuitionFee*50)/100);
             $('#tuitionFee').val(fee);
         }
     });

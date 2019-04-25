@@ -36,9 +36,9 @@ class StdIceInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['std_id', 'std_ice_name', 'std_ice_relation', 'std_ice_contact_no', 'std_ice_address'], 'required'],
+            [['std_id', 'std_ice_name', 'std_ice_relation'], 'required'],
             [['std_id', 'created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
+            [['std_ice_contact_no', 'std_ice_address','created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
             [['std_ice_name', 'std_ice_relation'], 'string', 'max' => 64],
             [['std_ice_contact_no'], 'string', 'max' => 15],
             [['std_ice_address'], 'string', 'max' => 100],

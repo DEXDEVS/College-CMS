@@ -42,7 +42,7 @@ use common\models\Branches;
         'model' => $model,
         'attributes' => [
             //'session_id',
-            //'session_branch_id',
+
             'sessionBranch.branch_name',
             'session_name',
             'session_start_date',

@@ -14,44 +14,6 @@ use common\models\Notice;
 <div class="site-index">
     <!-- Main content -->
     <section class="content">
-      <!-- Message of the day start -->
-      <div class="row">
-        <div class="col-md-12 col-sm-6 col-xs-12">
-          <div class="info-box bg-navy callout-warning">
-            <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
-            <div class="info-box-content">
-              <h4 style="float: left;">Message of the day!</h4>  
-              <h4 style="float:right">
-                <span id="hr"></span>
-                <span id="min"></span>
-                <span id="sec"></span> -
-                <?php echo date('l d-M-Y');?> 
-              </h4>
-              
-              <br><br>
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                <span class="progress-description">
-                    <marquee onmouseover="this.stop();" onmouseout="this.start();"><i>
-                      <?php 
-                        $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
-                        $date = date('d');
-                        //echo $date;
-                        $countMessage = count($message);
-
-                        $msg = $message[$date]['msg_details'];
-                        echo $msg;
-                      ?>
-                    </marquee></i>
-                </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-      </div>
-      <!-- Message of the day close -->
       <!-- Small boxes (Stat box) -->
       <?php 
         $user = Yii::$app->user->identity->user_type;
@@ -202,6 +164,45 @@ use common\models\Notice;
   <?php } ?>
       
       <!-- /.row --> 
+
+      <!-- Message of the day start -->
+      <div class="row">
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          <div class="info-box bg-navy callout-warning">
+            <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+            <div class="info-box-content">
+              <h4 style="float: left;">Message of the day!</h4>  
+              <h4 style="float:right">
+                <span id="hr"></span>
+                <span id="min"></span>
+                <span id="sec"></span> -
+                <?php echo date('l d-M-Y');?> 
+              </h4>
+              
+              <br><br>
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                <span class="progress-description">
+                    <marquee onmouseover="this.stop();" onmouseout="this.start();"><i>
+                      <?php 
+                        $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
+                        $date = date('d');
+                        //echo $date;
+                        $countMessage = count($message);
+
+                        $msg = $message[$date]['msg_details'];
+                        echo $msg;
+                      ?>
+                    </marquee></i>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+      </div>
+      <!-- Message of the day close -->
       
       <!-- Notice Row Start -->
       <div class="row">
