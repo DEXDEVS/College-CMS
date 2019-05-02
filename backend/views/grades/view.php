@@ -10,7 +10,7 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'grade_id',
+            //'grade_id',
             'grade_name',
             'grade_from',
             'grade_to',

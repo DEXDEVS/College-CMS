@@ -92,4 +92,6 @@ class StdSessions extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Branches::className(), ['branch_id' => 'session_branch_id']);
     }
+
+
 }
