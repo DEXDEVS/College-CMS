@@ -45,43 +45,6 @@
                     ['label' => 'Home', 'icon' => 'dashboard', 'url' => "./home"],
                     //['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Login', 'url' => ["../login"], 'visible' => Yii::$app->user->isGuest],
-
-                    // ------------------------------------------------
-                    // System Settings start...
-                    [
-                        'label' => 'System Settings',
-                        'icon' => 'cog',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Class Name', 'icon' => 'caret-right', 'url' => ["/std-class-name"],],
-                            ['label' => 'Subjects', 'icon' => 'caret-right', 'url' => ["/subjects"],],
-                            ['label' => 'Subjects Combination', 'icon' => 'caret-right', 'url' => ["/std-subjects"],],
-                            ['label' => 'Employee Designation', 'icon' => 'caret-right', 'url' => ["/emp-designation"],],
-                            ['label' => 'Employee Type', 'icon' => 'caret-right', 'url' => ["/emp-type"],],
-                            ['label' => 'Fee Type', 'icon' => 'caret-right', 'url' => ["/fee-type"],],
-                            ['label' => 'Fee Packages', 'icon' => 'caret-right', 'url' => ["/std-fee-pkg"],],
-                        ],
-                    ],
-                    // System Settings close...
-                    // ------------------------------------------------
-                    // System Configuration start...
-                    [
-                        'label' => 'System Configuration',
-                        'icon' => 'cogs',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Institute', 'icon' => 'caret-right', 'url' => ["/institute"],],
-                            ['label' => 'Branches', 'icon' => 'caret-right', 'url' => ["/branches"],],
-                            ['label' => 'Departments', 'icon' => 'caret-right', 'url' => ["/departments"],],
-                            ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => ["/std-sessions"],],
-                            ['label' => 'Sections', 'icon' => 'caret-right', 'url' => ["/std-sections"],],
-                            //['label' => 'Class', 'icon' => 'caret-right', 'url' => ["/std-class"],],
-                            // ['label' => 'Students Enrolment', 'icon' => 'caret-right', 'url' => ["/std-enrollment-head"],],
-                            // ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => ["/teacher-subject-assign-head"],],
-                        ],
-                    ],
-                    // System Configuration close...
-                    // ------------------------------------------------
                     // Student Module start...
                     [
                         'label' => 'Student Module',
@@ -98,7 +61,7 @@
                             // ['label' => 'Assign Teacher', 'icon' => 'caret-right', 'url' => ["/teacher-subject-assign-head"],],
                         ],
                     ],
-                    
+                    // Student Module CLose...
                     // ------------------------------------------------
                     // Employee Registration start...
                     [
@@ -205,7 +168,49 @@
                     ],
                     // Exams module close here
                     // ------------------------------------------------
-
+                    // System Configuration start...
+                    [
+                        'label' => 'System Configurations',
+                        'icon' => 'cogs',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Institute', 'icon' => 'caret-right', 'url' => ["/institute"],],
+                            ['label' => 'Branches', 'icon' => 'caret-right', 'url' => ["/branches"],],
+                            ['label' => 'Departments', 'icon' => 'caret-right', 'url' => ["/departments"],],
+                            ['label' => 'Sessions', 'icon' => 'caret-right', 'url' => ["/std-sessions"],],
+                            ['label' => 'Sections', 'icon' => 'caret-right', 'url' => ["/std-sections"],],
+                            ['label' => 'Classes', 'icon' => 'caret-right', 'url' => ["/std-class-name"],],
+                            [
+                                'label' => 'Subjects',
+                                'icon' => 'caret-right',
+                                'url' => '#',
+                                'items' => [
+                                    ['label' => 'Subjects List', 'icon' => 'chevron-right', 'url' => './subjects',],
+                                    ['label' => 'Subject Combination', 'icon' => 'chevron-right', 'url' => './std-subjects',],
+                                ],
+                            ],
+                            [
+                                'label' => 'Employees',
+                                'icon' => 'caret-right',
+                                'url' => '#',
+                                'items' => [
+                                    ['label' => 'Employee Type', 'icon' => 'chevron-right', 'url' => './emp-type',],
+                                    ['label' => 'Employee Designation', 'icon' => 'chevron-right', 'url' => './emp-designation',],
+                                ],
+                            ],
+                            [
+                                'label' => 'Fee',
+                                'icon' => 'caret-right',
+                                'url' => '#',
+                                'items' => [
+                                    ['label' => 'Fee Types', 'icon' => 'chevron-right', 'url' => './fee-type',],
+                                    ['label' => 'Fee Packages', 'icon' => 'chevron-right', 'url' => './std-fee-pkg',],
+                                ],
+                            ],
+                        ],
+                    ],
+                    // System Configuration close...
+                    // ------------------------------------------------
                     // ------------------------------------------------
                     // Multilevel Dropdown....!
                     // [
