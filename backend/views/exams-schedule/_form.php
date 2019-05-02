@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use common\models\ExamsCategory;
+use common\models\ExamsCriteria;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ExamsSchedule */
@@ -15,9 +15,9 @@ use common\models\ExamsCategory;
 
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'exam_criteria_id')->textInput() ?>
+            
              <?= $form->field($model, 'exam_criteria_id')->dropDownList(
-                ArrayHelper::map(ExamsCategory::find()->all(),'exam_criteria_id','category_name'),
+                ArrayHelper::map(ExamsCriteria::find()->all(),'exam_criteria_id','category_name'),
                 ['prompt'=>'Select Exams Category',]
             )?>
         </div>

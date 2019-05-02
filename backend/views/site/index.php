@@ -227,9 +227,11 @@ use common\models\Notice;
                       <?php 
                         $message = Yii::$app->db->createCommand("SELECT msg_details FROM msg_of_day")->queryAll();
                         $date = date('d');
-                        //echo $date;
-                        $countMessage = count($message);
-
+                        if ($date == 10 || $date == 20 || $date == 30) {
+                          $date = $date;  
+                        }else{
+                          $date = str_replace('0','',$date);  
+                        }
                         $msg = $message[$date]['msg_details'];
                         echo $msg;
                       ?>

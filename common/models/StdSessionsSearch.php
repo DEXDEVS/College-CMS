@@ -42,7 +42,7 @@ class StdSessionsSearch extends StdSessions
     public function search($params)
     {
         $query = StdSessions::find();
-
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

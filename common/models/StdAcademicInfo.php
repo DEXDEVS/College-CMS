@@ -49,7 +49,7 @@ class StdAcademicInfo extends \yii\db\ActiveRecord
             [['std_id', 'class_name_id', 'subject_combination', 'previous_class_rollno', 'total_marks', 'obtained_marks', 'created_by', 'updated_by'], 'integer'],
             [['grades'], 'string', 'max' => 10],
             [['created_at', 'updated_at','created_by', 'updated_by'], 'safe'],
-            [['previous_class', 'Institute', 'percentage'], 'string', 'max' => 50],
+            [['percentage'], 'string', 'max' => 50],
             [['passing_year'], 'string', 'max' => 32],
             [['std_enroll_status'], 'string', 'max' => 6],
             [['std_id'], 'exist', 'skipOnError' => true, 'targetClass' => StdPersonalInfo::className(), 'targetAttribute' => ['std_id' => 'std_id']],
