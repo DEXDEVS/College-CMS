@@ -21,7 +21,7 @@ Thumbs.db
 #vendor
 
 # .htaccess in root directory
-.htaccess
+#.htaccess
 
 # local uploads directory
 backend/config
