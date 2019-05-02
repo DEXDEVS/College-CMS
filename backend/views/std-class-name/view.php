@@ -6,10 +6,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\StdClassName */
 ?>
 <div class="std-class-name-view">
- 	<?php 
-
-
-// $branches = Yii::$app->db->createCommand("SELECT created_by FROM std_class_name WHERE branch_id = $id")->queryAll();
+ <?php 
 
  	$created_by = $model->created_by;
  	$updated_by = $model->updated_by;

@@ -5,22 +5,50 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Notice */
 ?>
+ <?php 
+
+    $created_by = $model->created_by;
+    $updated_by = $model->updated_by;
+
+    $createdBy = Yii::$app->db->createCommand("SELECT username FROM user WHERE id = '$created_by'")->queryAll();
+    if (!empty($createdBy)) {
+        $createdBy = $createdBy[0]['username'];
+        $createdBy = "<span class='label label-success'>$createdBy</span>";
+    }
+    $updatedBy = Yii::$app->db->createCommand("SELECT username FROM user WHERE id = '$updated_by'")->queryAll();
+    if (!empty($updatedBy)) {
+        $updatedBy = $updatedBy[0]['username'];
+        $updatedBy = "<span class='label label-danger'>$updatedBy</span>";
+    }
+    else{
+        $updatedBy = "<span class='label label-warning'>Not Updated</span>";
+    }
+    
+ ?>
 <div class="notice-view">
  
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'notice_id',
+            //'notice_id',
             'notice_title',
             'notice_description:ntext',
             'notice_start',
             'notice_end',
             'notice_user_type',
             'created_at',
-            'created_by',
             'updated_at',
-            'updated_by',
             'is_status',
+            [
+             'attribute' => 'created_by',
+             'format'=>'raw',
+             'value'=> $createdBy,
+            ],  
+            [
+             'attribute' => 'updated_by',
+             'format'=>'raw',
+             'value'=>  $updatedBy,
+            ],
         ],
     ]) ?>
 
