@@ -2,7 +2,7 @@ Options +FollowSymlinks
 RewriteEngine On
 
 # deal with admin first
-RewriteCond %{REQUEST_URI} ^/ic/(admin)
+RewriteCond %{REQUEST_URI} ^/College-CMS/(admin)
 RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
 RewriteRule ^admin/attachments/(.*)$ backend/web/attachments/$1 [L]
 RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
@@ -12,19 +12,19 @@ RewriteRule ^admin/images/(.*)$ backend/web/images/$1 [L]
 RewriteRule ^admin/uploads/(.*)$ backend/web/uploads/$1 [L]
 RewriteRule ^admin/userphotos/(.*)$ backend/web/userphotos/$1 [L]
 
-RewriteCond %{REQUEST_URI} !^/ic/backend/web/(assets|attachments|css|js|plugins|images|uploads|userphotos)/
-RewriteCond %{REQUEST_URI} ^/ic/(admin)  
+RewriteCond %{REQUEST_URI} !^/College-CMS/backend/web/(assets|attachments|css|js|plugins|images|uploads|userphotos)/
+RewriteCond %{REQUEST_URI} ^/College-CMS/(admin)  
 RewriteRule ^.*$ backend/web/index.php [L]
 
 
-RewriteCond %{REQUEST_URI} ^/ic/(assets|css|images|uploads|userphotos)
+RewriteCond %{REQUEST_URI} ^/College-CMS/(assets|css|images|uploads|userphotos)
 RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
 RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
 RewriteRule ^uploads/(.*)$ frontend/web/uploads/$1 [L] 
 RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
 RewriteRule ^userphotos/(.*)$ frontend/web/userphotos/$1 [L]
 
-RewriteCond %{REQUEST_URI} !^/ic/(frontend|backend)/web/(assets|attachments|css|js|plugins|images|uploads|userphotos)/
+RewriteCond %{REQUEST_URI} !^/College-CMS/(frontend|backend)/web/(assets|attachments|css|js|plugins|images|uploads|userphotos)/
 RewriteCond %{REQUEST_URI} !index.php
 RewriteCond %{REQUEST_FILENAME} !-f [OR]
 RewriteCond %{REQUEST_FILENAME} !-d

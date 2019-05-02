@@ -20,6 +20,9 @@ Thumbs.db
 # composer vendor dir
 #vendor
 
+# .htaccess in root directory
+.htaccess
+
 # local uploads directory
 backend/config
 
