@@ -1,16 +1,9 @@
 
 describe('constructor', function() {
-  beforeEach(function() {
-    initCalendar()
-  })
-  it('should return a jQuery object for chaining', function() {
-    var res = $(currentCalendar.el)
-    expect(res instanceof jQuery).toBe(true)
-  })
 
   it('should not modify the options object', function() {
     var options = {
-      defaultView: 'agendaWeek',
+      defaultView: 'timeGridWeek',
       scrollTime: '09:00:00',
       slotDuration: { minutes: 45 }
     }
@@ -21,7 +14,7 @@ describe('constructor', function() {
 
   it('should not modify the events array', function() {
     var options = {
-      defaultView: 'month',
+      defaultView: 'dayGridMonth',
       defaultDate: '2014-05-27',
       events: [
         {
@@ -37,7 +30,7 @@ describe('constructor', function() {
 
   it('should not modify the eventSources array', function() {
     var options = {
-      defaultView: 'month',
+      defaultView: 'dayGridMonth',
       defaultDate: '2014-05-27',
       eventSources: [
         { events: [
@@ -57,6 +50,7 @@ describe('constructor', function() {
     beforeEach(function() {
       initCalendar()
     })
+
     it('should contain a table fc-toolbar', function() {
       var header = $(currentCalendar.el).find('.fc-toolbar')
       expect(header[0]).not.toBeUndefined()

@@ -14,23 +14,23 @@ describe('timeline event resizing', function() {
     ]
   })
 
-  describeOptions('isRTL', {
-    'LTR': false,
-    'RTL': true
-  }, function(isRTL) {
+  describeOptions('dir', {
+    'LTR': 'ltr',
+    'RTL': 'rtl'
+  }, function(dir) {
 
-    describeTimezones(function(tz) {
+    describeTimeZones(function(tz) {
 
       describe('when time scale', function() {
         pushOptions({
-          defaultView: 'timelineDay'
+          defaultView: 'resourceTimelineDay'
         })
 
         describe('when snap matches slots', function() {
 
           describe('when no resources', function() {
             pushOptions({
-              resources: false
+              defaultView: 'timelineDay'
             })
 
             it('reports resize with no resource', function(done) {
@@ -39,7 +39,7 @@ describe('timeline event resizing', function() {
                 events: [
                   { title: 'event1', className: 'event1', start: '2015-11-28T04:00:00', end: '2015-11-28T05:00:00' }
                 ],
-                eventAfterAllRender: oneCall(function() {
+                _eventsPositioned: oneCall(function() {
                   $('.event1').simulate('mouseover') // resizer only shows on hover
                   $('.event1 .fc-end-resizer')
                     .simulate('drag', {
@@ -52,11 +52,12 @@ describe('timeline event resizing', function() {
                     })
                 }),
                 eventResize:
-                  (resizeSpy = spyCall(function(event) {
-                    expect(event.start).toEqualMoment(tz.moment('2015-11-28T04:00:00'))
-                    expect(event.end).toEqualMoment(tz.moment('2015-11-28T07:30:00'))
-                    const resource = currentCalendar.getEventResource(event)
-                    expect(resource).toBeFalsy()
+                  (resizeSpy = spyCall(function(arg) {
+                    expect(arg.event.start).toEqualDate(tz.parseDate('2015-11-28T04:00:00'))
+                    expect(arg.event.end).toEqualDate(tz.parseDate('2015-11-28T07:30:00'))
+
+                    let resources = arg.event.getResources()
+                    expect(resources.length).toBe(0)
                   }))
               })
             })
@@ -70,7 +71,7 @@ describe('timeline event resizing', function() {
                 events: [
                   { title: 'event1', className: 'event1', start: '2015-11-28T04:00:00', end: '2015-11-28T05:00:00', resourceId: 'b' }
                 ],
-                eventAfterAllRender: oneCall(function() {
+                _eventsPositioned: oneCall(function() {
                   $('.event1').simulate('mouseover') // resizer only shows on hover
                   $('.event1 .fc-end-resizer')
                     .simulate('drag', {
@@ -83,11 +84,13 @@ describe('timeline event resizing', function() {
                     })
                 }),
                 eventResize:
-                  (resizeSpy = spyCall(function(event) {
-                    expect(event.start).toEqualMoment(tz.moment('2015-11-28T04:00:00'))
-                    expect(event.end).toEqualMoment(tz.moment('2015-11-28T07:30:00'))
-                    const resource = currentCalendar.getEventResource(event)
-                    expect(resource.id).toBe('b')
+                  (resizeSpy = spyCall(function(arg) {
+                    expect(arg.event.start).toEqualDate(tz.parseDate('2015-11-28T04:00:00'))
+                    expect(arg.event.end).toEqualDate(tz.parseDate('2015-11-28T07:30:00'))
+
+                    let resources = arg.event.getResources()
+                    expect(resources.length).toBe(1)
+                    expect(resources[0].id).toBe('b')
                   }))
               })
             })
@@ -98,7 +101,7 @@ describe('timeline event resizing', function() {
                 events: [
                   { title: 'event1', className: 'event1', start: '2015-11-28T04:00:00', end: '2015-11-28T05:00:00', resourceId: 'b' }
                 ],
-                eventAfterAllRender: oneCall(function() {
+                _eventsPositioned: oneCall(function() {
                   $('.event1').simulate('mouseover') // resizer only shows on hover
                   $('.event1 .fc-end-resizer')
                     .simulate('drag', {
@@ -110,11 +113,13 @@ describe('timeline event resizing', function() {
                     })
                 }),
                 eventResize:
-                  (resizeSpy = spyCall(function(event) {
-                    expect(event.start).toEqualMoment(tz.moment('2015-11-28T04:00:00'))
-                    expect(event.end).toEqualMoment(tz.moment('2015-11-28T07:30:00'))
-                    const resource = currentCalendar.getEventResource(event)
-                    expect(resource.id).toBe('b')
+                  (resizeSpy = spyCall(function(arg) {
+                    expect(arg.event.start).toEqualDate(tz.parseDate('2015-11-28T04:00:00'))
+                    expect(arg.event.end).toEqualDate(tz.parseDate('2015-11-28T07:30:00'))
+
+                    let resources = arg.event.getResources()
+                    expect(resources.length).toBe(1)
+                    expect(resources[0].id).toBe('b')
                   }))
               })
             })
@@ -125,7 +130,7 @@ describe('timeline event resizing', function() {
                 events: [
                   { title: 'event1', className: 'event1', start: '2015-11-28T04:00:00', end: '2015-11-28T05:00:00', resourceIds: [ 'a', 'b' ] }
                 ],
-                eventAfterAllRender: oneCall(function() {
+                _eventsPositioned: oneCall(function() {
                   $('.event1:first').simulate('mouseover') // resizer only shows on hover
                   $('.event1:first .fc-end-resizer')
                     .simulate('drag', {
@@ -137,12 +142,13 @@ describe('timeline event resizing', function() {
                     })
                 }),
                 eventResize:
-                  (resizeSpy = spyCall(function(event) {
-                    expect(event.start).toEqualMoment(tz.moment('2015-11-28T04:00:00'))
-                    expect(event.end).toEqualMoment(tz.moment('2015-11-28T07:30:00'))
-                    expect(event.resourceId).toBe(null)
-                    // resources stay the same
-                    expect(event.resourceIds).toEqual([ 'a', 'b' ])
+                  (resizeSpy = spyCall(function(arg) {
+                    expect(arg.event.start).toEqualDate(tz.parseDate('2015-11-28T04:00:00'))
+                    expect(arg.event.end).toEqualDate(tz.parseDate('2015-11-28T07:30:00'))
+
+                    let resourceIds = arg.event.getResources().map((resource) => resource.id)
+                    resourceIds.sort()
+                    expect(resourceIds).toEqual([ 'a', 'b' ])
                   }))
               })
             })
@@ -161,7 +167,7 @@ describe('timeline event resizing', function() {
               events: [
                 { title: 'event1', className: 'event1', start: '2015-11-28T04:00:00', end: '2015-11-28T05:00:00', resourceId: 'b' }
               ],
-              eventAfterAllRender: oneCall(function() {
+              _eventsPositioned: oneCall(function() {
                 $('.event1').simulate('mouseover') // resizer only shows on hover
                 $('.event1 .fc-end-resizer')
                   .simulate('drag', {
@@ -173,11 +179,13 @@ describe('timeline event resizing', function() {
                   })
               }),
               eventResize:
-                (resizeSpy = spyCall(function(event) {
-                  expect(event.start).toEqualMoment(tz.moment('2015-11-28T04:00:00'))
-                  expect(event.end).toEqualMoment(tz.moment('2015-11-28T07:45:00'))
-                  const resource = currentCalendar.getEventResource(event)
-                  expect(resource.id).toBe('b')
+                (resizeSpy = spyCall(function(arg) {
+                  expect(arg.event.start).toEqualDate(tz.parseDate('2015-11-28T04:00:00'))
+                  expect(arg.event.end).toEqualDate(tz.parseDate('2015-11-28T07:45:00'))
+
+                  let resources = arg.event.getResources()
+                  expect(resources.length).toBe(1)
+                  expect(resources[0].id).toBe('b')
                 }))
             })
           })
@@ -190,11 +198,11 @@ describe('timeline event resizing', function() {
       initCalendar({
         isTouch: true,
         longPressDelay: 100,
-        defaultView: 'timelineDay',
+        defaultView: 'resourceTimelineDay',
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-28T04:00:00', end: '2015-11-28T05:00:00', resourceId: 'b' }
         ],
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.event1').simulate('drag', {
             isTouch: true,
             delay: 200,
@@ -202,30 +210,34 @@ describe('timeline event resizing', function() {
               $('.event1').simulate('mouseover') // resizer only shows on hover
               $('.event1 .fc-end-resizer').simulate('drag', {
                 // hack to make resize start within the bounds of the event
-                localPoint: { top: '50%', left: (isRTL ? '100%' : '0%') },
+                localPoint: { top: '50%', left: (dir === 'rtl' ? '100%' : '0%') },
                 isTouch: true,
                 end: getResourceTimelinePoint('b', '2015-11-28T07:00:00'),
                 callback() {
-                  expect(resizeSpy).toHaveBeenCalled()
-                  done()
+                  setTimeout(function() { // for next test. won't ignore mousedown
+                    expect(resizeSpy).toHaveBeenCalled()
+                    done()
+                  }, 500)
                 }
               })
             }
           })
         }),
         eventResize:
-          (resizeSpy = spyCall(function(event) {
-            expect(event.start).toEqualMoment('2015-11-28T04:00:00')
-            expect(event.end).toEqualMoment('2015-11-28T07:30:00')
-            const resource = currentCalendar.getEventResource(event)
-            expect(resource.id).toBe('b')
+          (resizeSpy = spyCall(function(arg) {
+            expect(arg.event.start).toEqualDate('2015-11-28T04:00:00Z')
+            expect(arg.event.end).toEqualDate('2015-11-28T07:30:00Z')
+
+            let resources = arg.event.getResources()
+            expect(resources.length).toBe(1)
+            expect(resources[0].id).toBe('b')
           }))
       })
     })
 
     describe('when day scale', function() {
       pushOptions({
-        defaultView: 'timelineMonth',
+        defaultView: 'resourceTimelineMonth',
         slotDuration: { days: 1 }
       })
 
@@ -235,7 +247,7 @@ describe('timeline event resizing', function() {
           events: [
             { title: 'event1', className: 'event1', start: '2015-11-03', resourceId: 'a' }
           ],
-          eventAfterAllRender: oneCall(function() {
+          _eventsPositioned: oneCall(function() {
             $('.event1').simulate('mouseover') // resizer only shows on hover
             $('.event1 .fc-end-resizer')
               .simulate('drag', {
@@ -247,11 +259,13 @@ describe('timeline event resizing', function() {
               })
           }),
           eventResize:
-            (resizeSpy = spyCall(function(event) {
-              expect(event.start).toEqualMoment('2015-11-03')
-              expect(event.end).toEqualMoment('2015-11-06')
-              const resource = currentCalendar.getEventResource(event)
-              expect(resource.id).toBe('a')
+            (resizeSpy = spyCall(function(arg) {
+              expect(arg.event.start).toEqualDate('2015-11-03')
+              expect(arg.event.end).toEqualDate('2015-11-06')
+
+              let resources = arg.event.getResources()
+              expect(resources.length).toBe(1)
+              expect(resources[0].id).toBe('a')
             }))
         })
       })
@@ -259,7 +273,7 @@ describe('timeline event resizing', function() {
 
     describe('when week scale', function() {
       pushOptions({
-        defaultView: 'timelineYear',
+        defaultView: 'resourceTimelineYear',
         slotDuration: { weeks: 1 }
       })
 
@@ -269,7 +283,7 @@ describe('timeline event resizing', function() {
           events: [
             { title: 'event1', className: 'event1', start: '2015-01-18', end: '2015-01-25', resourceId: 'a' }
           ],
-          eventAfterAllRender: oneCall(function() {
+          _eventsPositioned: oneCall(function() {
             $('.event1').simulate('mouseover') // resizer only shows on hover
             $('.event1 .fc-end-resizer')
               .simulate('drag', {
@@ -281,14 +295,69 @@ describe('timeline event resizing', function() {
               })
           }),
           eventResize:
-            (resizeSpy = spyCall(function(event) {
-              expect(event.start).toEqualMoment('2015-01-18')
-              expect(event.end).toEqualMoment('2015-02-15')
-              const resource = currentCalendar.getEventResource(event)
-              expect(resource.id).toBe('a')
+            (resizeSpy = spyCall(function(arg) {
+              expect(arg.event.start).toEqualDate('2015-01-18')
+              expect(arg.event.end).toEqualDate('2015-02-15')
+
+              let resources = arg.event.getResources()
+              expect(resources.length).toBe(1)
+              expect(resources[0].id).toBe('a')
             }))
         })
       })
+    })
+  })
+
+  describe('mirror', function() {
+
+    it('gets passed into eventRender/eventDestroy', function(done) {
+      let mirrorRenderCalls = 0
+      let mirrorDestroyCalls = 0
+      let normalRenderCalls = 0
+      let normalDestroyCalls = 0
+
+      initCalendar({
+        defaultView: 'resourceTimelineDay',
+        eventDragMinDistance: 0, // so mirror will render immediately upon mousedown
+        slotDuration: '01:00',
+        snapDuration: '01:00',
+        events: [
+          { start: '2015-11-28T01:00:00', end: '2015-11-28T02:00:00', resourceId: 'a' }
+        ],
+        eventRender(info) {
+          if (info.isMirror) {
+            mirrorRenderCalls++
+          } else {
+            normalRenderCalls++
+          }
+        },
+        eventDestroy(info) {
+          if (info.isMirror) {
+            mirrorDestroyCalls++
+          } else {
+            normalDestroyCalls++
+          }
+        }
+      })
+
+      // move two slots
+      let endPoint = getResourceTimelinePoint('a', '2015-11-28T04:00:00')
+      endPoint.left -= 5
+
+      $('.fc-event').simulate('mouseover') // resizer only shows on hover
+      $('.fc-event .fc-end-resizer')
+        .simulate('drag', {
+          end: endPoint,
+          callback() {
+            expect(mirrorRenderCalls).toBe(3)
+            expect(mirrorDestroyCalls).toBe(3)
+
+            expect(normalRenderCalls).toBe(2)
+            expect(normalDestroyCalls).toBe(1)
+
+            done()
+          }
+        })
     })
   })
 

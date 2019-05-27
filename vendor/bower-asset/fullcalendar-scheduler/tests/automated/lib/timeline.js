@@ -1,46 +1,49 @@
+import { formatIsoWithoutTz, ensureDate } from 'fullcalendar/tests/automated/datelib/utils'
 import { getBoundingRect } from 'fullcalendar/tests/automated/lib/dom-geom'
 
 
 export function dragResourceTimelineEvent(eventEl, dropInfo) {
-  return new Promise(function(resolve) {
-    let modifiedEvent = null
+  let deferred = $.Deferred()
+  let modifiedEvent = null
 
-    currentCalendar.on('eventDragStop', function() {
-      setTimeout(function() { // wait for eventDrop to be called
-        resolve(modifiedEvent)
-      })
-    })
-
-    currentCalendar.on('eventDrop', function(event) {
-      modifiedEvent = event
-    })
-
-    eventEl.simulate('drag', {
-      localPoint: { left: 2, top: '50%' }, // 2 for zoom
-      end: getResourceTimelinePoint(dropInfo.resourceId, dropInfo.date)
+  currentCalendar.on('eventDragStop', function() {
+    setTimeout(function() { // wait for eventDrop to be called
+      deferred.resolve(modifiedEvent)
     })
   })
+
+  currentCalendar.on('eventDrop', function(arg) {
+    modifiedEvent = arg.event
+  })
+
+  eventEl.simulate('drag', {
+    localPoint: { left: 2, top: '50%' }, // 2 for zoom
+    end: getResourceTimelinePoint(dropInfo.resourceId, dropInfo.date)
+  })
+
+  return deferred.promise()
 }
 
 
 export function selectResourceTimeline(startInfo, inclusiveEndInfo) {
-  return new Promise(function(resolve) {
-    let selectInfo = null
+  let deferred = $.Deferred()
+  let selectInfo = null
 
-    currentCalendar.on('select', function(start, end) {
-      selectInfo = { start, end }
-    })
-
-    $('.fc-body .fc-time-area').simulate('drag', {
-      point: getResourceTimelinePoint(startInfo.resourceId, startInfo.date),
-      end: getResourceTimelinePoint(inclusiveEndInfo.resourceId, inclusiveEndInfo.date),
-      onRelease() {
-        setTimeout(function() { // wait for select to fire
-          resolve(selectInfo)
-        })
-      }
-    })
+  currentCalendar.on('select', function(arg) {
+    selectInfo = arg
   })
+
+  $('.fc-body .fc-time-area').simulate('drag', {
+    point: getResourceTimelinePoint(startInfo.resourceId, startInfo.date),
+    end: getResourceTimelinePoint(inclusiveEndInfo.resourceId, inclusiveEndInfo.date),
+    onRelease() {
+      setTimeout(function() { // wait for select to fire
+        deferred.resolve(selectInfo)
+      })
+    }
+  })
+
+  return deferred.promise()
 }
 
 
@@ -51,8 +54,6 @@ export function getResourceTimelineRect(resourceId, start, end) {
     ({ start } = obj);
     ({ end } = obj)
   }
-  start = $.fullCalendar.moment.parseZone(start)
-  end = $.fullCalendar.moment.parseZone(end)
   const coord0 = getTimelineLeft(start)
   const coord1 = getTimelineLeft(end)
   const rowRect = getBoundingRect(getTimelineRowEl(resourceId))
@@ -80,8 +81,6 @@ export function getTimelineRect(start, end) {
     ({ start } = obj);
     ({ end } = obj)
   }
-  start = $.fullCalendar.moment.parseZone(start)
-  end = $.fullCalendar.moment.parseZone(end)
   const coord0 = getTimelineLeft(start)
   const coord1 = getTimelineLeft(end)
   const canvasRect = getBoundingRect($('.fc-body .fc-time-area .fc-scroller-canvas'))
@@ -109,8 +108,9 @@ export function getTimelineLine(date) {
 targetDate can be in between slat dates
 */
 function getTimelineLeft(targetDate) {
+  targetDate = ensureDate(targetDate)
+
   let slatCoord, slatEl
-  targetDate = $.fullCalendar.moment.parseZone(targetDate)
   const isRtl = $('.fc').hasClass('fc-rtl')
   const borderWidth = 1
   let slatEls = getTimelineSlatEl(targetDate)
@@ -144,7 +144,7 @@ function getTimelineLeft(targetDate) {
     slatEl = $(slatEl)
 
     prevSlatDate = slatDate
-    slatDate = $.fullCalendar.moment.parseZone(slatEl.data('date'))
+    slatDate = ensureDate(slatEl.data('date'))
 
     // is target time between start of previous slat but before this one?
     if (targetDate < slatDate) {
@@ -157,7 +157,7 @@ function getTimelineLeft(targetDate) {
         slatCoord = getLeadingEdge(slatEl)
         return prevSlatCoord +
           ((slatCoord - prevSlatCoord) *
-          ((targetDate - prevSlatDate) / (slatDate - prevSlatDate)))
+          ((targetDate - prevSlatDate.valueOf()) / (slatDate.valueOf() - prevSlatDate.valueOf())))
       }
     }
   }
@@ -166,14 +166,14 @@ function getTimelineLeft(targetDate) {
   // `slatDate` is set to the start date of the last slat
 
   // guess the duration of the last slot, based on previous duration
-  const slatMsDuration = slatDate - prevSlatDate
+  const slatMsDuration = slatDate.valueOf() - prevSlatDate.valueOf()
 
   slatCoord = getLeadingEdge(slatEl)
   const slatEndCoord = getTrailingEdge(slatEl)
 
   return slatCoord + // last slat's starting edge
     ((slatEndCoord - slatCoord) *
-    Math.min(1, (targetDate - slatDate) / slatMsDuration)) // don't go past the last slat
+    Math.min(1, (targetDate - slatDate.valueOf()) / slatMsDuration)) // don't go past the last slat
 }
 
 
@@ -183,8 +183,8 @@ function getTimelineRowEl(resourceId) {
 
 
 export function getTimelineSlatEl(date) {
-  date = $.fullCalendar.moment.parseZone(date)
-  return $(`.fc-body .fc-slats td[data-date="${date.format()}"]`)
+  date = ensureDate(date)
+  return $('.fc-body .fc-slats td[data-date="' + formatIsoWithoutTz(date) + '"]')
 }
 
 

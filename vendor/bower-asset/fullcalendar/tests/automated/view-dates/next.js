@@ -7,9 +7,9 @@ describe('next', function() {
     defaultDate: '2017-06-08'
   })
 
-  describe('when in agendaWeek view', function() {
+  describe('when in week view', function() {
     pushOptions({
-      defaultView: 'agendaWeek'
+      defaultView: 'timeGridWeek'
     })
 
     describe('when dateIncrement not specified', function() {
@@ -22,7 +22,6 @@ describe('next', function() {
 
     describeOptions('dateIncrement', {
       'when two week dateIncrement specified as a plain object': { weeks: 2 },
-      'when two week dateIncrement specified as a Duration object': moment.duration({ weeks: 2 }),
       'when two week dateIncrement specified as a string': '14.00:00:00'
     }, function() {
       it('moves forward by two weeks', function() {
@@ -41,7 +40,7 @@ describe('next', function() {
 
   describe('when in a month view', function() {
     pushOptions({
-      defaultView: 'month'
+      defaultView: 'dayGridMonth'
     })
 
     describe('when dateIncrement not specified', function() {
@@ -68,7 +67,7 @@ describe('next', function() {
 
   describe('when in custom three day view', function() {
     pushOptions({
-      defaultView: 'basic',
+      defaultView: 'dayGrid',
       duration: { days: 3 }
     })
 
@@ -116,7 +115,7 @@ describe('next', function() {
           var called
 
           initCalendar({
-            viewRender: function() {
+            datesRender: function() {
               called = true
             }
           })
@@ -134,7 +133,7 @@ describe('next', function() {
   describe('when in a custom two day view and weekends:false', function() {
     pushOptions({
       weekends: false,
-      defaultView: 'agenda',
+      defaultView: 'timeGrid',
       duration: { days: 2 }
     })
 

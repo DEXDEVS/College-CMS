@@ -1,7 +1,7 @@
 import { getTimeGridPoint } from 'fullcalendar/tests/automated/lib/time-grid'
 import { getResourceTimeGridPoint } from '../lib/time-grid'
 
-describe('agenda-view event resizing', function() {
+describe('timeGrid-view event resizing', function() {
   pushOptions({
     now: '2015-11-28',
     scrollTime: '00:00',
@@ -11,8 +11,8 @@ describe('agenda-view event resizing', function() {
       { id: 'b', title: 'Resource B' }
     ],
     views: {
-      agendaThreeDay: {
-        type: 'agenda',
+      resourceTimeGridThreeDay: {
+        type: 'resourceTimeGrid',
         duration: { days: 3 }
       }
     }
@@ -20,8 +20,7 @@ describe('agenda-view event resizing', function() {
 
   describe('when there are no resource columns', function() {
     pushOptions({
-      defaultView: 'agendaWeek',
-      groupByResource: false
+      defaultView: 'timeGridWeek'
     })
 
     it('allows non-resource resize', function(done) {
@@ -30,7 +29,7 @@ describe('agenda-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-23T02:00:00', end: '2015-11-23T03:00:00' }
         ],
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.event1').simulate('mouseover') // resizer only shows on hover
           $('.event1 .fc-resizer')
             .simulate('drag', {
@@ -39,15 +38,15 @@ describe('agenda-view event resizing', function() {
                 expect(resizeSpy).toHaveBeenCalled()
                 done()
               }
-            }
-            )
+            })
         }),
         eventResize:
-          (resizeSpy = spyCall(function(event) {
-            expect(event.start).toEqualMoment('2015-11-23T02:00:00')
-            expect(event.end).toEqualMoment('2015-11-23T04:30:00')
-            const resource = currentCalendar.getEventResource(event)
-            expect(resource).toBeFalsy()
+          (resizeSpy = spyCall(function(arg) {
+            expect(arg.event.start).toEqualDate('2015-11-23T02:00:00Z')
+            expect(arg.event.end).toEqualDate('2015-11-23T04:30:00Z')
+
+            let resources = arg.event.getResources()
+            expect(resources.length).toBe(0)
           }))
       })
     })
@@ -55,8 +54,7 @@ describe('agenda-view event resizing', function() {
 
   describe('with resource columns above date columns', function() {
     pushOptions({
-      defaultView: 'agendaThreeDay',
-      groupByResource: true
+      defaultView: 'resourceTimeGridThreeDay'
     })
 
     it('allows a same-day resize', function(done) {
@@ -65,7 +63,7 @@ describe('agenda-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-29T02:00:00', end: '2015-11-29T03:00:00', resourceId: 'b' }
         ],
-        eventAfterAllRender: oneCall(function() { // avoid second call after event rerender
+        _eventsPositioned: oneCall(function() { // avoid second call after event rerender
           $('.event1').simulate('mouseover') // resizer only shows on hover
           $('.event1 .fc-resizer')
             .simulate('drag', {
@@ -74,15 +72,16 @@ describe('agenda-view event resizing', function() {
                 expect(resizeSpy).toHaveBeenCalled()
                 done()
               }
-            }
-            )
+            })
         }),
         eventResize:
-          (resizeSpy = spyCall(function(event) {
-            expect(event.start).toEqualMoment('2015-11-29T02:00:00')
-            expect(event.end).toEqualMoment('2015-11-29T04:30:00')
-            const resource = currentCalendar.getEventResource(event)
-            expect(resource.id).toBe('b')
+          (resizeSpy = spyCall(function(arg) {
+            expect(arg.event.start).toEqualDate('2015-11-29T02:00:00Z')
+            expect(arg.event.end).toEqualDate('2015-11-29T04:30:00Z')
+
+            let resources = arg.event.getResources()
+            expect(resources.length).toBe(1)
+            expect(resources[0].id).toBe('b')
           }))
       })
     })
@@ -93,7 +92,7 @@ describe('agenda-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-29T02:00:00', end: '2015-11-29T03:00:00', resourceId: 'b' }
         ],
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.event1').simulate('mouseover') // resizer only shows on hover
           $('.event1 .fc-resizer')
             .simulate('drag', {
@@ -105,11 +104,13 @@ describe('agenda-view event resizing', function() {
             })
         }),
         eventResize:
-          (resizeSpy = spyCall(function(event) {
-            expect(event.start).toEqualMoment('2015-11-29T02:00:00')
-            expect(event.end).toEqualMoment('2015-11-30T04:30:00')
-            const resource = currentCalendar.getEventResource(event)
-            expect(resource.id).toBe('b')
+          (resizeSpy = spyCall(function(arg) {
+            expect(arg.event.start).toEqualDate('2015-11-29T02:00:00Z')
+            expect(arg.event.end).toEqualDate('2015-11-30T04:30:00Z')
+
+            let resources = arg.event.getResources()
+            expect(resources.length).toBe(1)
+            expect(resources[0].id).toBe('b')
           }))
       })
     })
@@ -120,7 +121,7 @@ describe('agenda-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-29T02:00:00', end: '2015-11-29T03:00:00', resourceId: 'a' }
         ],
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.event1').simulate('mouseover') // resizer only shows on hover
           $('.event1 .fc-resizer')
             .simulate('drag', {
@@ -129,8 +130,7 @@ describe('agenda-view event resizing', function() {
                 expect(resizeSpy).not.toHaveBeenCalled()
                 done()
               }
-            }
-            )
+            })
         }),
         eventResize:
           (resizeSpy = spyCall())
@@ -140,8 +140,8 @@ describe('agenda-view event resizing', function() {
 
   describe('with date columns above resource columns', function() {
     pushOptions({
-      defaultView: 'agendaThreeDay',
-      groupByDateAndResource: true
+      defaultView: 'resourceTimeGridThreeDay',
+      datesAboveResources: true
     })
 
     it('allows a same-day resize', function(done) {
@@ -150,7 +150,7 @@ describe('agenda-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-30T02:00:00', end: '2015-11-30T03:00:00', resourceId: 'b' }
         ],
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.event1').simulate('mouseover') // resizer only shows on hover
           $('.event1 .fc-resizer')
             .simulate('drag', {
@@ -159,15 +159,16 @@ describe('agenda-view event resizing', function() {
                 expect(resizeSpy).toHaveBeenCalled()
                 done()
               }
-            }
-            )
+            })
         }),
         eventResize:
-          (resizeSpy = spyCall(function(event) {
-            expect(event.start).toEqualMoment('2015-11-30T02:00:00')
-            expect(event.end).toEqualMoment('2015-11-30T04:30:00')
-            const resource = currentCalendar.getEventResource(event)
-            expect(resource.id).toBe('b')
+          (resizeSpy = spyCall(function(arg) {
+            expect(arg.event.start).toEqualDate('2015-11-30T02:00:00Z')
+            expect(arg.event.end).toEqualDate('2015-11-30T04:30:00Z')
+
+            let resources = arg.event.getResources()
+            expect(resources.length).toBe(1)
+            expect(resources[0].id).toBe('b')
           }))
       })
     })
@@ -178,7 +179,7 @@ describe('agenda-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-29T02:00:00', end: '2015-11-29T03:00:00', resourceId: 'a' }
         ],
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.event1').simulate('mouseover') // resizer only shows on hover
           $('.event1 .fc-resizer')
             .simulate('drag', {
@@ -187,15 +188,16 @@ describe('agenda-view event resizing', function() {
                 expect(resizeSpy).toHaveBeenCalled()
                 done()
               }
-            }
-            )
+            })
         }),
         eventResize:
-          (resizeSpy = spyCall(function(event) {
-            expect(event.start).toEqualMoment('2015-11-29T02:00:00')
-            expect(event.end).toEqualMoment('2015-11-30T04:30:00')
-            const resource = currentCalendar.getEventResource(event)
-            expect(resource.id).toBe('a')
+          (resizeSpy = spyCall(function(arg) {
+            expect(arg.event.start).toEqualDate('2015-11-29T02:00:00Z')
+            expect(arg.event.end).toEqualDate('2015-11-30T04:30:00Z')
+
+            let resources = arg.event.getResources()
+            expect(resources.length).toBe(1)
+            expect(resources[0].id).toBe('a')
           }))
       })
     })
@@ -206,7 +208,7 @@ describe('agenda-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-29T02:00:00', end: '2015-11-29T03:00:00', resourceId: 'a' }
         ],
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.event1').simulate('mouseover') // resizer only shows on hover
           $('.event1 .fc-resizer')
             .simulate('drag', {
@@ -215,8 +217,7 @@ describe('agenda-view event resizing', function() {
                 expect(resizeSpy).not.toHaveBeenCalled()
                 done()
               }
-            }
-            )
+            })
         }),
         eventResize:
           (resizeSpy = spyCall())

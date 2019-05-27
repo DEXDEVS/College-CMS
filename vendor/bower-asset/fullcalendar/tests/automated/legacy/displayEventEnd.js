@@ -1,13 +1,16 @@
+import { getSingleEl, getEventElTimeEl } from '../event-render/EventRenderUtils'
+
 describe('displayEventEnd', function() {
 
   pushOptions({
     defaultDate: '2014-06-13',
-    timeFormat: 'H:mm'
+    timeZone: 'UTC',
+    eventTimeFormat: { hour: 'numeric', minute: '2-digit' }
   })
 
   describeOptions('defaultView', {
-    'when in month view': 'month',
-    'when in agendaWeek view': 'agendaWeek'
+    'when in month view': 'dayGridMonth',
+    'when in week view': 'timeGridWeek'
   }, function() {
 
     describe('when off', function() {
@@ -25,8 +28,8 @@ describe('displayEventEnd', function() {
               end: '2014-06-13',
               allDay: true
             } ],
-            eventAfterAllRender: function() {
-              expect($('.fc-event .fc-time').length).toBe(0)
+            _eventsPositioned: function() {
+              expect(getEventElTimeEl(getSingleEl()).length).toBe(0)
               done()
             }
           })
@@ -41,8 +44,8 @@ describe('displayEventEnd', function() {
               start: '2014-06-13T01:00:00',
               allDay: false
             } ],
-            eventAfterAllRender: function() {
-              expect($('.fc-event .fc-time')).toHaveText('1:00')
+            _eventsPositioned: function() {
+              expect(getEventElTimeEl(getSingleEl())).toHaveText('1:00 AM')
               done()
             }
           })
@@ -58,8 +61,8 @@ describe('displayEventEnd', function() {
               end: '2014-06-13T02:00:00',
               allDay: false
             } ],
-            eventAfterAllRender: function() {
-              expect($('.fc-event .fc-time')).toHaveText('1:00')
+            _eventsPositioned: function() {
+              expect(getEventElTimeEl(getSingleEl())).toHaveText('1:00 AM')
               done()
             }
           })
@@ -82,8 +85,8 @@ describe('displayEventEnd', function() {
               end: '2014-06-13',
               allDay: true
             } ],
-            eventAfterAllRender: function() {
-              expect($('.fc-event .fc-time').length).toBe(0)
+            _eventsPositioned: function() {
+              expect(getEventElTimeEl(getSingleEl()).length).toBe(0)
               done()
             }
           })
@@ -98,8 +101,8 @@ describe('displayEventEnd', function() {
               start: '2014-06-13T01:00:00',
               allDay: false
             } ],
-            eventAfterAllRender: function() {
-              expect($('.fc-event .fc-time')).toHaveText('1:00')
+            _eventsPositioned: function() {
+              expect(getEventElTimeEl(getSingleEl())).toHaveText('1:00 AM')
               done()
             }
           })
@@ -115,8 +118,8 @@ describe('displayEventEnd', function() {
               end: '2014-06-13T01:00:00',
               allDay: false
             } ],
-            eventAfterAllRender: function() {
-              expect($('.fc-event .fc-time')).toHaveText('1:00')
+            _eventsPositioned: function() {
+              expect(getEventElTimeEl(getSingleEl())).toHaveText('1:00 AM')
               done()
             }
           })
@@ -132,8 +135,8 @@ describe('displayEventEnd', function() {
               end: '2014-06-13T02:00:00',
               allDay: false
             } ],
-            eventAfterAllRender: function() {
-              expect($('.fc-event .fc-time')).toHaveText('1:00 - 2:00')
+            _eventsPositioned: function() {
+              expect(getEventElTimeEl(getSingleEl())).toHaveText('1:00 AM - 2:00 AM')
               done()
             }
           })

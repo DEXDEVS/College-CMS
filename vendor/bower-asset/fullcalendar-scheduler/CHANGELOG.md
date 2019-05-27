@@ -1,8 +1,44 @@
 
+v4.1.0 (2019-04-24)
+-------------------
+
+- scrollToTime method
+- explicit Resource extendedProps gets nested under extendedProps (#483)
+- "method" setting is ignored for resource loading (#521)
+- dayRender is not called in timeline view (#530)
+- timeline view slats don't line up on wide screens (#505)
+
+
+v4.0.2 (2019-04-03)
+-------------------
+
+- eventAllow and constraints not respected when dragging event between calendars (#512, #513)
+- Event::setResources, for setting an event's resources dynamically (#514)
+- setting width on resourceColumns does nothing (#511)
+
+
+v4.0.1 (2019-03-18)
+-------------------
+
+Read about all the changes in v4:
+https://fullcalendar.io/docs/upgrading-from-v3
+
+Obscure breaking change from v1->v4 not mentioned elsewhere:
+`MAX_TIMELINE_SLOTS` moved to `(packageRoot).config.MAX_TIMELINE_SLOTS`
+
+Advancements since latest prerelease:
+- Sticky elements while scrolling done with built-in `position:sticky`
+- Bugfixes: #480, #479, #482, #497, #490
+
+NOTE: version "4.0.0" was skipped because of an NPM publishing error
+
+
 v1.9.4 (2018-03-27)
 -------------------
 
-Require fullcalendar 3.9.x, solving #4089
+Require fullcalendar 3.9.x, solving [core-4089]
+
+[core-4089]: https://github.com/fullcalendar/fullcalendar/issues/4089
 
 
 v1.9.3 (2018-03-04)

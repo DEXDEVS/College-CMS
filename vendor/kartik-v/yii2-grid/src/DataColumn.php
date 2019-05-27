@@ -3,8 +3,8 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   3.2.9
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
+ * @version   3.3.1
  */
 
 namespace kartik\grid;
@@ -264,7 +264,7 @@ class DataColumn extends YiiDataColumn
         ];
         if (is_array($this->filter)) {
             if (Config::isInputWidget($this->filterType) && $this->grid->pjax) {
-                $options['pjaxContainerId'] = $this->grid->pjaxSettings['options']['id'];
+                $options['pjaxContainerId'] = $this->grid->getPjaxContainerId();
             }
             if ($this->filterType === GridView::FILTER_SELECT2 || $this->filterType === GridView::FILTER_TYPEAHEAD) {
                 $options['data'] = $this->filter;

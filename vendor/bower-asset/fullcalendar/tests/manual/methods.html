@@ -6,11 +6,11 @@
 <script src='../../node_modules/jquery/dist/jquery.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../dist/fullcalendar.js'></script>
-<script src='../../dist/gcal.js'></script>
+<script src='../../dist/plugins/google-calendar.js'></script>
 <script>
 
   var cal, staticEvents;
-  
+
   var date = new Date();
   var d = date.getDate();
   var m = date.getMonth();
@@ -23,7 +23,7 @@
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'month,week,dayGridWeek,day,dayGridDay'
       },
       loading: function(bool) {
         if (bool) {
@@ -43,13 +43,13 @@
           end: new Date(y, m, d-2)
         },
         {
-          id: 999,
+          groupId: 999,
           title: 'Repeating Event',
           start: new Date(y, m, d-3, 16, 0),
           allDay: false
         },
         {
-          id: 999,
+          groupId: 999,
           title: 'Repeating Event',
           start: new Date(y, m, d+4, 16, 0),
           allDay: false
@@ -81,7 +81,7 @@
       ]
     });
   });
-  
+
   function updateEventStart() {
     var event = cal.fullCalendar('clientEvents', 777)[0];
     event.start = new Date(y, m, d, 13, 30);
@@ -91,7 +91,7 @@
     //event.allDay = true;
     cal.fullCalendar('updateEvent', event);
   }
-  
+
   function updateRepeatingEvent() {
     var event = cal.fullCalendar('clientEvents', 999)[0];
     event.start = new Date(y, m, 4, 13, 30);
@@ -105,29 +105,29 @@
     cal.fullCalendar('updateEvent', event);
     //console.log(cal.fullCalendar('clientEvents', 2));
   }
-  
+
   function renderEvent(stick) {
     cal.fullCalendar('renderEvent', {
       start: new Date(y, m, 17),
       title: 'heyman'
     }, stick);
   }
-  
+
   function getView() {
     var view = cal.fullCalendar('getView');
-    console.log(view.start + ' --- ' + view.end + ' "' + view.title + '"');
+    console.log(view.activeStart + ' --- ' + view.activeEnd + ' "' + view.title + '"');
   }
-  
+
   function getDate() {
     console.log(cal.fullCalendar('getDate'));
   }
-  
+
   function optionGetter() {
     console.log(cal.fullCalendar('option', 'editable'));
   }
-  
-  var gcalFeed = $.fullCalendar.gcalFeed("http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic");
-  
+
+  var gcalFeed = FullCalendar.gcalFeed("http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic");
+
   var jsonFeed = "../demos/json-events.php";
 
 </script>
@@ -166,8 +166,8 @@
 
 <button onclick="cal.fullCalendar('addEventSource', staticEvents)">+ static events</button>
 <button onclick="cal.fullCalendar('removeEventSource', staticEvents)">- static events</button>
-<button onclick="cal.fullCalendar('addEventSource', gcalFeed)">+ gcal</button>
-<button onclick="cal.fullCalendar('removeEventSource', gcalFeed)">- gcal</button>
+<button onclick="cal.fullCalendar('addEventSource', gcalFeed)">+ google-calendar</button>
+<button onclick="cal.fullCalendar('removeEventSource', gcalFeed)">- google-calendar</button>
 <button onclick="cal.fullCalendar('addEventSource', jsonFeed)">+ json</button>
 <button onclick="cal.fullCalendar('removeEventSource', jsonFeed)">- json</button>
 
@@ -175,9 +175,9 @@
 <button onclick="cal.fullCalendar('refetchEvents')">refetch events</button>
 <br />
 
-<button onclick="cal.fullCalendar('changeView', 'month')">change to month</button>
-<button onclick="cal.fullCalendar('changeView', 'basicWeek')">change to basicWeek</button>
-<button onclick="cal.fullCalendar('changeView', 'basicDay')">change to basicDay</button>
+<button onclick="cal.fullCalendar('changeView', 'dayGridMonth')">change to month</button>
+<button onclick="cal.fullCalendar('changeView', 'dayGridWeek')">change to dayGridWeek</button>
+<button onclick="cal.fullCalendar('changeView', 'dayGridDay')">change to dayGridDay</button>
 <button onclick="getView()">getView</button>
 <button onclick="getDate()">getDate</button>
 <button onclick="optionGetter()">option getter</button>

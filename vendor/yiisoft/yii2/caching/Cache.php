@@ -64,7 +64,7 @@ abstract class Cache extends Component implements CacheInterface
     /**
      * @var null|array|false the functions used to serialize and unserialize cached data. Defaults to null, meaning
      * using the default PHP `serialize()` and `unserialize()` functions. If you want to use some more efficient
-     * serializer (e.g. [igbinary](http://pecl.php.net/package/igbinary)), you may configure this property with
+     * serializer (e.g. [igbinary](https://pecl.php.net/package/igbinary)), you may configure this property with
      * a two-element array. The first element specifies the serialization function, and the second the deserialization
      * function. If this property is set false, data will be directly sent to and retrieved from the underlying
      * cache component without any serialization or deserialization. You should not turn off serialization if
@@ -80,7 +80,7 @@ abstract class Cache extends Component implements CacheInterface
     public $defaultDuration = 0;
 
     /**
-     * @var bool whether [igbinary serialization](http://pecl.php.net/package/igbinary) is available or not.
+     * @var bool whether [igbinary serialization](https://pecl.php.net/package/igbinary) is available or not.
      */
     private $_igbinaryAvailable = false;
 
@@ -568,8 +568,8 @@ abstract class Cache extends Component implements CacheInterface
      * ```php
      * public function getTopProducts($count = 10) {
      *     $cache = $this->cache; // Could be Yii::$app->cache
-     *     return $cache->getOrSet(['top-n-products', 'n' => $count], function ($cache) use ($count) {
-     *         return Products::find()->mostPopular()->limit(10)->all();
+     *     return $cache->getOrSet(['top-n-products', 'n' => $count], function () use ($count) {
+     *         return Products::find()->mostPopular()->limit($count)->all();
      *     }, 1000);
      * }
      * ```

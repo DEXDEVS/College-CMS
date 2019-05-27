@@ -3,8 +3,8 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   3.2.9
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
+ * @version   3.3.1
  */
 
 namespace kartik\grid\controllers;
@@ -48,9 +48,12 @@ class ExportController extends Controller
         $mime = $request->post('export_mime', 'text/plain');
         $encoding = $request->post('export_encoding', 'utf-8');
         $bom = $request->post('export_bom', 1);
+        $hashConfig = $request->post('hash_export_config', 0);
+        $hashConfig = empty($hashConfig) ? 0 : 1;
         $config = $request->post('export_config', '{}');
+        $cfg = empty($hashConfig) ? '' : $config;
         $oldHash = $request->post('export_hash');
-        $newData = $moduleId . $name . $mime . $encoding . $bom . $config;
+        $newData = $moduleId . $name . $mime . $encoding . $bom . $hashConfig . $cfg;
         $security = Yii::$app->security;
         $salt = $module->exportEncryptSalt;
         $newHash = $security->hashData($newData, $salt);

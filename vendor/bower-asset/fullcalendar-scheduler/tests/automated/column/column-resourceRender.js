@@ -7,44 +7,44 @@ describe('column-view resourceRender trigger', function() {
       { id: 'b', title: 'Resource B' }
     ],
     views: {
-      agendaThreeDay: {
-        type: 'agenda',
+      resourceTimeGridThreeDay: {
+        type: 'resourceTimeGrid',
         duration: { days: 3 }
       },
-      basicThreeDay: {
-        type: 'basic',
+      resourceDayGridThreeDay: {
+        type: 'resourceDayGrid',
         duration: { days: 3 }
       }
     }
   })
 
-  describeOptions('isRTL', {
-    'when LTR': false,
-    'when RTL': true
+  describeOptions('dir', {
+    'when LTR': 'ltr',
+    'when RTL': 'rtl'
   }, function() {
 
     describe('when resource above dates', function() {
       pushOptions({
-        groupByResource: true
+        datesAboveResources: false
       })
 
       describeOptions('defaultView', {
-        'when agenda view': 'agendaThreeDay',
-        'when basic view': 'basicThreeDay',
-        'when month view': 'month'
+        'when timeGrid view': 'resourceTimeGridThreeDay',
+        'when dayGrid view': 'resourceDayGridThreeDay',
+        'when month view': 'resourceDayGridMonth'
       }, function() {
 
         it('fires once per resources', function(done) {
           let callCnt = 0
           initCalendar({
-            resourceRender(resource, headTds) {
-              if (resource.id === 'a') {
-                expect(headTds.length).toBe(1)
-                expect(headTds).toContainText('Resource A')
+            resourceRender(arg) {
+              if (arg.resource.id === 'a') {
+                expect(arg.el instanceof HTMLTableCellElement).toBe(true)
+                expect(arg.el).toContainText('Resource A')
                 callCnt++
               }
             },
-            viewRender() {
+            datesRender() {
               expect(callCnt).toBe(1)
               done()
             }
@@ -55,25 +55,25 @@ describe('column-view resourceRender trigger', function() {
 
     describe('when dates above resource', function() {
       pushOptions({
-        groupByDateAndResource: true
+        datesAboveResources: true
       })
 
       describeOptions('defaultView', {
-        'when agenda view': 'agendaThreeDay',
-        'when basic view': 'basicThreeDay'
+        'when timeGrid view': 'resourceTimeGridThreeDay',
+        'when dayGrid view': 'resourceDayGridThreeDay'
       }, function() {
 
         it('fires onces per day', function(done) {
           let callCnt = 0
           initCalendar({
-            resourceRender(resource, headTds) {
-              if (resource.id === 'a') {
-                expect(headTds.length).toBe(1)
-                expect(headTds).toContainText('Resource A')
+            resourceRender(arg) {
+              if (arg.resource.id === 'a') {
+                expect(arg.el instanceof HTMLTableCellElement).toBe(true)
+                expect(arg.el).toContainText('Resource A')
                 callCnt++
               }
             },
-            viewRender() {
+            datesRender() {
               expect(callCnt).toBe(3)
               done()
             }
@@ -83,20 +83,20 @@ describe('column-view resourceRender trigger', function() {
 
       describe('when month view', function() {
         pushOptions({
-          defaultView: 'month'
+          defaultView: 'resourceDayGridMonth'
         })
 
         it('fires onces per day', function(done) {
           let callCnt = 0
           initCalendar({
-            resourceRender(resource, headTds) {
-              if (resource.id === 'a') {
-                expect(headTds.length).toBe(1)
-                expect(headTds).toContainText('Resource A')
+            resourceRender(arg) {
+              if (arg.resource.id === 'a') {
+                expect(arg.el instanceof HTMLTableCellElement).toBe(true)
+                expect(arg.el).toContainText('Resource A')
                 callCnt++
               }
             },
-            viewRender() {
+            datesRender() {
               expect(callCnt).toBe(7) // 7 days of the week
               done()
             }

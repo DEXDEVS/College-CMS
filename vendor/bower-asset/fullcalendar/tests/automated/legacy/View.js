@@ -1,3 +1,4 @@
+
 describe('View object', function() {
 
   /*
@@ -12,16 +13,16 @@ describe('View object', function() {
 
     it('is a correctly defined string', function() {
       initCalendar()
-      var view = currentCalendar.getView()
+      var view = currentCalendar.view
       expect(view.title).toBe('January 2015')
     })
 
-    it('is available in the viewRender callback', function() {
-      var viewRenderSpy = spyOnCalendarCallback('viewRender', function(view) {
-        expect(view.title).toBe('January 2015')
+    it('is available in the datesRender callback', function() {
+      var datesRenderSpy = spyOnCalendarCallback('datesRender', function(arg) {
+        expect(arg.view.title).toBe('January 2015')
       })
       initCalendar()
-      expect(viewRenderSpy).toHaveBeenCalled()
+      expect(datesRenderSpy).toHaveBeenCalled()
     })
 
   })

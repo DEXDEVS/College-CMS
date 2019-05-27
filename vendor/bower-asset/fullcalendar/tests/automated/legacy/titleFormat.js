@@ -2,33 +2,29 @@ describe('titleFormat', function() {
 
   var SELECTOR = '.fc-toolbar h2'
 
-  beforeEach(function() {
-    affix('#cal')
-  })
-
   describe('when default', function() {
 
     var viewWithFormat = [
-      { view: 'month', expected: 'June 2014' },
-      { view: 'basicWeek', expected: /Jun 8 - 14,? 2014/ }, // moment changed LL defaults after 2.8
-      { view: 'agendaWeek', expected: /Jun 8 - 14,? 2014/ }, // "
-      { view: 'basicDay', expected: /June 12,? 2014/ }, // "
-      { view: 'agendaDay', expected: /June 12,? 2014/ } // "
+      { view: 'dayGridMonth', expected: 'June 2014' },
+      { view: 'dayGridWeek', expected: /Jun 8 - 14,? 2014/ },
+      { view: 'timeGridWeek', expected: /Jun 8 - 14,? 2014/ },
+      { view: 'dayGridDay', expected: /June 12,? 2014/ },
+      { view: 'timeGridDay', expected: /June 12,? 2014/ }
     ]
 
     beforeEach(function() {
-      $('#cal').fullCalendar({
+      initCalendar({
         defaultDate: '2014-06-12',
         titleRangeSeparator: ' - '
       })
     })
 
     it('should have default values', function() {
-      var cal = $('#cal')
+      var cal = $(currentCalendar.el)
 
       for (var i = 0; i < viewWithFormat.length; i++) {
         var crtView = viewWithFormat[i]
-        cal.fullCalendar('changeView', crtView.view)
+        currentCalendar.changeView(crtView.view)
         expect(cal.find(SELECTOR).text()).toMatch(crtView.expected)
       };
     })
@@ -37,34 +33,30 @@ describe('titleFormat', function() {
   describe('when set on a per-view basis', function() {
 
     var viewWithFormat = [
-      { view: 'month', expected: '2014, June' },
-      { view: 'basicWeek', expected: '8 - 14 6 2014' },
-      { view: 'agendaWeek', expected: '8 - 14, 6, 2014' },
-      { view: 'basicDay', expected: 'Thursday June 12 2014' },
-      { view: 'agendaDay', expected: 'Thursday, June, 12, 2014' }
+      { view: 'dayGridMonth', expected: 'June 2014' },
+      { view: 'dayGridWeek', expected: 'Jun 8 - 14, 2014' },
+      { view: 'timeGridWeek', expected: 'June 8 - 14, 2014' },
+      { view: 'dayGridDay', expected: 'Thursday, June 12, 2014' }
     ]
 
     beforeEach(function() {
-      $('#cal').fullCalendar({
+      initCalendar({
         defaultDate: '2014-06-12',
         titleRangeSeparator: ' - ',
         views: {
-          month: { titleFormat: 'YYYY, MMMM' },
-          basicWeek: { titleFormat: 'D M YYYY' },
-          agendaWeek: { titleFormat: 'D, M, YYYY' },
-          basicDay: { titleFormat: 'dddd MMMM D YYYY' },
-          agendaDay: { titleFormat: 'dddd, MMMM, D, YYYY' }
+          month: { titleFormat: { year: 'numeric', month: 'long' } },
+          dayGridWeek: { titleFormat: { day: 'numeric', month: 'short', year: 'numeric' } },
+          week: { titleFormat: { day: 'numeric', month: 'long', year: 'numeric' } },
+          dayGridDay: { titleFormat: { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' } }
         }
       })
     })
 
     it('should have the correct values', function() {
-      var cal = $('#cal')
-
       for (var i = 0; i < viewWithFormat.length; i++) {
         var crtView = viewWithFormat[i]
-        cal.fullCalendar('changeView', crtView.view)
-        expect(cal.find(SELECTOR).text()).toBe(crtView.expected)
+        currentCalendar.changeView(crtView.view)
+        expect($(currentCalendar.el).find(SELECTOR).text()).toBe(crtView.expected)
       };
     })
   })
@@ -72,15 +64,15 @@ describe('titleFormat', function() {
   describe('when default and locale is French', function() {
 
     var viewWithFormat = [
-      { view: 'month', expected: 'juin 2014' },
-      { view: 'basicWeek', expected: '9 - 15 juin 2014' },
-      { view: 'agendaWeek', expected: '9 - 15 juin 2014' },
-      { view: 'basicDay', expected: '12 juin 2014' },
-      { view: 'agendaDay', expected: '12 juin 2014' }
+      { view: 'dayGridMonth', expected: 'juin 2014' },
+      { view: 'dayGridWeek', expected: '9 - 15 juin 2014' },
+      { view: 'timeGridWeek', expected: '9 - 15 juin 2014' },
+      { view: 'dayGridDay', expected: '12 juin 2014' },
+      { view: 'timeGridDay', expected: '12 juin 2014' }
     ]
 
     beforeEach(function() {
-      $('#cal').fullCalendar({
+      initCalendar({
         defaultDate: '2014-06-12',
         titleRangeSeparator: ' - ',
         locale: 'fr'
@@ -88,12 +80,10 @@ describe('titleFormat', function() {
     })
 
     it('should have the translated dates', function() {
-      var cal = $('#cal')
-
       for (var i = 0; i < viewWithFormat.length; i++) {
         var crtView = viewWithFormat[i]
-        cal.fullCalendar('changeView', crtView.view)
-        expect(cal.find(SELECTOR).text()).toBe(crtView.expected)
+        currentCalendar.changeView(crtView.view)
+        expect($(currentCalendar.el).find(SELECTOR).text()).toBe(crtView.expected)
       };
     })
   })
@@ -101,10 +91,10 @@ describe('titleFormat', function() {
   describe('using custom views', function() {
 
     it('multi-year default only displays year', function() {
-      $('#cal').fullCalendar({
+      initCalendar({
         views: {
           multiYear: {
-            type: 'basic',
+            type: 'dayGrid',
             duration: { years: 2 }
           }
         },
@@ -116,10 +106,10 @@ describe('titleFormat', function() {
     })
 
     it('multi-month default only displays month/year', function() {
-      $('#cal').fullCalendar({
+      initCalendar({
         views: {
           multiMonth: {
-            type: 'basic',
+            type: 'dayGrid',
             duration: { months: 2 }
           }
         },
@@ -131,10 +121,10 @@ describe('titleFormat', function() {
     })
 
     it('multi-week default displays short full date', function() {
-      $('#cal').fullCalendar({
+      initCalendar({
         views: {
           multiWeek: {
-            type: 'basic',
+            type: 'dayGrid',
             duration: { weeks: 2 }
           }
         },
@@ -146,10 +136,10 @@ describe('titleFormat', function() {
     })
 
     it('multi-day default displays short full date', function() {
-      $('#cal').fullCalendar({
+      initCalendar({
         views: {
           multiDay: {
-            type: 'basic',
+            type: 'dayGrid',
             duration: { days: 2 }
           }
         },
@@ -164,8 +154,8 @@ describe('titleFormat', function() {
   describe('when not all days are shown', function() {
 
     it('doesn\'t include hidden days in the title', function() {
-      $('#cal').fullCalendar({
-        defaultView: 'agendaWeek',
+      initCalendar({
+        defaultView: 'timeGridWeek',
         defaultDate: '2017-02-13',
         weekends: false,
         titleRangeSeparator: ' - '

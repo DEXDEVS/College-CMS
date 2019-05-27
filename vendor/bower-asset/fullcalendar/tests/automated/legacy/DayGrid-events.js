@@ -1,17 +1,21 @@
+import { getDayGridRowElAtIndex } from '../view-render/DayGridRenderUtils'
+import { getSingleEl } from '../event-render/EventRenderUtils'
+import { directionallyTestSeg } from '../event-render/DayGridEventRenderUtils'
+
 describe('DayGrid event rendering', function() {
   pushOptions({
     defaultDate: '2014-08-01', // 2014-07-27 - 2014-10-07 (excl)
-    defaultView: 'month'
+    defaultView: 'dayGridMonth'
   })
 
   describe('when LTR', function() {
-    initMonthTesting(false)
+    initMonthTesting('ltr')
   })
   describe('when RTL', function() {
-    initMonthTesting(true)
+    initMonthTesting('rtl')
   })
 
-  function initMonthTesting(isRTL) {
+  function initMonthTesting(dir) {
     it('correctly renders an event starting before view\'s start', function() {
       var options = {}
       options.events = [
@@ -181,9 +185,9 @@ describe('DayGrid event rendering', function() {
     })
 
     function testSeg(calendarOptions, testSegOptions) {
-      calendarOptions.isRTL = isRTL
+      calendarOptions.dir = dir
       initCalendar(calendarOptions)
-      directionallyTestSeg(testSegOptions, isRTL)
+      directionallyTestSeg(testSegOptions, dir)
     }
   }
 
@@ -204,10 +208,10 @@ describe('DayGrid event rendering', function() {
       }
     ]
     initCalendar(options)
-    var row0 = $('.fc-day-grid .fc-row:eq(0)')
+    var row0 = getDayGridRowElAtIndex(0)
     var row0event1 = row0.find('.event1')
     var row0event2 = row0.find('.event2')
-    var row1 = $('.fc-day-grid .fc-row:eq(1)')
+    var row1 = getDayGridRowElAtIndex(1)
     var row1event1 = row1.find('.event1')
     var row1event2 = row1.find('.event2')
     expect(row0event1.offset().top).toBeLessThan(row0event2.offset().top)
@@ -221,7 +225,7 @@ describe('DayGrid event rendering', function() {
       start: '2014-08-01'
     } ]
     initCalendar(options)
-    var seg = $('.fc-event')
+    var seg = getSingleEl()
     expect(seg).not.toHaveAttr('href')
   })
 
@@ -233,62 +237,8 @@ describe('DayGrid event rendering', function() {
       url: 'http://google.com/'
     } ]
     initCalendar(options)
-    var seg = $('.fc-event')
+    var seg = getSingleEl()
     expect(seg).toHaveAttr('href')
   })
-
-
-  /*
-  opts:
-    - el (optional)
-    - row (optional)
-    - firstCol
-    - lastCol
-    - isStart
-    - isEnd
-  */
-  function directionallyTestSeg(opts, isRTL) {
-    var el = $(opts.el || '.fc-event:first')
-
-    var row = opts.row || 0
-    var rowTds = $('.fc-day-grid .fc-row:eq(' + row + ') .fc-day')
-    expect(rowTds.length).toBeGreaterThan(1)
-
-    var leftCol
-    var rightCol
-    if (isRTL) {
-      leftCol = rowTds.length - opts.lastCol - 1
-      rightCol = rowTds.length - opts.firstCol - 1
-    } else {
-      leftCol = opts.firstCol
-      rightCol = opts.lastCol
-    }
-
-    var col, td
-
-    for (col = leftCol; col <= rightCol; col++) {
-      td = rowTds.eq(col)
-      expect(el).toIntersectWith(td)
-    }
-
-    for (col = 0; col < rowTds.length; col++) {
-      if (col < leftCol || col > rightCol) {
-        td = rowTds.eq(col)
-        expect(el).not.toIntersectWith(td)
-      }
-    }
-
-    if (opts.isStart) {
-      expect(el).toHaveClass('fc-start')
-    } else {
-      expect(el).not.toHaveClass('fc-start')
-    }
-
-    if (opts.isEnd) {
-      expect(el).toHaveClass('fc-end')
-    } else {
-      expect(el).not.toHaveClass('fc-end')
-    }
-  }
 
 })

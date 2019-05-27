@@ -1,10 +1,19 @@
 Change Log: `yii2-export`
 =========================
 
+## version 1.4.0
+
+**Date:** 25-May-2019
+
+- (enh #296): Create model via instance method.
+- (enh #292): Clean output buffers before readfile dump to browser.
+- Implement stale bot.
+
 ## version 1.3.9
 
 **Date:** 19-Dec-2018
 
+- (enh #292): Clean output buffers before readfile dump to browser.
 - (enh #288): Correct export column selection when `asDropdown` is `false`.
 - (enh #276): Ability to configure explicit cell formats (header, footer, content, before, after).
    Explicit cell formats must be one of the `PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_` constants.

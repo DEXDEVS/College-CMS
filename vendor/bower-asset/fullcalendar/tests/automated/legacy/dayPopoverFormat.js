@@ -1,3 +1,5 @@
+import { getMoreEl, getMorePopoverTitle } from '../view-render/DayGridRenderUtils'
+
 describe('dayPopoverFormat', function() {
 
   pushOptions({
@@ -13,27 +15,27 @@ describe('dayPopoverFormat', function() {
 
   it('can be set to a custom value', function() {
     initCalendar({
-      dayPopoverFormat: 'ddd, MMMM'
+      dayPopoverFormat: { month: 'long', day: 'numeric' }
     })
-    $('.fc-more').simulate('click')
-    expect($('.fc-more-popover > .fc-header .fc-title')).toHaveText('Tue, July')
+    getMoreEl().simulate('click')
+    expect(getMorePopoverTitle()).toBe('July 29')
   })
 
   it('is affected by the current locale when the value is default', function() {
     initCalendar({
       locale: 'fr'
     })
-    $('.fc-more').simulate('click')
-    expect($('.fc-more-popover > .fc-header .fc-title')).toHaveText('29 juillet 2014')
+    getMoreEl().simulate('click')
+    expect(getMorePopoverTitle()).toBe('29 juillet 2014')
   })
 
   it('still maintains the same format when explicitly set, and there is a locale', function() {
     initCalendar({
       locale: 'fr',
-      dayPopoverFormat: 'YYYY'
+      dayPopoverFormat: { year: 'numeric' }
     })
-    $('.fc-more').simulate('click')
-    expect($('.fc-more-popover > .fc-header .fc-title')).toHaveText('2014')
+    getMoreEl().simulate('click')
+    expect(getMorePopoverTitle()).toBe('2014')
   })
 
 })

@@ -1,12 +1,13 @@
 tmp
+archives
 dist
 
 # core
 fullcalendar
 
-# awesome-typescript-loader
-.awcache
+.sass-cache
 
 # npm
 node_modules
 npm-debug.log
+package-lock.json

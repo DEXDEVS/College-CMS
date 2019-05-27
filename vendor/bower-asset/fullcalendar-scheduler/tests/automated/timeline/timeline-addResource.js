@@ -9,7 +9,7 @@ describe('timeline addResource', function() {
   // https://github.com/fullcalendar/fullcalendar-scheduler/issues/179
   it('works when switching views', function() {
     initCalendar({
-      defaultView: 'timelineDay',
+      defaultView: 'resourceTimelineDay',
       resources: [
         { id: 'a', title: 'Auditorium A' },
         { id: 'b', title: 'Auditorium B' },
@@ -19,20 +19,20 @@ describe('timeline addResource', function() {
 
     expect(getTimelineResourceIds()).toEqual([ 'a', 'b', 'c' ])
 
-    currentCalendar.changeView('timelineWeek')
+    currentCalendar.changeView('resourceTimelineWeek')
     expect(getTimelineResourceIds()).toEqual([ 'a', 'b', 'c' ])
 
     currentCalendar.addResource({ id: 'd', title: 'Auditorium D' })
     expect(getTimelineResourceIds()).toEqual([ 'a', 'b', 'c', 'd' ])
 
-    currentCalendar.changeView('timelineDay')
+    currentCalendar.changeView('resourceTimelineDay')
     expect(getTimelineResourceIds()).toEqual([ 'a', 'b', 'c', 'd' ])
   })
 
 
   it('renders new row with correct height', function() {
     initCalendar({
-      defaultView: 'timelineDay',
+      defaultView: 'resourceTimelineDay',
       resources: buildResources(50)
     })
 
@@ -50,7 +50,7 @@ describe('timeline addResource', function() {
 
   it('scrolls correctly with scroll param', function() {
     initCalendar({
-      defaultView: 'timelineDay',
+      defaultView: 'resourceTimelineDay',
       resources: buildResources(50)
     })
 
@@ -65,7 +65,7 @@ describe('timeline addResource', function() {
 
   describe('when adding resource as child of another', function() {
     pushOptions({
-      defaultView: 'timelineDay',
+      defaultView: 'resourceTimelineDay',
       resources: [
         { id: 'a', title: 'a' }
       ]
@@ -79,7 +79,7 @@ describe('timeline addResource', function() {
       currentCalendar.addResource({ id: 'a1', title: 'a1', parentId: 'a' })
 
       // expanded
-      expect($('.fc-body .fc-resource-area tr[data-resource-id="a"] .fc-icon')).toHaveClass('fc-icon-down-triangle')
+      expect($('.fc-body .fc-resource-area tr[data-resource-id="a"] .fc-icon')).toHaveClass('fc-icon-minus-square')
 
       // one level of indentation, and one space where an arrow might be
       expect($('.fc-body .fc-resource-area tr[data-resource-id="a1"] .fc-icon').length).toBe(2)
@@ -92,7 +92,7 @@ describe('timeline addResource', function() {
 
       currentCalendar.addResource({ id: 'a1', title: 'a1', parentId: 'a' })
 
-      expect($('.fc-body .fc-resource-area tr[data-resource-id="a"] .fc-icon')).toHaveClass('fc-icon-right-triangle')
+      expect($('.fc-body .fc-resource-area tr[data-resource-id="a"] .fc-icon')).toHaveClass('fc-icon-plus-square')
       expect($('.fc-body .fc-resource-area tr[data-resource-id="a1"]')).not.toBeInDOM()
     })
   })

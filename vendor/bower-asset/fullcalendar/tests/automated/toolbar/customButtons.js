@@ -1,5 +1,10 @@
+import BootstrapPlugin from '@fullcalendar/bootstrap'
+import DayGridPlugin from '@fullcalendar/daygrid'
 
 describe('customButtons', function() {
+  pushOptions({
+    plugins: [ BootstrapPlugin, DayGridPlugin ]
+  })
 
   it('can specify text', function() {
     initCalendar({
@@ -23,33 +28,9 @@ describe('customButtons', function() {
     expect($('.fc-mybutton-button .fc-icon')).toHaveClass('fc-icon-asdf')
   })
 
-  it('can specify a jquery-ui icon', function() {
+  it('can specify a bootstrap font-awesome icon', function() {
     initCalendar({
-      themeSystem: 'jquery-ui',
-      customButtons: {
-        mybutton: { themeIcon: 'asdf' }
-      },
-      header: { left: 'mybutton', center: '', right: '' }
-    })
-
-    expect($('.fc-mybutton-button .ui-icon')).toHaveClass('ui-icon-asdf')
-  })
-
-  it('can specify a bootstrap glyphicon', function() {
-    initCalendar({
-      themeSystem: 'bootstrap3',
-      customButtons: {
-        mybutton: { bootstrapGlyphicon: 'asdf' }
-      },
-      header: { left: 'mybutton', center: '', right: '' }
-    })
-
-    expect($('.fc-mybutton-button .glyphicon')).toHaveClass('glyphicon-asdf')
-  })
-
-  it('can specify a bootstrap4 font-awesome icon', function() {
-    initCalendar({
-      themeSystem: 'bootstrap4',
+      themeSystem: 'bootstrap',
       customButtons: {
         mybutton: { bootstrapFontAwesome: 'asdf' }
       },

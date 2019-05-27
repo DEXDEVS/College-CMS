@@ -1,8 +1,9 @@
-// TODO: test isRTL?
+// TODO: test isRtl?
 
+import { Draggable } from '@fullcalendar/interaction'
 import { getResourceDayGridDayEls } from '../lib/day-grid'
 
-describe('basic-view event drag-n-drop', function() {
+describe('dayGrid-view event drag-n-drop', function() {
   pushOptions({
     droppable: true,
     now: '2015-11-29',
@@ -10,28 +11,33 @@ describe('basic-view event drag-n-drop', function() {
       { id: 'a', title: 'Resource A' },
       { id: 'b', title: 'Resource B' }
     ],
-    defaultView: 'basicWeek'
+    defaultView: 'resourceDayGridWeek'
   })
 
-  describeTimezones(function(tz) {
+  describeTimeZones(function(tz) {
 
     describeOptions({
-      'resources above dates': { groupByResource: true },
-      'dates above resources': { groupByDateAndResource: true }
+      'resources above dates': { datesAboveResources: false },
+      'dates above resources': { datesAboveResources: true }
     }, function() {
 
       it('allows dropping onto a resource', function(done) {
         let dropSpy, receiveSpy
-        const dragEl = $('<a' +
+        let dragEl = $('<a' +
           ' class="external-event fc-event"' +
           ' style="width:100px"' +
-          ' data-event=\'{"title":"my external event","start":"05:00"}\'' +
           '>external</a>')
           .appendTo('body')
-          .draggable()
+
+        new Draggable(dragEl[0], {
+          eventData: {
+            title: 'my external event',
+            startTime: '05:00'
+          }
+        })
 
         initCalendar({
-          eventAfterAllRender: oneCall(function() {
+          _eventsPositioned: oneCall(function() {
             $('.external-event').simulate('drag', {
               localPoint: { left: '50%', top: 0 },
               end: getResourceDayGridDayEls('a', '2015-12-01').eq(0),
@@ -47,14 +53,16 @@ describe('basic-view event drag-n-drop', function() {
             (dropSpy = spyCall(function(date) {})),
           // TODO: fix buggy behavior
           // https://github.com/fullcalendar/fullcalendar/issues/2955
-          // expect(date).toEqualMoment('2015-12-01')
+          // expect(date).toEqualDate('2015-12-01')
           eventReceive:
-            (receiveSpy = spyCall(function(event) {
-              expect(event.title).toBe('my external event')
-              expect(event.start).toEqualMoment(tz.moment('2015-12-01T05:00:00'))
-              expect(event.end).toBe(null)
-              const resource = currentCalendar.getEventResource(event)
-              expect(resource.id).toBe('a')
+            (receiveSpy = spyCall(function(arg) {
+              expect(arg.event.title).toBe('my external event')
+              expect(arg.event.start).toEqualDate(tz.parseDate('2015-12-01T05:00:00'))
+              expect(arg.event.end).toBe(null)
+
+              let resources = arg.event.getResources()
+              expect(resources.length).toBe(1)
+              expect(resources[0].id).toBe('a')
             }))
         })
       })

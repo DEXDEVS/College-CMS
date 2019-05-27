@@ -15,16 +15,16 @@ describe('refetchResourcesOnNavigate', function() {
   })
 
   describeValues({
-    'with timeline view': {
-      view: 'timelineDay',
+    'with resourceTimeline view': {
+      view: 'resourceTimelineDay',
       getResourceTitles: getTimelineResourceTitles
     },
-    'with resource agenda view': {
-      view: 'agendaDay',
+    'with resourceTimeGrid view': {
+      view: 'resourceTimeGrid',
       getResourceTitles: getHeadResourceTitles
     },
-    'with resource basic view': {
-      view: 'basicDay',
+    'with resourceDayGrid view': {
+      view: 'resourceDayGrid',
       getResourceTitles: getHeadResourceTitles
     }
   }, function(settings) {
@@ -36,7 +36,7 @@ describe('refetchResourcesOnNavigate', function() {
       let resourceCallCnt = 0
 
       initCalendar({
-        resources(callback) {
+        resources(arg, callback) {
           resourceCallCnt += 1
           callback([
             { title: `resource a-${resourceCallCnt}`, id: 'a' },
@@ -57,32 +57,36 @@ describe('refetchResourcesOnNavigate', function() {
 
 
     it('refetches async resources on quick navigate', function(done) {
-      let resourceCallCnt = 0
-      let eventRenderingCnt = 0
+      let fetchCnt = 0
+      let receiveCnt = 0
 
       initCalendar({
-        resources(callback) {
-          resourceCallCnt += 1
+        resources(arg, callback) {
+          fetchCnt += 1
           setTimeout(function() {
             callback([
-              { title: `resource a-${resourceCallCnt}`, id: 'a' },
-              { title: `resource b-${resourceCallCnt}`, id: 'b' }
+              { title: `resource a-${fetchCnt}`, id: 'a' },
+              { title: `resource b-${fetchCnt}`, id: 'b' }
             ])
           }, 500)
         },
+        _resourcesRendered() {
+          receiveCnt++
 
-        eventAfterAllRender() {
-          eventRenderingCnt += 1
-
-          if (eventRenderingCnt === 1) {
-            currentCalendar.next()
+          if (receiveCnt === 1) {
             setTimeout(function() {
               currentCalendar.next()
-            }, 100) // before the refetch returns
 
-          } else if (eventRenderingCnt === 2) {
-            expect(resourceCallCnt).toBe(3)
-            done()
+              setTimeout(function() {
+                currentCalendar.next()
+              }, 100) // before the refetch returns
+            }, 0)
+
+          } else if (receiveCnt === 2) {
+            setTimeout(function() {
+              expect(fetchCnt).toBe(3)
+              done()
+            }, 0)
           }
         }
       })
@@ -90,74 +94,84 @@ describe('refetchResourcesOnNavigate', function() {
 
 
     it('refetches async resources and waits to render events', function(done) {
-      let resourceCallCnt = 0
-      let eventRenderingCnt = 0
+      let fetchCnt = 0
+      let receiveCnt = 0
 
       initCalendar({
-        resources(callback) {
-          resourceCallCnt += 1
+
+        resources(arg, callback) {
+          fetchCnt += 1
           setTimeout(function() {
             callback([
-              { title: `resource a-${resourceCallCnt}`, id: 'a' },
-              { title: `resource b-${resourceCallCnt}`, id: 'b' }
+              { title: `resource a-${fetchCnt}`, id: 'a' },
+              { title: `resource b-${fetchCnt}`, id: 'b' }
             ])
           }, 100)
         },
 
-        eventAfterAllRender() {
-          eventRenderingCnt += 1
+        _resourcesRendered() {
+          receiveCnt += 1
 
           // step 2
-          if (eventRenderingCnt === 1) {
-            expect(settings.getResourceTitles()).toEqual([ 'resource a-1', 'resource b-1' ])
-            expect($('.day1event').length).toBe(2)
-            currentCalendar.next()
+          if (receiveCnt === 1) {
+            setTimeout(function() {
+              expect(settings.getResourceTitles()).toEqual([ 'resource a-1', 'resource b-1' ])
+              expect($('.day1event').length).toBe(2)
+              currentCalendar.next()
+            }, 0)
 
           // step 3
-          } else if (eventRenderingCnt === 2) {
+          } else if (receiveCnt === 2) {
             // if the 2nd day's events rendered without waiting for the new resources,
             // then you'd still have resource a-1 and b-1
 
-            expect(settings.getResourceTitles()).toEqual([ 'resource a-2', 'resource b-2' ])
-            expect($('.day1event').length).toBe(0)
-            expect($('.day2event').length).toBe(2)
-            done()
+            setTimeout(function() {
+              expect(settings.getResourceTitles()).toEqual([ 'resource a-2', 'resource b-2' ])
+              expect($('.day1event').length).toBe(0)
+              expect($('.day2event').length).toBe(2)
+              done()
+            }, 0)
           }
         }
       })
 
       // step 1 (nothing rendered initially)
-      expect(resourceCallCnt).toBe(1)
+      expect(fetchCnt).toBe(1)
       expect(settings.getResourceTitles()).toEqual([ ])
       expect($('.day1event').length).toBe(0)
     })
 
 
-    it('calls viewRender after resources rendered for each navigation', function(done) {
-      let resourceCallCnt = 0
-      let viewRenderCallCnt = 0
+    it('calls datesRender after resources rendered for each navigation', function(done) {
+      let fetchCnt = 0
+      let receiveCnt = 0
 
       initCalendar({
-        resources(callback) {
-          resourceCallCnt += 1
+
+        resources(arg, callback) {
+          fetchCnt += 1
           setTimeout(function() {
             callback([
-              { title: `resource a-${resourceCallCnt}`, id: 'a' },
-              { title: `resource b-${resourceCallCnt}`, id: 'b' }
+              { title: `resource a-${fetchCnt}`, id: 'a' },
+              { title: `resource b-${fetchCnt}`, id: 'b' }
             ])
           }, 100)
         },
 
-        viewRender() {
-          viewRenderCallCnt += 1
+        _resourcesRendered() {
+          receiveCnt += 1
 
-          if (viewRenderCallCnt === 1) {
-            expect(settings.getResourceTitles()).toEqual([ 'resource a-1', 'resource b-1' ])
-            currentCalendar.next()
+          if (receiveCnt === 1) {
+            setTimeout(function() {
+              expect(settings.getResourceTitles()).toEqual([ 'resource a-1', 'resource b-1' ])
+              currentCalendar.next()
+            }, 0)
 
-          } else if (viewRenderCallCnt === 2) {
-            expect(settings.getResourceTitles()).toEqual([ 'resource a-2', 'resource b-2' ])
-            done()
+          } else if (receiveCnt === 2) {
+            setTimeout(function() {
+              expect(settings.getResourceTitles()).toEqual([ 'resource a-2', 'resource b-2' ])
+              done()
+            }, 0)
           }
         }
       })
@@ -169,15 +183,14 @@ describe('refetchResourcesOnNavigate', function() {
     let resourceCallCnt = 0
 
     initCalendar({
-      defaultView: 'agendaDay',
+      defaultView: 'resourceTimeGridDay',
       views: {
-        agendaTwoDay: {
-          type: 'agenda',
-          duration: { days: 2 },
-          groupByResource: true
+        resourceTimeGridTwoDay: {
+          type: 'resourceTimeGrid',
+          duration: { days: 2 }
         }
       },
-      resources(callback) {
+      resources(arg, callback) {
         resourceCallCnt += 1
         callback([
           { title: `resource a-${resourceCallCnt}`, id: 'a' },
@@ -189,7 +202,7 @@ describe('refetchResourcesOnNavigate', function() {
     expect(getHeadResourceTitles()).toEqual([ 'resource a-1', 'resource b-1' ])
     expect($('.day1event').length).toBe(2)
 
-    currentCalendar.changeView('agendaTwoDay')
+    currentCalendar.changeView('resourceTimeGridTwoDay')
 
     expect(getHeadResourceTitles()).toEqual([ 'resource a-2', 'resource b-2' ])
     expect($('.day1event').length).toBe(2)
@@ -198,65 +211,69 @@ describe('refetchResourcesOnNavigate', function() {
 
 
   it('affects event rendering in non-resource views', function(done) {
-    let resourceCallCnt = 0
-    let eventRenderingCnt = 0
+    let fetchCnt = 0
+    let renderCnt = 0
 
     initCalendar({
-      defaultView: 'agendaDay',
-      groupByResource: false,
-      groupByDateAndResource: false,
+      defaultView: 'timeGridDay',
 
-      resources(callback) {
-        resourceCallCnt += 1
+      resources(arg, callback) {
+        fetchCnt += 1
         setTimeout(function() {
           callback([
-            { id: 'a', eventClassName: `resource-a-${resourceCallCnt}` },
-            { id: 'b', eventClassName: `resource-b-${resourceCallCnt}` }
+            { id: 'a', eventClassName: `resource-a-${fetchCnt}` },
+            { id: 'b', eventClassName: `resource-b-${fetchCnt}` }
           ])
         }, 100)
       },
 
-      eventAfterAllRender() {
-        eventRenderingCnt += 1
+      _eventsPositioned() {
+        renderCnt += 1
 
-        // step 2
-        if (eventRenderingCnt === 1) {
-          expect(resourceCallCnt).toBe(1)
-          expect($('.resource-a-1').length).toBe(1)
-          expect($('.resource-b-1').length).toBe(1)
-          currentCalendar.next()
-
-        // step 3
-        } else if (eventRenderingCnt === 2) {
-          expect(resourceCallCnt).toBe(2)
+        // step 1 (events don't know about resource classNames yet)
+        if (renderCnt === 1) {
+          expect(fetchCnt).toBe(1)
           expect($('.resource-a-1').length).toBe(0)
           expect($('.resource-b-1').length).toBe(0)
-          expect($('.resource-a-2').length).toBe(1)
-          expect($('.resource-b-2').length).toBe(1)
-          done()
+
+        // step 2 (after resource fetch happens)
+        } else if (renderCnt === 2) {
+          setTimeout(function() {
+            expect(fetchCnt).toBe(1)
+            expect($('.resource-a-1').length).toBe(1)
+            expect($('.resource-b-1').length).toBe(1)
+            currentCalendar.next()
+          }, 200) // after the first fetch
+
+        // step 3
+        } else if (renderCnt === 3) {
+          setTimeout(function() {
+            expect(fetchCnt).toBe(2)
+            expect($('.resource-a-1').length).toBe(0)
+            expect($('.resource-b-1').length).toBe(0)
+            expect($('.resource-a-2').length).toBe(1)
+            expect($('.resource-b-2').length).toBe(1)
+            done()
+          }, 200) // after the second fetch
         }
       }
     })
-
-    // step 1 (nothing rendered initially)
-    expect(resourceCallCnt).toBe(1)
-    expect($('.resource-a-1').length).toBe(0)
-    expect($('.resource-b-1').length).toBe(0)
   })
 
 
   it('resources function will receive view start/end/timezone', function(done) {
     initCalendar({
-      defaultView: 'timelineWeek',
+      defaultView: 'resourceTimelineWeek',
       now: '2017-02-12',
-      timezone: 'America/Chicago',
-      resources(callback, start, end, timezone) {
-        expect(start.format()).toBe('2017-02-12')
-        expect(end.format()).toBe('2017-02-19')
-        expect(timezone).toBe('America/Chicago')
+      timeZone: 'America/Chicago',
+      resources(arg, callback) {
+        expect(arg.start).toEqualDate('2017-02-12')
+        expect(arg.end).toEqualDate('2017-02-19')
+        expect(arg.timeZone).toBe('America/Chicago')
         callback([])
       },
-      resourcesSet(resources) {
+      _resourcesRendered() {
+        let resources = currentCalendar.getResources()
         expect(resources.length).toBe(0)
         setTimeout(done)
       }
@@ -265,35 +282,35 @@ describe('refetchResourcesOnNavigate', function() {
 
 
   it('will cause a resource function to receive start/end/timezone after navigate', function(done) {
-    let renderCnt = 0
+    let fetchCnt = 0
 
     initCalendar({
-      defaultView: 'timelineWeek',
+      defaultView: 'resourceTimelineWeek',
       now: '2017-02-12',
-      timezone: 'America/Chicago',
+      timeZone: 'America/Chicago',
 
-      resources(callback, start, end, timezone) {
-        renderCnt += 1
+      resources(arg, callback) {
+        fetchCnt += 1
 
-        if (renderCnt === 1) {
-          expect(start.format()).toBe('2017-02-12')
-          expect(end.format()).toBe('2017-02-19')
-        } else if (renderCnt === 2) {
-          expect(start.format()).toBe('2017-02-19')
-          expect(end.format()).toBe('2017-02-26')
+        if (fetchCnt === 1) {
+          expect(arg.start).toEqualDate('2017-02-12')
+          expect(arg.end).toEqualDate('2017-02-19')
+        } else if (fetchCnt === 2) {
+          expect(arg.start).toEqualDate('2017-02-19')
+          expect(arg.end).toEqualDate('2017-02-26')
         }
 
-        expect(timezone).toBe('America/Chicago')
+        expect(arg.timeZone).toBe('America/Chicago')
         callback([])
       },
 
-      eventAfterAllRender(resources) {
-        if (renderCnt === 1) {
+      _resourcesRendered() {
+        if (fetchCnt === 1) {
           setTimeout(function() {
             currentCalendar.next()
           })
-        } else if (renderCnt === 2) {
-          done()
+        } else if (fetchCnt === 2) {
+          setTimeout(done)
         }
       }
     })
@@ -304,15 +321,15 @@ describe('refetchResourcesOnNavigate', function() {
     let requestCnt = 0
 
     initCalendar({
-      defaultView: 'timelineWeek',
+      defaultView: 'resourceTimelineWeek',
       now: '2017-02-12',
-      timezone: 'America/Chicago',
+      timeZone: 'America/Chicago',
 
-      resources(callback, start, end, timezone) {
+      resources(arg, callback) {
         requestCnt += 1
-        expect(start.format()).toBe('2017-02-12')
-        expect(end.format()).toBe('2017-02-19')
-        expect(timezone).toBe('America/Chicago')
+        expect(arg.start).toEqualDate('2017-02-12')
+        expect(arg.end).toEqualDate('2017-02-19')
+        expect(arg.timeZone).toBe('America/Chicago')
         callback([])
       }
     })
@@ -326,76 +343,73 @@ describe('refetchResourcesOnNavigate', function() {
   describe('when calling a JSON feed', function() {
 
     beforeEach(function() {
-      $.mockjax({
-        url: '*',
-        contentType: 'text/json',
-        responseText: []
-      })
-      $.mockjaxSettings.log = function() {} // don't console.log
+      XHRMock.setup()
     })
 
     afterEach(function() {
-      $.mockjax.clear()
+      XHRMock.teardown()
     })
 
 
     it('receives the start/end/timezone GET parameters', function(done) {
 
-      initCalendar({
-        defaultView: 'timelineWeek',
-        now: '2017-02-12',
-        timezone: 'America/Chicago',
-        resources: 'my-feed.php' // will be picked up by mockjax
+      XHRMock.get(/^my-feed\.php/, function(req, res) {
+        expect(req.url().query).toEqual({
+          start: '2017-02-12T00:00:00',
+          end: '2017-02-19T00:00:00',
+          timeZone: 'America/Chicago'
+        })
+        done()
+        return res.status(200).header('content-type', 'application/json').body('[]')
       })
 
-      setTimeout(function() { // wait for ajax
-        const request = $.mockjax.mockedAjaxCalls()[0]
-        expect(request.data.start).toBe('2017-02-12')
-        expect(request.data.end).toBe('2017-02-19')
-        expect(request.data.timezone).toBe('America/Chicago')
-        done()
+      initCalendar({
+        defaultView: 'resourceTimelineWeek',
+        now: '2017-02-12',
+        timeZone: 'America/Chicago',
+        resources: 'my-feed.php' // will be picked up by XHRMock
       })
     })
 
 
-    it('respects startParam/endParam/timezoneParam', function(done) {
+    it('respects startParam/endParam/timeZoneParam', function(done) {
 
-      initCalendar({
-        defaultView: 'timelineWeek',
-        now: '2017-02-12',
-        timezone: 'America/Chicago',
-        resources: 'my-feed.php', // will be picked up by mockjax
-        startParam: 'mystart',
-        endParam: 'myend',
-        timezoneParam: 'mytimezone'
+      XHRMock.get(/^my-feed\.php/, function(req, res) {
+        expect(req.url().query).toEqual({
+          mystart: '2017-02-12T00:00:00',
+          myend: '2017-02-19T00:00:00',
+          mytimezone: 'America/Chicago'
+        })
+        done()
+        return res.status(200).header('content-type', 'application/json').body('[]')
       })
 
-      setTimeout(function() { // wait for ajax
-        const request = $.mockjax.mockedAjaxCalls()[0]
-        expect(request.data.mystart).toBe('2017-02-12')
-        expect(request.data.myend).toBe('2017-02-19')
-        expect(request.data.mytimezone).toBe('America/Chicago')
-        done()
+      initCalendar({
+        defaultView: 'resourceTimelineWeek',
+        now: '2017-02-12',
+        timeZone: 'America/Chicago',
+        resources: 'my-feed.php', // will be picked up by XHRMock
+        startParam: 'mystart',
+        endParam: 'myend',
+        timeZoneParam: 'mytimezone'
       })
     })
 
 
     it('won\'t send start/end/timezone params when off', function(done) {
 
-      initCalendar({
-        defaultView: 'timelineWeek',
-        now: '2017-02-12',
-        timezone: 'America/Chicago',
-        resources: 'my-feed.php', // will be picked up by mockjax
-        refetchResourcesOnNavigate: false
+      XHRMock.get(/^my-feed\.php/, function(req, res) {
+        expect(req.url().query).toEqual({}) // no params
+        done()
+        return res.status(200).header('content-type', 'application/json').body('[]')
       })
 
-      setTimeout(function() { // wait for ajax
-        const request = $.mockjax.mockedAjaxCalls()[0]
-        expect(request.data.start).toBeFalsy()
-        expect(request.data.end).toBeFalsy()
-        expect(request.data.timezone).toBeFalsy()
-        done()
+      initCalendar({
+        defaultView: 'resourceTimelineWeek',
+        now: '2017-02-12',
+        timeZone: 'America/Chicago',
+        resources: 'my-feed.php', // will be picked up by XHRMock
+        refetchResourcesOnNavigate: false
       })
     })
   })

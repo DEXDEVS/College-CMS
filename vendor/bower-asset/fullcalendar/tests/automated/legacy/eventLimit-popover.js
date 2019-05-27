@@ -1,5 +1,6 @@
 describe('eventLimit popover', function() {
 
+  /** @type {any} */
   var testEvents = [
     { title: 'event1', start: '2014-07-28', end: '2014-07-30', className: 'event1' },
     { title: 'event2', start: '2014-07-29', end: '2014-07-31', className: 'event2' },
@@ -8,7 +9,7 @@ describe('eventLimit popover', function() {
   ]
 
   pushOptions({
-    defaultView: 'month',
+    defaultView: 'dayGridMonth',
     defaultDate: '2014-08-01',
     eventLimit: 3,
     events: testEvents,
@@ -22,14 +23,14 @@ describe('eventLimit popover', function() {
   }
 
   describeOptions('defaultView', {
-    'when in month view': 'month',
-    'when in basicWeek view': 'basicWeek',
-    'when in agendaWeek view': 'agendaWeek'
+    'when in month view': 'dayGridMonth',
+    'when in dayGridWeek view': 'dayGridWeek',
+    'when in week view': 'timeGridWeek'
   }, function() {
 
     it('aligns horizontally with left edge of cell if LTR', function() {
       initCalendar({
-        isRTL: false
+        dir: 'ltr'
       })
       init()
       var cellLeft = $('.fc-day-grid .fc-row:eq(0) .fc-bg td:not(.fc-axis):eq(2)').offset().left
@@ -40,7 +41,7 @@ describe('eventLimit popover', function() {
 
     it('aligns horizontally with left edge of cell if RTL', function() {
       initCalendar({
-        isRTL: true
+        dir: 'rtl'
       })
       init()
       var cell = $('.fc-day-grid .fc-row:eq(0) .fc-bg td:not(.fc-axis):eq(4)')
@@ -55,7 +56,7 @@ describe('eventLimit popover', function() {
   describe('when in month view', function() {
 
     pushOptions({
-      defaultView: 'month'
+      defaultView: 'dayGridMonth'
     })
 
     it('aligns with top of cell', function() {
@@ -213,11 +214,47 @@ describe('eventLimit popover', function() {
         expect(el).not.toHaveClass('fc-not-end')
       })
     })
+
+    // https://github.com/fullcalendar/fullcalendar/issues/4331
+    it('displays events that were collapsed in previous days', function() {
+      initCalendar({
+        defaultDate: '2018-10-01',
+        events: [
+          {
+            title: 'e1',
+            start: '2018-10-18'
+          },
+          {
+            title: 'e2',
+            start: '2018-10-18'
+          },
+          {
+            title: 'e3',
+            start: '2018-10-18T11:00:00'
+          },
+          {
+            title: 'e4',
+            start: '2018-10-18T12:00:00',
+            end: '2018-10-19T12:00:00'
+          },
+          {
+            title: 'e5',
+            start: '2018-10-19',
+            className: 'event-e5'
+          }
+        ]
+      })
+
+      // click the second +more link
+      $('.event-e5').closest('.fc-event-container').find('.fc-more')
+        .simulate('click')
+    })
+
   })
 
   describeOptions('defaultView', {
-    'when in basicWeek view': 'basicWeek',
-    'when in agendaWeek view': 'agendaWeek'
+    'when in dayGridWeek view': 'dayGridWeek',
+    'when in week view': 'timeGridWeek'
   }, function() {
     it('aligns with top of header', function() {
       initCalendar()
@@ -237,6 +274,27 @@ describe('eventLimit popover', function() {
     expect($('.fc-more-popover')).toBeVisible()
     $('.fc-more-popover .fc-close').simulate('click')
     expect($('.fc-more-popover')).not.toBeVisible()
+  })
+
+  // https://github.com/fullcalendar/fullcalendar/issues/4584
+  it('doesn\'t fire a dateClick', function(done) {
+    let dateClickCalled = false
+
+    spyOnCalendarCallback('dateClick', function() {
+      dateClickCalled = true
+    })
+
+    initCalendar()
+    init()
+
+    let $headerEl = $('.fc-popover .fc-header')
+    expect($headerEl).toBeVisible()
+
+    $.simulateMouseClick($headerEl) // better for actual coordinates i think
+    setTimeout(function() { // because click would take some time to register
+      expect(dateClickCalled).toBe(false)
+      done()
+    }, 500)
   })
 
   it('doesn\'t close when user clicks somewhere inside of the popover', function() {
@@ -276,9 +334,9 @@ describe('eventLimit popover', function() {
       it('should have the new day and remain all-day', function(done) {
 
         initCalendar({
-          eventDrop: function(event) {
-            expect(event.start).toEqualMoment('2014-07-28')
-            expect(event.allDay).toBe(true)
+          eventDrop: function(arg) {
+            expect(arg.event.start).toEqualDate('2014-07-28')
+            expect(arg.event.allDay).toBe(true)
             done()
           }
         })
@@ -305,9 +363,9 @@ describe('eventLimit popover', function() {
 
         initCalendar({
           events: testEvents,
-          eventDrop: function(event) {
-            expect(event.start).toEqualMoment('2014-07-28T13:00:00')
-            expect(event.allDay).toBe(false)
+          eventDrop: function(arg) {
+            expect(arg.event.start).toEqualDate('2014-07-28T13:00:00Z')
+            expect(arg.event.allDay).toBe(false)
             done()
           }
         })
@@ -327,11 +385,11 @@ describe('eventLimit popover', function() {
       it('should assume the new time, with a cleared end', function(done) {
 
         initCalendar({
-          defaultView: 'agendaWeek',
+          defaultView: 'timeGridWeek',
           scrollTime: '00:00:00',
-          eventDrop: function(event) {
-            expect(event.start).toEqualMoment('2014-07-30T03:00:00')
-            expect(event.allDay).toBe(false)
+          eventDrop: function(arg) {
+            expect(arg.event.start).toEqualDate('2014-07-30T03:00:00Z')
+            expect(arg.event.allDay).toBe(false)
             done()
           }
         })
@@ -356,7 +414,7 @@ describe('eventLimit popover', function() {
 
         initCalendar({
           eventDragStop: function() {
-            setTimeout(function() { // try to wait until drag is over. eventDrop won't fire BTW
+            setTimeout(function() { // try to wait until drag is over. eventMutation won't fire BTW
               expect($('.fc-more-popover')).toBeInDOM()
               done()
             }, 0)
@@ -384,35 +442,35 @@ describe('eventLimit popover', function() {
         { title: 'event4', start: '2014-07-29', className: 'event4' }
       ],
       eventRender: function() {},
-      eventAfterRender: function() {},
-      eventAfterAllRender: function() {},
+      eventPositioned: function() {},
+      _eventsPositioned: function() {},
       eventDestroy: function() {}
     }
 
     spyOn(options, 'eventRender')
-    spyOn(options, 'eventAfterRender')
-    spyOn(options, 'eventAfterAllRender')
+    spyOn(options, 'eventPositioned')
+    spyOn(options, '_eventsPositioned')
     spyOn(options, 'eventDestroy')
 
     initCalendar(options)
 
     expect(options.eventRender.calls.count()).toBe(4)
-    expect(options.eventAfterRender.calls.count()).toBe(4)
-    expect(options.eventAfterAllRender.calls.count()).toBe(1)
+    expect(options.eventPositioned.calls.count()).toBe(4)
+    expect(options._eventsPositioned.calls.count()).toBe(1)
     expect(options.eventDestroy.calls.count()).toBe(0)
 
     $('.fc-more').simulate('click')
 
     expect(options.eventRender.calls.count()).toBe(8) // +4
-    expect(options.eventAfterRender.calls.count()).toBe(8) // +4
-    expect(options.eventAfterAllRender.calls.count()).toBe(1) // stays same!
+    expect(options.eventPositioned.calls.count()).toBe(8) // +4
+    expect(options._eventsPositioned.calls.count()).toBe(2) // +1
     expect(options.eventDestroy.calls.count()).toBe(0)
 
     $('.fc-more-popover .fc-close').simulate('click')
 
     expect(options.eventRender.calls.count()).toBe(8)
-    expect(options.eventAfterRender.calls.count()).toBe(8)
-    expect(options.eventAfterAllRender.calls.count()).toBe(1)
+    expect(options.eventPositioned.calls.count()).toBe(8)
+    expect(options._eventsPositioned.calls.count()).toBe(2)
     expect(options.eventDestroy.calls.count()).toBe(4) // +4
   })
 

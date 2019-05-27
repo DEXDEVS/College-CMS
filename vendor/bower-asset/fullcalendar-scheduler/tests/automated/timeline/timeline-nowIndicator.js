@@ -1,6 +1,12 @@
 import { getBoundingRect } from 'fullcalendar/tests/automated/lib/dom-geom'
 import { getTimelineLine } from '../lib/timeline'
 
+/*
+RIDICULOUSLY BIG THRESHOLD, because IE/Edge have setInterval issues.
+TODO: make a more bulletproof way
+*/
+const PIXEL_THRESHOLD = 30
+
 describe('timeline now-indicator', function() {
   pushOptions({
     defaultView: 'timelineDay',
@@ -9,9 +15,9 @@ describe('timeline now-indicator', function() {
     scrollTime: '00:00'
   })
 
-  describeOptions('isRTL', {
-    'when LTR': false
-    // 'when RTL': true # wasn't working with headless. TODO: come back and fix
+  describeOptions('dir', {
+    'when LTR': 'ltr'
+    // 'when RTL': 'rtl' # wasn't working with headless. TODO: come back and fix
   }, function() {
 
     describeOptions('resources', {
@@ -20,10 +26,11 @@ describe('timeline now-indicator', function() {
         { id: 'a', title: 'Resource A' },
         { id: 'b', title: 'Resource B' }
       ]
-    }, function() {
+    }, function(resources) {
 
       it('doesn\'t render when out of view', function(done) {
         initCalendar({
+          defaultView: resources ? 'resourceTimelineDay' : 'timelineDay',
           defaultDate: '2015-12-27T02:30:00' // next day
         })
         setTimeout(function() { // wait for scroll
@@ -91,7 +98,7 @@ describe('timeline now-indicator', function() {
 
   function nowIndicatorRendersAt(date, thresh) {
     // wish threshold could do a smaller default threshold, but RTL messing up
-    if (thresh == null) { thresh = 3 }
+    if (thresh == null) { thresh = PIXEL_THRESHOLD }
     const line = getTimelineLine(date)
     const arrowRect = getBoundingRect('.fc-timeline .fc-now-indicator-arrow')
     const lineRect = getBoundingRect('.fc-timeline .fc-now-indicator-line')

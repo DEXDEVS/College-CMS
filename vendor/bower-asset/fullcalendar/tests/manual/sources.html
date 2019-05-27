@@ -6,7 +6,7 @@
 <script src='../../node_modules/jquery/dist/jquery.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../dist/fullcalendar.js'></script>
-<script src='../../dist/gcal.js'></script>
+<script src='../../dist/plugins/google-calendar.js'></script>
 <script>
 
   var cal;
@@ -15,11 +15,11 @@
   var d = date.getDate();
   var m = date.getMonth();
   var y = date.getFullYear();
-  
-  var gcalFeed = $.fullCalendar.gcalFeed("http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic");
-  
+
+  var gcalFeed = FullCalendar.gcalFeed("http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic");
+
   var jsonFeed = "../demos/json-events.php";
-  
+
   var staticEvents = [
     {
       title: 'All Day Event',
@@ -56,13 +56,13 @@
       allDay: false
     },
     {
-      id: 999,
+      groupId: 999,
       title: 'Repeating Event',
       start: new Date(y, m, d-3, 16, 0),
       allDay: false
     },
     {
-      id: 999,
+      groupId: 999,
       title: 'Repeating Event',
       start: new Date(y, m, d+4, 16, 0),
       allDay: false
@@ -98,7 +98,7 @@
       start: '1295078400.0'
     }
   ];
-  
+
   var customSource = function(start, end, callback) {
     callback([
       {
@@ -111,12 +111,6 @@
       }
     ]);
   };
-  
-  /* TODO: doesn't work anymore
-  $.ajaxSetup({
-    cache: true // should NOT insert an extra _ parameter
-  });
-  */
 
   $(document).ready(function() {
     cal = $('#calendar').fullCalendar({
@@ -126,7 +120,7 @@
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'month,week,dayGridWeek,day,dayGridDay'
       },
       //events: staticEvents,
       eventSources: [
@@ -156,11 +150,11 @@
   .red-event {
     background: red !important;
   }
-  
+
   .yellow-event {
     background: yellow !important;
   }
-  
+
   .black-text-event {
     color: #000 !important;
   }

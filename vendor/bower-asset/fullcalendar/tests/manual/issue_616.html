@@ -6,35 +6,35 @@
 <script src='../../node_modules/jquery/dist/jquery.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../dist/fullcalendar.js'></script>
-<script src='../../dist/gcal.js'></script>
+<script src='../../dist/plugins/google-calendar.js'></script>
 <script>
 
   $(document).ready(function() {
-  
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    
+
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'month,week,dayGridWeek,day,dayGridDay'
       },
       editable: true
     });
-    
+
   });
-  
-  
+
+
   function doit() {
     var calendar = $('#calendar');
-    var gcal = $.fullCalendar.gcalFeed('http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic');
-    calendar.fullCalendar('addEventSource', gcal);
+    var google-calendar = FullCalendar.gcalFeed('http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic');
+    calendar.fullCalendar('addEventSource', google-calendar);
     calendar.fullCalendar('refetchEvents');
   }
-  
+
 
 </script>
 <style>

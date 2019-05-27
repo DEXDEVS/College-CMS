@@ -4,9 +4,9 @@ import * as TimeGridRenderUtils from './TimeGridRenderUtils'
 describe('slotDuration', function() {
   pushOptions({
     defaultDate: '2017-07-17',
-    defaultView: 'agendaDay',
+    defaultView: 'timeGridDay',
     scrollTime: 0,
-    slotLabelFormat: 'HH:mm'
+    slotLabelFormat: { hour: '2-digit', minute: '2-digit', hour12: false }
   })
 
   describe('when only major slots', function() {

@@ -6,7 +6,7 @@
 <script src='../../node_modules/jquery/dist/jquery.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../dist/fullcalendar.js'></script>
-<script src='../../dist/gcal.js'></script>
+<script src='../../dist/plugins/google-calendar.js'></script>
 <script>
 
   var date = new Date();
@@ -18,18 +18,18 @@
 
   $(document).ready(function() {
     $('#calendar').fullCalendar({
-      
+
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'month,week,dayGridWeek,day,dayGridDay'
       },
       editable: true,
       selectable: true,
 
-      viewRender: function(view, element) {
-        console.log('viewRender');
-        //alert('viewRender');
+      datesRender: function(view, element) {
+        console.log('datesRender');
+        //alert('datesRender');
         if (verbose) {
           console.log(' this', this);
           console.log(' view', view);
@@ -37,17 +37,17 @@
         }
       },
 
-      eventAfterAllRender: function(view) {
-        console.log('eventAfterAllRender');
+      _eventsPositioned: function(view) {
+        console.log('_eventsPositioned');
         if (verbose) {
           console.log(' this', this);
           console.log(' view', view);
         }
       },
 
-      viewDestroy: function(view, element) {
-        console.log('viewDestroy');
-        //alert('viewDestroy');
+      datesDestroy: function(view, element) {
+        console.log('datesDestroy');
+        //alert('datesDestroy');
         if (verbose) {
           console.log(' this', this);
           console.log(' view', view);
@@ -67,15 +67,15 @@
 
       /*
 
-      viewDisplay: function(view) { // deprecated
-        console.log('viewDisplay');
+      viewSkeletonRender: function(view) {
+        console.log('viewSkeletonRender');
         if (verbose) {
           console.log('The new title of the view is ' + view.title);
         }
       },
 
       */
-      
+
       eventSources: [
         {
           url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
@@ -94,13 +94,13 @@
               end: new Date(y, m, d-2)
             },
             {
-              id: 999,
+              groupId: 999,
               title: 'Repeating Event',
               start: new Date(y, m, d-3, 16, 0),
               allDay: false
             },
             {
-              id: 999,
+              groupId: 999,
               title: 'Repeating Event',
               start: new Date(y, m, d+4, 16, 0),
               allDay: false
@@ -138,7 +138,7 @@
 
 
   function hyperJump() {console.log('hyperJump');
-    $('#calendar').fullCalendar('changeView', 'agendaWeek');
+    $('#calendar').fullCalendar('changeView', 'week');
     //alert('pause');
     $('#calendar').fullCalendar('gotoDate', new Date(y, m+2, d));
   }

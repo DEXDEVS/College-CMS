@@ -1,13 +1,12 @@
 import { getBoundingRect } from '../lib/dom-geom'
 import { isElWithinRtl } from '../lib/dom-misc'
 import { getTimeGridLine } from '../lib/time-grid'
+import { TimeGrid } from '@fullcalendar/timegrid'
 
 describe('now indicator', function() {
-  var FC = $.fullCalendar
   var options
 
   beforeEach(function() {
-    affix('#cal')
     options = {
       now: '2015-12-26T06:00:00',
       scrollTime: '00:00'
@@ -16,22 +15,22 @@ describe('now indicator', function() {
 
   describe('when in month view', function() {
     beforeEach(function() {
-      options.defaultView = 'month'
+      options.defaultView = 'dayGridMonth'
     })
 
     it('doesn\'t render even when activated', function() {
-      $('#cal').fullCalendar(options)
+      initCalendar(options)
       expect(isNowIndicatorRendered()).toBe(false)
     })
   })
 
-  describe('when in agendaWeek view', function() {
+  describe('when in week view', function() {
     beforeEach(function() {
-      options.defaultView = 'agendaWeek'
+      options.defaultView = 'timeGridWeek'
     })
 
     it('doesn\'t render by default', function() {
-      $('#cal').fullCalendar(options)
+      initCalendar(options)
       expect(isNowIndicatorRendered()).toBe(false)
     })
 
@@ -40,28 +39,28 @@ describe('now indicator', function() {
         options.nowIndicator = true
       });
 
-      [ false, true ].forEach(function(isRTL) {
+      [ 'ltr', 'rtl' ].forEach(function(dir) {
 
-        describe('when ' + (isRTL ? 'RTL' : 'LTR'), function() {
+        describe('when ' + dir, function() {
           beforeEach(function() {
-            options.isRTL = isRTL
+            options.dir = dir
           })
 
           it('doesn\'t render when out of view', function() {
             options.defaultDate = '2015-12-27' // sun of next week
-            $('#cal').fullCalendar(options)
+            initCalendar(options)
             expect(isNowIndicatorRendered()).toBe(false)
           })
 
           it('renders on correct time', function() {
-            $('#cal').fullCalendar(options)
-            isNowIndicatorRenderedAt('2015-12-26T06:00:00')
+            initCalendar(options)
+            isNowIndicatorRenderedAt('2015-12-26T06:00:00Z')
           })
 
           it('renders on correct time2', function() {
             options.now = '2015-12-20T02:30:00'
-            $('#cal').fullCalendar(options)
-            isNowIndicatorRenderedAt('2015-12-20T02:30:00')
+            initCalendar(options)
+            isNowIndicatorRenderedAt('2015-12-20T02:30:00Z')
           })
         })
       })
@@ -71,13 +70,13 @@ describe('now indicator', function() {
     it('doesnt double render indicator arrow', function(done) {
 
       // force the indicator to update every second
-      var getNowIndicatorUnit = spyOnMethod(FC.TimeGrid, 'getNowIndicatorUnit', true)
+      var getNowIndicatorUnit = spyOnMethod(TimeGrid, 'getNowIndicatorUnit', true)
         .and.returnValue('second')
 
       options.defaultDate = '2016-01-01' // does NOT have "now" in view
       options.nowIndicator = true
-      $('#cal').fullCalendar(options)
-      $('#cal').fullCalendar('today') // the bug only happens after navigate
+      initCalendar(options)
+      currentCalendar.today() // the bug only happens after navigate
 
       setTimeout(function() {
         expect($('.fc-now-indicator-arrow').length).toBe(1)

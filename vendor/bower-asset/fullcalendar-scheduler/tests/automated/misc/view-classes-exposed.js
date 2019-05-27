@@ -1,13 +1,14 @@
+import { TimelineView } from '@fullcalendar/timeline'
+import { ResourceTimelineView } from '@fullcalendar/resource-timeline'
+import { ResourceTimeGridView } from '@fullcalendar/resource-timegrid'
+import { ResourceDayGridView } from '@fullcalendar/resource-daygrid'
 
 describe('internal View classes', function() {
 
   it('are exposed', function() {
-    const FC = $.fullCalendar
-
-    expect(typeof FC.TimelineView).toBe('function')
-    expect(typeof FC.ResourceTimelineView).toBe('function')
-    expect(typeof FC.ResourceAgendaView).toBe('function')
-    expect(typeof FC.ResourceBasicView).toBe('function')
-    expect(typeof FC.ResourceMonthView).toBe('function')
+    expect(typeof TimelineView).toBe('function')
+    expect(typeof ResourceTimelineView).toBe('function')
+    expect(typeof ResourceTimeGridView).toBe('function')
+    expect(typeof ResourceDayGridView).toBe('function')
   })
 })

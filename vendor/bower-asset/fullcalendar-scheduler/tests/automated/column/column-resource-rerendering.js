@@ -1,7 +1,7 @@
 
 describe('vresource resource rerendering', function() {
   pushOptions({
-    defaultView: 'agendaDay',
+    defaultView: 'resourceTimeGridDay',
     resources: [
       { id: 'a', title: 'Auditorium A' },
       { id: 'b', title: 'Auditorium B' },
@@ -9,10 +9,10 @@ describe('vresource resource rerendering', function() {
     ]
   })
 
-  it('adjusts to removeResource', function() {
+  it('adjusts to Resource::remove', function() {
     initCalendar()
     expect(getOrderedResourceIds()).toEqual([ 'a', 'b', 'c' ])
-    currentCalendar.removeResource('a')
+    currentCalendar.getResourceById('a').remove()
     expect(getOrderedResourceIds()).toEqual([ 'b', 'c' ])
   })
 

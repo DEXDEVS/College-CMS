@@ -8,45 +8,72 @@ cd "`dirname $0`/.."
 
 ./bin/require-clean-working-tree.sh
 
-read -p "Enter the version you want to publish, with no 'v' (for example '1.0.1'): " version
-if [[ ! "$version" ]]
+package="$1" # a short name like 'core'
+version="$2"
+release_tag="$3"
+production_str="$4"
+RELEASES_ROOT="../fullcalendar-site/fullcalendar-releases"
+
+if [[ ! "$package" ]]
 then
-  echo "Aborting."
+  echo "Invalid first argument package name."
   exit 1
 fi
 
-# push the current branch (assumes tracking is set up) and the tag
-git push
-git push origin "v$version"
-
-success=0
-
-# save reference to current branch
-current_branch=$(git symbolic-ref --quiet --short HEAD)
-
-# temporarily checkout the tag's commit, publish to NPM
-git checkout --quiet "v$version"
-if npm publish
+if [[ ! "$version" ]]
 then
-  success=1
+  echo "Invalid second argument version."
+  exit 1
 fi
 
-# return to branch
-git checkout --quiet "$current_branch"
-
-# restore generated dist files
-git checkout --quiet "v$version" -- dist
-git reset --quiet -- dist
-
-if [[ "$success" == "1" ]]
+if [[ "$release_tag" != "latest" ]] && [[ "$release_tag" != "beta" ]] && [[ "$release_tag" != "alpha" ]]
 then
-  echo "Waiting for release to propagate to NPM..."
-  sleep 5
+  echo "Invalid third argument release tag '$release_tag'. Aborting."
+  exit 1
+fi
 
-  ./bin/verify-npm.sh
-  ./bin/build-example-repos.sh --recent-release
-  echo "Success."
+if [[ "$production_str" == "" ]]
+then
+
+  echo "Copying to fullcalendar-releases dir..."
+  mkdir -p "$RELEASES_ROOT/$package"
+  rm -rf "$RELEASES_ROOT/$package/$version" # clear to dir nesting doesn't happen
+  cp -r "dist/$package" "$RELEASES_ROOT/$package/$version"
+
+  echo "Publishing to DEV NPM INSTALLATION..."
+  npm_registry_str="--registry http://localhost:4873"
+  # actual publish happens later in script...
+
+elif [[ "$production_str" == "--production" ]]
+then
+
+  echo "Pushing to Github..."
+
+  # push the current branch (assumes tracking is set up) and the tag
+  git push --recurse-submodules=on-demand
+  git push origin "v$version"
+
+  echo "Publishing to LIVE NPM..."
+  npm_registry_str=""
+  # actual publish happens later in script...
+
 else
-  echo "Failure."
+  echo "Invalid flag $production_str. Aborting"
+  exit 1
+fi
+
+if {
+  # check out dist files for tag but don't stage them
+  git checkout --quiet "v$version" -- dist &&
+  git reset --quiet -- dist &&
+
+  cd "dist/$package" &&
+
+  npm publish --tag "$release_tag" --access public $npm_registry_str
+}
+then
+  echo 'Success.'
+else
+  echo 'Failure.'
   exit 1
 fi

@@ -35,16 +35,16 @@
       }
       destroyCalendar();
     }
-    
+
     function initCalendar() {
       $('#calendar').fullCalendar({
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,agendaWeek,agendaDay'
+          right: 'month,week,day'
         },
         defaultDate: '2014-06-12',
-        defaultView: 'month', // agendaWeek
+        defaultView: 'dayGridMonth', // week
         editable: true,
         selectable: true,
         droppable: true,
@@ -59,12 +59,12 @@
             end: '2014-06-10'
           },
           {
-            id: 999,
+            groupId: 999,
             title: 'Repeating Event',
             start: '2014-06-09T16:00:00'
           },
           {
-            id: 999,
+            groupId: 999,
             title: 'Repeating Event',
             start: '2014-06-16T16:00:00'
           },

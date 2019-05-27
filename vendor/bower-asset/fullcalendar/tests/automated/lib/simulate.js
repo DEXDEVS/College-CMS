@@ -24,16 +24,39 @@ var origSimulateEvent = $.simulate.prototype.simulateEvent
 var touchUID = Date.now()
 
 $.simulate.prototype.simulateEvent = function(elem, type, options) {
-  if (/^touch/.test(type)) {
+  if (elem === window && type === 'resize') {
+    return this.simulateWindowResize()
+  } else if (/^touch/.test(type)) {
     return this.simulateTouchEvent(elem, type, options)
   } else {
     return origSimulateEvent.apply(this, arguments)
   }
 }
 
+$.simulate.prototype.simulateWindowResize = function() {
+  // from https://stackoverflow.com/a/1818513/96342
+  let event
+
+  if (typeof Event !== 'undefined') {
+    try {
+      event = new Event('resize')
+    } catch (ex) {}
+  }
+
+  if (!event) {
+    event = document.createEvent('UIEvents')
+    event.initUIEvent('resize', true, false, window, 0)
+  }
+
+  this.dispatchEvent(window, 'resize', event)
+}
+
 $.simulate.prototype.simulateTouchEvent = function(elem, type, options) {
   // http://stackoverflow.com/a/29019278/96342
+
+  /** @type {any} */
   var event = document.createEvent('Event')
+
   event.initEvent(type, true, true) // cancelable, bubbleable
   event.touches = [{
     target: elem,
@@ -45,6 +68,7 @@ $.simulate.prototype.simulateTouchEvent = function(elem, type, options) {
     clientX: options.clientX,
     clientY: options.clientY
   }]
+
   this.dispatchEvent(elem, type, event, options)
 }
 
@@ -227,7 +251,12 @@ function simulateDrag(self, targetNode, startPoint, dx, dy, moveCnt, duration, o
     moveIndex++
     updateCoords() // update clientCoords before mousemove
 
-    self.simulateEvent(docNode, isTouch ? 'touchmove' : 'mousemove', clientCoords)
+    if (isTouch) {
+      // touchmove happens on the originating element
+      self.simulateEvent(targetNode, 'touchmove', clientCoords)
+    } else {
+      self.simulateEvent(docNode, 'mousemove', clientCoords)
+    }
 
     if (moveIndex >= moveCnt) {
       stopMoving()
@@ -261,8 +290,14 @@ function simulateDrag(self, targetNode, startPoint, dx, dy, moveCnt, duration, o
       }
     }
 
-    dragStackCnt--;
-    (options.onRelease || options.callback || function() {})() // TODO: deprecate "callback" ?
+    dragStackCnt--
+
+    // we wait because the there might be a FullCalendar drag interaction that finishes asynchronously
+    // after the mouseend/touchend happens, and it's really convenient if our callback fires after that.
+    setTimeout(
+      options.onRelease || options.callback || function() {}, // TODO: deprecate "callback" ?
+      0
+    )
   }
 
   startDrag()

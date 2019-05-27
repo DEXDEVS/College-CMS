@@ -1,32 +1,39 @@
+import { config, Calendar } from '@fullcalendar/core'
 
 describe('schedulerLicenseKey', function() {
 
   beforeEach(function() {
-    $.fullCalendar.mockSchedulerReleaseDate = '2011-06-06'
+    config.mockSchedulerReleaseDate = '2011-06-06'
   })
 
   afterEach(function() {
-    delete $.fullCalendar.mockSchedulerReleaseDate
+    delete config.mockSchedulerReleaseDate
   })
 
-  // FYI: eventAfterAllRender guarantees that view's skeleton has been rendered and sized
+  // FYI: _eventsPositioned guarantees that view's skeleton has been rendered and sized
 
   function defineTests() {
 
     it('is invalid when crap text', function(done) {
       initCalendar({
         schedulerLicenseKey: '<%= versionReleaseDate %>',
-        eventAfterAllRender() {
+        _eventsPositioned() {
           expectIsValid(false)
           done()
         }
       })
+
+      // just to see if it compiles with schedulerLicenseKey
+      let calendar = new Calendar(document.getElementById('cal'), {
+        schedulerLicenseKey: '<%= versionReleaseDate %>'
+      })
+      expect(calendar).toBeTruthy()
     })
 
     it('is invalid when purchased more than a year ago', function(done) {
       initCalendar({
         schedulerLicenseKey: '1234567890-fcs-1273017600', // purchased on 2010-05-05
-        eventAfterAllRender() {
+        _eventsPositioned() {
           expectIsValid(false)
           done()
         }
@@ -36,7 +43,7 @@ describe('schedulerLicenseKey', function() {
     it('is valid when purchased less than a year ago', function(done) {
       initCalendar({
         schedulerLicenseKey: '1234567890-fcs-1275868800', // purchased on 2010-06-07
-        eventAfterAllRender() {
+        _eventsPositioned() {
           expectIsValid(true)
           done()
         }
@@ -46,7 +53,7 @@ describe('schedulerLicenseKey', function() {
     it('is invalid when not 10 digits in random ID', function(done) {
       initCalendar({
         schedulerLicenseKey: '123456789-fcs-1275868800', // purchased on 2010-06-07
-        eventAfterAllRender() {
+        _eventsPositioned() {
           expectIsValid(false)
           done()
         }
@@ -56,7 +63,7 @@ describe('schedulerLicenseKey', function() {
     it('is valid when Creative Commons', function(done) {
       initCalendar({
         schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-        eventAfterAllRender() {
+        _eventsPositioned() {
           expectIsValid(true)
           done()
         }
@@ -66,7 +73,7 @@ describe('schedulerLicenseKey', function() {
     it('is valid when GPL', function(done) {
       initCalendar({
         schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-        eventAfterAllRender() {
+        _eventsPositioned() {
           expectIsValid(true)
           done()
         }
@@ -81,7 +88,7 @@ describe('schedulerLicenseKey', function() {
 
   describe('when in a timeline view with resource', function() {
     pushOptions({
-      defaultView: 'timeline',
+      defaultView: 'resourceTimelineDay',
       resources: [ { id: 'a', title: 'Resource A' } ]
     })
     defineTests()
@@ -89,24 +96,23 @@ describe('schedulerLicenseKey', function() {
 
   describe('when in a timeline view no resource', function() {
     pushOptions({
-      defaultView: 'timeline',
-      resource: false
+      defaultView: 'timelineDay'
     })
     defineTests()
   })
 
   describe('when in a month view', function() {
     pushOptions({
-      defaultView: 'month'
+      defaultView: 'dayGridMonth'
     })
     defineTests()
   })
 
 
   describeOptions('defaultView', {
-    'when timeline view': 'timelineDay',
-    'when resource-agenda view': 'agendaDay',
-    'when resource-basic view': 'basicDay'
+    'when timeline view': 'resourceTimelineDay',
+    'when resource-timegrid view': 'resourceTimeGridDay',
+    'when resource-daygrid view': 'resourceDayGridDay'
   }, function() {
     it('only renders one license message when view is rerendered', function(done) {
       let callCnt = 0
@@ -115,7 +121,7 @@ describe('schedulerLicenseKey', function() {
         resources: [
           { id: 'a', title: 'Resource A' }
         ],
-        viewRender() {
+        datesRender() {
           expect($('.fc-license-message').length).toBe(1)
           callCnt++
           if (callCnt === 1) {

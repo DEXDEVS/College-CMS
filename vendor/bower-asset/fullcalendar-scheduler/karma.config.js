@@ -7,36 +7,36 @@ module.exports = function(config) {
     frameworks: [ 'jasmine' ],
 
     files: [
-      // dependencies for main lib
+
       'node_modules/moment/moment.js',
       'node_modules/jquery/dist/jquery.js',
       'node_modules/components-jqueryui/jquery-ui.js',
-      'node_modules/components-jqueryui/themes/cupertino/jquery-ui.css',
-
-      'fullcalendar/dist/fullcalendar.js',
-      'fullcalendar/dist/locale-all.js',
-      'fullcalendar/dist/fullcalendar.css',
-
-      // main lib files
-      'dist/scheduler.js',
-      'dist/scheduler.css',
-
-      // dependencies for tests
+      'node_modules/xhr-mock/dist/xhr-mock.js',
       'node_modules/native-promise-only/lib/npo.src.js',
       'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       'node_modules/jasmine-fixture/dist/jasmine-fixture.js',
       'node_modules/jquery-simulate/jquery.simulate.js',
-      'node_modules/jquery-mockjax/dist/jquery.mockjax.js',
+
+      // files from main project
+      'fullcalendar/dist/core/main.+(js|css)',
+      'fullcalendar/dist/interaction/main.+(js|css)',
+      'fullcalendar/dist/daygrid/main.+(js|css)',
+      'fullcalendar/dist/timegrid/main.+(js|css)',
+      'fullcalendar/dist/list/main.+(js|css)',
+      { pattern: 'fullcalendar/dist/*/*.map', included: false, nocache: true, watched: false },
+
+      // plugin files (ordering matters because of dependencies)
+      'dist/timeline/main.+(js|css)',
+      'dist/resource-common/main.+(js|css)',
+      'dist/resource-daygrid/main.+(js|css)',
+      'dist/resource-timegrid/main.+(js|css)',
+      'dist/resource-timeline/main.+(js|css)',
+      { pattern: 'dist/*/*.map', included: false, nocache: true, watched: false },
 
       'tests/automated/base.css',
+      { pattern: 'tests/automated/json/**', included: false, nocache: true, watched: false },
       'tmp/automated-tests.js',
-
-      { // serve all other files
-        pattern: '**/*',
-        included: false, // don't immediately execute
-        nocache: true, // don't let the webserver cache
-        watched: false // don't let changes trigger tests to restart
-      }
+      { pattern: 'tmp/automated-tests.js.map', included: false, nocache: true, watched: false }
     ],
 
     preprocessors: {
@@ -44,14 +44,12 @@ module.exports = function(config) {
     },
 
     customLaunchers: {
-      PhantomJS_custom: {
-        base: 'PhantomJS',
-        options: {
-          viewportSize: {
-            width: 1024,
-            height: 768
-          }
-        }
+      ChromeHeadless_custom: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--no-sandbox', // needed for TravisCI: https://docs.travis-ci.com/user/chrome#Sandboxing
+          '--window-size=1280,1696' // some tests only work with larger window (w?, h?)
+        ]
       }
     },
 

@@ -1,42 +1,30 @@
 const gulp = require('gulp')
-const shell = require('gulp-shell')
 const eslint = require('gulp-eslint')
-const tslint = require('gulp-tslint')
-const tslintLib = require('tslint')
-
-const tslintProgram = tslintLib.Linter.createProgram('./tsconfig.json')
+const shell = require('gulp-shell')
 
 gulp.task('lint', [
   'lint:ts',
   'lint:js:built',
   'lint:js:node',
-  'lint:js:tests',
-  'lint:dts',
-  'lint:example-repos'
+  'lint:js:tests'
 ])
 
-gulp.task('lint:ts', function() {
-  return gulp.src([
-    'src/**/*.ts',
-    'plugins/**/*.ts'
-  ])
-    .pipe(
-      tslint({ // will use tslint.json
-        formatter: 'verbose',
-        program: tslintProgram // for type-checking rules
-      })
-    )
-    .pipe(tslint.report())
-})
+gulp.task('lint:ts', shell.task('tslint --project .'))
 
-gulp.task('lint:js:built', [ 'webpack' ], function() {
+/*
+ONLY checks two things:
+- code is ES5 compliant (for IE11)
+- does not access any globals. this is important because the typescript compiler allows
+  accessing globals that are defined in the project for tests (tests/automated/globals.d.ts)
+*/
+gulp.task('lint:js:built', [ 'build' ], function() {
   return gulp.src([
-    'dist/*.js',
-    '!dist/*.min.js'
+    'dist/**/*.js',
+    '!**/*.min.js'
   ])
     .pipe(
-      eslint({ // only checks that globals are properly accessed
-        parserOptions: { 'ecmaVersion': 3 }, // for IE9
+      eslint({
+        parserOptions: { 'ecmaVersion': 5 },
         envs: [ 'browser', 'commonjs', 'amd' ],
         rules: { 'no-undef': 2 }
       })
@@ -48,6 +36,7 @@ gulp.task('lint:js:built', [ 'webpack' ], function() {
 gulp.task('lint:js:node', function() {
   return gulp.src([
     '*.js', // config files in root
+    'bin/*.js',
     'tasks/**/*.js'
   ])
     .pipe(
@@ -60,6 +49,10 @@ gulp.task('lint:js:node', function() {
     .pipe(eslint.failAfterError())
 })
 
+/*
+we would want to use tslint with jsRules:true, but doesn't work at all,
+because of tslint-config-standard possibly
+*/
 gulp.task('lint:js:tests', function() {
   return gulp.src([
     'tests/automated/**/*.js'
@@ -67,37 +60,10 @@ gulp.task('lint:js:tests', function() {
     .pipe(
       eslint({
         configFile: 'eslint.json',
-        envs: [ 'browser', 'jasmine', 'jquery' ],
-        globals: [
-          'moment',
-          'karmaConfig',
-          'pushOptions',
-          'describeOptions',
-          'describeTimezones',
-          'describeValues',
-          'pit',
-          'affix',
-          'getCurrentOptions',
-          'initCalendar',
-          'currentCalendar',
-          'spyOnMethod',
-          'spyOnCalendarCallback',
-          'spyCall',
-          'oneCall'
-        ]
+        envs: [ 'browser' ],
+        rules: { 'no-undef': 0 } // ignore referencing globals. tsc already checks this
       })
     )
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
 })
-
-// runs the definitions file through the typescript compiler with strict settings
-// tho we don't do a require('typescript'), we need the tsc executable
-gulp.task('lint:dts', [ 'ts-types' ], shell.task(
-  './node_modules/typescript/bin/tsc --strict dist/fullcalendar.d.ts'
-))
-
-// try to build example repos
-gulp.task('lint:example-repos', [ 'webpack', 'ts-types' ], shell.task(
-  './bin/build-example-repos.sh'
-))

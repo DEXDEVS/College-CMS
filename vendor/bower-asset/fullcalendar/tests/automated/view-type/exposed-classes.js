@@ -1,16 +1,17 @@
+import { DayGridView, DayGrid } from '@fullcalendar/daygrid'
+import { ListView } from '@fullcalendar/list'
+import { TimeGridView, TimeGrid } from '@fullcalendar/timegrid'
 
 describe('internal View/Grid classes', function() {
 
   it('are exposed', function() {
-    var FC = $.fullCalendar
 
-    expect(typeof FC.AgendaView).toBe('function')
-    expect(typeof FC.BasicView).toBe('function')
-    expect(typeof FC.MonthView).toBe('function')
-    expect(typeof FC.ListView).toBe('function')
+    expect(typeof TimeGridView).toBe('function')
+    expect(typeof DayGridView).toBe('function')
+    expect(typeof ListView).toBe('function')
 
-    expect(typeof FC.DayGrid).toBe('function')
-    expect(typeof FC.TimeGrid).toBe('function')
+    expect(typeof DayGrid).toBe('function')
+    expect(typeof TimeGrid).toBe('function')
   })
 
 })

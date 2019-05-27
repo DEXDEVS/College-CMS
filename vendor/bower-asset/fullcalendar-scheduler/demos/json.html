@@ -2,51 +2,60 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<link href='../fullcalendar/dist/fullcalendar.css' rel='stylesheet' />
-<link href='../fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
-<link href='../dist/scheduler.css' rel='stylesheet' />
-<script src='../node_modules/moment/moment.js'></script>
-<script src='../node_modules/jquery/dist/jquery.js'></script>
-<script src='../fullcalendar/dist/fullcalendar.js'></script>
-<script src='../dist/scheduler.js'></script>
+<link href='../fullcalendar/dist/core/main.css' rel='stylesheet' />
+<link href='../fullcalendar/dist/daygrid/main.css' rel='stylesheet' />
+<link href='../fullcalendar/dist/timegrid/main.css' rel='stylesheet' />
+<link href='../dist/timeline/main.css' rel='stylesheet' />
+<link href='../dist/resource-timeline/main.css' rel='stylesheet' />
+<script src='../fullcalendar/dist/core/main.js'></script>
+<script src='../fullcalendar/dist/interaction/main.js'></script>
+<script src='../fullcalendar/dist/daygrid/main.js'></script>
+<script src='../fullcalendar/dist/timegrid/main.js'></script>
+<script src='../dist/timeline/main.js'></script>
+<script src='../dist/resource-common/main.js'></script>
+<script src='../dist/resource-timeline/main.js'></script>
 <script>
 
-  $(function() { // document ready
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
 
-    $('#calendar').fullCalendar({
-      now: '2018-04-07',
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'resourceTimeline' ],
+      now: '2019-04-07',
       editable: true, // enable draggable events
       aspectRatio: 1.8,
       scrollTime: '00:00', // undo default 6am scrollTime
       header: {
         left: 'today prev,next',
         center: 'title',
-        right: 'timelineDay,timelineThreeDays,agendaWeek,month'
+        right: 'resourceTimelineDay,resourceTimelineThreeDays,timeGridWeek,dayGridMonth'
       },
-      defaultView: 'timelineDay',
+      defaultView: 'resourceTimelineDay',
       views: {
-        timelineThreeDays: {
-          type: 'timeline',
-          duration: { days: 3 }
+        resourceTimelineThreeDays: {
+          type: 'resourceTimeline',
+          duration: { days: 3 },
+          buttonText: '3 days'
         }
       },
       resourceLabelText: 'Rooms',
 
       resources: { // you can also specify a plain string like 'json/resources.json'
         url: 'json/resources.json',
-        error: function() {
-          $('#script-warning').show();
+        failure: function() {
+          document.getElementById('script-warning').style.display = 'block';
         }
       },
 
       events: { // you can also specify a plain string like 'json/events.json'
         url: 'json/events.json',
-        error: function() {
-          $('#script-warning').show();
+        failure: function() {
+          document.getElementById('script-warning').style.display = 'block';
         }
       }
     });
-  
+
+    calendar.render();
   });
 
 </script>
@@ -55,7 +64,7 @@
   body {
     margin: 0;
     padding: 0;
-    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
     font-size: 14px;
   }
 

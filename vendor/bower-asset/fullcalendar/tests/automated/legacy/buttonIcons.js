@@ -1,6 +1,9 @@
-describe('buttonIcons', function() {
+import BootstrapPlugin from '@fullcalendar/bootstrap'
+import DayGridPlugin from '@fullcalendar/daygrid'
 
+describe('buttonIcons', function() {
   pushOptions({
+    plugins: [ DayGridPlugin, BootstrapPlugin ],
     header: {
       left: 'prev,next today',
       center: 'title',
@@ -18,10 +21,10 @@ describe('buttonIcons', function() {
       var nextYearBtn = $cal.find('.fc-nextYear-button')
       var prevYearBtn = $cal.find('.fc-prevYear-button')
 
-      expect(prevBtn.find('span:first')).toHaveClass('fc-icon-left-single-arrow')
-      expect(nextBtn.find('span:first')).toHaveClass('fc-icon-right-single-arrow')
-      expect(nextYearBtn.find('span:first')).toHaveClass('fc-icon-right-double-arrow')
-      expect(prevYearBtn.find('span:first')).toHaveClass('fc-icon-left-double-arrow')
+      expect(prevBtn.find('span:first')).toHaveClass('fc-icon-chevron-left')
+      expect(nextBtn.find('span:first')).toHaveClass('fc-icon-chevron-right')
+      expect(nextYearBtn.find('span:first')).toHaveClass('fc-icon-chevrons-right')
+      expect(prevYearBtn.find('span:first')).toHaveClass('fc-icon-chevrons-left')
     })
   })
 
@@ -50,17 +53,17 @@ describe('buttonIcons', function() {
     })
   })
 
-  describe('when theme is true', function() {
+  describe('when theme is set', function() {
 
     pushOptions({
-      theme: true
+      themeSystem: 'bootstrap'
     })
 
     it('buttonIcons is ignored', function() {
       initCalendar()
       var $cal = $(currentCalendar.el)
-      var classesToSearch = [ '.fc-icon-left-single-arrow', '.fc-icon-right-double-arrow',
-        '.fc-icon-right-single-arrow', '.fc-icon-left-double-arrow' ]
+      var classesToSearch = [ '.fc-icon-chevron-left', '.fc-icon-chevrons-right',
+        '.fc-icon-chevron-right', '.fc-icon-chevrons-left' ]
 
       for (var i = 0; i < classesToSearch.length; i++) {
         var cls = classesToSearch[i]

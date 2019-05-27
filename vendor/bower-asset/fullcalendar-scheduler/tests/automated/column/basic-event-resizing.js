@@ -2,7 +2,7 @@ import { getRectCenter } from 'fullcalendar/tests/automated/lib/geom'
 import { getTrailingBoundingRect } from 'fullcalendar/tests/automated/lib/dom-geom'
 import { getDayGridDayEls } from 'fullcalendar/tests/automated/lib/day-grid'
 
-describe('basic-view event resizing', function() {
+describe('dayGrid-view event resizing', function() {
   pushOptions({
     now: '2015-11-28',
     editable: true,
@@ -11,8 +11,8 @@ describe('basic-view event resizing', function() {
       { id: 'b', title: 'Resource B' }
     ],
     views: {
-      basicThreeDay: {
-        type: 'basic',
+      resourceDayGridThreeDay: {
+        type: 'resourceDayGrid',
         duration: { days: 3 }
       }
     }
@@ -20,8 +20,7 @@ describe('basic-view event resizing', function() {
 
   describe('when there are no resource columns', function() {
     pushOptions({
-      defaultView: 'basicWeek',
-      groupByResource: false
+      defaultView: 'dayGridWeek'
     })
 
     it('allows non-resource resizing', function(done) {
@@ -31,7 +30,7 @@ describe('basic-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-23' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           if (afterRenderCalled) {
             return
           }
@@ -44,15 +43,15 @@ describe('basic-view event resizing', function() {
                 expect(resizeCalled).toBe(true)
                 done()
               }
-            }
-            )
+            })
         },
-        eventResize(event) {
+        eventResize(arg) {
           resizeCalled = true
-          expect(event.start).toEqualMoment('2015-11-23')
-          expect(event.end).toEqualMoment('2015-11-25')
-          const resource = currentCalendar.getEventResource(event)
-          expect(resource).toBeFalsy()
+          expect(arg.event.start).toEqualDate('2015-11-23')
+          expect(arg.event.end).toEqualDate('2015-11-25')
+
+          let resources = arg.event.getResources()
+          expect(resources.length).toBe(0)
         }
       })
     })
@@ -60,8 +59,7 @@ describe('basic-view event resizing', function() {
 
   describe('with resource columns above date columns', function() {
     pushOptions({
-      defaultView: 'basicThreeDay',
-      groupByResource: true
+      defaultView: 'resourceDayGridThreeDay'
     })
 
     it('allows resizing', function(done) {
@@ -71,7 +69,7 @@ describe('basic-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-29', resourceId: 'a' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           if (afterRenderCalled) {
             return
           }
@@ -84,15 +82,16 @@ describe('basic-view event resizing', function() {
                 expect(resizeCalled).toBe(true)
                 done()
               }
-            }
-            )
+            })
         },
-        eventResize(event) {
+        eventResize(arg) {
           resizeCalled = true
-          expect(event.start).toEqualMoment('2015-11-29')
-          expect(event.end).toEqualMoment('2015-12-01')
-          const resource = currentCalendar.getEventResource(event)
-          expect(resource.id).toBe('a')
+          expect(arg.event.start).toEqualDate('2015-11-29')
+          expect(arg.event.end).toEqualDate('2015-12-01')
+
+          let resources = arg.event.getResources()
+          expect(resources.length).toBe(1)
+          expect(resources[0].id).toBe('a')
         }
       })
     })
@@ -104,7 +103,7 @@ describe('basic-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-29', resourceId: 'a' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           if (afterRenderCalled) {
             return
           }
@@ -118,10 +117,9 @@ describe('basic-view event resizing', function() {
                 expect(resizeCalled).toBe(false)
                 done()
               }
-            }
-            )
+            })
         },
-        eventResize(event) {
+        eventResize(arg) {
           resizeCalled = true
         }
       })
@@ -130,8 +128,8 @@ describe('basic-view event resizing', function() {
 
   describe('with date columns above resource columns', function() {
     pushOptions({
-      defaultView: 'basicThreeDay',
-      groupByDateAndResource: true
+      defaultView: 'resourceDayGridThreeDay',
+      datesAboveResources: true
     })
 
     it('allows resizing', function(done) {
@@ -141,7 +139,7 @@ describe('basic-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-28', resourceId: 'b' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           if (afterRenderCalled) {
             return
           }
@@ -158,12 +156,14 @@ describe('basic-view event resizing', function() {
             }
             )
         },
-        eventResize(event) {
+        eventResize(arg) {
           resizeCalled = true
-          expect(event.start).toEqualMoment('2015-11-28')
-          expect(event.end).toEqualMoment('2015-12-01')
-          const resource = currentCalendar.getEventResource(event)
-          expect(resource.id).toBe('b')
+          expect(arg.event.start).toEqualDate('2015-11-28')
+          expect(arg.event.end).toEqualDate('2015-12-01')
+
+          let resources = arg.event.getResources()
+          expect(resources.length).toBe(1)
+          expect(resources[0].id).toBe('b')
         }
       })
     })
@@ -175,7 +175,7 @@ describe('basic-view event resizing', function() {
         events: [
           { title: 'event1', className: 'event1', start: '2015-11-28', resourceId: 'a' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           if (afterRenderCalled) {
             return
           }
@@ -189,10 +189,9 @@ describe('basic-view event resizing', function() {
                 expect(resizeCalled).toBe(false)
                 done()
               }
-            }
-            )
+            })
         },
-        eventResize(event) {
+        eventResize(arg) {
           resizeCalled = true
         }
       })

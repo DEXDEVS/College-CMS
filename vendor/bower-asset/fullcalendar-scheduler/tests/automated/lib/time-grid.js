@@ -1,3 +1,5 @@
+import { startOfDay } from '@fullcalendar/core'
+import { formatIsoDay, ensureDate } from 'fullcalendar/tests/automated/datelib/utils'
 import { getBoundingRect } from 'fullcalendar/tests/automated/lib/dom-geom'
 import { getTimeGridTop } from 'fullcalendar/tests/automated/lib/time-grid'
 
@@ -12,16 +14,18 @@ export function getResourceTimeGridRect(resourceId, start, end) {
     ({ end } = obj)
   }
 
-  start = $.fullCalendar.moment.parseZone(start)
-  end = $.fullCalendar.moment.parseZone(end)
+  start = ensureDate(start)
+  end = ensureDate(end)
 
-  const startTime = start.time()
-  const endTime =
-    end.isSame(start, 'day')
-      ? end.time()
+  const startDay = startOfDay(start)
+  const startTimeMs = start.valueOf() - startDay.valueOf()
+  const endDay = startOfDay(end)
+  const endTimeMs =
+    (startDay.valueOf() === endDay.valueOf())
+      ? end.valueOf() - endDay.valueOf()
       : end < start
-        ? startTime
-        : moment.duration({ hours: 24 })
+        ? startTimeMs
+        : (1000 * 60 * 60 * 24) // 1 day
 
   const dayEls = getResourceTimeGridDayEls(resourceId, start)
   if (dayEls.length === 1) {
@@ -29,22 +33,26 @@ export function getResourceTimeGridRect(resourceId, start, end) {
     return {
       left: dayRect.left,
       right: dayRect.right,
-      top: getTimeGridTop(startTime),
-      bottom: getTimeGridTop(endTime)
+      top: getTimeGridTop(startTimeMs),
+      bottom: getTimeGridTop(endTimeMs)
     }
   }
 }
 
 
 export function getResourceTimeGridPoint(resourceId, date) {
-  date = $.fullCalendar.moment.parseZone(date)
+  date = ensureDate(date)
 
+  const day = startOfDay(date)
+  const timeMs = date.valueOf() - day.valueOf()
   const dayEls = getResourceTimeGridDayEls(resourceId, date)
+
   if (dayEls.length === 1) {
     const dayRect = getBoundingRect(dayEls.eq(0))
+
     return {
       left: (dayRect.left + dayRect.right) / 2,
-      top: getTimeGridTop(date.time())
+      top: getTimeGridTop(timeMs)
     }
   } else {
     return null
@@ -53,14 +61,16 @@ export function getResourceTimeGridPoint(resourceId, date) {
 
 
 function getResourceTimeGridDayEls(resourceId, date) {
-  date = $.fullCalendar.moment.parseZone(date)
-  return $(`.fc-time-grid .fc-day[data-date="${date.format('YYYY-MM-DD')}"]` +
-    '[data-resource-id="' + resourceId + '"]')
+  date = ensureDate(date)
+  return $(
+    '.fc-time-grid .fc-day[data-date="' + formatIsoDay(date) + '"]' +
+    '[data-resource-id="' + resourceId + '"]'
+  )
 }
 
 
 export function getTimeGridResourceIds() {
-  return $('.fc-agenda-view .fc-head .fc-resource-cell').map(function(i, th) {
+  return $('.fc-timeGrid-view .fc-head .fc-resource-cell').map(function(i, th) {
     return $(th).data('resource-id')
   }).get() // jQuery -> array
 }

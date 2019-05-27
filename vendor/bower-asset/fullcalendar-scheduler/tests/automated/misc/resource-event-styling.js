@@ -28,8 +28,8 @@ describe('event styling hooks', function() {
   describe('when distinct resources', function() {
 
     describeOptions('defaultView', {
-      'with agenda': 'agendaDay',
-      'with timeline': 'timelineDay'
+      'with timeGrid': 'resourceTimeGridDay',
+      'with timeline': 'resourceTimelineDay'
     }, function() {
 
       it('receives colors from resourceId', function(done) {
@@ -37,7 +37,7 @@ describe('event styling hooks', function() {
           events: [
             { id: '1', title: 'event 1', className: 'event1', resourceId: 'a', start: '2016-02-14T01:00:00' }
           ],
-          eventAfterAllRender() {
+          _eventsPositioned() {
             expect($('.event1').css('background-color')).toMatch(RED_RE)
             done()
           }
@@ -49,7 +49,7 @@ describe('event styling hooks', function() {
           events: [
             { id: '1', title: 'event 1', className: 'event1', resourceIds: [ 'a', 'b' ], start: '2016-02-14T01:00:00' }
           ],
-          eventAfterAllRender() {
+          _eventsPositioned() {
             const els = $('.event1')
             expect(els.length).toBe(2)
             expect(els.eq(0).css('background-color')).toMatch(RED_RE)
@@ -64,7 +64,7 @@ describe('event styling hooks', function() {
           events: [
             { id: '1', title: 'event 1', className: 'event1', resourceId: 'a', start: '2016-02-14T01:00:00' }
           ],
-          eventAfterAllRender() {
+          _eventsPositioned() {
             const el = $('.event1')
             expect(el.length).toBe(1)
             expect(el).toHaveClass('re1')
@@ -80,7 +80,7 @@ describe('event styling hooks', function() {
           events: [
             { id: '1', title: 'event 1', className: 'event1', resourceIds: [ 'a', 'b' ], start: '2016-02-14T01:00:00' }
           ],
-          eventAfterAllRender() {
+          _eventsPositioned() {
             const els = $('.event1')
             expect(els.length).toBe(2)
             expect(els.eq(0)).toHaveClass('re1')
@@ -98,7 +98,7 @@ describe('event styling hooks', function() {
 
   describe('when no distinct resources', function() {
     pushOptions({
-      defaultView: 'agendaWeek'
+      defaultView: 'timeGridWeek'
     })
 
     it('receives colors from resourceId', function(done) {
@@ -106,7 +106,7 @@ describe('event styling hooks', function() {
         events: [
           { id: '1', title: 'event 1', className: 'event1', resourceId: 'a', start: '2016-02-14T01:00:00' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           expect($('.event1').css('background-color')).toMatch(RED_RE) // x-browser
           done()
         }
@@ -118,7 +118,7 @@ describe('event styling hooks', function() {
         events: [
           { id: '1', title: 'event 1', className: 'event1', resourceIds: [ 'a', 'b' ], start: '2016-02-14T01:00:00' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           const el = $('.event1')
           expect(el.length).toBe(1)
           expect(el.css('border-left-color')).toMatch(BLUE_RE)
@@ -133,7 +133,7 @@ describe('event styling hooks', function() {
         events: [
           { id: '1', title: 'event 1', className: 'event1', resourceId: 'a', start: '2016-02-14T01:00:00' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           const el = $('.event1')
           expect(el.length).toBe(1)
           expect(el).toHaveClass('re1')
@@ -149,7 +149,7 @@ describe('event styling hooks', function() {
         events: [
           { id: '1', title: 'event 1', className: 'event1', resourceIds: [ 'a', 'b' ], start: '2016-02-14T01:00:00' }
         ],
-        eventAfterAllRender() {
+        _eventsPositioned() {
           const el = $('.event1')
           expect(el.length).toBe(1)
           expect(el).toHaveClass('re1')

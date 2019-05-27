@@ -3,13 +3,14 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   3.2.9
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
+ * @version   3.3.1
  */
 
 namespace kartik\grid;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * A BooleanColumn will convert true/false values as user friendly indicators with an automated drop down filter for the
@@ -81,18 +82,35 @@ class BooleanColumn extends DataColumn
             $this->falseLabel = Yii::t('kvgrid', 'Inactive');
         }
         $this->filter = [true => $this->trueLabel, false => $this->falseLabel];
-        $bs = $this->grid->bootstrap;
-        $isBs4 = $this->grid->isBs4();
-
         if (empty($this->trueIcon)) {
-            $this->trueIcon = $bs ? ($isBs4 ? GridView::ICON_ACTIVE_BS4 : GridView::ICON_ACTIVE) : $this->trueLabel;
+            $this->trueIcon = $this->getIconMarkup('true');
         }
 
         if (empty($this->falseIcon)) {
-            $this->falseIcon = $bs ? ($isBs4 ? GridView::ICON_INACTIVE_BS4 : GridView::ICON_INACTIVE) : $this->falseLabel;
+            $this->falseIcon = $this->getIconMarkup('false');
         }
-
         parent::init();
+    }
+
+    /**
+     * Get icon HTML markup
+     * @param string $type the type of markup `true` or `false`
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    protected function getIconMarkup($type = 'true')
+    {
+        $label = $type === 'false' ? $this->falseLabel: $this->trueLabel;
+        if (!$this->grid->bootstrap) {
+            return $label;
+        }
+        $isBs4 = $this->grid->isBs4();
+        if ($type === 'true') {
+            return ($isBs4 ? GridView::ICON_ACTIVE_BS4 : GridView::ICON_ACTIVE) . 
+                Html::tag('span', $this->trueLabel, ['class' => 'kv-grid-boolean']);
+        }
+        return ($isBs4 ? GridView::ICON_INACTIVE_BS4 : GridView::ICON_INACTIVE) . 
+                Html::tag('span', $this->falseLabel, ['class' => 'kv-grid-boolean']);
     }
 
     /**

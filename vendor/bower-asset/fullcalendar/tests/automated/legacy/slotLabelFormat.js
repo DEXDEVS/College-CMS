@@ -2,7 +2,7 @@ describe('slotLabelFormat', function() {
 
   pushOptions({
     defaultDate: '2014-06-04',
-    defaultView: 'agendaWeek'
+    defaultView: 'timeGridWeek'
   })
 
   function getAxisText() {
@@ -23,9 +23,9 @@ describe('slotLabelFormat', function() {
 
   it('renders correctly when customized', function() {
     initCalendar({
-      slotLabelFormat: 'H:mm:mm[!]'
+      slotLabelFormat: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
     })
-    expect(getAxisText()).toBe('0:00:00!')
+    expect(getAxisText()).toBe('00:00:00')
   })
 
 })

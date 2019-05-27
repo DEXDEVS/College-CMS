@@ -6,7 +6,7 @@
 <script src='../../node_modules/jquery/dist/jquery.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../dist/fullcalendar.js'></script>
-<script src='../../dist/gcal.js'></script>
+<script src='../../dist/plugins/google-calendar.js'></script>
 <script>
 
   $(document).ready(function() {
@@ -15,7 +15,7 @@
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'dayGridMonth,week,dayGridWeek,day,dayGridDay'
       },
       //editable: true,
       eventSources: [
@@ -25,7 +25,7 @@
           className: 'holiday'
         },
         /*
-        $.fullCalendar.gcalFeed(
+        FullCalendar.gcalFeed(
           "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
           {
             editable: true,

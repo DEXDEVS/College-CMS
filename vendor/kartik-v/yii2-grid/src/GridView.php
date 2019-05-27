@@ -3,8 +3,8 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   3.2.9
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
+ * @version   3.3.1
  */
 
 namespace kartik\grid;
@@ -59,6 +59,16 @@ use yii\widgets\Pjax;
 class GridView extends YiiGridView implements BootstrapInterface
 {
     use BootstrapTrait;
+
+    /**
+     * @var string the top part of the table after the header (used for location of the page summary row)
+     */
+    const POS_TOP = 'top';
+
+    /**
+     * @var string the bottom part of the table before the footer (used for location of the page summary row)
+     */
+    const POS_BOTTOM = 'bottom';
 
     /**
      * @var string the **default** bootstrap contextual color type (applicable only for panel contextual style)
@@ -406,6 +416,12 @@ class GridView extends YiiGridView implements BootstrapInterface
      * This label will replace the plural word `items-many` within the grid summary text.
      */
     public $itemLabelMany;
+
+    /**
+     * @var string the default label shown for each record in the grid (accusative case). This is applicable for few
+     * languages like German.
+     */
+    public $itemLabelAccusative;
 
     /**
      * @var string the template for rendering the grid within a bootstrap styled panel.
@@ -778,6 +794,11 @@ HTML;
     public $showPageSummary = false;
 
     /**
+     * @var string location of the page summary row (whether [[POS_TOP]] or [[POS_BOTTOM]])
+     */
+    public $pageSummaryPosition = self::POS_BOTTOM;
+
+    /**
      * @array the HTML attributes for the page summary container. The following special options are recognized:
      *
      * - `tag`: _string_, the tag used to render the page summary. Defaults to `tbody`.
@@ -983,6 +1004,14 @@ HTML;
     public $containerOptions = [];
 
     /**
+     * Whether to hash export config and prevent data tampering of the export config when transmitting this between
+     * client and server during grid data export. Defaults to `true`. You may set this to `false` if your config
+     * contains dynamic data (like current date time). However, note that when `false` it adds the possibility of
+     * your client data being tampered during grid export when read by server.
+     */
+    public $hashExportConfig = true;
+
+    /**
      * @var string the generated client script for the grid
      */
     protected $_gridClientFunc = '';
@@ -1063,12 +1092,7 @@ HTML;
         }
         $this->initBsVersion();
         Html::addCssClass($this->options, 'is-bs' . ($this->isBs4() ? '4' : '3'));
-        if (empty($this->options['id'])) {
-            $this->options['id'] = $this->getId();
-        }
-        if (empty($this->pjaxSettings['options']['id'])) {
-            $this->pjaxSettings['options']['id'] = $this->options['id'] . '-pjax';
-        }
+        $this->initPjaxContainerId();
         if (!isset($this->itemLabelSingle)) {
             $this->itemLabelSingle = Yii::t('kvgrid', 'item');
         }
@@ -1080,6 +1104,9 @@ HTML;
         }
         if (!isset($this->itemLabelMany)) {
             $this->itemLabelMany = Yii::t('kvgrid', 'items-many');
+        }
+        if (!isset($this->itemLabelAccusative)) {
+            $this->itemLabelAccusative = Yii::t('kvgrid', 'items-acc');
         }
         $isBs4 = $this->isBs4();
         if ($isBs4) {
@@ -1107,6 +1134,29 @@ HTML;
         }
         $this->_toggleButtonId = $this->options['id'] . '-togdata-' . ($this->_isShowAll ? 'all' : 'page');
         parent::init();
+    }
+
+    /**
+     * Get pjax container identifier
+     * @return string
+     */
+    public function getPjaxContainerId()
+    {
+        $this->initPjaxContainerId();
+        return $this->pjaxSettings['options']['id'];
+    }
+
+    /**
+     * Initializes pjax container identifier
+     */
+    public function initPjaxContainerId()
+    {
+        if (empty($this->options['id'])) {
+            $this->options['id'] = $this->getId();
+        }
+        if (empty($this->pjaxSettings['options']['id'])) {
+            $this->pjaxSettings['options']['id'] = $this->options['id'] . '-pjax';
+        }
     }
 
     /**
@@ -1170,9 +1220,30 @@ HTML;
             $this->pageSummaryRowOptions['class'] = ($this->isBs4() ? 'table-' : '') . 'warning kv-page-summary';
         }
         $cells = [];
-        /** @var DataColumn $column */
-        foreach ($this->columns as $column) {
+        $skipped = [];
+        $cols = count($this->columns);
+        for ($i = 0; $i < $cols; $i++) {
+            /** @var DataColumn $column */
+            $column = $this->columns[$i];
+            if (!method_exists($column, 'renderPageSummaryCell')) {
+                $cells[] = Html::tag('td');
+                continue;
+            }
             $cells[] = $column->renderPageSummaryCell();
+            if (!empty($column->pageSummaryOptions['colspan'])) {
+                $span = (int) $column->pageSummaryOptions['colspan'];
+                if ($span > 0) {
+                    $skipCols = range($i + 1, $i + $span - 1);
+                    $skipped = array_merge($skipCols, $skipped);
+                }
+            }
+        }
+        if (!empty($skipped )) {
+            for ($i = 0; $i < $cols; $i++) {
+                if (in_array($i, $skipped )) {
+                    $cells[$i] = '';
+                }
+            }
         }
         $tag = ArrayHelper::remove($this->pageSummaryContainer, 'tag', 'tbody');
         $content = Html::tag('tr', implode('', $cells), $this->pageSummaryRowOptions);
@@ -1187,7 +1258,8 @@ HTML;
     {
         $content = parent::renderTableBody();
         if ($this->showPageSummary) {
-            return $content . $this->renderPageSummary();
+            $summary = $this->renderPageSummary();
+            return $this->pageSummaryPosition === self::POS_TOP ? ($summary . $content) : ($content . $summary);
         }
         return $content;
     }
@@ -1249,7 +1321,9 @@ HTML;
             if ($format === self::JSON) {
                 unset($config['jsonReplacer']);
             }
-            $dataToHash = $this->moduleId . $setting['filename'] . $mime . $encoding . $bom . Json::encode($config);
+            $cfg = $this->hashExportConfig ? Json::encode($config) : '';
+            $intCfg = empty($this->hashExportConfig) ? 0 : 1;
+            $dataToHash = $this->moduleId . $setting['filename'] . $mime . $encoding . $bom . $intCfg . $cfg;
             $hash = Yii::$app->security->hashData($dataToHash, $this->_module->exportEncryptSalt);
             $items[] = [
                 'label' => $label,
@@ -1258,6 +1332,7 @@ HTML;
                     'class' => 'export-' . $format,
                     'data-mime' => $mime,
                     'data-hash' => $hash,
+                    'data-hash-export-config' => $intCfg,
                     'data-css-styles' => $cssStyles,
                 ],
                 'options' => $setting['options'],
@@ -1373,6 +1448,7 @@ HTML;
             'items' => $this->itemLabelPlural,
             'items-few' => $this->itemLabelFew,
             'items-many' => $this->itemLabelMany,
+            'items-acc' => $this->itemLabelAccusative,
         ];
         $pagination = $this->dataProvider->getPagination();
         if ($pagination !== false) {

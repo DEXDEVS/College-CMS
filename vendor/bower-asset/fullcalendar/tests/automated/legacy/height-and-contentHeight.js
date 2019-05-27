@@ -1,3 +1,5 @@
+import { getFirstDateEl } from '../lib/ViewUtils'
+
 (function() {
 
   [ 'height', 'contentHeight' ].forEach(function(heightProp) {
@@ -5,6 +7,8 @@
       var calendarEl
       var heightElm
       var asAMethod
+
+      /** @type {any} */
       var heightPropDescriptions = [
         { description: 'as a number', height: 600 },
         { description: 'as a function', height: getParentHeight, heightWrapper: true }
@@ -32,16 +36,15 @@
 
       // relies on asAMethod (boolean)
       // otherOptions: other calendar options to dynamically set (assumes asAMethod)
-      function init(heightVal, otherOptions) {
-        if (asAMethod) {
-          initCalendar({}, calendarEl)
+      function init(heightVal) {
 
-          if (otherOptions === undefined) {
-            currentCalendar.option(heightProp, heightVal)
-          } else {
-            otherOptions[heightProp] = heightVal // reuse same object. insert height option
-            currentCalendar.option(otherOptions)
-          }
+        if (asAMethod) {
+
+          initCalendar({}, calendarEl)
+          var dateEl = getFirstDateEl()
+          currentCalendar.setOption(heightProp, heightVal)
+          expect(getFirstDateEl()).toBe(dateEl)
+
         } else {
           initCalendar({ [heightProp]: heightVal }, calendarEl)
         }
@@ -71,14 +74,18 @@
           describe('for ' + heightProp, function() {
             describe('when in month view', function() {
               pushOptions({
-                defaultView: 'month'
+                defaultView: 'dayGridMonth'
               })
 
               heightPropDescriptions.forEach(function(testInfo) {
                 describe(testInfo.description, function() {
+
                   if (testInfo.heightWrapper) {
                     beforeEach(function() {
-                      calendarEl.wrap('<div class="calendar-container" style="height: 600px;" />')
+                      calendarEl.wrap('<div id="calendar-container" style="height: 600px;" />')
+                    })
+                    afterEach(function() {
+                      $('#calendar-container').remove()
                     })
                   }
 
@@ -135,19 +142,6 @@
                       expect($('.fc-day-grid-container')).toHaveScrollbars()
                     })
                   })
-
-                  describe('when setting height, contentHeight option with other options', function() {
-                    pushOptions({
-                      [heightProp]: 600 // initialize with another height
-                    })
-                    beforeEach(function() {
-                      init(250, { minTime: '00:00' }) // then change height, providing other opts to set too
-                    })
-
-                    it('height of the view container should change', function() {
-                      expectHeight(250)
-                    })
-                  })
                 })
               })
 
@@ -170,7 +164,7 @@
               })
             });
 
-            [ 'basicWeek', 'basicDay' ].forEach(function(viewName) {
+            [ 'dayGridWeek', 'dayGridDay' ].forEach(function(viewName) {
               describe('in ' + viewName + ' view', function() {
                 pushOptions({
                   defaultView: viewName
@@ -180,7 +174,10 @@
                   describe(testInfo.description, function() {
                     if (testInfo.heightWrapper) {
                       beforeEach(function() {
-                        calendarEl.wrap('<div class="calendar-container" style="height: 600px;" />')
+                        calendarEl.wrap('<div id="calendar-container" style="height: 600px;" />')
+                      })
+                      afterEach(function() {
+                        $('#calendar-container').remove()
                       })
                     }
 
@@ -218,7 +215,7 @@
               })
             });
 
-            [ 'agendaWeek', 'agendaDay' ].forEach(function(viewName) {
+            [ 'timeGridWeek', 'timeGridDay' ].forEach(function(viewName) {
               describe('in ' + viewName + ' view', function() {
                 pushOptions({
                   defaultView: viewName
@@ -234,7 +231,10 @@
                     describe(testInfo.description, function() {
                       if (testInfo.heightWrapper) {
                         beforeEach(function() {
-                          calendarEl.wrap('<div class="calendar-container" style="height: 600px;" />')
+                          calendarEl.wrap('<div id="calendar-container" style="height: 600px;" />')
+                        })
+                        afterEach(function() {
+                          $('#calendar-container').remove()
                         })
                       }
 

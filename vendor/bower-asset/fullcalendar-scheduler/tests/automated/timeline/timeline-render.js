@@ -1,3 +1,4 @@
+import { startOfDay } from '@fullcalendar/core'
 
 describe('timeline rendering', function() {
   pushOptions({
@@ -23,7 +24,7 @@ describe('timeline rendering', function() {
 
   it('has correct vertical scroll and gutters', function() {
     initCalendar({
-      defaultView: 'timeline',
+      defaultView: 'resourceTimeline',
       resources: buildResources(50)
     })
 
@@ -48,7 +49,39 @@ describe('timeline rendering', function() {
     })
 
     expect(
-      $('.fc-head .fc-time-area th:first .fc-cell-text').text()
-    ).toBe('P 23.10.2017.')
+      $('.fc-head .fc-time-area th:first').attr('data-date')
+    ).toBe('2017-10-22T00:00:00')
+  })
+
+  it('call dayRender for each day', function() {
+    let callCnt = 0
+
+    initCalendar({
+      defaultView: 'timelineWeek',
+      slotDuration: { days: 1 },
+      dayRender(arg) {
+        expect(arg.date instanceof Date).toBe(true)
+        expect(arg.el instanceof HTMLElement).toBe(true)
+        expect(typeof arg.view).toBe('object')
+        callCnt++
+      }
+    })
+
+    expect(callCnt).toBe(7)
+  })
+
+  it('call dayRender for each hour', function() {
+    let callCnt = 0
+
+    initCalendar({
+      defaultView: 'timelineDay',
+      slotDuration: { hours: 1 },
+      dayRender(arg) {
+        expect(startOfDay(arg.date)).toEqualDate('2017-10-27')
+        callCnt++
+      }
+    })
+
+    expect(callCnt).toBe(24)
   })
 })

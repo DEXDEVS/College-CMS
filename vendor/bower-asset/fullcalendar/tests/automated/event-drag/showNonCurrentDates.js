@@ -4,7 +4,7 @@ import * as DayGridRenderUtils from '../view-render/DayGridRenderUtils'
 
 describe('showNonCurrentDates event dragging', function() {
   pushOptions({
-    defaultView: 'month',
+    defaultView: 'dayGridMonth',
     defaultDate: '2017-06-01',
     showNonCurrentDates: false,
     events: [
@@ -14,24 +14,27 @@ describe('showNonCurrentDates event dragging', function() {
   })
 
   describe('when dragging pointer into disabled region', function() {
-    pit('won\'t allow the drop', function() {
+    it('won\'t allow the drop', function(done) {
       initCalendar()
-      return EventDragUtils.drag(
-        DayGridRenderUtils.getSingleDayEl('2017-06-08')[0].getBoundingClientRect(),
-        DayGridRenderUtils.getDisabledEl(3)[0].getBoundingClientRect() // the cell before Jun 1
-      ).then(function(res) {
-        expect(res.isSuccess).toBe(false)
-      })
+      EventDragUtils.drag(
+        DayGridRenderUtils.getDayEl('2017-06-08')[0].getBoundingClientRect(),
+        DayGridRenderUtils.getDisabledDayElAtIndex(3)[0].getBoundingClientRect() // the cell before Jun 1
+      )
+        .then(function(res) {
+          expect(res).toBe(false)
+        })
+        .then(done)
     })
   })
 
   describe('when dragging an event\'s start into a disabled region', function() {
-    pit('allow the drop if the cursor stays over non-disabled cells', function() {
+    it('allow the drop if the cursor stays over non-disabled cells', function(done) {
       initCalendar()
-      return DayGridEventDragUtils.drag('2017-06-08', '2017-06-01')
+      DayGridEventDragUtils.drag('2017-06-08', '2017-06-01')
         .then(function(res) {
-          expect(res.isSuccess).toBe(true)
+          expect(typeof res).toBe('object')
         })
+        .then(done)
     })
   })
 })

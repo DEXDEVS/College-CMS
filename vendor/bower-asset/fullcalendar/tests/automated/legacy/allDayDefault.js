@@ -11,7 +11,7 @@ describe('allDayDefault', function() {
           }
         ]
       })
-      var eventObj = currentCalendar.clientEvents('1')[0]
+      var eventObj = currentCalendar.getEventById('1')
       expect(eventObj.allDay).toEqual(false)
     })
 
@@ -25,7 +25,7 @@ describe('allDayDefault', function() {
           }
         ]
       })
-      var eventObj = currentCalendar.clientEvents('1')[0]
+      var eventObj = currentCalendar.getEventById('1')
       expect(eventObj.allDay).toEqual(false)
     })
 
@@ -38,7 +38,7 @@ describe('allDayDefault', function() {
           }
         ]
       })
-      var eventObj = currentCalendar.clientEvents('1')[0]
+      var eventObj = currentCalendar.getEventById('1')
       expect(eventObj.allDay).toEqual(true)
     })
 
@@ -52,7 +52,7 @@ describe('allDayDefault', function() {
           }
         ]
       })
-      var eventObj = currentCalendar.clientEvents('1')[0]
+      var eventObj = currentCalendar.getEventById('1')
       expect(eventObj.allDay).toEqual(true)
     })
 
@@ -67,7 +67,7 @@ describe('allDayDefault', function() {
         ]
       })
 
-      var eventObj = currentCalendar.clientEvents('1')[0]
+      var eventObj = currentCalendar.getEventById('1')
       expect(eventObj.allDay).toEqual(false)
     })
 
@@ -81,7 +81,7 @@ describe('allDayDefault', function() {
           }
         ]
       })
-      var eventObj = currentCalendar.clientEvents('1')[0]
+      var eventObj = currentCalendar.getEventById('1')
       expect(eventObj.allDay).toEqual(false)
     })
 
@@ -99,7 +99,7 @@ describe('allDayDefault', function() {
           }
         ]
       })
-      var eventObj = currentCalendar.clientEvents('1')[0]
+      var eventObj = currentCalendar.getEventById('1')
       expect(eventObj.allDay).toEqual(false)
     })
 
@@ -114,7 +114,7 @@ describe('allDayDefault', function() {
           }
         ]
       })
-      var eventObj = currentCalendar.clientEvents('1')[0]
+      var eventObj = currentCalendar.getEventById('1')
       expect(eventObj.allDay).toEqual(true)
     })
 
@@ -138,7 +138,7 @@ describe('source.allDayDefault', function() {
         }
       ]
     })
-    var eventObj = currentCalendar.clientEvents('1')[0]
+    var eventObj = currentCalendar.getEventById('1')
     expect(eventObj.allDay).toEqual(false)
   })
 
@@ -157,7 +157,7 @@ describe('source.allDayDefault', function() {
         }
       ]
     })
-    var eventObj = currentCalendar.clientEvents('1')[0]
+    var eventObj = currentCalendar.getEventById('1')
     expect(eventObj.allDay).toEqual(true)
   })
 
@@ -176,7 +176,7 @@ describe('source.allDayDefault', function() {
         }
       ]
     })
-    var eventObj = currentCalendar.clientEvents('1')[0]
+    var eventObj = currentCalendar.getEventById('1')
     expect(eventObj.allDay).toEqual(false)
   })
 
@@ -195,7 +195,7 @@ describe('source.allDayDefault', function() {
         }
       ]
     })
-    var eventObj = currentCalendar.clientEvents('1')[0]
+    var eventObj = currentCalendar.getEventById('1')
     expect(eventObj.allDay).toEqual(false)
   })
 

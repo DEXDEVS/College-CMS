@@ -48,8 +48,8 @@ describe('column-based view rerendering', function() {
   })
 
   describeOptions('defaultView', {
-    'when agenda': 'agendaDay',
-    'when basic': 'basicDay'
+    'when timeGrid': 'resourceTimeGridDay',
+    'when dayGrid': 'resourceDayGridDay'
   }, function() {
 
     pushOptions({
@@ -60,10 +60,10 @@ describe('column-based view rerendering', function() {
       ]
     })
 
-    it('adjusts to removeResource', function() {
+    it('adjusts to Resource::remove', function() {
       initCalendar()
       expect(getOrderedResourceIds()).toEqual([ 'a', 'b', 'c' ])
-      currentCalendar.removeResource('a')
+      currentCalendar.getResourceById('a').remove()
       expect(getOrderedResourceIds()).toEqual([ 'b', 'c' ])
     })
 
@@ -84,8 +84,8 @@ describe('column-based view rerendering', function() {
     initCalendar({
       now: '2015-08-07',
       scrollTime: '00:00',
-      defaultView: 'agendaDay',
-      resources(callback) {
+      defaultView: 'resourceTimeGridDay',
+      resources(arg, callback) {
         setTimeout(function() {
           callback([
             { id: 'a', title: 'Auditorium A' },
@@ -94,7 +94,7 @@ describe('column-based view rerendering', function() {
           ])
         }, 100)
       },
-      events(start, end, timezone, callback) {
+      events(arg, callback) {
         setTimeout(function() {
           callback([
             { id: '1', resourceId: 'b', start: '2015-08-07T02:00:00', end: '2015-08-07T07:00:00', title: 'event 1' },
@@ -103,10 +103,10 @@ describe('column-based view rerendering', function() {
           ])
         }, 100)
       },
-      resourceRender(resource, headTd) {
-        headTd.text(resource.title + renderCalls)
+      resourceRender(arg) {
+        $(arg.el).text(arg.resource.title + renderCalls)
       },
-      eventAfterAllRender() {
+      _eventsPositioned() {
         const cellText = $.trim($('th[data-resource-id="a"]').text())
         renderCalls++
         if (renderCalls === 1) {
@@ -126,8 +126,8 @@ describe('column-based view rerendering', function() {
     initCalendar({
       now: '2015-08-07',
       scrollTime: '00:00',
-      defaultView: 'agendaDay',
-      resources(callback) {
+      defaultView: 'resourceTimeGridDay',
+      resources(arg, callback) {
         setTimeout(function() {
           callback([
             { id: 'a', title: `Auditorium A${renderCalls}` },
@@ -136,7 +136,7 @@ describe('column-based view rerendering', function() {
           ])
         }, 100)
       },
-      events(start, end, timezone, callback) {
+      events(arg, callback) {
         setTimeout(function() {
           callback([
             { id: '1', resourceId: 'b', start: '2015-08-07T02:00:00', end: '2015-08-07T07:00:00', title: 'event 1' },
@@ -145,7 +145,7 @@ describe('column-based view rerendering', function() {
           ])
         }, 100)
       },
-      eventAfterAllRender() {
+      _eventsPositioned() {
         const cellText = $.trim($('th[data-resource-id="a"]').text())
         renderCalls++
         if (renderCalls === 1) {
@@ -164,8 +164,8 @@ describe('column-based view rerendering', function() {
     initCalendar({
       now: '2015-08-07',
       scrollTime: '00:00',
-      defaultView: 'agendaDay',
-      resources(callback) {
+      defaultView: 'resourceTimeGridDay',
+      resources(arg, callback) {
         setTimeout(function() {
           callback([
             { id: 'a', title: 'Auditorium A' },
@@ -174,7 +174,7 @@ describe('column-based view rerendering', function() {
           ])
         }, 100)
       },
-      events(start, end, timezone, callback) {
+      events(arg, callback) {
         setTimeout(function() {
           callback([
             { id: '1', resourceId: 'b', start: '2015-08-07T02:00:00', end: '2015-08-07T07:00:00', title: 'event 1' },
@@ -183,7 +183,7 @@ describe('column-based view rerendering', function() {
           ])
         }, 100)
       },
-      eventAfterAllRender() {
+      _eventsPositioned() {
         const scrollEl = $('.fc-time-grid-container.fc-scroller')
         renderCalls++
         if (renderCalls === 1) {

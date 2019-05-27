@@ -22,7 +22,7 @@ describe('filterResourcesWithEvents', function() {
     if (timeout == null) {
       timeout = 100
     }
-    return function(callback) {
+    return function(arg, callback) {
       setTimeout(function() {
         callback(getResourceArray())
       }, timeout)
@@ -31,8 +31,8 @@ describe('filterResourcesWithEvents', function() {
 
 
   describeValues({
-    'when timeline view': { view: 'timelineDay', getResourceIds: getTimelineResourceIds },
-    'when agenda view': { view: 'agendaDay', getResourceIds: getHeadResourceIds }
+    'when timeline view': { view: 'resourceTimelineDay', getResourceIds: getTimelineResourceIds },
+    'when timeGrid view': { view: 'resourceTimeGridDay', getResourceIds: getHeadResourceIds }
   }, function(settings) {
     pushOptions({
       defaultView: settings.view
@@ -54,16 +54,24 @@ describe('filterResourcesWithEvents', function() {
 
 
     it('whitelists with async-fetched events', function(done) {
+      let receiveCnt = 0
+
       initCalendar({
         resources: getResourceFunc(),
         events: [
           { title: 'event 1', start: '2016-12-04T01:00:00', resourceId: 'b' },
           { title: 'event 2', start: '2016-12-04T02:00:00', resourceId: 'd' }
         ],
-        eventAfterAllRender() {
-          expect(settings.getResourceIds()).toEqual([ 'b', 'd' ])
-          expect($('.fc-event').length).toBe(2)
-          done()
+        _resourcesRendered() {
+          receiveCnt++
+
+          if (receiveCnt === 1) {
+            setTimeout(function() {
+              expect(settings.getResourceIds()).toEqual([ 'b', 'd' ])
+              expect($('.fc-event').length).toBe(2)
+              done()
+            }, 0)
+          }
         }
       })
 
@@ -76,7 +84,7 @@ describe('filterResourcesWithEvents', function() {
 
   describe('when timeline view', function() {
     pushOptions({
-      defaultView: 'timelineDay'
+      defaultView: 'resourceTimelineDay'
     })
 
 
@@ -88,7 +96,7 @@ describe('filterResourcesWithEvents', function() {
         ]
       })
       expect(getTimelineResourceIds()).toEqual([ 'b' ])
-      currentCalendar.renderEvent({ title: 'event 2', start: '2016-12-04T02:00:00', resourceId: 'd' })
+      currentCalendar.addEvent({ title: 'event 2', start: '2016-12-04T02:00:00', resourceId: 'd' })
       expect(getTimelineResourceIds()).toEqual([ 'b', 'd' ])
     })
 
@@ -106,7 +114,7 @@ describe('filterResourcesWithEvents', function() {
       currentCalendar.addResource({ id: 'e', title: 'resource e' })
       expect(getTimelineResourceIds()).toEqual([ 'b', 'd' ])
 
-      currentCalendar.renderEvent({ title: 'event 3', start: '2016-12-04T02:00:00', resourceId: 'e' })
+      currentCalendar.addEvent({ title: 'event 3', start: '2016-12-04T02:00:00', resourceId: 'e' })
       expect(getTimelineResourceIds()).toEqual([ 'b', 'd', 'e' ])
     })
 
@@ -132,7 +140,7 @@ describe('filterResourcesWithEvents', function() {
 
     it('will filter out resources that might have events in other ranges', function() {
       initCalendar({
-        defaultView: 'timelineWeek',
+        defaultView: 'resourceTimelineWeek',
         defaultDate: '2017-08-09',
         resources: [
           { id: 'f', title: 'Auditorium F', eventColor: 'red' }

@@ -3,8 +3,8 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   3.2.9
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
+ * @version   3.3.1
  */
 
 namespace kartik\grid;
@@ -119,7 +119,7 @@ class EditableColumn extends DataColumn
         Html::addCssClass($options, $this->_css);
         $this->_editableOptions['containerOptions'] = $options;
         if ($this->grid->pjax && empty($this->_editableOptions['pjaxContainerId'])) {
-            $this->_editableOptions['pjaxContainerId'] = $this->grid->pjaxSettings['options']['id'];
+            $this->_editableOptions['pjaxContainerId'] = $this->grid->getPjaxContainerId();
         }
         if (!isset($key)) {
             throw new InvalidConfigException('Invalid or no primary key found for the grid data.');

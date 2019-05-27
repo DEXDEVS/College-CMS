@@ -1,7 +1,9 @@
-
+/*
+TODO: write tests for text/render functions
+*/
 describe('timeline column grouping', function() {
   pushOptions({
-    defaultView: 'timelineDay',
+    defaultView: 'resourceTimelineDay',
     resourceColumns: [
       {
         group: true,
@@ -39,10 +41,14 @@ describe('timeline column grouping', function() {
       const resourceTr = resourceTrs[i]
       const eventTr = eventTrs[i]
       const resourceTd = $(resourceTr).find('td').filter(function() {
-        return parseInt($(this).attr('rowspan') || 1) === 1
+        return parseInt($(this).attr('rowspan') || '1') === 1
       })
       const eventTd = $(eventTr).find('td')
-      expect(resourceTd.height()).toBe(eventTd.height())
+      expect(
+        Math.round(resourceTd.height())
+      ).toBe(
+        Math.round(eventTd.height())
+      )
     }
   })
 

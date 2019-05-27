@@ -8,7 +8,13 @@ cd "`dirname $0`/.."
 
 ./bin/require-clean-working-tree.sh
 
-read -p 'Have you already ran `npm update` and committed the package-lock.json? (y/N): ' updated_npm_deps
+if [[ ! -f 'package-lock.json' ]]
+then
+  echo "No package-lock.json present. Run npm install/update."
+  exit 1
+fi
+
+read -p 'Have you already ran `npm update` (y/N): ' updated_npm_deps
 if [[ "$updated_npm_deps" != "y" ]]
 then
   echo "Go do that!"
@@ -35,51 +41,46 @@ then
   exit 1
 fi
 
-success=0
+# save reference to current branch
+current_branch=$(git symbolic-ref --quiet --short HEAD)
+
+# detach the branch head
+git checkout --quiet --detach
+
 if {
   # ensures stray files stay out of the release
-  gulp clean &&
+  npm run clean &&
 
   # update package manager json files with version number and release date
-  gulp bump --version=$version &&
+  ./bin/bump-version.js "$version" &&
 
-  # build all dist files, lint, and run tests
-  gulp release
+  # build everything
+  npm run dist &&
+
+  # test in headless browser
+  npm run test-single &&
+
+  # commit new files
+  git add -f dist package.json package-lock.json &&
+  git commit --quiet --no-verify -e -m "version $version" &&
+  git tag -a "v$version" -m "version $version"
 }
 then
-  # save reference to current branch
-  current_branch=$(git symbolic-ref --quiet --short HEAD)
+  # return to branch
+  git checkout --quiet "$current_branch"
 
-  # make a tagged detached commit of the dist files.
-  # no-verify avoids commit hooks.
-  if {
-    git checkout --quiet --detach &&
-    git add *.json &&
-    git add -f dist/*.js dist/*.d.ts dist/*.css dist/locale/*.js &&
-    git commit --quiet --no-verify -e -m "version $version" &&
-    git tag -a "v$version" -m "version $version"
-  }
-  then
-    success=1
-  fi
+  # keep some newly generated files around
+  git checkout --quiet "v$version" -- dist package-lock.json
+  git reset --quiet -- dist package-lock.json
+
+  echo "Success."
+
+else
+  # unstage all added changes
+  git reset --hard --quiet
 
   # return to branch
   git checkout --quiet "$current_branch"
-fi
-
-if [[ "$success" == "1" ]]
-then
-  # keep newly generated dist files around
-  git checkout --quiet "v$version" -- dist
-  git reset --quiet -- dist
-
-  echo "Success."
-else
-  # unstage all dist/ or *.json changes
-  git reset --quiet
-
-  # discard changes from version bump
-  git checkout --quiet -- *.json
 
   echo "Failure."
   exit 1

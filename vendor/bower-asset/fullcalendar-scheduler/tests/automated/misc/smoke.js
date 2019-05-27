@@ -12,18 +12,17 @@ describe('timeline', function() {
       header: {
         left: 'today prev,next',
         center: 'title',
-        right: 'timelineDay,timelineThreeDays,agendaDay,agendaTwoDay,agendaWeek,month'
+        right: 'resourceTimelineDay,resourceTimelineThreeDays,resourceTimeGridDay,resourceTimeGridTwoDay,timeGridWeek,dayGridMonth'
       },
-      defaultView: 'timelineDay',
+      defaultView: 'resourceTimelineDay',
       views: {
-        timelineThreeDays: {
-          type: 'timeline',
+        resourceTimelineThreeDays: {
+          type: 'resourceTimeline',
           duration: { days: 3 }
         },
-        agendaTwoDay: {
-          type: 'agenda',
-          duration: { days: 2 },
-          groupByResource: true
+        resourceTimeGridTwoDay: {
+          type: 'resourceTimeGrid',
+          duration: { days: 2 }
         }
       },
       resourceLabelText: 'Rooms',
@@ -39,35 +38,37 @@ describe('timeline', function() {
         { id: '4', resourceId: 'a', start: '2016-01-07T03:00:00', end: '2016-01-07T08:00:00', title: 'event 4' },
         { id: '5', resourceId: 'b', start: '2016-01-07T00:30:00', end: '2016-01-07T02:30:00', title: 'event 5' }
       ],
-      eventAfterAllRender(view) {
+      _eventsPositioned() {
+        var view = currentCalendar.view
+
         switchCnt++
         switch (switchCnt) {
           case 1:
-            expect(view.type).toBe('timelineDay')
-            currentCalendar.changeView('timelineThreeDays')
+            expect(view.type).toBe('resourceTimelineDay')
+            currentCalendar.changeView('resourceTimelineThreeDays')
             break
           case 2:
-            expect(view.type).toBe('timelineThreeDays')
-            currentCalendar.changeView('agendaDay')
+            expect(view.type).toBe('resourceTimelineThreeDays')
+            currentCalendar.changeView('resourceTimeGridDay')
             break
           case 3:
-            expect(view.type).toBe('agendaDay')
-            currentCalendar.changeView('agendaTwoDay')
+            expect(view.type).toBe('resourceTimeGridDay')
+            currentCalendar.changeView('resourceTimeGridTwoDay')
             break
           case 4:
-            expect(view.type).toBe('agendaTwoDay')
-            currentCalendar.changeView('agendaWeek')
+            expect(view.type).toBe('resourceTimeGridTwoDay')
+            currentCalendar.changeView('timeGridWeek')
             break
           case 5:
-            expect(view.type).toBe('agendaWeek')
-            currentCalendar.changeView('month')
+            expect(view.type).toBe('timeGridWeek')
+            currentCalendar.changeView('dayGridMonth')
             break
           case 6:
-            expect(view.type).toBe('month')
-            currentCalendar.changeView('timelineDay')
+            expect(view.type).toBe('dayGridMonth')
+            currentCalendar.changeView('resourceTimelineDay')
             break
           case 7:
-            expect(view.type).toBe('timelineDay')
+            expect(view.type).toBe('resourceTimelineDay')
             done()
             break
         }

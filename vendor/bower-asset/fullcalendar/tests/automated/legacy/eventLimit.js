@@ -8,9 +8,9 @@ describe('eventLimit', function() {
   describe('as a number', function() {
 
     describeOptions('defaultView', {
-      'when in month view': 'month',
-      'when in basicWeek view': 'basicWeek',
-      'when in agendaWeek view': 'agendaWeek'
+      'when in month view': 'dayGridMonth',
+      'when in dayGridWeek view': 'dayGridWeek',
+      'when in week view': 'timeGridWeek'
     }, function() {
 
       it('doesn\'t display a more link when limit is more than the # of events', function() {
@@ -146,7 +146,7 @@ describe('eventLimit', function() {
     describe('in month view', function() {
 
       pushOptions({
-        defaultView: 'month',
+        defaultView: 'dayGridMonth',
         events: [
           { title: 'event1', start: '2014-07-28', end: '2014-07-30' },
           { title: 'event2', start: '2014-07-28', end: '2014-07-30' },
@@ -168,9 +168,13 @@ describe('eventLimit', function() {
         initCalendar()
         var rowEls = $('.fc-day-grid .fc-row').slice(0, -1) // remove last b/c it will be a different height
         expect(rowEls.length).toBeGreaterThan(0)
-        var height = rowEls.height()
+
+        var firstRowHeight = Math.round(rowEls[0].getBoundingClientRect().height)
+
         rowEls.each(function(i, node) {
-          expect($(node).height()).toBe(height)
+          expect(
+            Math.round(node.getBoundingClientRect().height)
+          ).toBe(firstRowHeight)
         })
       })
 
@@ -182,8 +186,8 @@ describe('eventLimit', function() {
     })
 
     describeOptions('defaultView', {
-      'when in month view': 'month',
-      'when in basicWeek view': 'basicWeek'
+      'when in month view': 'dayGridMonth',
+      'when in dayGridWeek view': 'dayGridWeek'
     }, function() {
 
       it('doesn\'t render a more link where there should obviously not be a limit', function() {
@@ -196,10 +200,10 @@ describe('eventLimit', function() {
       })
     })
 
-    describe('in agendaWeek view', function() {
+    describe('in week view', function() {
 
       pushOptions({
-        defaultView: 'agendaWeek'
+        defaultView: 'timeGridWeek'
       })
 
       it('behaves as if limit is 5', function() {

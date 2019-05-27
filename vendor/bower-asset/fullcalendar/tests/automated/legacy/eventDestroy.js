@@ -11,42 +11,42 @@ describe('eventDestroy', function() {
 
     initCalendar({
       events: [ singleEventData ],
-      eventDestroy: function(event, element) {
+      eventDestroy: function(arg) {
         if (callCnt++ === 0) { // only care about the first call. gets called again when calendar is destroyed
-          expect(event.id).toBe(singleEventData.id)
+          expect(arg.event.id).toBe(singleEventData.id)
           done()
         }
       }
     })
 
-    currentCalendar.removeEvents(singleEventData.id)
+    currentCalendar.getEventById(singleEventData.id).remove()
   }
 
   describe('when in month view', function() { // for issue 2017
 
     pushOptions({
-      defaultView: 'month'
+      defaultView: 'dayGridMonth'
     })
 
     it('gets called with removeEvents method', function(done) {
       testSingleEvent({
-        id: 1,
+        id: '1',
         title: 'event1',
         date: '2014-08-02'
       }, done)
     })
   })
 
-  describe('when in agendaWeek view', function() { // for issue 2017
+  describe('when in week view', function() { // for issue 2017
 
     pushOptions({
-      defaultView: 'agendaWeek',
+      defaultView: 'timeGridWeek',
       scrollTime: '00:00:00'
     })
 
     it('gets called with removeEvents method', function(done) {
       testSingleEvent({
-        id: 1,
+        id: '1',
         title: 'event1',
         date: '2014-08-02T02:00:00'
       }, done)

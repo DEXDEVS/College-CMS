@@ -9,7 +9,7 @@
 <script>
 
   $(document).ready(function() {
-    
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -17,12 +17,12 @@
 
     $('#calendar').fullCalendar({
 
-      defaultView: 'agendaDay',
+      defaultView: 'day',
       minTime: 0,
       maxTime: 24,
       firstDay: 1,
       allDayText: "dieną",
-      
+
           events: [
       {
         title: 'All Day Event',
@@ -34,13 +34,13 @@
         end: new Date(y, m, d-2)
       },
       {
-        id: 999,
+        groupId: 999,
         title: 'Repeating Event',
         start: new Date(y, m, d-3, 16, 0),
         allDay: false
       },
       {
-        id: 999,
+        groupId: 999,
         title: 'Repeating Event',
         start: new Date(y, m, d+4, 16, 0),
         allDay: false
@@ -85,15 +85,15 @@
       },
 
       slotLabelFormat: 'HH(:mm)',
-      timeFormat: { agenda: 'HH:mm{ - HH:mm}' },
+      timeFormat: { timeGrid: 'HH:mm{ - HH:mm}' },
       weekends: true
     });
 
 });
 
-  
+
 </script>
-    
+
 <body>
 <div id="calendar"> </div>
 </body>

@@ -1,94 +1,60 @@
+import { getHeaderEl } from '../view-render/DayGridRenderUtils'
+import { DAY_CLASSES } from '../lib/constants'
+import { removeLtrCharCodes } from '../lib/string'
+import { addDays } from '@fullcalendar/core'
+import { parseUtcDate } from '../lib/date-parsing'
+
 describe('day names', function() {
-  var settings = {}
-  var testableClasses = [
-    'basicDay',
-    'agendaDay'
-  ]
-  var dayClasses = [
-    '.fc-sun',
-    '.fc-mon',
-    '.fc-tue',
-    '.fc-wed',
-    '.fc-thu',
-    '.fc-fri',
-    '.fc-sat'
-  ]
-  var referenceDate = '2014-05-25 06:00' // A sunday
+  var sundayDate = parseUtcDate('2019-03-17')
   var locales = [ 'es', 'fr', 'de', 'zh-cn', 'nl' ]
 
-  beforeEach(function() {
-    affix('#cal')
-    settings = {
-      now: moment(referenceDate).toISOString()
-    }
+  pushOptions({
+    now: sundayDate
   })
 
-  afterEach(function() {
-    moment.locale('en') // reset moment's global locale
-  })
-
-  testableClasses.forEach(function(viewClass, index, viewClasses) {
-    describe('when view is basicDay', function() {
-      beforeEach(function() {
-        settings.defaultView = 'basicDay'
+  describe('when view is dayGridDay', function() {
+    pushOptions({
+      defaultView: 'dayGridDay'
+    })
+    describe('when locale is default', function() {
+      pushOptions({
+        locale: 'en'
       })
+      DAY_CLASSES.forEach(function(cls, index) {
+        var dayDate = addDays(sundayDate, index)
+        var dayText = removeLtrCharCodes(
+          dayDate.toLocaleString('en', { weekday: 'long', timeZone: 'UTC' })
+        )
 
-      describe('when locale is default', function() {
-        beforeEach(function() {
-          settings.locale = 'en'
-        })
-
-        dayClasses.forEach(function(cls, index, classes) {
-          var weekdays = moment.weekdays()
-          it('should be ' + weekdays[index], function() {
-            settings.now = moment(referenceDate).add(index, 'days')
-            $('#cal').fullCalendar(settings)
-
-            expect($('.fc-view thead ' + dayClasses[index])).toHaveText(weekdays[index])
+        it('should be ' + dayText, function() {
+          initCalendar({
+            now: dayDate
           })
+          expect(getHeaderEl().find(`.${cls}`)).toHaveText(dayText)
         })
       })
+    })
 
-      $.each(locales, function(index, locale) {
-        describe('when locale is ' + locale, function() {
-          beforeEach(function() {
-            moment.locale(locale)
-          })
+    $.each(locales, function(index, locale) {
+      describe('when locale is ' + locale, function() {
+        DAY_CLASSES.forEach(function(cls, index, classes) {
+          var dayDate = addDays(sundayDate, index)
+          var dayText = removeLtrCharCodes(
+            dayDate.toLocaleString(locale, { weekday: 'long', timeZone: 'UTC' })
+          )
 
-          dayClasses.forEach(function(cls, index, classes) {
-            it('should be the translation for ' + moment.weekdays()[index], function() {
-              settings.locale = locale
-              settings.now = moment(referenceDate).add(index, 'days')
-              $('#cal').fullCalendar(settings)
+          it('should be the translation for ' + dayText, function() {
 
-              expect($('.fc-view thead ' + dayClasses[index])).toHaveText(moment.weekdays()[index])
+            initCalendar({
+              locale: locale,
+              now: dayDate
             })
-          })
-        })
-      })
 
-      describe('when daynames are specified', function() {
-        var weekdays = [
-          'Hovjaj',
-          'maSjaj',
-          'veSjaj',
-          'mechjaj',
-          'jevjaj',
-          'parmaqjaj',
-          'HoSjaj'
-        ]
-
-        dayClasses.forEach(function(cls, idx, classes) {
-          it('should be ' + weekdays[idx], function() {
-            settings.dayNames = [].slice.call(weekdays) // copy. in case there is a mutation
-            settings.now = moment(referenceDate).add(idx, 'days')
-
-            $('#cal').fullCalendar(settings)
-
-            expect($('.fc-view thead ' + cls)).toHaveText(weekdays[idx])
+            expect(getHeaderEl().find(`.${cls}`)).toHaveText(dayText)
           })
         })
       })
     })
   })
+
 })

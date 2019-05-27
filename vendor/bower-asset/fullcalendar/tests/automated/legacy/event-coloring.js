@@ -9,16 +9,16 @@ describe('event coloring', function() {
   describe('when in month view', function() {
 
     pushOptions({
-      defaultView: 'month'
+      defaultView: 'dayGridMonth'
     })
 
     defineViewTests(false)
   })
 
-  describe('when in agendaWeek view', function() {
+  describe('when in week view', function() {
 
     pushOptions({
-      defaultView: 'agendaWeek',
+      defaultView: 'timeGridWeek',
       allDaySlot: false
     })
 

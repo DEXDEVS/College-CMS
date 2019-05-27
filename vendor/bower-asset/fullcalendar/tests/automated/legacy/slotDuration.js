@@ -1,29 +1,22 @@
-
 describe('slotDuration', function() {
 
   var minutesInADay = 1440
 
-  beforeEach(function() {
-    affix('#cal')
-  })
-
   describe('when using the default settings', function() {
-    describe('in agendaWeek', function() {
+    describe('in week', function() {
       it('should have slots 1440/30 slots', function() {
-        var options = {
-          defaultView: 'agendaWeek'
-        }
-        $('#cal').fullCalendar(options)
+        initCalendar({
+          defaultView: 'timeGridWeek'
+        })
         var slotCount = $('.fc-slats tr').length
         expect(slotCount).toEqual(Math.ceil(minutesInADay / 30))
       })
     })
-    describe('in agendaDay', function() {
+    describe('in day', function() {
       it('should have slots 1440/30 slots', function() {
-        var options = {
-          defaultView: 'agendaDay'
-        }
-        $('#cal').fullCalendar(options)
+        initCalendar({
+          defaultView: 'timeGridDay'
+        })
         var slotCount = $('.fc-slats tr').length
         expect(slotCount).toEqual(Math.ceil(minutesInADay / 30))
       })
@@ -31,22 +24,20 @@ describe('slotDuration', function() {
   })
 
   describe('when slotMinutes is set to 30', function() {
-    describe('in agendaWeek', function() {
+    describe('in week', function() {
       it('should have slots 1440/30 slots', function() {
-        var options = {
-          defaultView: 'agendaWeek'
-        }
-        $('#cal').fullCalendar(options)
+        initCalendar({
+          defaultView: 'timeGridWeek'
+        })
         var slotCount = $('.fc-slats tr').length
         expect(slotCount).toEqual(Math.ceil(minutesInADay / 30))
       })
     })
-    describe('in agendaDay', function() {
+    describe('in day', function() {
       it('should have slots 1440/30 slots', function() {
-        var options = {
-          defaultView: 'agendaDay'
-        }
-        $('#cal').fullCalendar(options)
+        initCalendar({
+          defaultView: 'timeGridDay'
+        })
         var slotCount = $('.fc-slats tr').length
         expect(slotCount).toEqual(Math.ceil(minutesInADay / 30))
       })
@@ -57,17 +48,13 @@ describe('slotDuration', function() {
 
     var slotMinutesList = [ 10, 12, 15, 17, 20, 30, 35, 45, 60, 62, 120, 300 ]
 
-    describe('in agendaWeek', function() {
-      beforeEach(function() {
-        affix('#cal2')
-      })
+    describe('in week', function() {
       slotMinutesList.forEach(function(slotMinutes) {
         it('should have slots 1440/x slots', function() {
-          var options = {
-            defaultView: 'agendaWeek',
+          initCalendar({
+            defaultView: 'timeGridWeek',
             slotDuration: { minutes: slotMinutes }
-          }
-          $('#cal2').fullCalendar(options)
+          })
           var slotCount = $('.fc-slats tr').length
           var expected = Math.ceil(minutesInADay / slotMinutes)
           expect(slotCount).toEqual(expected)
@@ -75,17 +62,13 @@ describe('slotDuration', function() {
       })
     })
 
-    describe('in agendaDay', function() {
-      beforeEach(function() {
-        affix('#cal2')
-      })
+    describe('in day', function() {
       slotMinutesList.forEach(function(slotMinutes) {
         it('should have slots 1440/x slots', function() {
-          var options = {
-            defaultView: 'agendaWeek',
+          initCalendar({
+            defaultView: 'timeGridDay',
             slotDuration: { minutes: slotMinutes }
-          }
-          $('#cal2').fullCalendar(options)
+          })
           var slotCount = $('.fc-slats tr').length
           var expected = Math.ceil(minutesInADay / slotMinutes)
           expect(slotCount).toEqual(expected)

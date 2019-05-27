@@ -1,7 +1,7 @@
 import { getLeadingBoundingRect, getTrailingBoundingRect, sortBoundingRects } from 'fullcalendar/tests/automated/lib/dom-geom'
 import { getDayGridDowEls } from 'fullcalendar/tests/automated/lib/day-grid'
 
-describe('basic-view selection', function() {
+describe('dayGrid-view selection', function() {
   pushOptions({
     now: '2015-11-28',
     selectable: true,
@@ -10,8 +10,8 @@ describe('basic-view selection', function() {
       { id: 'b', title: 'Resource B' }
     ],
     views: {
-      basicThreeDay: {
-        type: 'basic',
+      resourceDayGridThreeDay: {
+        type: 'resourceDayGrid',
         duration: { days: 3 }
       }
     }
@@ -19,14 +19,14 @@ describe('basic-view selection', function() {
 
   describe('when there are no resource columns', function() {
     pushOptions({
-      defaultView: 'basicWeek',
-      groupByResource: false
+      defaultView: 'dayGridWeek'
     })
 
     it('allows non-resource selects', function(done) {
       let selectCalled = false
+
       initCalendar({
-        eventAfterAllRender() {
+        _eventsPositioned() {
           const monEls = getDayGridDowEls('mon')
           const tueEls = getDayGridDowEls('tue')
           expect(monEls.length).toBe(1)
@@ -38,16 +38,15 @@ describe('basic-view selection', function() {
                 expect(selectCalled).toBe(true)
                 done()
               }
-            }
-            )
+            })
         },
-        select(start, end, jsEvent, view, resource) {
+        select(arg) {
           selectCalled = true
-          expect(start).toEqualMoment('2015-11-23')
-          expect(end).toEqualMoment('2015-11-25')
-          expect(typeof jsEvent).toBe('object')
-          expect(typeof view).toBe('object')
-          expect(resource).toBeFalsy()
+          expect(arg.start).toEqualDate('2015-11-23')
+          expect(arg.end).toEqualDate('2015-11-25')
+          expect(typeof arg.jsEvent).toBe('object')
+          expect(typeof arg.view).toBe('object')
+          expect(arg.resource).toBeFalsy()
         }
       })
     })
@@ -55,14 +54,14 @@ describe('basic-view selection', function() {
 
   describe('with resource columns above date columns', function() {
     pushOptions({
-      defaultView: 'basicThreeDay',
-      groupByResource: true
+      defaultView: 'resourceDayGridThreeDay'
     })
 
     it('allows a resource selects', function(done) {
       let selectCalled = false
+
       initCalendar({
-        eventAfterAllRender() {
+        _eventsPositioned() {
           const sunAEl = $(getLeadingBoundingRect(getDayGridDowEls('sun')).node)
           const monAEl = $(getLeadingBoundingRect(getDayGridDowEls('mon')).node)
           sunAEl.simulate('drag', {
@@ -71,24 +70,24 @@ describe('basic-view selection', function() {
               expect(selectCalled).toBe(true)
               done()
             }
-          }
-          )
+          })
         },
-        select(start, end, jsEvent, view, resource) {
+        select(arg) {
           selectCalled = true
-          expect(start).toEqualMoment('2015-11-29')
-          expect(end).toEqualMoment('2015-12-01')
-          expect(typeof jsEvent).toBe('object')
-          expect(typeof view).toBe('object')
-          expect(resource.id).toBe('a')
+          expect(arg.start).toEqualDate('2015-11-29')
+          expect(arg.end).toEqualDate('2015-12-01')
+          expect(typeof arg.jsEvent).toBe('object')
+          expect(typeof arg.view).toBe('object')
+          expect(arg.resource.id).toBe('a')
         }
       })
     })
 
     it('disallows a selection across resources', function(done) {
       let selectCalled = false
+
       initCalendar({
-        eventAfterAllRender() {
+        _eventsPositioned() {
           const sunAEl = $(getLeadingBoundingRect(getDayGridDowEls('sun')).node)
           const monBEl = $(getTrailingBoundingRect(getDayGridDowEls('mon')).node)
           sunAEl.simulate('drag', {
@@ -99,7 +98,7 @@ describe('basic-view selection', function() {
             }
           })
         },
-        select(start, end, jsEvent, view, resource) {
+        select(arg) {
           selectCalled = true
         }
       })
@@ -108,14 +107,15 @@ describe('basic-view selection', function() {
 
   describe('with date columns above resource columns', function() {
     pushOptions({
-      defaultView: 'basicThreeDay',
-      groupByDateAndResource: true
+      defaultView: 'resourceDayGridThreeDay',
+      datesAboveResources: true
     })
 
     it('allows a resource selection', function(done) {
       let selectCalled = false
+
       initCalendar({
-        eventAfterAllRender() {
+        _eventsPositioned() {
           const monRects = sortBoundingRects(getDayGridDowEls('mon'))
           const monBEl = $(monRects[1].node)
           const satRects = sortBoundingRects(getDayGridDowEls('sat'))
@@ -128,21 +128,22 @@ describe('basic-view selection', function() {
             }
           })
         },
-        select(start, end, jsEvent, view, resource) {
+        select(arg) {
           selectCalled = true
-          expect(start).toEqualMoment('2015-11-28')
-          expect(end).toEqualMoment('2015-12-01')
-          expect(typeof jsEvent).toBe('object')
-          expect(typeof view).toBe('object')
-          expect(resource.id).toBe('b')
+          expect(arg.start).toEqualDate('2015-11-28')
+          expect(arg.end).toEqualDate('2015-12-01')
+          expect(typeof arg.jsEvent).toBe('object')
+          expect(typeof arg.view).toBe('object')
+          expect(arg.resource.id).toBe('b')
         }
       })
     })
 
     it('disallows a selection across resources', function(done) {
       let selectCalled = false
+
       initCalendar({
-        eventAfterAllRender() {
+        _eventsPositioned() {
           const monRects = sortBoundingRects(getDayGridDowEls('mon'))
           const monBEl = $(monRects[1].node)
           const satRects = sortBoundingRects(getDayGridDowEls('sat'))
@@ -155,7 +156,7 @@ describe('basic-view selection', function() {
             }
           })
         },
-        select(start, end, jsEvent, view, resource) {
+        select(arg) {
           selectCalled = true
         }
       })

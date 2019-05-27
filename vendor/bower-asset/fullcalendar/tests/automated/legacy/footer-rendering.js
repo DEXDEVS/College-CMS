@@ -2,7 +2,7 @@ describe('footer rendering', function() {
 
   pushOptions({
     defaultDate: '2014-06-04',
-    defaultView: 'agendaWeek'
+    defaultView: 'timeGridWeek'
   })
 
   describe('when supplying footer options', function() {
@@ -10,7 +10,7 @@ describe('footer rendering', function() {
       initCalendar({
         footer: {
           left: 'next,prev',
-          center: 'prevYear today nextYear agendaView,dayView',
+          center: 'prevYear today nextYear timeGridDay,timeGridWeek',
           right: 'title'
         }
       })
@@ -32,12 +32,12 @@ describe('footer rendering', function() {
     initCalendar({
       footer: {
         left: 'next,prev',
-        center: 'prevYear today nextYear agendaView,dayView',
+        center: 'prevYear today nextYear timeGridDay,timeGridWeek',
         right: 'title'
       }
     })
     expect($('.fc-footer-toolbar')).toBeInDOM()
-    currentCalendar.option('footer', false)
+    currentCalendar.setOption('footer', false)
     expect($('.fc-footer-toolbar')).not.toBeInDOM()
   })
 

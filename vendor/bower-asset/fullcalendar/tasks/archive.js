@@ -1,65 +1,71 @@
 const gulp = require('gulp')
-const rename = require('gulp-rename')
 const filter = require('gulp-filter')
 const modify = require('gulp-modify-file')
 const zip = require('gulp-zip')
 
 // determines the name of the ZIP file
 const packageConfig = require('../package.json')
-const packageId = packageConfig.name + '-' + packageConfig.version
+const archiveId = packageConfig.name + '-' + (packageConfig.version || 'latest')
 
-gulp.task('archive', [
-  'archive:dist',
-  'archive:misc',
-  'archive:deps',
-  'archive:demos'
-], function() {
+// assumes a clean dist already happened
+gulp.task('archive', [ 'archive:files' ], function() {
   // make the zip, with a single root directory of a similar name
-  return gulp.src('tmp/' + packageId + '/**/*', { base: 'tmp/' })
-    .pipe(zip(packageId + '.zip'))
-    .pipe(gulp.dest('dist/'))
+  return gulp.src('tmp/' + archiveId + '/**', { base: 'tmp/' })
+    .pipe(
+      zip(archiveId + '.zip')
+    )
+    .pipe(
+      gulp.dest('archives/')
+    )
 })
 
-gulp.task('archive:dist', [ 'dist' ], function() {
+gulp.task('archive:files', [
+  'archive:packages',
+  'archive:demos',
+  'archive:vendor',
+  'archive:meta'
+])
+
+gulp.task('archive:packages', [ 'build', 'minify' ], function() {
   return gulp.src([
-    'dist/*.{js,css}',
-    'dist/locale-all.js',
-    'dist/locale/*.js'
-  ], {
-    base: 'dist/'
-  })
-    .pipe(gulp.dest('tmp/' + packageId + '/'))
+    'dist/**/*.{js,css}'
+  ]).pipe(
+    gulp.dest('tmp/' + archiveId + '/packages')
+  )
 })
 
-gulp.task('archive:misc', function() {
+gulp.task('archive:meta', function() {
   return gulp.src([
     'LICENSE.*',
-    'CHANGELOG.*',
-    'CONTRIBUTING.*'
-  ])
-    .pipe(rename({ extname: '.txt' }))
-    .pipe(gulp.dest('tmp/' + packageId + '/'))
+    'CHANGELOG.*'
+  ]).pipe(
+    gulp.dest('tmp/' + archiveId)
+  )
 })
 
-gulp.task('archive:deps', function() {
-  return gulp.src([
-    'node_modules/moment/min/moment.min.js',
-    'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/components-jqueryui/jquery-ui.min.js'
-  ])
-    .pipe(gulp.dest('tmp/' + packageId + '/lib/'))
-})
-
-// transfers demo files, transforming their paths to dependencies
 gulp.task('archive:demos', function() {
-  return gulp.src('**/*', { cwd: 'demos/', base: 'demos/' })
+  return gulp.src([
+    'demos/**',
+    '!**/_*' // no files that start with underscore
+  ])
     .pipe(htmlFileFilter)
     .pipe(demoPathModify)
     .pipe(htmlFileFilter.restore) // pipe thru files that didn't match htmlFileFilter
-    .pipe(gulp.dest('tmp/' + packageId + '/demos/'))
+    .pipe(
+      gulp.dest('tmp/' + archiveId + '/demos')
+    )
 })
 
-const htmlFileFilter = filter('*.html', { restore: true })
+gulp.task('archive:vendor', [ 'archive:demos' ], function() {
+  return gulp.src(
+    vendorPaths,
+    { cwd: 'node_modules' } // a cwd without a base will flatten the paths. what we want
+  ).pipe(
+    gulp.dest('tmp/' + archiveId + '/vendor')
+  )
+})
+
+const htmlFileFilter = filter('**/*.html', { restore: true })
 const demoPathModify = modify(function(content) {
   return content.replace(
     /((?:src|href)=['"])([^'"]*)(['"])/g,
@@ -69,23 +75,18 @@ const demoPathModify = modify(function(content) {
   )
 })
 
+let vendorPaths = []
+
 function transformDemoPath(path) {
-  // reroot 3rd party libs
-  path = path.replace('../node_modules/moment/', '../lib/')
-  path = path.replace('../node_modules/jquery/dist/', '../lib/')
-  path = path.replace('../node_modules/components-jqueryui/', '../lib/')
+  path = path.replace('../dist/', '../packages/')
 
-  // reroot dist files to archive root
-  path = path.replace('../dist/', '../')
-
-  if (
-    !/\.min\.(js|css)$/.test(path) && // not already minified
-    !/^\w/.test(path) && // reference to demo util js/css file
-    path !== '../locale-all.js' // this file is already minified
-  ) {
-    // use minified
-    path = path.replace(/\/([^/]*)\.(js|css)$/, '/$1.min.$2')
-  }
+  path = path.replace(
+    /^\.\.\/node_modules\/(.*)\/([^/]+)$/,
+    function(m0, m1, m2) {
+      vendorPaths.push(m1 + '/' + m2)
+      return '../vendor/' + m2
+    }
+  )
 
   return path
 }

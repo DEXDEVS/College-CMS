@@ -2,7 +2,7 @@ describe('eventLimitClick', function() { // simulate a click
 
   pushOptions({
     defaultDate: '2014-08-01', // important that it is the first week, so works w/ month + week views
-    defaultView: 'month',
+    defaultView: 'dayGridMonth',
     eventLimit: 3,
     events: [
       { title: 'event1', start: '2014-07-29' },
@@ -33,32 +33,30 @@ describe('eventLimitClick', function() { // simulate a click
       eventLimitClick: 'week'
     })
 
-    it('should go to basicWeek if it is one of the available views', function() {
+    it('should go to dayGridWeek if it is one of the available views', function() {
       initCalendar({
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,basicWeek,basicDay'
+          right: 'dayGridMonth,dayGridWeek,dayGridDay'
         }
       })
       $('.fc-more').simulate('click')
-      var view = currentCalendar.getView()
-      expect(view.name).toBe('basicWeek') // .name should be deprecated
-      expect(view.type).toBe('basicWeek')
+      var view = currentCalendar.view
+      expect(view.type).toBe('dayGridWeek')
     })
 
-    it('should go to agendaWeek if it is one of the available views', function() {
+    it('should go to week if it is one of the available views', function() {
       initCalendar({
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,agendaWeek,agendaDay'
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
         }
       })
       $('.fc-more').simulate('click')
-      var view = currentCalendar.getView()
-      expect(view.name).toBe('agendaWeek') // .name should be deprecated
-      expect(view.type).toBe('agendaWeek')
+      var view = currentCalendar.view
+      expect(view.type).toBe('timeGridWeek')
     })
   })
 
@@ -68,57 +66,57 @@ describe('eventLimitClick', function() { // simulate a click
       eventLimitClick: 'day'
     })
 
-    it('should go to basicDay if it is one of the available views', function() {
+    it('should go to dayGridDay if it is one of the available views', function() {
       initCalendar({
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,basicWeek,basicDay'
+          right: 'dayGridMonth,dayGridWeek,dayGridDay'
         }
       })
       $('.fc-more').simulate('click')
-      var view = currentCalendar.getView()
-      expect(view.name).toBe('basicDay')
+      var view = currentCalendar.view
+      expect(view.type).toBe('dayGridDay')
     })
 
-    it('should go to agendaDay if it is one of the available views', function() {
+    it('should go to day if it is one of the available views', function() {
       initCalendar({
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,agendaWeek,agendaDay'
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
         }
       })
       $('.fc-more').simulate('click')
-      var view = currentCalendar.getView()
-      expect(view.name).toBe('agendaDay')
+      var view = currentCalendar.view
+      expect(view.type).toBe('timeGridDay')
     })
   })
 
   it('works with an explicit view name', function() {
     initCalendar({
-      eventLimitClick: 'agendaWeek',
+      eventLimitClick: 'timeGridWeek',
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,basicWeek,basicDay'
+        right: 'dayGridMonth,dayGridWeek,dayGridDay'
       }
     })
     $('.fc-more').simulate('click')
-    var view = currentCalendar.getView()
-    expect(view.name).toBe('agendaWeek')
+    var view = currentCalendar.view
+    expect(view.type).toBe('timeGridWeek')
   })
 
   it('works with custom function and all the arguments are correct', function() {
     initCalendar({
-      eventLimitClick: function(cellInfo, jsEvent) {
-        expect(typeof cellInfo).toBe('object')
-        expect(typeof jsEvent).toBe('object')
-        expect(cellInfo.date).toEqualMoment('2014-07-29')
-        expect(cellInfo.dayEl.data('date')).toBe('2014-07-29')
-        expect(cellInfo.hiddenSegs.length).toBe(2)
-        expect(cellInfo.segs.length).toBe(4)
-        expect(cellInfo.moreEl).toHaveClass('fc-more')
+      eventLimitClick: function(arg) {
+        expect(typeof arg).toBe('object')
+        expect(arg.date).toEqualDate('2014-07-29')
+        expect(arg.dayEl.getAttribute('data-date')).toBe('2014-07-29')
+        expect(arg.hiddenSegs.length).toBe(2)
+        expect(arg.segs.length).toBe(4)
+        expect(arg.moreEl).toHaveClass('fc-more')
+        expect(typeof arg.jsEvent).toBe('object')
       }
     })
     $('.fc-more').simulate('click')
@@ -127,12 +125,12 @@ describe('eventLimitClick', function() { // simulate a click
   it('works with custom function, and can return a view name', function() {
     initCalendar({
       eventLimitClick: function(cellInfo, jsEvent) {
-        return 'agendaDay'
+        return 'timeGridDay'
       }
     })
     $('.fc-more').simulate('click')
-    var view = currentCalendar.getView()
-    expect(view.name).toBe('agendaDay')
+    var view = currentCalendar.view
+    expect(view.type).toBe('timeGridDay')
   })
 
 })

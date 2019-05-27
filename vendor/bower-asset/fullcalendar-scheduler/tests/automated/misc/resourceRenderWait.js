@@ -8,8 +8,8 @@ describe('resource render waiting', function() {
     let eventAllRenderCnt = 0
 
     initCalendar({
-      defaultView: 'timeline',
-      resources(callback) {
+      defaultView: 'resourceTimeline',
+      resources(arg, callback) {
         callback([
           { id: 'a', title: 'a' },
           { id: 'b', title: 'b' }
@@ -20,7 +20,7 @@ describe('resource render waiting', function() {
         resourceRenderCnt += 1
       },
 
-      eventAfterAllRender() {
+      _eventsPositioned() {
         eventAllRenderCnt += 1
 
         if (eventAllRenderCnt === 1) {

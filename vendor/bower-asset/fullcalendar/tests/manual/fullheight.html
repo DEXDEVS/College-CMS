@@ -19,12 +19,12 @@
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'dayGridMonth,week,dayGridWeek,day,dayGridDay'
       },
       footer: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'dayGridMonth,week,dayGridWeek,day,dayGridDay'
       },
       editable: true,
       events: [
@@ -38,13 +38,13 @@
           end: new Date(y, m, d-2)
         },
         {
-          id: 999,
+          groupId: 999,
           title: 'Repeating Event',
           start: new Date(y, m, d-3, 16, 0),
           allDay: false
         },
         {
-          id: 999,
+          groupId: 999,
           title: 'Repeating Event',
           start: new Date(y, m, d+4, 16, 0),
           allDay: false

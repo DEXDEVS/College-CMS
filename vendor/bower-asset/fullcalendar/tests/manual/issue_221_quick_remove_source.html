@@ -6,18 +6,18 @@
 <script src='../../node_modules/jquery/dist/jquery.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../dist/fullcalendar.js'></script>
-<script src='../../dist/gcal.js'></script>
+<script src='../../dist/plugins/google-calendar.js'></script>
 <script>
-  
-  var gcalFeed = $.fullCalendar.gcalFeed("http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic");
+
+  var gcalFeed = FullCalendar.gcalFeed("http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic");
 
   $(document).ready(function() {
-  
+
     var cal = $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'month,week,dayGridWeek,day,dayGridDay'
       },
       loading: function(bool) {
         if (bool) {
@@ -27,12 +27,12 @@
         }
       }
     });
-    
+
     cal.fullCalendar('addEventSource', gcalFeed);
     cal.fullCalendar('removeEventSource', gcalFeed);
-    
+
     // events should not be rendered when jsonp returns!
-    
+
   });
 
 </script>
@@ -41,11 +41,11 @@
   .red-event a {
     background: red;
   }
-  
+
   .yellow-event a {
     background: yellow;
   }
-  
+
   .black-text-event a {
     color: #000;
   }

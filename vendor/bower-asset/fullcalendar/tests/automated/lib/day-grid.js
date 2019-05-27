@@ -1,9 +1,16 @@
+import { formatIsoDay } from '../datelib/utils'
+
 
 export function getDayGridDayEls(date) {
-  date = $.fullCalendar.moment.parseZone(date)
-  return $(`.fc-day-grid .fc-day[data-date="${date.format('YYYY-MM-DD')}"]`)
+  if (typeof date === 'string') {
+    date = new Date(date)
+  }
+  return $('.fc-day-grid .fc-day[data-date="' + formatIsoDay(date) + '"]')
 }
 
+export function getDayGridAxis() {
+  return $('.fc-day-grid .fc-axis')
+}
 
 // TODO: discourage use
 export function getDayGridDowEls(dayAbbrev) {

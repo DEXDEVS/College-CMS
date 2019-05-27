@@ -1,13 +1,15 @@
 import { expectActiveRange, expectRenderRange } from './ViewDateUtils'
+import { parseUtcDate } from '../lib/date-parsing'
 
 describe('validRange', function() {
   pushOptions({
+    timeZone: 'UTC',
     defaultDate: '2017-06-08'
   })
 
   describe('when one week view', function() { // a view that has date-alignment by default
     pushOptions({
-      defaultView: 'agendaWeek' // default range = 2017-06-04 - 2017-06-11
+      defaultView: 'timeGridWeek' // default range = 2017-06-04 - 2017-06-11
     })
 
     describe('when default range is partially before validRange', function() {
@@ -63,8 +65,8 @@ describe('validRange', function() {
 
       it('receives the nowDate, timezoneless', function() {
         var validRangeSpy = spyOnCalendarCallback('validRange', function(date) {
-          expect(moment.isMoment(date)).toBe(true)
-          expect(date).toEqualMoment(nowInput)
+          expect(date instanceof Date).toBe(true)
+          expect(date).toEqualDate(nowInput + 'Z')
         })
 
         initCalendar({
@@ -73,20 +75,6 @@ describe('validRange', function() {
 
         expect(validRangeSpy).toHaveBeenCalled()
       })
-
-      /* getNow() always returns ambig zone for some reason. intentional?
-      xit('receives the nowDate, with UTC timezone', function() {
-        var validRangeSpy = spyOnCalendarCallback('validRange', function(date) {
-          expect(date).toEqualMoment(nowInput + 'Z');
-        });
-
-        initCalendar({
-          timezone: 'UTC',
-          now: nowInput
-        });
-
-        expect(validRangeSpy).toHaveBeenCalled();
-      }); */
 
       it('can return a range object with strings', function() {
         var validRangeSpy = spyOnCalendarCallback('validRange', function() {
@@ -100,9 +88,9 @@ describe('validRange', function() {
         expectActiveRange('2017-06-06', '2017-06-11')
       })
 
-      it('can return a range object with moments', function() {
+      it('can return a range object with Date objects', function() {
         var validRangeSpy = spyOnCalendarCallback('validRange', function() {
-          return { start: $.fullCalendar.moment.parseZone('2017-06-06') }
+          return { start: parseUtcDate('2017-06-06') }
         })
 
         initCalendar()
@@ -111,22 +99,12 @@ describe('validRange', function() {
         expectRenderRange('2017-06-04', '2017-06-11')
         expectActiveRange('2017-06-06', '2017-06-11')
       })
-
-      it('does not cause side effects when given date is mutated', function() {
-        initCalendar({
-          now: nowInput,
-          validRange: function(nowDate) {
-            nowDate.add(2, 'years')
-          }
-        })
-        expect(currentCalendar.getNow().year()).toBe(2017)
-      })
     })
   })
 
   describe('when a three-day view', function() { // a view with no alignment
     pushOptions({
-      defaultView: 'agenda',
+      defaultView: 'timeGrid',
       duration: { days: 3 }
     })
 
@@ -155,7 +133,7 @@ describe('validRange', function() {
 
   describe('when hiddenDays causes no days to be active', function() {
     pushOptions({
-      defaultView: 'agendaWeek',
+      defaultView: 'timeGridWeek',
       defaultDate: '2017-10-04',
       hiddenDays: [ 6 ], // Sunday, last day within natural week range
       validRange: {

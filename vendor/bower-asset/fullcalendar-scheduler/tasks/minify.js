@@ -8,24 +8,34 @@ gulp.task('minify', [
   'minify:css'
 ])
 
-gulp.task('minify:js', [ 'webpack' ], function() {
+gulp.task('minify:js', [ 'build' ], function() {
   return gulp.src([
-    'dist/*.js',
-    '!dist/*.min.js' // avoid double minify
-  ])
-    .pipe(uglify({
-      preserveComments: 'some' // keep comments starting with !
-    }))
-    .pipe(rename({ extname: '.min.js' }))
-    .pipe(gulp.dest('dist/'))
+    'dist/*/*.js',
+    '!**/*.min.js' // avoid double minify
+  ], { base: '.' })
+    .pipe(
+      uglify({
+        preserveComments: 'some' // keep comments starting with !
+      })
+    )
+    .pipe(
+      rename({ extname: '.min.js' })
+    )
+    .pipe(gulp.dest('.'))
 })
 
-gulp.task('minify:css', [ 'webpack' ], function() {
+gulp.task('minify:css', [ 'build' ], function() {
   return gulp.src([
-    'dist/*.css',
-    '!dist/*.min.css' // avoid double minify
-  ])
-    .pipe(cssmin())
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('dist/'))
+    'dist/*/*.css',
+    '!**/*.min.css' // avoid double minify
+  ], { base: '.' })
+    .pipe(
+      cssmin()
+    )
+    .pipe(
+      rename({ extname: '.min.css' })
+    )
+    .pipe(
+      gulp.dest('.')
+    )
 })

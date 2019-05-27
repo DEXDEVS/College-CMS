@@ -1,8 +1,11 @@
+import { getEventEls } from '../event-render/EventRenderUtils'
+
 describe('defaultAllDayEventDuration', function() {
 
   pushOptions({
     defaultDate: '2014-05-01',
-    defaultView: 'month'
+    defaultView: 'dayGridMonth',
+    timeZone: 'UTC'
   })
 
   describe('when forceEventDuration is on', function() {
@@ -23,8 +26,8 @@ describe('defaultAllDayEventDuration', function() {
         ]
       })
 
-      var event = currentCalendar.clientEvents()[0]
-      expect(event.end).toEqualMoment('2014-05-07')
+      var event = currentCalendar.getEvents()[0]
+      expect(event.end).toEqualDate('2014-05-07')
     })
 
     it('correctly calculates an unspecified end when using a string Duration input', function() {
@@ -39,8 +42,8 @@ describe('defaultAllDayEventDuration', function() {
         ]
       })
 
-      var event = currentCalendar.clientEvents()[0]
-      expect(event.end).toEqualMoment('2014-05-08')
+      var event = currentCalendar.getEvents()[0]
+      expect(event.end).toEqualDate('2014-05-08')
     })
   })
 
@@ -51,8 +54,8 @@ describe('defaultAllDayEventDuration', function() {
     })
 
     describeOptions('defaultView', {
-      'with basicWeek view': 'basicWeek',
-      'with agendaWeek view': 'agendaWeek'
+      'with dayGridWeek view': 'dayGridWeek',
+      'with week view': 'timeGridWeek'
     }, function() {
       it('renders an all-day event with no `end` to appear to have the default duration', function(done) {
         initCalendar({
@@ -72,8 +75,8 @@ describe('defaultAllDayEventDuration', function() {
               start: '2014-04-28'
             }
           ],
-          eventAfterAllRender: function() {
-            var eventElms = $('.fc-event', currentCalendar.el)
+          _eventsPositioned: function() {
+            var eventElms = getEventEls()
             var width0 = eventElms.eq(0).outerWidth()
             var width1 = eventElms.eq(1).outerWidth()
             expect(width0).toBeGreaterThan(0)

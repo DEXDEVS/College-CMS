@@ -1,5 +1,6 @@
-// TODO: test isRTL?
+// TODO: test isRtl?
 
+import { Draggable } from '@fullcalendar/interaction'
 import { getResourceTimelinePoint } from '../lib/timeline'
 
 describe('timeline-view external element drag-n-drop', function() {
@@ -10,7 +11,7 @@ describe('timeline-view external element drag-n-drop', function() {
       { id: 'a', title: 'Resource A' },
       { id: 'b', title: 'Resource B' }
     ],
-    defaultView: 'timelineDay',
+    defaultView: 'resourceTimelineDay',
     scrollTime: '00:00'
   })
 
@@ -20,22 +21,26 @@ describe('timeline-view external element drag-n-drop', function() {
     dragEl = $('<a' +
       ' class="external-event fc-event"' +
       ' style="width:100px"' +
-      ' data-event=\'{"title":"my external event"}\'' +
       '>external</a>')
       .appendTo('body')
-      .draggable()
+
+    new Draggable(dragEl[0], {
+      eventData: {
+        title: 'my external event'
+      }
+    })
   })
 
   afterEach(function() {
     dragEl.remove()
   })
 
-  describeTimezones(function(tz) {
+  describeTimeZones(function(tz) {
 
     it('allows dropping onto a resource', function(done) {
       let dropSpy, receiveSpy
       initCalendar({
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.external-event').simulate('drag', {
             localPoint: { left: 0, top: '50%' },
             end: getResourceTimelinePoint('b', '2015-11-29T05:00:00'),
@@ -47,16 +52,18 @@ describe('timeline-view external element drag-n-drop', function() {
           })
         }),
         drop:
-          (dropSpy = spyCall(function(date) {
-            expect(date).toEqualMoment(tz.moment('2015-11-29T05:00:00'))
+          (dropSpy = spyCall(function(arg) {
+            expect(arg.date).toEqualDate(tz.parseDate('2015-11-29T05:00:00'))
           })),
         eventReceive:
-          (receiveSpy = spyCall(function(event) {
-            expect(event.title).toBe('my external event')
-            expect(event.start).toEqualMoment(tz.moment('2015-11-29T05:00:00'))
-            expect(event.end).toBe(null)
-            const resource = currentCalendar.getEventResource(event)
-            expect(resource.id).toBe('b')
+          (receiveSpy = spyCall(function(arg) {
+            expect(arg.event.title).toBe('my external event')
+            expect(arg.event.start).toEqualDate(tz.parseDate('2015-11-29T05:00:00'))
+            expect(arg.event.end).toBe(null)
+
+            let resources = arg.event.getResources()
+            expect(resources.length).toBe(1)
+            expect(resources[0].id).toBe('b')
           }))
       })
     })
@@ -78,7 +85,7 @@ describe('timeline-view external element drag-n-drop', function() {
     it('doesn\'t allow the drop on an event', function(done) {
       let dropSpy, receiveSpy
       initCalendar({
-        eventAfterAllRender: oneCall(function() {
+        _eventsPositioned: oneCall(function() {
           $('.external-event').simulate('drag', {
             localPoint: { left: 0, top: '50%' },
             end: getResourceTimelinePoint('a', '2015-11-29T02:00:00'),
@@ -95,7 +102,7 @@ describe('timeline-view external element drag-n-drop', function() {
     })
   })
 
-  // issue 256 (but with event dragging, not dayClick)
+  // issue 256 (but with event dragging, not dateClick)
   it('restricts drop to bounding area', function(done) {
     let isDropCalled = false
 
@@ -111,7 +118,7 @@ describe('timeline-view external element drag-n-drop', function() {
 
     initCalendar({
       header: false, // better guarantee that dragEl is parallel with body slots
-      viewRender() {
+      datesRender() {
         dragEl.simulate('drag', {
           dy: 10, // some movement
           callback() {
@@ -133,10 +140,10 @@ describe('timeline-view external element drag-n-drop', function() {
   it('works after a view switch', function(done) {
     let renderCnt = 0
     initCalendar({
-      viewRender() {
+      datesRender() {
         renderCnt++
         if (renderCnt === 1) {
-          currentCalendar.changeView('timelineWeek')
+          currentCalendar.changeView('resourceTimelineWeek')
         } else if (renderCnt === 2) {
           $('.external-event').simulate('drag', {
             localPoint: { left: 0, top: '50%' },
@@ -153,7 +160,7 @@ describe('timeline-view external element drag-n-drop', function() {
 
   it('works after calling destroy', function(done) {
     initCalendar({
-      viewRender() {
+      datesRender() {
         setTimeout(function() { // problems with destroy otherwise
           currentCalendar.destroy()
           $('.external-event').simulate('drag', {

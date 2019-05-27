@@ -1,16 +1,22 @@
 
 sudo: false # route build to the container-based infrastructure for a faster build
 
+before_install:
+  - gem install sass
+
 language: node_js
 node_js:
-  - 'node' # implies latest version
+  - node # implies latest version
 
 cache:
   directories:
     - node_modules
 
 env:
-  - CMD=test
-  - CMD=lint
+  global:
+    - TZ="America/Los_Angeles" # for Headless Chrome. otherwise will be UTC, bad for tests
+  matrix:
+    - CMD=test-ci
+    - CMD=lint
 
-script: npm run $CMD -- --travis
+script: npm run $CMD

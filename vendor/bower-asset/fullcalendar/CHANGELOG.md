@@ -1,3 +1,82 @@
+
+v4.1.0 (2019-04-24)
+-------------------
+
+- scrollToTime method
+- ISO8601 datetime strings with no 'T' not parsed in Safari (#4610)
+- all-day dropped events after third not being draggable (#4616)
+- dateClick/selecting sometime report wrong dates after calendar resize (#4680)
+- js error when using navLinks with header=false (#4619)
+- js error when more+ link and multiple async event sources (#4585)
+- timeGridEventMinHeight is not defined in OptionsInput interface (#4605)
+- Interdependent package semvers with carrot, use tilde (#4620)
+- dayRender now called for day columns in timeGrid views
+
+
+v4.0.2 (2019-04-03)
+-------------------
+
+Bugfixes:
+- eventAllow and constraints not respected when dragging event between calendars
+- viewSkeletonRender now in typedefs (#4589)
+- invalid draggedEvent properties in eventAllow for external dnd (#4575)
+- forceEventDuration not working with external dnd (#4597)
+- rrule displaying time when allDay is true (#4576)
+- rrule events not displaying at interval start (#4596)
+- prev button not initially working when starting on 31st of a month (#4595)
+- clicking X in popover generating a dayClick (#4584)
+- locale file used as single script tag not affecting calendar locale (#4581)
+- header "today" button not translated for pt and pt-br (#4591)
+- fa locale typo (#4582)
+
+
+v4.0.1 (2019-03-18)
+-------------------
+
+Read about all the changes in v4:
+https://fullcalendar.io/docs/upgrading-from-v3
+
+Obscure breaking changes from v3->v4 not mentioned elsewhere:
+- `touchMouseIgnoreWait` moved to `(packageRoot).config.touchMouseIgnoreWait`
+- `dataAttrPrefix` moved to `(packageRoot).config.dataAttrPrefix`
+
+Advancements since latest prerelease:
+- New styling for buttons and icons in header. New styling for events.
+- Bugfixes: #4539, #4503, #4534, #4505, #4477, #4467, #4454, #4458, #4483,
+  #4517, #4506, #4435, #4498, #4497, #4446, #4432, #4530
+
+NOTE: version "4.0.0" was skipped because of an NPM publishing error
+
+
+v3.10.0 (2019-01-10)
+--------------------
+
+POTENTIALLY BREAKING CHANGE:
+The jquery and moment packages have been moved to peerDependencies. If you are using
+NPM to install fullcalendar, you'll need to explicitly add jquery and moment as
+dependencies of your project. NPM will not install them automatically. (#4136, #4233)
+
+New Features:
+- events from a Google Calendar event source will receive extended props (#4123)
+- export more classes and util functions (#4124)
+- new locales: zh-hk (#4266), be (#4274)
+
+Bugfixes:
+- not accepting dayClicks/selects because of overflow-x:hidden on html/body (#3615)
+- event end time not displayed when duration is one slot, in agenda view (#3049)
+- switching views before event fetch resolves, JS error (#3689)
+- single-day allDay event not showing when time is specified (#3854)
+- prev button doesn't work when previous days are hidden by hiddenDays and dayCount
+  is greater than dateIncrement (#4202)
+- calendar locale not used in all moments objects (#4174)
+- background event background color does not completely fill cells in Chrome (#4145)
+- provide a delta for eventResize when resizing from start (#4135)
+- IE11 memory leak from not removing handler correctly (#4311)
+- make touchstart handlers passive (#4087)
+- fixed typescript definition for: eventAllow (#4243), selectAllow (#4319)
+- fixed locales: de (#4197, #4371), hu (#4203), tr (#4312), ja (#4329)
+
+
 v3.9.0 (2018-03-04)
 -------------------
 

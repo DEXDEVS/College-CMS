@@ -1,3 +1,5 @@
+import { parseUtcDate } from '../lib/date-parsing'
+
 describe('now', function() {
 
   pushOptions({
@@ -6,7 +8,7 @@ describe('now', function() {
 
   describe('when month view', function() {
     pushOptions({
-      defaultView: 'month'
+      defaultView: 'dayGridMonth'
     })
     it('changes the highlighted day when customized', function() {
       initCalendar({
@@ -18,9 +20,9 @@ describe('now', function() {
     })
   })
 
-  describe('when agendaWeek view', function() {
+  describe('when week view', function() {
     pushOptions({
-      defaultView: 'agendaWeek'
+      defaultView: 'timeGridWeek'
     })
     it('changes the highlighted day when customized', function() {
       initCalendar({
@@ -31,11 +33,11 @@ describe('now', function() {
     })
   })
 
-  it('accepts a function that returns a moment', function() {
+  it('accepts a function that returns a Date', function() {
     initCalendar({
-      defaultView: 'month',
+      defaultView: 'dayGridMonth',
       now: function() {
-        return moment.utc('2014-05-01')
+        return parseUtcDate('2014-05-01')
       }
     })
     var todayCell = $('td.fc-today', currentCalendar.el)
@@ -43,9 +45,9 @@ describe('now', function() {
     expect(todayDate).toEqual('2014-05-01')
   })
 
-  it('accepts a function that returns a moment-ish string', function() {
+  it('accepts a function that returns a date string', function() {
     initCalendar({
-      defaultView: 'month',
+      defaultView: 'dayGridMonth',
       now: function() {
         return '2014-05-01'
       }

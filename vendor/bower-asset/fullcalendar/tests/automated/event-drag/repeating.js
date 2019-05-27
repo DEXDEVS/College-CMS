@@ -1,18 +1,19 @@
 import * as TimeGridEventDragUtils from './TimeGridEventDragUtils'
+import { getVisibleEventEls, getFirstEventEl } from '../event-render/EventRenderUtils'
 
 describe('event dragging on repeating events', function() {
   pushOptions({
-    defaultView: 'month',
+    defaultView: 'dayGridMonth',
     defaultDate: '2017-02-12',
     editable: true,
     events: [
       {
-        id: 999,
+        groupId: 999,
         title: 'Repeating Event',
         start: '2017-02-09T16:00:00'
       },
       {
-        id: 999,
+        groupId: 999,
         title: 'Repeating Event',
         start: '2017-02-16T16:00:00'
       }
@@ -20,18 +21,19 @@ describe('event dragging on repeating events', function() {
   })
 
   // bug where offscreen instance of a repeating event was being incorrectly dragged
-  pit('drags correct instance of event', function() {
+  it('drags correct instance of event', function(done) {
 
     initCalendar()
 
-    // event range needs out large (month) then scope down (agendaWeek)
+    // event range needs out large (month) then scope down (week)
     // so that the new view receives out-of-range events.
-    currentCalendar.changeView('agendaWeek')
+    currentCalendar.changeView('timeGridWeek')
 
-    return TimeGridEventDragUtils.drag('2017-02-16T16:00:00', '2017-02-16T12:00:00')
+    TimeGridEventDragUtils.drag('2017-02-16T16:00:00', '2017-02-16T12:00:00')
       .then(function(res) {
-        expect(res.isSuccess).toBe(true)
+        expect(typeof res).toBe('object')
       })
+      .then(done)
   })
 
   it('hides other repeating events when dragging', function(done) {
@@ -40,7 +42,7 @@ describe('event dragging on repeating events', function() {
       eventDragStart: function() {
         setTimeout(function() { // try go execute DURING the drag
           expect(
-            $('.fc-event:visible').filter(function(i, node) {
+            getVisibleEventEls().filter(function(i, node) {
               return $(node).css('visibility') !== 'hidden'
             }).length
           ).toBe(1)
@@ -53,7 +55,7 @@ describe('event dragging on repeating events', function() {
       }
     })
 
-    $('.fc-event:first').simulate('drag', {
+    getFirstEventEl().simulate('drag', {
       dx: 100,
       duration: 100 // ample time for separate eventDragStart/eventDrop
     })
@@ -76,7 +78,7 @@ describe('event dragging on repeating events', function() {
       eventDragStart: function() {
         setTimeout(function() { // try go execute DURING the drag
           expect(
-            $('.fc-event:visible').filter(function(i, node) {
+            getVisibleEventEls().filter(function(i, node) {
               return $(node).css('visibility') !== 'hidden'
             }).length
           ).toBe(2) // the dragging event AND the other regular event
@@ -89,7 +91,7 @@ describe('event dragging on repeating events', function() {
       }
     })
 
-    $('.fc-event:first').simulate('drag', {
+    getFirstEventEl().simulate('drag', {
       dx: 100,
       duration: 100 // ample time for separate eventDragStart/eventDrop
     })

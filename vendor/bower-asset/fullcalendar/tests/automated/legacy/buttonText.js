@@ -4,7 +4,7 @@ describe('button text', function() {
     header: {
       left: 'prevYear,prev,today,next,nextYear',
       center: '',
-      right: 'month,basicWeek,basicDay,agendaWeek,agendaDay'
+      right: 'dayGridMonth,dayGridWeek,dayGridDay,timeGridWeek,timeGridDay'
     }
   })
 
@@ -22,11 +22,11 @@ describe('button text', function() {
         expect($('.fc-prevYear-button')).toHaveText('')
 
         expect($('.fc-today-button')).toHaveText('today')
-        expect($('.fc-month-button')).toHaveText('month')
-        expect($('.fc-basicWeek-button')).toHaveText('week')
-        expect($('.fc-agendaWeek-button')).toHaveText('week')
-        expect($('.fc-basicDay-button')).toHaveText('day')
-        expect($('.fc-agendaDay-button')).toHaveText('day')
+        expect($('.fc-dayGridMonth-button')).toHaveText('month')
+        expect($('.fc-dayGridWeek-button')).toHaveText('week')
+        expect($('.fc-timeGridWeek-button')).toHaveText('week')
+        expect($('.fc-dayGridDay-button')).toHaveText('day')
+        expect($('.fc-dayGridDay-button')).toHaveText('day')
       })
 
       it('should contain specified text values', function() {
@@ -49,11 +49,11 @@ describe('button text', function() {
         expect($('.fc-prevYear-button')).toHaveText('<--')
 
         expect($('.fc-today-button')).toHaveText('tidei')
-        expect($('.fc-month-button')).toHaveText('mun')
-        expect($('.fc-agendaDay-button')).toHaveText('dei')
-        expect($('.fc-agendaWeek-button')).toHaveText('wiki')
-        expect($('.fc-basicDay-button')).toHaveText('dei')
-        expect($('.fc-basicWeek-button')).toHaveText('wiki')
+        expect($('.fc-dayGridMonth-button')).toHaveText('mun')
+        expect($('.fc-dayGridDay-button')).toHaveText('dei')
+        expect($('.fc-timeGridWeek-button')).toHaveText('wiki')
+        expect($('.fc-dayGridDay-button')).toHaveText('dei')
+        expect($('.fc-dayGridWeek-button')).toHaveText('wiki')
       })
 
     })
@@ -74,11 +74,11 @@ describe('button text', function() {
         expect($('.fc-prevYear-button')).toHaveText('prev year')
 
         expect($('.fc-today-button')).toHaveText('today')
-        expect($('.fc-month-button')).toHaveText('month')
-        expect($('.fc-basicWeek-button')).toHaveText('week')
-        expect($('.fc-agendaWeek-button')).toHaveText('week')
-        expect($('.fc-basicDay-button')).toHaveText('day')
-        expect($('.fc-agendaDay-button')).toHaveText('day')
+        expect($('.fc-dayGridMonth-button')).toHaveText('month')
+        expect($('.fc-dayGridWeek-button')).toHaveText('week')
+        expect($('.fc-timeGridWeek-button')).toHaveText('week')
+        expect($('.fc-dayGridDay-button')).toHaveText('day')
+        expect($('.fc-dayGridDay-button')).toHaveText('day')
       })
 
       it('should contain specified text values', function() {
@@ -101,11 +101,11 @@ describe('button text', function() {
         expect($('.fc-prevYear-button')).toHaveText('<--')
 
         expect($('.fc-today-button')).toHaveText('tidei')
-        expect($('.fc-month-button')).toHaveText('mun')
-        expect($('.fc-agendaDay-button')).toHaveText('dei')
-        expect($('.fc-agendaWeek-button')).toHaveText('wiki')
-        expect($('.fc-basicDay-button')).toHaveText('dei')
-        expect($('.fc-basicWeek-button')).toHaveText('wiki')
+        expect($('.fc-dayGridMonth-button')).toHaveText('mun')
+        expect($('.fc-dayGridDay-button')).toHaveText('dei')
+        expect($('.fc-timeGridWeek-button')).toHaveText('wiki')
+        expect($('.fc-dayGridDay-button')).toHaveText('dei')
+        expect($('.fc-dayGridWeek-button')).toHaveText('wiki')
       })
 
     })
@@ -130,11 +130,11 @@ describe('button text', function() {
         expect($('.fc-prevYear-button')).toHaveText('')
 
         expect($('.fc-today-button')).toHaveText('Aujourd\'hui')
-        expect($('.fc-month-button')).toHaveText('Mois')
-        expect($('.fc-basicWeek-button')).toHaveText('Semaine')
-        expect($('.fc-agendaWeek-button')).toHaveText('Semaine')
-        expect($('.fc-basicDay-button')).toHaveText('Jour')
-        expect($('.fc-agendaDay-button')).toHaveText('Jour')
+        expect($('.fc-dayGridMonth-button')).toHaveText('Mois')
+        expect($('.fc-dayGridWeek-button')).toHaveText('Semaine')
+        expect($('.fc-timeGridWeek-button')).toHaveText('Semaine')
+        expect($('.fc-dayGridDay-button')).toHaveText('Jour')
+        expect($('.fc-dayGridDay-button')).toHaveText('Jour')
       })
 
       it('should contain specified text values', function() {
@@ -157,11 +157,11 @@ describe('button text', function() {
         expect($('.fc-prevYear-button')).toHaveText('<--')
 
         expect($('.fc-today-button')).toHaveText('tidei')
-        expect($('.fc-month-button')).toHaveText('mun')
-        expect($('.fc-agendaDay-button')).toHaveText('dei')
-        expect($('.fc-agendaWeek-button')).toHaveText('wiki')
-        expect($('.fc-basicDay-button')).toHaveText('dei')
-        expect($('.fc-basicWeek-button')).toHaveText('wiki')
+        expect($('.fc-dayGridMonth-button')).toHaveText('mun')
+        expect($('.fc-dayGridDay-button')).toHaveText('dei')
+        expect($('.fc-timeGridWeek-button')).toHaveText('wiki')
+        expect($('.fc-dayGridDay-button')).toHaveText('dei')
+        expect($('.fc-dayGridWeek-button')).toHaveText('wiki')
       })
 
     })
@@ -183,11 +183,11 @@ describe('button text', function() {
         // expect($('.fc-prevYear-button')).toHaveText('Précédent');
 
         expect($('.fc-today-button')).toHaveText('Aujourd\'hui')
-        expect($('.fc-month-button')).toHaveText('Mois')
-        expect($('.fc-basicWeek-button')).toHaveText('Semaine')
-        expect($('.fc-agendaWeek-button')).toHaveText('Semaine')
-        expect($('.fc-basicDay-button')).toHaveText('Jour')
-        expect($('.fc-agendaDay-button')).toHaveText('Jour')
+        expect($('.fc-dayGridMonth-button')).toHaveText('Mois')
+        expect($('.fc-dayGridWeek-button')).toHaveText('Semaine')
+        expect($('.fc-timeGridWeek-button')).toHaveText('Semaine')
+        expect($('.fc-dayGridDay-button')).toHaveText('Jour')
+        expect($('.fc-dayGridDay-button')).toHaveText('Jour')
       })
 
       it('should contain specified text values', function() {
@@ -210,11 +210,11 @@ describe('button text', function() {
         expect($('.fc-prevYear-button')).toHaveText('<--')
 
         expect($('.fc-today-button')).toHaveText('tidei')
-        expect($('.fc-month-button')).toHaveText('mun')
-        expect($('.fc-agendaDay-button')).toHaveText('dei')
-        expect($('.fc-agendaWeek-button')).toHaveText('wiki')
-        expect($('.fc-basicDay-button')).toHaveText('dei')
-        expect($('.fc-basicWeek-button')).toHaveText('wiki')
+        expect($('.fc-dayGridMonth-button')).toHaveText('mun')
+        expect($('.fc-dayGridDay-button')).toHaveText('dei')
+        expect($('.fc-timeGridWeek-button')).toHaveText('wiki')
+        expect($('.fc-dayGridDay-button')).toHaveText('dei')
+        expect($('.fc-dayGridWeek-button')).toHaveText('wiki')
       })
 
     })

@@ -6,15 +6,15 @@
 <script src='../../node_modules/jquery/dist/jquery.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../dist/fullcalendar.js'></script>
-<script src='../../dist/gcal.js'></script>
+<script src='../../dist/plugins/google-calendar.js'></script>
 <script>
 
   /*
   TODO:
   this file demonstrates a bug, unrelated to triggers, where starting off in a small window,
-  changing to agendaWeek, maximizing the window, switching to month causes the last column of
+  changing to week, maximizing the window, switching to month causes the last column of
   events to be misaligned (don't stretch all the way right)
-  this happens due to agendaWeek being taller than month before the switch back
+  this happens due to week being taller than month before the switch back
   */
 
   var date = new Date();
@@ -25,35 +25,35 @@
   $(document).ready(function() {
     $('#calendar').fullCalendar({
       //weekends: false,
-      //defaultView: 'agendaWeek',
-      
+      //defaultView: 'week',
+
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+        right: 'month,week,dayGridWeek,day,dayGridDay'
       },
       editable: true,
-      //isRTL: true,
-      
+      //dir: 'rtl',
+
       viewDisplay: function(view) {
         console.log('viewDisplay');
-        console.log(view.start + ' - ' + view.end);
-        console.log(view.visStart + ' - ' + view.visEnd);
+        console.log(view.activeStart + ' - ' + view.activeEnd);
+        console.log(view.currentStart + ' - ' + view.currentEnd);
         //console.log(view);
         //console.log(this);
       },
 
-      eventAfterAllRender: function(view) {
+      _eventsPositioned: function(view) {
         console.log('all rendered', view);
       },
-      
+
       //loading: // see sources.html
-      
+
       windowResize: function(view) {
         console.log('windowResize - ' + view.title);
         //console.log(this);
       },
-      
+
       minTime: '5',
       maxTime: '21:30',
       dayClick: function(dayDate, allDay, ev, view) {
@@ -62,7 +62,7 @@
         //console.log(ev);
         console.log(this);
       },
-      
+
       selectable: true,
       select: function(start, end, allDay) {
         console.log('select', start, end, allDay);
@@ -70,7 +70,7 @@
       unselect: function() {
         console.log('unselect');
       },
-      
+
       eventRender: function(event, element, view) {
         if (event.id == 888) {
           return false;
@@ -83,11 +83,11 @@
           //console.log('renderEvent (' + event.title + ') - ' + view.title);
         }
       },
-      eventAfterRender: function(event, element, view) {
+      eventPositioned: function(event, element, view) {
         //console.log('after render for "' + event.title + '":');
         //console.log(element);
       },
-      
+
       eventClick: function(event, jsEvent, view) {
         console.log('EVENT CLICK ' + event.title);
         //console.log(jsEvent);
@@ -95,8 +95,8 @@
         //console.log(this);
         //return false;
       },
-      
-      
+
+
       eventMouseover: function(event, jsEvent, view) {
         console.log('MOUSEOVER ' + event.title);
         //console.log(jsEvent);
@@ -109,8 +109,8 @@
         //console.log(view);
         //console.log(this);
       },
-      
-      
+
+
       eventDragStart: function(event, jsEvent, ui, view) {
         console.log('DRAG START ' + event.title);
         console.log(this);
@@ -132,7 +132,7 @@
         //console.log(view.title);
         //console.log(this);
       },
-      
+
       eventResizeStart: function(event, jsEvent, ui, view) {
         console.log('RESIZE START ' + event.title);
         //console.log(this);
@@ -154,14 +154,14 @@
         //console.log(this);
       },
 
-      /* for testing eventAfterAllRender
+      /* for testing _eventsPositioned
       events: {
         url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
         editable: true,
         className: 'holiday'
       },
       */
-      
+
       events: [
         {
           title: 'All Day Event',
@@ -173,13 +173,13 @@
           end: new Date(y, m, d-2)
         },
         {
-          id: 999,
+          groupId: 999,
           title: 'Repeating Event',
           start: new Date(y, m, d-3, 16, 0),
           allDay: false
         },
         {
-          id: 999,
+          groupId: 999,
           title: 'Repeating Event',
           start: new Date(y, m, d+4, 16, 0),
           allDay: false

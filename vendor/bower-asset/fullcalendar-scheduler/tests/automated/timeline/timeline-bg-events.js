@@ -5,7 +5,7 @@ describe('timeline background events', function() {
     initCalendar({
       now: '2017-03-07',
       scrollTime: '00:00',
-      defaultView: 'timelineDay',
+      defaultView: 'resourceTimelineDay',
       resources: [{
         id: 'root',
         children: [{
@@ -24,7 +24,7 @@ describe('timeline background events', function() {
 
     expect(getBgEventCnt()).toBe(1)
 
-    currentCalendar.removeEvents('1')
+    currentCalendar.getEventById('1').remove()
     expect(getBgEventCnt()).toBe(0)
 
     const toggleEl = $('.fc-expander-space')

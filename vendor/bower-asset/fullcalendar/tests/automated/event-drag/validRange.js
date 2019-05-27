@@ -7,7 +7,7 @@ describe('validRange event dragging', function() {
 
     describe('when in month view', function() {
       pushOptions({
-        defaultView: 'month',
+        defaultView: 'dayGridMonth',
         defaultDate: '2017-06-01',
         validRange: { start: '2017-06-06' },
         events: [
@@ -16,12 +16,13 @@ describe('validRange event dragging', function() {
         editable: true
       })
 
-      pit('won\'t go before validRange', function() {
+      it('won\'t go before validRange', function(done) {
         initCalendar()
-        return DayGridEventDragUtils.drag('2017-06-08', '2017-06-06')
+        DayGridEventDragUtils.drag('2017-06-08', '2017-06-06')
           .then(function(res) {
-            expect(res.isSuccess).toBe(false)
+            expect(res).toBe(false)
           })
+          .then(done)
       })
     })
   })
@@ -30,7 +31,7 @@ describe('validRange event dragging', function() {
 
     describe('when in month view', function() {
       pushOptions({
-        defaultView: 'month',
+        defaultView: 'dayGridMonth',
         defaultDate: '2017-06-01',
         validRange: { end: '2017-06-09' },
         events: [
@@ -39,12 +40,13 @@ describe('validRange event dragging', function() {
         editable: true
       })
 
-      pit('won\'t go after validRange', function() {
+      it('won\'t go after validRange', function(done) {
         initCalendar()
-        return DayGridEventDragUtils.drag('2017-06-05', '2017-06-08')
+        DayGridEventDragUtils.drag('2017-06-05', '2017-06-08')
           .then(function(res) {
-            expect(res.isSuccess).toBe(false)
+            expect(res).toBe(false)
           })
+          .then(done)
       })
     })
   })

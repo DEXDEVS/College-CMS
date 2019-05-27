@@ -1,13 +1,15 @@
 
 describe('columnHeaderFormat', function() {
 
-  describe('when columnFormat is not set', function() {
+  describe('when not set', function() {
 
-    var viewWithFormat = [ { view: 'month', expected: 'Sun', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'basicWeek', expected: 'Sun 5/11', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaWeek', expected: 'Sun 5/11', selector: 'th.fc-widget-header.fc-sun' },
-      { view: 'basicDay', expected: 'Sunday', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaDay', expected: 'Sunday', selector: 'th.fc-widget-header.fc-sun' } ]
+    var viewWithFormat = [
+      { view: 'dayGridMonth', expected: /^Sun$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'dayGridWeek', expected: /^Sun 5[/ ]11$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridWeek', expected: /^Sun 5[/ ]11$/, selector: 'th.fc-widget-header.fc-sun' },
+      { view: 'dayGridDay', expected: /^Sunday$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridDay', expected: /^Sunday$/, selector: 'th.fc-widget-header.fc-sun' }
+    ]
 
     beforeEach(function() {
       initCalendar({
@@ -20,28 +22,26 @@ describe('columnHeaderFormat', function() {
       for (var i = 0; i < viewWithFormat.length; i++) {
         var crtView = viewWithFormat[i]
         currentCalendar.changeView(crtView.view)
-        expect(currentCalendar.el.find(crtView.selector).text()).toBe(crtView.expected)
+        expect($(currentCalendar.el).find(crtView.selector).text()).toMatch(crtView.expected)
       };
     })
   })
 
   describe('when columnHeaderFormat is set on a per-view basis', function() {
 
-    var viewWithFormat = [ { view: 'month', expected: 'Sunday', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'basicWeek', expected: 'Sunday 11 - 5', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaWeek', expected: 'Sunday 11 , 5', selector: 'th.fc-widget-header.fc-sun' },
-      { view: 'basicDay', expected: 'Sunday 11 | 5', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaDay', expected: 'Sunday 5/11', selector: 'th.fc-widget-header.fc-sun' } ]
+    var viewWithFormat = [
+      { view: 'dayGridMonth', expected: /^Sunday$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridDay', expected: /^Sunday, May 11$/, selector: 'th.fc-widget-header.fc-sun' },
+      { view: 'dayGridWeek', expected: /^Sunday, 5[/ ]11$/, selector: 'th.fc-day-header.fc-sun' }
+    ]
 
     beforeEach(function() {
       initCalendar({
         defaultDate: '2014-05-11',
         views: {
-          month: { columnHeaderFormat: 'dddd' },
-          agendaDay: { columnHeaderFormat: 'dddd M/D' },
-          agendaWeek: { columnHeaderFormat: 'dddd D , M' },
-          basicDay: { columnHeaderFormat: 'dddd D | M' },
-          basicWeek: { columnHeaderFormat: 'dddd D - M' }
+          month: { columnHeaderFormat: { weekday: 'long' } },
+          day: { columnHeaderFormat: { weekday: 'long', month: 'long', day: 'numeric' } },
+          dayGridWeek: { columnHeaderFormat: { weekday: 'long', month: 'numeric', day: 'numeric' } }
         }
       })
     })
@@ -51,18 +51,20 @@ describe('columnHeaderFormat', function() {
       for (var i = 0; i < viewWithFormat.length; i++) {
         var crtView = viewWithFormat[i]
         currentCalendar.changeView(crtView.view)
-        expect(currentCalendar.el.find(crtView.selector).text()).toBe(crtView.expected)
+        expect($(currentCalendar.el).find(crtView.selector).text()).toMatch(crtView.expected)
       };
     })
   })
 
   describe('when locale is French', function() {
 
-    var viewWithFormat = [ { view: 'month', expected: 'dim.', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'basicWeek', expected: 'dim. 11/5', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaWeek', expected: 'dim. 11/5', selector: 'th.fc-widget-header.fc-sun' },
-      { view: 'basicDay', expected: 'dimanche', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaDay', expected: 'dimanche', selector: 'th.fc-widget-header.fc-sun' } ]
+    var viewWithFormat = [
+      { view: 'dayGridMonth', expected: /^dim\.$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'dayGridWeek', expected: /^dim\. 11[/ ]0?5$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridWeek', expected: /^dim\. 11[/ ]0?5$/, selector: 'th.fc-widget-header.fc-sun' },
+      { view: 'dayGridDay', expected: /^dimanche$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridDay', expected: /^dimanche$/, selector: 'th.fc-widget-header.fc-sun' }
+    ]
 
     beforeEach(function() {
       initCalendar({
@@ -76,18 +78,20 @@ describe('columnHeaderFormat', function() {
       for (var i = 0; i < viewWithFormat.length; i++) {
         var crtView = viewWithFormat[i]
         currentCalendar.changeView(crtView.view)
-        expect(currentCalendar.el.find(crtView.selector).text()).toBe(crtView.expected)
+        expect($(currentCalendar.el).find(crtView.selector).text()).toMatch(crtView.expected)
       };
     })
   })
 
   describe('when locale is en-gb', function() {
 
-    var viewWithFormat = [ { view: 'month', expected: 'Sun', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'basicWeek', expected: 'Sun 11/5', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaWeek', expected: 'Sun 11/5', selector: 'th.fc-widget-header.fc-sun' },
-      { view: 'basicDay', expected: 'Sunday', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaDay', expected: 'Sunday', selector: 'th.fc-widget-header.fc-sun' } ]
+    var viewWithFormat = [
+      { view: 'dayGridMonth', expected: /^Sun$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'dayGridWeek', expected: /^Sun 11[/ ]0?5$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridWeek', expected: /^Sun 11[/ ]0?5$/, selector: 'th.fc-widget-header.fc-sun' },
+      { view: 'dayGridDay', expected: /^Sunday$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridDay', expected: /^Sunday$/, selector: 'th.fc-widget-header.fc-sun' }
+    ]
 
     beforeEach(function() {
       initCalendar({
@@ -101,18 +105,20 @@ describe('columnHeaderFormat', function() {
       for (var i = 0; i < viewWithFormat.length; i++) {
         var crtView = viewWithFormat[i]
         currentCalendar.changeView(crtView.view)
-        expect(currentCalendar.el.find(crtView.selector).text()).toBe(crtView.expected)
+        expect($(currentCalendar.el).find(crtView.selector).text()).toMatch(crtView.expected)
       };
     })
   })
 
   describe('when locale is Korean', function() {
 
-    var viewWithFormat = [ { view: 'month', expected: '일', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'basicWeek', expected: '일 05.11.', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaWeek', expected: '일 05.11.', selector: 'th.fc-widget-header.fc-sun' },
-      { view: 'basicDay', expected: '일요일', selector: 'th.fc-day-header.fc-sun' },
-      { view: 'agendaDay', expected: '일요일', selector: 'th.fc-widget-header.fc-sun' } ]
+    var viewWithFormat = [
+      { view: 'dayGridMonth', expected: /^일$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'dayGridWeek', expected: /^5[.월] 11[.일] \(?일\)?$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridWeek', expected: /^5[.월] 11[.일] \(?일\)?$/, selector: 'th.fc-widget-header.fc-sun' },
+      { view: 'dayGridDay', expected: /^일요일$/, selector: 'th.fc-day-header.fc-sun' },
+      { view: 'timeGridDay', expected: /^일요일$/, selector: 'th.fc-widget-header.fc-sun' }
+    ]
 
     beforeEach(function() {
       initCalendar({
@@ -125,7 +131,7 @@ describe('columnHeaderFormat', function() {
       for (var i = 0; i < viewWithFormat.length; i++) {
         var crtView = viewWithFormat[i]
         currentCalendar.changeView(crtView.view)
-        expect(currentCalendar.el.find(crtView.selector).text()).toBe(crtView.expected)
+        expect($(currentCalendar.el).find(crtView.selector).text()).toMatch(crtView.expected)
       };
     })
   })
@@ -136,7 +142,7 @@ describe('columnHeaderFormat', function() {
       initCalendar({
         views: {
           multiYear: {
-            type: 'basic',
+            type: 'dayGrid',
             duration: { years: 2 }
           }
         },
@@ -150,7 +156,7 @@ describe('columnHeaderFormat', function() {
       initCalendar({
         views: {
           multiMonth: {
-            type: 'basic',
+            type: 'dayGrid',
             duration: { months: 2 }
           }
         },
@@ -164,7 +170,7 @@ describe('columnHeaderFormat', function() {
       initCalendar({
         views: {
           multiWeek: {
-            type: 'basic',
+            type: 'dayGrid',
             duration: { weeks: 2 }
           }
         },
@@ -178,14 +184,16 @@ describe('columnHeaderFormat', function() {
       initCalendar({
         views: {
           multiDay: {
-            type: 'basic',
+            type: 'dayGrid',
             duration: { days: 2 }
           }
         },
         defaultView: 'multiDay',
         defaultDate: '2014-12-25'
       })
-      expect($('.fc-day-header:first')).toHaveText('Thu 12/25')
+      expect(
+        $('.fc-day-header:first').text()
+      ).toMatch(/^Thu 12[/ ]25$/)
     })
   })
 })

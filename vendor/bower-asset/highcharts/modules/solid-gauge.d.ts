@@ -1,5 +1,10 @@
+/*!*
+ *
+ *  Copyright (c) Highsoft AS. All rights reserved.
+ *
+ *!*/
 import * as globals from "../globals";
-import * as Highcharts from "../highcharts";
+import * as _Highcharts from "../highcharts";
 /**
  * Adds the module to the imported Highcharts namespace.
  *
@@ -7,5 +12,13 @@ import * as Highcharts from "../highcharts";
  *        The imported Highcharts namespace to extend.
  */
 export function factory(highcharts: typeof Highcharts): void;
-declare module "../highcharts" {}
+declare module "../highcharts" {
+    interface SymbolOptionsObject {
+        /**
+         * Whether to draw rounded edges.
+         */
+        rounded?: boolean;
+    }
+}
 export default factory;
+export let Highcharts: typeof _Highcharts;

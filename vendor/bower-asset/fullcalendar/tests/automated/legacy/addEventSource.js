@@ -1,3 +1,5 @@
+import { getEventEls } from './../event-render/EventRenderUtils'
+
 describe('addEventSource', function() {
   var eventArray = [
     { id: 0, title: 'event zero', start: '2014-06-24', className: 'event-zero' },
@@ -7,7 +9,7 @@ describe('addEventSource', function() {
 
   pushOptions({
     defaultDate: '2014-06-24',
-    defaultView: 'month'
+    defaultView: 'dayGridMonth'
   })
 
 
@@ -24,7 +26,7 @@ describe('addEventSource', function() {
   it('correctly adds a function source', function(done) {
     go(
       function() {
-        currentCalendar.addEventSource(function(start, end, timezone, callback) {
+        currentCalendar.addEventSource(function(arg, callback) {
           callback(eventArray)
         })
       },
@@ -53,7 +55,7 @@ describe('addEventSource', function() {
       function() {
         currentCalendar.addEventSource({
           className: 'funcsource',
-          events: function(start, end, timezone, callback) {
+          events: function(arg, callback) {
             callback(eventArray)
           }
         })
@@ -69,7 +71,7 @@ describe('addEventSource', function() {
   function go(addFunc, extraTestFunc, doneFunc) {
     var callCnt = 0
     var options = {}
-    options.eventAfterAllRender = function() {
+    options._eventsPositioned = function() {
       callCnt++
       if (callCnt === 2) { // once for initial render. second time for addEventSource
 
@@ -102,8 +104,7 @@ describe('addEventSource', function() {
   // Checks to make sure all events have been rendered and that the calendar
   // has internal info on all the events.
   function checkAllEvents() {
-    expect(currentCalendar.clientEvents().length).toEqual(3)
-    expect($('.fc-event').length).toEqual(3)
+    expect(currentCalendar.getEvents().length).toEqual(3)
+    expect(getEventEls().length).toEqual(3)
   }
-
 })

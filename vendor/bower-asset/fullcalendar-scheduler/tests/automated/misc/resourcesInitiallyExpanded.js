@@ -1,7 +1,7 @@
 
 describe('resourcesInitiallyExpanded', function() {
   pushOptions({
-    defaultView: 'timelineDay',
+    defaultView: 'resourceTimelineDay',
     defaultDate: '2017-10-10',
     scrollTime: '09:00',
     resources: [
@@ -77,15 +77,6 @@ describe('resourcesInitiallyExpanded', function() {
         expect($('.event1').length).toBe(1)
       })
 
-
-      it('renders scrollfollowers when expanded', function() {
-        initCalendar()
-
-        expect($('.fc-title.fc-following').length).toBe(0)
-
-        clickExpander()
-        expect($('.fc-title.fc-following').length).toBe(1)
-      })
     })
 
 

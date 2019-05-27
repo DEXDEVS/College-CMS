@@ -1,16 +1,8 @@
-/*
-getResourceById
-getResources
-addResource
-removeResource
-refetchResources
-getResourceEvents
-*/
 
 describe('resource crudding', function() {
 
   pushOptions({
-    defaultView: 'timelineDay'
+    defaultView: 'resourceTimelineDay'
   })
 
   describe('getResourceById', function() {
@@ -22,7 +14,7 @@ describe('resource crudding', function() {
           resources: [
             { id: 'a', title: 'room a' }
           ],
-          viewRender() {
+          datesRender() {
             const resource = currentCalendar.getResourceById('a')
             expect(resource.title).toBe('room a')
             done()
@@ -38,7 +30,7 @@ describe('resource crudding', function() {
           resources: [
             { id: 1, title: 'room 1' }
           ],
-          viewRender() {
+          datesRender() {
             const resource = currentCalendar.getResourceById(1)
             expect(resource.title).toBe('room 1')
             done()
@@ -51,7 +43,7 @@ describe('resource crudding', function() {
           resources: [
             { id: 1, title: 'room 1' }
           ],
-          viewRender() {
+          datesRender() {
             const resource = currentCalendar.getResourceById('1')
             expect(resource.title).toBe('room 1')
             done()
@@ -63,23 +55,7 @@ describe('resource crudding', function() {
 
   describe('getResources', function() {
 
-    it('gets flat top-level resources', function(done) {
-      initCalendar({
-        resources: [
-          { id: 'a', title: 'room a' },
-          { id: 'b', title: 'room b' }
-        ],
-        viewRender() {
-          const resources = currentCalendar.getResources()
-          expect(resources.length).toBe(2)
-          expect(resources[0].title).toBe('room a')
-          expect(resources[1].title).toBe('room b')
-          done()
-        }
-      })
-    })
-
-    it('gets nested top-level resources', function(done) {
+    it('gets all resources, even nested', function(done) {
       initCalendar({
         resources: [
           { id: 'a', title: 'room a' },
@@ -89,12 +65,57 @@ describe('resource crudding', function() {
               { id: 'b1', title: 'room b1' }
             ] }
         ],
-        viewRender() {
+        datesRender() {
           const resources = currentCalendar.getResources()
+          expect(resources.length).toBe(3)
+          expect(resources[0].title).toBe('room a')
+          expect(resources[1].title).toBe('room b')
+          expect(resources[2].title).toBe('room b1')
+          done()
+        }
+      })
+    })
+  })
+
+  describe('getTopLevelResources', function() {
+
+    it('gets only top-level resources', function(done) {
+      initCalendar({
+        resources: [
+          { id: 'a', title: 'room a' },
+          { id: 'b',
+            title: 'room b',
+            children: [
+              { id: 'b1', title: 'room b1' }
+            ] }
+        ],
+        datesRender() {
+          const resources = currentCalendar.getTopLevelResources()
           expect(resources.length).toBe(2)
           expect(resources[0].title).toBe('room a')
           expect(resources[1].title).toBe('room b')
-          expect(resources[1].children[0].title).toBe('room b1')
+          done()
+        }
+      })
+    })
+  })
+
+  describe('Resource::getChildren', function() {
+
+    it('gets only top-level resources', function(done) {
+      initCalendar({
+        resources: [
+          { id: 'a', title: 'room a' },
+          { id: 'b',
+            title: 'room b',
+            children: [
+              { id: 'b1', title: 'room b1' }
+            ] }
+        ],
+        datesRender() {
+          const children = currentCalendar.getResourceById('b').getChildren()
+          expect(children.length).toBe(1)
+          expect(children[0].title).toBe('room b1')
           done()
         }
       })
@@ -108,7 +129,7 @@ describe('resource crudding', function() {
         resources: [
           { id: 'a', title: 'room a' }
         ],
-        viewRender() {
+        datesRender() {
           let resources = currentCalendar.getResources()
           expect(resources.length).toBe(1)
           currentCalendar.addResource({ id: 'b', title: 'room b' })
@@ -121,7 +142,7 @@ describe('resource crudding', function() {
     })
   })
 
-  describe('removeResource', function() {
+  describe('Resource::remove', function() {
 
     it('works when given an ID', function(done) {
       initCalendar({
@@ -129,10 +150,10 @@ describe('resource crudding', function() {
           { id: 'a', title: 'room a' },
           { id: 'b', title: 'room b' }
         ],
-        viewRender() {
+        datesRender() {
           let resources = currentCalendar.getResources()
           expect(resources.length).toBe(2)
-          currentCalendar.removeResource('a')
+          currentCalendar.getResourceById('a').remove()
           resources = currentCalendar.getResources()
           expect(resources.length).toBe(1)
           expect(resources[0].title).toBe('room b')
@@ -147,10 +168,10 @@ describe('resource crudding', function() {
           { id: 'a', title: 'room a' },
           { id: 'b', title: 'room b' }
         ],
-        viewRender() {
+        datesRender() {
           let resources = currentCalendar.getResources()
           expect(resources.length).toBe(2)
-          currentCalendar.removeResource(resources[0])
+          resources[0].remove()
           resources = currentCalendar.getResources()
           expect(resources.length).toBe(1)
           expect(resources[0].title).toBe('room b')
@@ -164,21 +185,19 @@ describe('resource crudding', function() {
 
     it('will replace previous resources', function(done) {
       let callCnt = 0
+
       initCalendar({
-        resources(callback) {
-          const res =
-            !callCnt
-              ? [
-                { id: 'a', title: 'room a' },
-                { id: 'b', title: 'room b' }
-              ]
-              : [
-                { id: 'c', title: 'room c' }
-              ]
+        resources(arg, callback) {
+          let res = !callCnt ? [
+            { id: 'a', title: 'room a' },
+            { id: 'b', title: 'room b' }
+          ] : [
+            { id: 'c', title: 'room c' }
+          ]
           callCnt += 1
           callback(res)
         },
-        viewRender() {
+        datesRender() {
           let resources = currentCalendar.getResources()
           expect(resources.length).toBe(2)
           expect(resources[0].title).toBe('room a')
@@ -193,9 +212,9 @@ describe('resource crudding', function() {
   })
 
 
-  describe('getResourceEvents', function() {
+  describe('Resource::getEvents', function() {
     pushOptions({
-      defaultView: 'timelineMonth',
+      defaultView: 'resourceTimelineMonth',
       now: '2015-11-17'
     })
 
@@ -216,8 +235,8 @@ describe('resource crudding', function() {
               resourceId: 'a'
             }
           ],
-          eventAfterAllRender() {
-            const events = currentCalendar.getResourceEvents('a')
+          _eventsPositioned() {
+            const events = currentCalendar.getResourceById('a').getEvents()
             expect(events.length).toBe(1)
             done()
           }
@@ -242,8 +261,8 @@ describe('resource crudding', function() {
               resourceIds: ['a', 'b']
             }
           ],
-          eventAfterAllRender() {
-            const events = currentCalendar.getResourceEvents('a')
+          _eventsPositioned() {
+            const events = currentCalendar.getResourceById('a').getEvents()
             expect(events.length).toBe(1)
             done()
           }

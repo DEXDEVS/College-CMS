@@ -1,18 +1,21 @@
 import { getTimeTexts } from './TimeGridEventRenderUtils'
+import { parseLocalDate } from '../lib/date-parsing'
 
 describe('the time text on events', function() {
 
-  describe('in agendaWeek', function() {
+  describe('in week', function() {
     pushOptions({
-      defaultView: 'agendaWeek',
+      defaultView: 'timeGridWeek',
       defaultDate: '2017-07-03',
       scrollTime: '00:00'
     })
 
     it('renders segs with correct local timezone', function() {
+      var FORMAT = { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }
+
       initCalendar({
-        timezone: 'local',
-        timeFormat: 'h:mm Z',
+        timeZone: 'local',
+        eventTimeFormat: FORMAT,
         events: [
           { start: '2017-07-03T23:00:00', end: '2017-07-04T13:00:00' }
         ]
@@ -21,10 +24,16 @@ describe('the time text on events', function() {
       expect(
         getTimeTexts()
       ).toEqual([
-        moment('2017-07-03T23:00:00').format('h:mm Z') + ' - ' +
-        moment('2017-07-04T00:00:00').format('h:mm Z'),
-        moment('2017-07-04T00:00:00').format('h:mm Z') + ' - ' +
-        moment('2017-07-04T13:00:00').format('h:mm Z')
+        currentCalendar.formatRange(
+          parseLocalDate('2017-07-03T23:00:00'),
+          parseLocalDate('2017-07-04T00:00:00'),
+          FORMAT
+        ),
+        currentCalendar.formatRange(
+          parseLocalDate('2017-07-04T00:00:00'),
+          parseLocalDate('2017-07-04T13:00:00'),
+          FORMAT
+        )
       ])
     })
   })

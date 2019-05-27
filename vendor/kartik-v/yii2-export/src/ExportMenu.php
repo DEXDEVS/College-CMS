@@ -3,8 +3,8 @@
 /**
  * @package   yii2-export
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2018
- * @version   1.3.9
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2019
+ * @version   1.4.0
  */
 
 namespace kartik\export;
@@ -757,9 +757,6 @@ class ExportMenu extends GridView
         if ($this->timeout >= 0) {
             set_time_limit($this->timeout);
         }
-        if ($this->stream) {
-            $this->clearOutputBuffers();
-        }
         $config = ArrayHelper::getValue($this->exportConfig, $this->_exportType, []);
         if (empty($config['writer'])) {
             throw new InvalidConfigException(
@@ -801,10 +798,13 @@ class ExportMenu extends GridView
         }
         $filename = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $this->filename);
         $file = self::slash($this->folder) . $filename . '.' . $config['extension'];
-        $writer->save($file);
         if ($this->stream) {
             $this->clearOutputBuffers();
+        }
+        $writer->save($file);
+        if ($this->stream) {
             $this->setHttpHeaders();
+            $this->clearOutputBuffers();
             readfile($file);
             $this->cleanup($file, $config);
             exit();
@@ -1772,7 +1772,9 @@ class ExportMenu extends GridView
          */
         $provider = $this->dataProvider;
         if ($provider instanceof ActiveDataProvider && $provider->query instanceof ActiveQueryInterface) {
-            $model = new $provider->query->modelClass;
+            /* @var $modelClass Model */
+            $modelClass = $provider->query->modelClass;
+            $model = $modelClass::instance();
             return $model->getAttributeLabel($attribute);
         } elseif ($provider instanceof ActiveDataProvider && $provider->query instanceof QueryInterface) {
             return Inflector::camel2words($attribute);

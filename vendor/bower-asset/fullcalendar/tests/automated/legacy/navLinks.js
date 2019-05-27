@@ -1,109 +1,122 @@
+import { formatIsoDay } from '../datelib/utils'
+
 describe('navLinks', function() {
   var options
 
   beforeEach(function() {
-    affix('#cal')
     options = {
       now: '2016-08-20',
       navLinks: true,
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay,listWeek' // affects which view is jumped to by default
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek' // affects which view is jumped to by default
       },
-      dayClick: function() { }
+      dateClick: function() { }
     }
-    spyOn(options, 'dayClick')
+    spyOn(options, 'dateClick')
   })
 
-  describe('in month view', function() {
-    beforeEach(function() {
-      options.defaultView = 'month'
-    })
+  describeTimeZones(function(tz) {
 
-    it('moves to day', function() {
-      $('#cal').fullCalendar(options)
-      $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
-      expectDayView('agendaDay', '2016-08-09')
-      expect(options.dayClick).not.toHaveBeenCalled()
-    })
-
-    // https://github.com/fullcalendar/fullcalendar/issues/3869
-    it('moves to two different days', function() {
-      $('#cal').fullCalendar(options)
-      $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
-      expectDayView('agendaDay', '2016-08-09')
-      expect(options.dayClick).not.toHaveBeenCalled()
-      $('#cal').fullCalendar('changeView', 'month')
-      $.simulateMouseClick(getDayGridNumberEl('2016-08-10'))
-      expectDayView('agendaDay', '2016-08-10')
-    })
-
-    it('moves to agendaDay specifically', function() {
-      options.navLinkDayClick = 'agendaDay'
-      $('#cal').fullCalendar(options)
-      $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
-      expectDayView('agendaDay', '2016-08-09')
-      expect(options.dayClick).not.toHaveBeenCalled()
-    })
-
-    it('moves to basicDay specifically', function() {
-      options.navLinkDayClick = 'basicDay'
-      $('#cal').fullCalendar(options)
-      $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
-      expectDayView('basicDay', '2016-08-09')
-      expect(options.dayClick).not.toHaveBeenCalled()
-    })
-
-    it('executes a custom handler', function() {
-      options.navLinkDayClick = function(date, ev) {
-        expect(date.format()).toBe('2016-08-09')
-        expect(typeof ev).toBe('object')
-      }
-      spyOn(options, 'navLinkDayClick').and.callThrough()
-      $('#cal').fullCalendar(options)
-      $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
-      expect(options.navLinkDayClick).toHaveBeenCalled()
-      expect(options.dayClick).not.toHaveBeenCalled()
-    })
-
-    describe('with weekNumbers', function() {
+    describe('in month view', function() {
       beforeEach(function() {
-        options.weekNumbers = true
+        options.defaultView = 'dayGridMonth'
       })
 
-      it('moves to week', function() {
-        $('#cal').fullCalendar(options)
-        $.simulateMouseClick(getDayGridClassicWeekLinks().eq(1))
-        expectWeekView('agendaWeek', '2016-08-07')
-        expect(options.dayClick).not.toHaveBeenCalled()
+      it('moves to day', function() {
+        initCalendar(options)
+        $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
+        expectDayView('timeGridDay', '2016-08-09')
+        expect(options.dateClick).not.toHaveBeenCalled()
       })
 
-      it('moves to week with within-day rendering', function() {
-        options.weekNumbersWithinDays = true
-        $('#cal').fullCalendar(options)
-        $.simulateMouseClick(getDayGridEmbeddedWeekLinks().eq(1))
-        expectWeekView('agendaWeek', '2016-08-07')
-        expect(options.dayClick).not.toHaveBeenCalled()
+      // https://github.com/fullcalendar/fullcalendar/issues/4619
+      it('moves to day when no toolbars', function() {
+        options.header = null
+        initCalendar(options)
+        $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
+        expectDayView('dayGridDay', '2016-08-09') // is hash-key order-dependent I think :(
+        expect(options.dateClick).not.toHaveBeenCalled()
       })
-    })
 
-    it('does not have clickable day header', function() {
-      $('#cal').fullCalendar(options)
-      expect(getDayHeaderLinks().length).toBe(0)
+      // https://github.com/fullcalendar/fullcalendar/issues/3869
+      it('moves to two different days', function() {
+        initCalendar(options)
+        $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
+        expectDayView('timeGridDay', '2016-08-09')
+        expect(options.dateClick).not.toHaveBeenCalled()
+        currentCalendar.changeView('dayGridMonth')
+        $.simulateMouseClick(getDayGridNumberEl('2016-08-10'))
+        expectDayView('timeGridDay', '2016-08-10')
+      })
+
+      it('moves to day specifically', function() {
+        options.navLinkDayClick = 'day'
+        initCalendar(options)
+        $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
+        expectDayView('timeGridDay', '2016-08-09')
+        expect(options.dateClick).not.toHaveBeenCalled()
+      })
+
+      it('moves to dayGridDay specifically', function() {
+        options.navLinkDayClick = 'dayGridDay'
+        initCalendar(options)
+        $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
+        expectDayView('dayGridDay', '2016-08-09')
+        expect(options.dateClick).not.toHaveBeenCalled()
+      })
+
+      it('executes a custom handler', function() {
+        options.navLinkDayClick = function(date, ev) {
+          expect(date).toEqualDate(tz.parseDate('2016-08-09'))
+          expect(typeof ev).toBe('object')
+        }
+        spyOn(options, 'navLinkDayClick').and.callThrough()
+        initCalendar(options)
+        $.simulateMouseClick(getDayGridNumberEl('2016-08-09'))
+        expect(options.navLinkDayClick).toHaveBeenCalled()
+        expect(options.dateClick).not.toHaveBeenCalled()
+      })
+
+      describe('with weekNumbers', function() {
+        beforeEach(function() {
+          options.weekNumbers = true
+        })
+
+        it('moves to week', function() {
+          initCalendar(options)
+          $.simulateMouseClick(getDayGridClassicWeekLinks().eq(1))
+          expectWeekView('timeGridWeek', '2016-08-07')
+          expect(options.dateClick).not.toHaveBeenCalled()
+        })
+
+        it('moves to week with within-day rendering', function() {
+          options.weekNumbersWithinDays = true
+          initCalendar(options)
+          $.simulateMouseClick(getDayGridEmbeddedWeekLinks().eq(1))
+          expectWeekView('timeGridWeek', '2016-08-07')
+          expect(options.dateClick).not.toHaveBeenCalled()
+        })
+      })
+
+      it('does not have clickable day header', function() {
+        initCalendar(options)
+        expect(getDayHeaderLinks().length).toBe(0)
+      })
     })
   })
 
-  describe('in agendaWeek view', function() {
+  describe('in week view', function() {
     beforeEach(function() {
-      options.defaultView = 'agendaWeek'
+      options.defaultView = 'timeGridWeek'
     })
 
     it('moves to day view', function() {
-      $('#cal').fullCalendar(options)
+      initCalendar(options)
       $.simulateMouseClick(getDayHeaderLink('2016-08-15'))
-      expectDayView('agendaDay', '2016-08-15')
-      expect(options.dayClick).not.toHaveBeenCalled()
+      expectDayView('timeGridDay', '2016-08-15')
+      expect(options.dateClick).not.toHaveBeenCalled()
     })
   })
 
@@ -119,28 +132,28 @@ describe('navLinks', function() {
     })
 
     it('moves to day view', function() {
-      $('#cal').fullCalendar(options)
+      initCalendar(options)
       $.simulateMouseClick(getListDayHeaderLink('2016-08-20'))
-      expectDayView('agendaDay', '2016-08-20')
-      expect(options.dayClick).not.toHaveBeenCalled()
+      expectDayView('timeGridDay', '2016-08-20')
+      expect(options.dateClick).not.toHaveBeenCalled()
     })
   })
 
-  describe('in agendaDay view', function() {
+  describe('in day view', function() {
     beforeEach(function() {
-      options.defaultView = 'agendaDay'
+      options.defaultView = 'timeGridDay'
     })
 
     it('moves to week view', function() {
       options.weekNumbers = true
-      $('#cal').fullCalendar(options)
-      $.simulateMouseClick(getAgendaWeekNumberLink())
-      expectWeekView('agendaWeek', '2016-08-14')
-      expect(options.dayClick).not.toHaveBeenCalled()
+      initCalendar(options)
+      $.simulateMouseClick(getTimeGridWeekNumberLink())
+      expectWeekView('timeGridWeek', '2016-08-14')
+      expect(options.dateClick).not.toHaveBeenCalled()
     })
 
     it('does not have a clickable day header', function() {
-      $('#cal').fullCalendar(options)
+      initCalendar(options)
       expect(getDayHeaderLinks().length).toBe(0)
     })
   })
@@ -150,19 +163,23 @@ describe('navLinks', function() {
   ------------------------------------------------------------------------------------------------------------------ */
 
   function expectDayView(viewName, dayDate) {
-    dayDate = $.fullCalendar.moment(dayDate)
+    if (typeof dayDate === 'string') {
+      dayDate = new Date(dayDate)
+    }
     expect(getCurrentViewName()).toBe(viewName)
     var dates = getDayGridDates()
     expect(dates.length).toBe(1)
-    expect(dates[0].format()).toEqualMoment(dayDate)
+    expect(dates[0]).toEqualDate(dayDate)
   }
 
   function expectWeekView(viewName, firstDayDate) {
-    firstDayDate = $.fullCalendar.moment(firstDayDate)
+    if (typeof firstDayDate === 'string') {
+      firstDayDate = new Date(firstDayDate)
+    }
     expect(getCurrentViewName()).toBe(viewName)
     var dates = getDayGridDates()
     expect(dates.length).toBe(7)
-    expect(dates[0].format()).toEqualMoment(firstDayDate)
+    expect(dates[0]).toEqualDate(firstDayDate)
   }
 
   function getCurrentViewName() {
@@ -172,8 +189,10 @@ describe('navLinks', function() {
   // day headers (for both day grid and time grid)
 
   function getDayHeaderLink(dayDate) {
-    dayDate = $.fullCalendar.moment(dayDate)
-    return $('.fc-day-header[data-date="' + dayDate.format('YYYY-MM-DD') + '"] a')
+    if (typeof dayDate === 'string') {
+      dayDate = new Date(dayDate)
+    }
+    return $('.fc-day-header[data-date="' + formatIsoDay(dayDate) + '"] a')
   }
 
   function getDayHeaderLinks(dayDate) {
@@ -183,8 +202,10 @@ describe('navLinks', function() {
   // day grid
 
   function getDayGridNumberEl(dayDate) {
-    dayDate = $.fullCalendar.moment(dayDate)
-    return $('.fc-day-top[data-date="' + dayDate.format('YYYY-MM-DD') + '"] .fc-day-number')
+    if (typeof dayDate === 'string') {
+      dayDate = new Date(dayDate)
+    }
+    return $('.fc-day-top[data-date="' + formatIsoDay(dayDate) + '"] .fc-day-number')
   }
 
   function getDayGridClassicWeekLinks() { // along the sides of the row
@@ -197,20 +218,22 @@ describe('navLinks', function() {
 
   function getDayGridDates() {
     return $('.fc-day-grid .fc-day').map(function(i, el) {
-      return $.fullCalendar.moment($(el).data('date'))
+      return new Date($(el).data('date'))
     }).get()
   }
 
   // list view
 
   function getListDayHeaderLink(dayDate) {
-    dayDate = $.fullCalendar.moment(dayDate)
-    return $('.fc-list-heading[data-date="' + dayDate.format('YYYY-MM-DD') + '"] a.fc-list-heading-main')
+    if (typeof dayDate === 'string') {
+      dayDate = new Date(dayDate)
+    }
+    return $('.fc-list-heading[data-date="' + formatIsoDay(dayDate) + '"] a.fc-list-heading-main')
   }
 
-  // agenda view
+  // timeGrid view
 
-  function getAgendaWeekNumberLink() {
+  function getTimeGridWeekNumberLink() {
     return $('th.fc-axis a')
   }
 })

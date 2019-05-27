@@ -6,7 +6,7 @@
 <script src='../../node_modules/jquery/dist/jquery.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../dist/fullcalendar.js'></script>
-<script src='../../dist/gcal.js'></script>
+<script src='../../dist/plugins/google-calendar.js'></script>
 <script>
 
 /*
@@ -52,42 +52,39 @@ $(document).ready(function() {
   var d = date.getDate();
   var m = date.getMonth();
   var y = date.getFullYear();
-  
+
   $('#calendar').fullCalendar({
     header: {
       left: 'prev,next today',
       center: 'title',
-      right: 'month,agendaWeek,basicWeek,agendaDay,basicDay'
+      right: 'month,week,dayGridWeek,day,dayGridDay'
     },
 
     editable: true,
     //eventStartEditable: false,
     //eventDurationEditable: false,
-    //disableResizing: true, // deprecated
-    //disableDragging: true, // deprecated
 
     selectable: true,
-    selectHelper: true,
-    dragOpacity: .5,
+    selectMirror: true,
     eventSources: [
-    
+
       {
         url: 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic',
         color: 'orange',
-        className: 'gcal',
+        className: 'google-calendar',
         success: function(events) {
-          console.log('successfully loaded gcal event data!', events);
+          console.log('successfully loaded google-calendar event data!', events);
         },
         editable: true
       },
-      
+
       /*
-      $.fullCalendar.gcalFeed('http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic', {
+      FullCalendar.gcalFeed('http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic', {
         color: 'orange',
-        className: 'gcal'
+        className: 'google-calendar'
       }),
       */
-      
+
       {
         url: "../demos/json-events.php",
         //editable: false,
@@ -99,7 +96,7 @@ $(document).ready(function() {
           console.log('json-events.php is done!!!', arguments);
         }
       },
-    
+
       {
         color: 'purple',
         //editable: false,
@@ -118,20 +115,20 @@ $(document).ready(function() {
             end: new Date(y, m, d-2)
           },
           {
-            id: 999,
+            groupId: 999,
             title: 'Repeating Event',
             start: new Date(y, m, d-3, 16, 0),
             allDay: false
           },
           {
-            id: 999,
+            groupId: 999,
             title: 'Repeating Event',
             start: new Date(y, m, d+4, 16, 0),
             allDay: false
           }
         ]
       },
-      
+
       {
         events: [
           {
@@ -159,7 +156,7 @@ $(document).ready(function() {
           }
         ]
       }
-      
+
     ],
     eventClick: function(event) {
       if (event.url) {
@@ -168,7 +165,7 @@ $(document).ready(function() {
       return false;
     }
   });
-  
+
 });
 
 </script>

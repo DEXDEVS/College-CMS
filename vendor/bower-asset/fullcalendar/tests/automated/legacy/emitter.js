@@ -1,6 +1,6 @@
+import { EmitterMixin } from '@fullcalendar/core'
 
 describe('emitter', function() {
-  var EmitterMixin = $.fullCalendar.EmitterMixin
 
   it('calls a handler', function() {
     var o = new EmitterMixin()
@@ -18,7 +18,8 @@ describe('emitter', function() {
   })
 
   it('calls a handler with context and args', function() {
-    var customContext = {}
+    var customContext
+    customContext = {}
     var o = new EmitterMixin()
     var handlers = {
       something: function(arg1, arg2) {
@@ -72,53 +73,4 @@ describe('emitter', function() {
     expect(handlers.something2.calls.count()).toBe(1)
   })
 
-  it('unbinds all', function() {
-    var o = new EmitterMixin()
-    var handlers = {
-      something: function() {},
-      another: function() {}
-    }
-
-    spyOn(handlers, 'something')
-    spyOn(handlers, 'another')
-
-    o.on('something', handlers.something)
-    o.on('another', handlers.another)
-
-    o.trigger('something')
-    o.trigger('another')
-    expect(handlers.something).toHaveBeenCalled()
-    expect(handlers.another).toHaveBeenCalled()
-
-    o.off()
-    o.trigger('something')
-    o.trigger('another')
-    expect(handlers.something.calls.count()).toBe(1)
-    expect(handlers.another.calls.count()).toBe(1)
-  })
-
-  it('unbinds with a namespace', function() {
-    var o = new EmitterMixin()
-    var handlers = {
-      something: function() {},
-      another: function() {}
-    }
-
-    spyOn(handlers, 'something')
-    spyOn(handlers, 'another')
-
-    o.on('something', handlers.something)
-    o.on('another.ns1', handlers.another)
-
-    o.trigger('something')
-    o.trigger('another')
-    expect(handlers.something).toHaveBeenCalled()
-    expect(handlers.another).toHaveBeenCalled()
-
-    o.off('.ns1')
-    o.trigger('something')
-    o.trigger('another')
-    expect(handlers.something.calls.count()).toBe(2)
-    expect(handlers.another.calls.count()).toBe(1)
-  })
 })

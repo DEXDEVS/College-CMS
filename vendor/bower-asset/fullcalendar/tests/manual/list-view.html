@@ -15,7 +15,7 @@
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'listMonth,month,agendaWeek'
+        right: 'listMonth,month,week'
       },
       defaultView: 'listMonth',
       defaultDate: '2014-06-12',
@@ -60,12 +60,12 @@
               end: '2014-06-10'
             },
             {
-              id: 999,
+              groupId: 999,
               title: 'Repeating Event',
               start: '2014-06-09T16:00:00'
             },
             {
-              id: 999,
+              groupId: 999,
               title: 'Repeating Event',
               start: '2014-06-16T16:00:00'
             },
@@ -97,11 +97,11 @@
           window.open(event.url);
         }
       },
-      eventMouseover: function(event) {
-        console.log('eventMouseover', event.title);
+      eventMouseEnter: function(arg) {
+        console.log('eventMouseEnter', arg.event.title);
       },
-      eventMouseout: function(event) {
-        console.log('    eventMouseout', event.title);
+      eventMouseLeave: function(arg) {
+        console.log('eventMouseLeave', arg.event.title);
       }
     });
 

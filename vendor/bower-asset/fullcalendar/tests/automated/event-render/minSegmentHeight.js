@@ -1,10 +1,10 @@
 import * as EventRenderUtils from './EventRenderUtils'
 
-describe('short event rendering with agendaEventMinHeight', function() {
+describe('short event rendering with timeGridEventMinHeight', function() {
   pushOptions({
-    defaultView: 'agendaWeek',
+    defaultView: 'timeGridWeek',
     defaultDate: '2017-08-10',
-    agendaEventMinHeight: 25
+    timeGridEventMinHeight: 25
   })
 
   describe('we we have an isolated short event', function() {
@@ -14,19 +14,19 @@ describe('short event rendering with agendaEventMinHeight', function() {
       ]
     })
 
-    it('renders the event having full width and the agendaEventMinHeight height value', function() {
+    it('renders the event having full width and the timeGridEventMinHeight height value', function() {
       initCalendar()
       var el = EventRenderUtils.getSingleEl()
 
-      expect(el.outerHeight()).toEqual(25)
+      expect(el.outerHeight()).toEqual(25 - 1) // because of the bottom margin
     })
   })
 
   describe('we we have two short events close to each other', function() {
     pushOptions({
       events: [
-        { start: '2017-08-10T10:30:00', end: '2017-08-10T10:31:00' },
-        { start: '2017-08-10T10:31:20', end: '2017-08-10T10:31:40' }
+        { start: '2017-08-10T10:30:00', end: '2017-08-10T10:31:00', title: 'event a' },
+        { start: '2017-08-10T10:31:20', end: '2017-08-10T10:31:40', title: 'event b' }
       ]
     })
 

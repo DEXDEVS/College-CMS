@@ -1,74 +1,75 @@
+import { getDayGridSlotElsCount } from './../lib/TimeGridViewUtils'
 
 describe('allDaySlots', function() {
 
   describe('when allDaySlots is not set', function() {
-    describe('in agendaWeek', function() {
+    describe('in week', function() {
       it('should default to having an allDaySlots table', function() {
         var options = {
-          defaultView: 'agendaWeek'
+          defaultView: 'timeGridWeek'
         }
         initCalendar(options)
-        var allDaySlotCount = $('.fc-day-grid').length
+        var allDaySlotCount = getDayGridSlotElsCount()
         expect(allDaySlotCount).toEqual(1)
       })
     })
-    describe('in agendaDay', function() {
+    describe('in day', function() {
       it('should default to having an allDaySlots table', function() {
         var options = {
-          defaultView: 'agendaDay'
+          defaultView: 'timeGridDay'
         }
         initCalendar(options)
-        var allDaySlotCount = $('.fc-day-grid').length
+        var allDaySlotCount = getDayGridSlotElsCount()
         expect(allDaySlotCount).toEqual(1)
       })
     })
   })
 
   describe('when allDaySlots is set true', function() {
-    describe('in agendaWeek', function() {
+    describe('in week', function() {
       it('should default to having an allDaySlots table', function() {
         var options = {
-          defaultView: 'agendaWeek',
+          defaultView: 'timeGridWeek',
           allDaySlot: true
         }
         initCalendar(options)
-        var allDaySlotCount = $('.fc-day-grid').length
+        var allDaySlotCount = getDayGridSlotElsCount()
         expect(allDaySlotCount).toEqual(1)
       })
     })
-    describe('in agendaDay', function() {
+    describe('in day', function() {
       it('should default to having an allDaySlots table', function() {
         var options = {
-          defaultView: 'agendaDay',
+          defaultView: 'timeGridDay',
           allDaySlot: true
         }
         initCalendar(options)
-        var allDaySlotCount = $('.fc-day-grid').length
+        var allDaySlotCount = getDayGridSlotElsCount()
         expect(allDaySlotCount).toEqual(1)
       })
     })
   })
 
   describe('when allDaySlots is set false', function() {
-    describe('in agendaWeek', function() {
+    describe('in week', function() {
       it('should default to having an allDaySlots table', function() {
         var options = {
-          defaultView: 'agendaWeek',
+          defaultView: 'timeGridWeek',
           allDaySlot: false
         }
         initCalendar(options)
-        var allDaySlotCount = $('.fc-day-grid').length
+        var allDaySlotCount = getDayGridSlotElsCount()
         expect(allDaySlotCount).toEqual(0)
       })
     })
-    describe('in agendaDay', function() {
+    describe('in day', function() {
       it('should default to having an allDaySlots table', function() {
         var options = {
-          defaultView: 'agendaDay',
+          defaultView: 'timeGridDay',
           allDaySlot: false
         }
         initCalendar(options)
-        var allDaySlotCount = $('.fc-day-grid').length
+        var allDaySlotCount = getDayGridSlotElsCount()
         expect(allDaySlotCount).toEqual(0)
       })
     })

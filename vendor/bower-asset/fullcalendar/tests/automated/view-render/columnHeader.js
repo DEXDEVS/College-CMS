@@ -1,3 +1,4 @@
+import { hasHeaderEl } from './DayGridRenderUtils'
 
 describe('columnHeader', function() {
   pushOptions({
@@ -5,36 +6,31 @@ describe('columnHeader', function() {
   })
 
   describeOptions('defaultView', {
-    'when month view': 'month',
-    'when agenda view': 'agendaDay',
-    'when basic view': 'basicDay'
+    'when month view': 'dayGridMonth',
+    'when timeGrid view': 'timeGridDay',
+    'when dayGrid view': 'dayGridDay'
   }, function() {
 
-    describe('when off', function() {
+    describe('when on', function() {
       pushOptions({
         columnHeader: true
       })
 
       it('should show header', function() {
         initCalendar()
-        expect(hasHeader()).toBe(true)
+        expect(hasHeaderEl()).toBe(true)
       })
     })
 
-    describe('when on', function() {
+    describe('when off', function() {
       pushOptions({
         columnHeader: false
       })
 
       it('should not show header', function() {
         initCalendar()
-        expect(hasHeader()).toBe(false)
+        expect(hasHeaderEl()).toBe(false)
       })
     })
   })
-
-  function hasHeader() {
-    return $('.fc-view > table > .fc-head').length === 1
-  }
-
 })

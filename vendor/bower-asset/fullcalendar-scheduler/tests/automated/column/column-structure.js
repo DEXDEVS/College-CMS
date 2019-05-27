@@ -8,11 +8,15 @@ describe('vresource structure', function() {
   })
 
   describeValues({
-    'with agenda views': 'agenda',
-    'with basic views': 'basic'
-  }, function(viewType) {
+    'with resourceTimeGrid views': 'resourceTimeGrid',
+    'with resourceDayGrid views': 'resourceDayGrid'
+  }, function(baseViewType) {
 
     pushOptions({
+      views: {
+        oneDay: { type: baseViewType, duration: { days: 1 } },
+        twoDay: { type: baseViewType, duration: { days: 2 } }
+      },
       scrollTime: '00:00',
       resources: [
         { id: 'a', title: 'Resource A' },
@@ -24,17 +28,17 @@ describe('vresource structure', function() {
 
     describe('when one-day', function() {
       pushOptions({
-        defaultView: viewType + 'Day'
+        defaultView: 'oneDay'
       })
 
       describe('when LTR', function() {
         pushOptions({
-          isRTL: false
+          dir: 'ltr'
         })
 
         it('renders cells right-to-left', function(callback) {
           initCalendar({
-            viewRender() {
+            datesRender() {
               const aRect = getBoundingRect(getHeadResourceEls('a'))
               const bRect = getBoundingRect(getHeadResourceEls('b'))
               const cRect = getBoundingRect(getHeadResourceEls('c'))
@@ -42,7 +46,7 @@ describe('vresource structure', function() {
               expect(aRect).toBeMostlyLeftOf(bRect)
               expect(bRect).toBeMostlyLeftOf(cRect)
               expect(cRect).toBeMostlyLeftOf(dRect)
-              expect(getBodyDowEls('mon', viewType).length).toBe(4)
+              expect(getBodyDowEls('mon', baseViewType).length).toBe(4)
               callback()
             }
           })
@@ -51,12 +55,12 @@ describe('vresource structure', function() {
 
       describe('when RTL', function() {
         pushOptions({
-          isRTL: true
+          dir: 'rtl'
         })
 
         it('renders cells left-to-right', function(callback) {
           initCalendar({
-            viewRender() {
+            datesRender() {
               const aRect = getBoundingRect(getHeadResourceEls('a'))
               const bRect = getBoundingRect(getHeadResourceEls('b'))
               const cRect = getBoundingRect(getHeadResourceEls('c'))
@@ -64,7 +68,7 @@ describe('vresource structure', function() {
               expect(aRect).toBeMostlyRightOf(bRect)
               expect(bRect).toBeMostlyRightOf(cRect)
               expect(cRect).toBeMostlyRightOf(dRect)
-              expect(getBodyDowEls('mon', viewType).length).toBe(4)
+              expect(getBodyDowEls('mon', baseViewType).length).toBe(4)
               callback()
             }
           })
@@ -74,24 +78,17 @@ describe('vresource structure', function() {
 
     describe('with two-day', function() {
       pushOptions({
-        views: {
-          twoDay: {
-            type: viewType,
-            duration: { days: 2 }
-          }
-        },
         defaultView: 'twoDay'
       })
 
       describe('when resources are above dates', function() {
         pushOptions({
-          groupByResource: true,
-          groupByDateAndResource: false // should be default
+          datesAboveResources: false
         })
 
         it('renders cells correctly', function(callback) {
           initCalendar({
-            viewRender() {
+            datesRender() {
               const aEl = getHeadResourceEls('a')
               const aRect = getBoundingRect(aEl)
               const monEls = getHeadDowEls('mon')
@@ -100,8 +97,8 @@ describe('vresource structure', function() {
               expect(tuesEls.length).toBe(4)
               const monRect = getBoundingRect(monEls.eq(0))
               expect(aRect).toBeMostlyAbove(monRect)
-              expect(getBodyDowEls('mon', viewType).length).toBe(4)
-              expect(getBodyDowEls('tue', viewType).length).toBe(4)
+              expect(getBodyDowEls('mon', baseViewType).length).toBe(4)
+              expect(getBodyDowEls('tue', baseViewType).length).toBe(4)
               callback()
             }
           })
@@ -110,12 +107,12 @@ describe('vresource structure', function() {
 
       describe('when dates are above resources', function() {
         pushOptions({
-          groupByDateAndResource: true
+          datesAboveResources: true
         })
 
         it('renders cells correctly', function(callback) {
           initCalendar({
-            viewRender() {
+            datesRender() {
               const monEl = getHeadDowEls('mon')
               const monRect = getBoundingRect(monEl)
               expect(monEl.length).toBe(1)
@@ -125,8 +122,8 @@ describe('vresource structure', function() {
               expect(bEls.length).toBe(2)
               const aRect = getBoundingRect(aEls.eq(0))
               expect(monRect).toBeMostlyAbove(aRect)
-              expect(getBodyDowEls('mon', viewType).length).toBe(4)
-              expect(getBodyDowEls('tue', viewType).length).toBe(4)
+              expect(getBodyDowEls('mon', baseViewType).length).toBe(4)
+              expect(getBodyDowEls('tue', baseViewType).length).toBe(4)
               callback()
             }
           })
@@ -138,12 +135,12 @@ describe('vresource structure', function() {
 
       describe('when one-day', function() {
         pushOptions({
-          defaultView: viewType + 'Day'
+          defaultView: 'oneDay'
         })
 
         it('renders resources columns', function(callback) {
           initCalendar({
-            viewRender() {
+            datesRender() {
               expect(getHeadResourceEls('a').length).toBe(1)
               expect(getHeadResourceEls('b').length).toBe(1)
               expect(getHeadResourceEls('c').length).toBe(1)
@@ -153,30 +150,12 @@ describe('vresource structure', function() {
           })
         })
       })
-
-      describe('when one-week', function() {
-        pushOptions({
-          defaultView: viewType + 'Week'
-        })
-
-        it('renders resources columns', function(callback) {
-          initCalendar({
-            viewRender() {
-              expect(getHeadResourceEls('a').length).toBe(0)
-              expect(getHeadResourceEls('b').length).toBe(0)
-              expect(getHeadResourceEls('c').length).toBe(0)
-              expect(getHeadResourceEls('d').length).toBe(0)
-              callback()
-            }
-          })
-        })
-      })
     })
 
     describe('when delay in resource fetching', function() {
       pushOptions({
-        defaultView: viewType + 'Day',
-        resources(callback) {
+        defaultView: 'oneDay',
+        resources(arg, callback) {
           setTimeout(function() {
             callback([
               { id: 'a', title: 'Resource A' },
@@ -186,7 +165,7 @@ describe('vresource structure', function() {
         }
       })
 
-      it('renders progressively', function(callback) {
+      xit('renders progressively', function(callback) {
         let firstCallbackHeight = null
 
         const firstCallback = function() {
@@ -196,7 +175,7 @@ describe('vresource structure', function() {
         }
 
         initCalendar({
-          viewRender() {
+          datesRender() {
             expect(getHeadResourceEls('a').length).toBe(1)
             expect(getHeadResourceEls('b').length).toBe(1)
 
@@ -216,35 +195,34 @@ describe('vresource structure', function() {
 
   describe('when month view', function() {
     pushOptions({
-      defaultView: 'month',
-      groupByResource: true,
+      defaultView: 'resourceDayGridMonth',
       resources: [
         { id: 'a', title: 'Resource A' },
         { id: 'b', title: 'Resource B' }
       ]
     })
 
-    describeOptions('isRTL', {
-      'when LTR': false,
-      'when RTL': true
-    }, function(isRTL) {
+    describeOptions('dir', {
+      'when LTR': 'ltr',
+      'when RTL': 'rtl'
+    }, function(dir) {
 
       it('renders side-by-side months', function(callback) {
         initCalendar({
-          viewRender() {
+          datesRender() {
             expect(getHeadResourceEls('a').length).toBe(1)
             expect(getHeadResourceEls('b').length).toBe(1)
             expect(getHeadDowEls('sun').length).toBe(2)
             expect($('.fc-body .fc-row').length).toBe(6)
-            const firstADayRect = getLeadingBoundingRect('td[data-date="2015-11-01"]', isRTL)
-            const lastADayRect = getLeadingBoundingRect('td[data-date="2015-12-12"]', isRTL)
-            const firstBDayRect = getTrailingBoundingRect('td[data-date="2015-11-01"]', isRTL)
-            const lastBDayRect = getTrailingBoundingRect('td[data-date="2015-12-12"]', isRTL)
+            const firstADayRect = getLeadingBoundingRect('td[data-date="2015-11-01"]', dir)
+            const lastADayRect = getLeadingBoundingRect('td[data-date="2015-12-12"]', dir)
+            const firstBDayRect = getTrailingBoundingRect('td[data-date="2015-11-01"]', dir)
+            const lastBDayRect = getTrailingBoundingRect('td[data-date="2015-12-12"]', dir)
             const aDayRect = joinRects(firstADayRect, lastADayRect)
             aDayRect.right -= 1 // might share a pixel
             aDayRect.left += 1 // ditto, but for rtl
             const bDayRect = joinRects(firstBDayRect, lastBDayRect)
-            if (isRTL) {
+            if (dir === 'rtl') {
               expect(aDayRect).toBeRightOf(bDayRect)
             } else {
               expect(aDayRect).toBeLeftOf(bDayRect)

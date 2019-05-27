@@ -1,5 +1,5 @@
 const fs = require('fs')
-const argv = require('yargs').argv
+const mkdirp = require('mkdirp')
 
 writeConfig()
 
@@ -15,44 +15,45 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
 
-      // dependencies for main lib
       'node_modules/moment/moment.js',
+      'node_modules/moment/locale/es.js', // only spanish for testing
+      'node_modules/moment-timezone/builds/moment-timezone-with-data.js',
+      'node_modules/rrule/dist/es5/rrule.js',
       'node_modules/jquery/dist/jquery.js',
       'node_modules/components-jqueryui/jquery-ui.js',
-      'node_modules/components-jqueryui/themes/cupertino/jquery-ui.css',
+      'node_modules/native-promise-only/lib/npo.src.js', // Promises needed by xhr-mock
+      'node_modules/xhr-mock/dist/xhr-mock.js', // TODO: should include this via require(), but .d.ts problems
+      'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+      'node_modules/jquery-simulate/jquery.simulate.js',
+      'node_modules/luxon/build/global/luxon.js', // for testing IE11, comment out this line
 
-      // main lib files
-      'dist/fullcalendar.js',
-      'dist/fullcalendar.css',
-      'dist/gcal.js',
-      'dist/locale-all.js',
+      // core and plugin files (ordering matters because of dependencies)
+      'dist/core/main.+(js|css)',
+      'dist/core/locales-all.js',
+      'dist/interaction/main.+(js|css)',
+      'dist/daygrid/main.+(js|css)',
+      'dist/timegrid/main.+(js|css)',
+      'dist/list/main.+(js|css)',
+      'dist/rrule/main.+(js|css)',
+      'dist/google-calendar/main.+(js|css)',
+      'dist/luxon/main.+(js|css)',
+      'dist/moment/main.+(js|css)',
+      'dist/moment-timezone/main.+(js|css)',
+      'dist/bootstrap/main.+(js|css)',
+      { pattern: 'dist/*/*.map', included: false, nocache: true, watched: false },
 
       // a way to dump variables into the test environment
       'tmp/automated-test-config.js',
 
-      // so plugins can dump files into here and test side effects
-      'tmp/test-side-effects/*.js',
-
-      // dependencies for tests
-      'node_modules/native-promise-only/lib/npo.src.js',
-      'node_modules/jquery-mockjax/dist/jquery.mockjax.js',
-      'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-      'node_modules/jasmine-fixture/dist/jasmine-fixture.js',
-      'node_modules/jquery-simulate/jquery.simulate.js',
-
+      // tests
       'tests/automated/base.css',
       'tmp/automated-tests.js',
-
-      { // serve all other files
-        pattern: '**/*',
-        included: false, // don't immediately execute
-        nocache: true, // don't let the webserver cache
-        watched: false // don't let changes trigger tests to restart
-      }
+      { pattern: 'tmp/automated-tests.js.map', included: false, nocache: true, watched: false }
     ],
 
+    // make console errors aware of source files
     preprocessors: {
-      '**/*.js': [ 'sourcemap' ]
+      '**/*.js': ['sourcemap']
     },
 
     // test results reporter to use
@@ -75,16 +76,13 @@ module.exports = function(config) {
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000,
 
-    // force a window size for PhantomJS, because it's usually unreasonably small, resulting in offset problems
     customLaunchers: {
-      PhantomJS_custom: {
-        base: 'PhantomJS',
-        options: {
-          viewportSize: {
-            width: 1024,
-            height: 768
-          }
-        }
+      ChromeHeadless_custom: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--no-sandbox', // needed for TravisCI: https://docs.travis-ci.com/user/chrome#Sandboxing
+          '--window-size=1280,1696' // some tests only work with larger window (w?, h?)
+        ]
       }
     }
   })
@@ -92,12 +90,10 @@ module.exports = function(config) {
 
 function writeConfig() {
   let config = {
-    isTravis: ('travis' in argv)
+    isCi: Boolean(process.env.CI)
   }
 
-  if (!fs.existsSync('tmp')) {
-    fs.mkdirSync('tmp')
-  }
+  mkdirp('tmp')
   fs.writeFileSync(
     'tmp/automated-test-config.js',
     'window.karmaConfig = ' + JSON.stringify(config),

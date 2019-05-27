@@ -1,37 +1,41 @@
+import { View } from '@fullcalendar/core'
 
 describe('unselectAuto', function() {
-  var View = $.fullCalendar.View
-  var options
+
+  pushOptions({
+    selectable: true,
+    defaultDate: '2014-12-25',
+    defaultView: 'dayGridMonth'
+  })
 
   beforeEach(function() {
-    options = {
-      selectable: true,
-      defaultDate: '2014-12-25',
-      defaultView: 'month'
-    }
-    affix('#cal')
-    affix('#otherthing')
+    $('<div id="otherthing" />').appendTo('body')
+  })
+
+  afterEach(function() {
+    $('#otherthing').remove()
   })
 
   describe('when enabled', function() {
 
-    beforeEach(function() {
-      options.unselectAuto = true
+    pushOptions({
+      unselectAuto: true
     })
 
     describe('when clicking away', function() {
       it('unselects the current selection when clicking elsewhere in DOM', function(done) {
-        options.unselect = function(ev, view) {
-          expect($('.fc-highlight').length).toBe(0)
 
-          expect('currentTarget' in ev).toBe(true) // a JS event
-          expect(view instanceof View).toBe(true)
+        initCalendar({
+          unselect: function(arg) {
+            expect($('.fc-highlight').length).toBe(0)
 
-          done()
-        }
+            expect('currentTarget' in arg.jsEvent).toBe(true) // a JS event
+            expect(arg.view instanceof View).toBe(true)
 
-        $('#cal').fullCalendar(options)
-        $('#cal').fullCalendar('select', '2014-12-01', '2014-12-03')
+            done()
+          }
+        })
+        currentCalendar.select('2014-12-01', '2014-12-03')
 
         expect($('.fc-highlight').length).toBeGreaterThan(0)
 
@@ -44,17 +48,18 @@ describe('unselectAuto', function() {
 
     describe('when clicking another date', function() {
       it('unselects the current selection when clicking elsewhere in DOM', function(done) {
-        options.unselect = function(ev, view) {
-          expect($('.fc-highlight').length).toBe(0)
 
-          expect('currentTarget' in ev).toBe(true) // a JS event
-          expect(view instanceof View).toBe(true)
+        initCalendar({
+          unselect: function(arg) {
+            expect($('.fc-highlight').length).toBe(0)
 
-          done()
-        }
+            expect('currentTarget' in arg.jsEvent).toBe(true) // a JS event
+            expect(arg.view instanceof View).toBe(true)
 
-        $('#cal').fullCalendar(options)
-        $('#cal').fullCalendar('select', '2014-12-01', '2014-12-03')
+            done()
+          }
+        })
+        currentCalendar.select('2014-12-01', '2014-12-03')
 
         expect($('.fc-highlight').length).toBeGreaterThan(0)
 
@@ -65,13 +70,13 @@ describe('unselectAuto', function() {
 
   describe('when disabled', function() {
 
-    beforeEach(function() {
-      options.unselectAuto = false
+    pushOptions({
+      unselectAuto: false
     })
 
     it('keeps current selection when clicking elsewhere in DOM', function() {
-      $('#cal').fullCalendar(options)
-      $('#cal').fullCalendar('select', '2014-12-01', '2014-12-03')
+      initCalendar()
+      currentCalendar.select('2014-12-01', '2014-12-03')
 
       expect($('.fc-highlight').length).toBeGreaterThan(0)
 

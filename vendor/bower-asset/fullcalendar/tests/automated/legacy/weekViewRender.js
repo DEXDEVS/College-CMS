@@ -1,10 +1,10 @@
 describe('weekViewRender', function() {
 
-  var nowStr = $.fullCalendar.moment(new Date()).format('YYYY-MM-DD')
+  var nowStr = '2018-05-28'
 
   pushOptions({
-    defaultDate: nowStr,
-    defaultView: 'agendaWeek'
+    now: nowStr,
+    defaultView: 'timeGridWeek'
   })
 
   describe('verify th class for today', function() {

@@ -1,60 +1,48 @@
+describe('datesDestroy', function() {
 
-describe('viewDestroy', function() {
-  var options
-
-  beforeEach(function() {
-    options = {
-      defaultDate: '2015-02-20'
-    }
-    affix('#cal')
+  pushOptions({
+    defaultDate: '2015-02-20'
   })
 
   describe('when in month view', function() {
-    beforeEach(function() {
-      options = {
-        defaultView: 'month'
-      }
+    pushOptions({
+      defaultView: 'dayGridMonth'
     })
     defineTests()
   })
 
-  describe('when in agendaWeek view', function() {
-    beforeEach(function() {
-      options = {
-        defaultView: 'agendaWeek'
-      }
+  describe('when in week view', function() {
+    pushOptions({
+      defaultView: 'timeGridWeek'
     })
     defineTests()
   })
 
   function defineTests() {
-
     it('fires before the view is unrendered, with correct arguments', function(done) {
-      var viewRenderCalls = 0
-      var viewDestroyCalls = 0
+      var datesRenderCalls = 0
+      var datesDestroyCalls = 0
+      initCalendar({
+        datesRender: function() {
+          ++datesRenderCalls
+        },
+        datesDestroy: function(arg) {
+          if (++datesDestroyCalls === 1) { // because done() calls destroy
 
-      options.viewRender = function() {
-        ++viewRenderCalls
-      }
+            // the datesDestroy should be called before the next datesRender
+            expect(datesRenderCalls).toBe(1)
 
-      options.viewDestroy = function(givenViewObj, givenViewEl) {
-        if (++viewDestroyCalls === 1) { // because done() calls destroy
+            var viewObj = currentCalendar.view
+            var viewEl = $('.fc-view', currentCalendar.el)
 
-          // the viewDestroy should be called before the next viewRender
-          expect(viewRenderCalls).toBe(1)
-
-          var viewObj = $('#cal').fullCalendar('getView')
-          var viewEl = $('#cal .fc-view')
-
-          expect(viewObj).toBe(givenViewObj)
-          expect(viewEl[0]).toBe(givenViewEl[0])
-          expect(viewEl.children().length >= 1).toBe(true) // is the content still rendered?
-          done()
+            expect(viewObj).toBe(arg.view)
+            expect(viewEl[0]).toBe(arg.el)
+            expect(viewEl.children().length >= 1).toBe(true) // is the content still rendered?
+            done()
+          }
         }
-      }
-
-      $('#cal').fullCalendar(options)
-      $('#cal').fullCalendar('next') // will trigger a viewDestroy/viewRender
+      })
+      currentCalendar.next() // trigger datesDestroy/datesRender
     })
   }
 })

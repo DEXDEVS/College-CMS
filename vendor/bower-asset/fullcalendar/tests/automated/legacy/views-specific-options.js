@@ -1,103 +1,182 @@
-describe('view-specific options', function() {
-  var options
+import { createPlugin } from '@fullcalendar/core'
+import DayGridPlugin, { DayGridView } from '@fullcalendar/daygrid'
 
-  beforeEach(function() {
-    options = {
-      header: {
-        left: 'prev,next',
-        center: 'title',
-        right: 'month,basicWeek,basicDay,agendaWeek,agendaDay'
-      },
-      defaultView: 'month',
-      titleFormat: '[default]',
-      views: { }
-    }
-    affix('#cal')
+describe('view-specific options', function() {
+
+  pushOptions({
+    header: {
+      left: 'prev,next',
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay,timeGridWeek,timeGridDay'
+    },
+    defaultView: 'dayGridMonth',
+    titleFormat: function() { return 'default' },
+    views: { }
   })
 
   function testEachView(viewsAndVals) {
-    $('#cal').fullCalendar(options)
     $.each(viewsAndVals, function(view, val) {
-      $('#cal').fullCalendar('changeView', view)
+      currentCalendar.changeView(view)
       expect($('h2')).toHaveText(val)
     })
   }
 
-  it('can target a specific view (month)', function() {
-    options.views.month = {
-      titleFormat: '[special!!!]'
-    }
+  it('can target a specific view (dayGridMonth)', function() {
+    initCalendar({
+      views: {
+        dayGridMonth: {
+          titleFormat: function() { return 'special!!!' }
+        }
+      }
+    })
     testEachView({
-      month: 'special!!!',
-      basicWeek: 'default',
-      basicDay: 'default',
-      agendaWeek: 'default',
-      agendaDay: 'default'
+      dayGridMonth: 'special!!!',
+      dayGridWeek: 'default',
+      dayGridDay: 'default',
+      timeGridWeek: 'default',
+      timeGridDay: 'default'
     })
   })
 
-  it('can target a specific view (agendaWeek)', function() {
-    options.views.agendaWeek = {
-      titleFormat: '[special!!!]'
-    }
+  it('can target a specific view (timeGridWeek)', function() {
+    initCalendar({
+      views: {
+        timeGridWeek: {
+          titleFormat: function() { return 'special!!!' }
+        }
+      }
+    })
     testEachView({
-      month: 'default',
-      basicWeek: 'default',
-      basicDay: 'default',
-      agendaWeek: 'special!!!',
-      agendaDay: 'default'
+      dayGridMonth: 'default',
+      dayGridWeek: 'default',
+      dayGridDay: 'default',
+      timeGridWeek: 'special!!!',
+      timeGridDay: 'default'
     })
   })
 
-  it('can target basic views', function() {
-    options.views.basic = {
-      titleFormat: '[special!!!]'
-    }
+  it('can target dayGrid views', function() {
+    initCalendar({
+      views: {
+        dayGrid: {
+          titleFormat: function() { return 'special!!!' }
+        }
+      }
+    })
     testEachView({
-      month: 'default', // will NOT target month view
-      basicWeek: 'special!!!',
-      basicDay: 'special!!!',
-      agendaWeek: 'default',
-      agendaDay: 'default'
+      dayGridMonth: 'special!!!',
+      dayGridWeek: 'special!!!',
+      dayGridDay: 'special!!!',
+      timeGridWeek: 'default',
+      timeGridDay: 'default'
     })
   })
 
-  it('can target agenda views', function() {
-    options.views.agenda = {
-      titleFormat: '[special!!!]'
-    }
+  it('can target timeGrid views', function() {
+    initCalendar({
+      views: {
+        timeGrid: {
+          titleFormat: function() { return 'special!!!' }
+        }
+      }
+    })
     testEachView({
-      month: 'default',
-      basicWeek: 'default',
-      basicDay: 'default',
-      agendaWeek: 'special!!!',
-      agendaDay: 'special!!!'
+      dayGridMonth: 'default',
+      dayGridWeek: 'default',
+      dayGridDay: 'default',
+      timeGridWeek: 'special!!!',
+      timeGridDay: 'special!!!'
     })
   })
 
   it('can target week views', function() {
-    options.views.week = {
-      titleFormat: '[special!!!]'
-    }
+    initCalendar({
+      views: {
+        week: {
+          titleFormat: function() { return 'special!!!' }
+        }
+      }
+    })
     testEachView({
-      month: 'default',
-      basicWeek: 'special!!!',
-      basicDay: 'default',
-      agendaWeek: 'special!!!',
-      agendaDay: 'default'
+      dayGridMonth: 'default',
+      dayGridWeek: 'special!!!',
+      dayGridDay: 'default',
+      timeGridWeek: 'special!!!',
+      timeGridDay: 'default'
     })
   })
 
   it('can target day views', function() {
-    options.views.day = {
-      titleFormat: '[special!!!]'
-    }
+    initCalendar({
+      views: {
+        day: {
+          titleFormat: function() { return 'special!!!' }
+        }
+      }
+    })
     testEachView({
-      month: 'default',
-      basicWeek: 'default',
-      basicDay: 'special!!!',
-      agendaWeek: 'default',
-      agendaDay: 'special!!!'
+      dayGridMonth: 'default',
+      dayGridWeek: 'default',
+      dayGridDay: 'special!!!',
+      timeGridWeek: 'default',
+      timeGridDay: 'special!!!'
     })
   })
+
+  it('can implicitly target a View subclass', function() {
+
+    class SuperDayGridView extends DayGridView {
+    }
+
+    initCalendar({
+      plugins: [
+        DayGridPlugin,
+        createPlugin({
+          views: {
+            superBasic: SuperDayGridView
+          }
+        })
+      ],
+      views: {
+        dayGrid: {
+          titleFormat: function() { return 'special!!!' }
+        }
+      }
+    })
+
+    testEachView({
+      superBasic: 'special!!!',
+      dayGridMonth: 'special!!!',
+      dayGridDay: 'special!!!'
+    })
+  })
+
+  it('can implicitly target an old-school View subclass', function() {
+
+    function SuperDayGridView() { DayGridView.apply(this, arguments) }
+    SuperDayGridView.prototype = Object.create(DayGridView.prototype)
+
+    initCalendar({
+      plugins: [
+        DayGridPlugin,
+        createPlugin({
+          views: {
+            superBasic: SuperDayGridView
+          }
+        })
+      ],
+      views: {
+        dayGrid: {
+          titleFormat: function() { return 'special!!!' }
+        }
+      }
+    })
+
+    testEachView({
+      superBasic: 'special!!!',
+      dayGridMonth: 'special!!!',
+      dayGridDay: 'special!!!'
+    })
+  })
+
 })

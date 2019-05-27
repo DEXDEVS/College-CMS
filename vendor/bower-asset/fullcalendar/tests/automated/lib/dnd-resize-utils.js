@@ -1,10 +1,20 @@
+import { formatIsoDay } from '../datelib/utils'
+import { getTimeGridDayEls, getSlotElByIndex } from './time-grid'
+import { getDayEl } from '../view-render/DayGridRenderUtils'
+import {
+  getEventElResizerEl,
+  getEventElTitleEl,
+  getEventElTimeEl,
+  getFirstEventEl,
+  getLastEventEl
+} from '../event-render/EventRenderUtils'
+import { parseMarker, addDays } from '@fullcalendar/core'
 
-// this function has been mangled to work with external jqui draggables as well
 export function testEventDrag(options, dropDate, expectSuccess, callback, eventClassName) {
   var eventsRendered = false
 
   options.editable = true
-  options.eventAfterAllRender = function() {
+  options._eventsPositioned = function() {
     var calendar = currentCalendar
     var isDraggingExternal = false
     var dayEl
@@ -18,20 +28,29 @@ export function testEventDrag(options, dropDate, expectSuccess, callback, eventC
     if (eventsRendered) { return }
     eventsRendered = true
 
-    dropDate = calendar.moment(dropDate)
-    eventEl = $('.' + (eventClassName || 'fc-event') + ':first')
+    var dropDateMeta
+    var dropDateHasTime
+    if (typeof dropDate === 'string') {
+      dropDateMeta = parseMarker(dropDate)
+      dropDateHasTime = !dropDateMeta.isTimeUnspecified
+      dropDate = dropDateMeta.marker
+    } else {
+      dropDateHasTime = true
+    }
+
+    eventEl = eventClassName ? $(`.${eventClassName}:first`) : getFirstEventEl()
     expect(eventEl.length).toBe(1)
 
-    if (dropDate.hasTime()) {
-      dragEl = eventEl.find('.fc-time')
-      dayEl = $('.fc-time-grid .fc-day[data-date="' + dropDate.format('YYYY-MM-DD') + '"]')
-      slatIndex = dropDate.hours() * 2 + (dropDate.minutes() / 30) // assumes slotDuration:'30:00'
-      slatEl = $('.fc-slats tr:eq(' + slatIndex + ')')
+    if (dropDateHasTime) {
+      dragEl = getEventElTimeEl(eventEl)
+      dayEl = getTimeGridDayEls(dropDate)
+      slatIndex = dropDate.getUTCHours() * 2 + (dropDate.getUTCMinutes() / 30) // assumes slotDuration:'30:00'
+      slatEl = getSlotElByIndex(slatIndex)
       expect(slatEl.length).toBe(1)
       dy = slatEl.offset().top - eventEl.offset().top
     } else {
-      dragEl = eventEl.find('.fc-title')
-      dayEl = $('.fc-day-grid .fc-day[data-date="' + dropDate.format('YYYY-MM-DD') + '"]')
+      dragEl = getEventElTitleEl(eventEl)
+      dayEl = getDayEl(dropDate)
       dy = dayEl.offset().top - eventEl.offset().top
     }
 
@@ -58,18 +77,18 @@ export function testEventDrag(options, dropDate, expectSuccess, callback, eventC
         if (!isDraggingExternal) { // if dragging an event within the calendar, check dates
 
           if (eventClassName) {
-            eventObj = calendar.clientEvents(function(o) {
-              return o.className.join(' ') === eventClassName
+            eventObj = calendar.getEvents().filter(function(o) {
+              return o.classNames.join(' ') === eventClassName
             })[0]
           } else {
-            eventObj = calendar.clientEvents()[0]
+            eventObj = calendar.getEvents()[0]
           }
 
-          if (dropDate.hasTime()) { // dropped on a slot
-            successfulDrop = eventObj.start.format() === dropDate.format() // compare exact times
+          if (dropDateHasTime) { // dropped on a slot
+            successfulDrop = eventObj.start.valueOf() === dropDate.valueOf() // compare exact times
           } else { // dropped on a whole day
             // only compare days
-            successfulDrop = eventObj.start.format('YYYY-MM-DD') === dropDate.format('YYYY-MM-DD')
+            successfulDrop = formatIsoDay(eventObj.start) === formatIsoDay(dropDate)
           }
 
           expect(successfulDrop).toBe(allowed)
@@ -88,7 +107,7 @@ export function testEventResize(options, resizeDate, expectSuccess, callback, ev
   var eventsRendered = false
 
   options.editable = true
-  options.eventAfterAllRender = function() {
+  options._eventsPositioned = function() {
     var calendar = currentCalendar
     var lastDayEl
     var lastSlatIndex
@@ -101,18 +120,27 @@ export function testEventResize(options, resizeDate, expectSuccess, callback, ev
     if (eventsRendered) { return }
     eventsRendered = true
 
-    resizeDate = calendar.moment(resizeDate)
-    eventEl = $('.' + (eventClassName || 'fc-event') + ':last')
-    dragEl = eventEl.find('.fc-resizer')
+    var resizeDateMeta
+    var resizeDateHasTime
+    if (typeof resizeDate === 'string') {
+      resizeDateMeta = parseMarker(resizeDate)
+      resizeDateHasTime = !resizeDateMeta.isTimeUnspecified
+      resizeDate = resizeDateMeta.marker
+    } else {
+      resizeDateHasTime = true
+    }
 
-    if (resizeDate.hasTime()) {
-      lastDayEl = $('.fc-time-grid .fc-day[data-date="' + resizeDate.clone().format('YYYY-MM-DD') + '"]')
-      lastSlatIndex = resizeDate.hours() * 2 + (resizeDate.minutes() / 30) // assumes slotDuration:'30:00'
-      lastSlatEl = $('.fc-slats tr:eq(' + (lastSlatIndex - 1) + ')')
+    eventEl = eventClassName ? $(`.${eventClassName}:first`) : getLastEventEl()
+    dragEl = getEventElResizerEl(eventEl)
+
+    if (resizeDateHasTime) {
+      lastDayEl = getTimeGridDayEls(resizeDate)
+      lastSlatIndex = resizeDate.getUTCHours() * 2 + (resizeDate.getUTCMinutes() / 30) // assumes slotDuration:'30:00'
+      lastSlatEl = getSlotElByIndex(lastSlatIndex - 1)
       expect(lastSlatEl.length).toBe(1)
       dy = lastSlatEl.offset().top + lastSlatEl.outerHeight() - (eventEl.offset().top + eventEl.outerHeight())
     } else {
-      lastDayEl = $('.fc-day-grid .fc-day[data-date="' + resizeDate.clone().add(-1, 'day').format('YYYY-MM-DD') + '"]')
+      lastDayEl = getDayEl(addDays(resizeDate, -1))
       dy = lastDayEl.offset().top - eventEl.offset().top
     }
 
@@ -133,14 +161,14 @@ export function testEventResize(options, resizeDate, expectSuccess, callback, ev
         var successfulDrop
 
         if (eventClassName) {
-          eventObj = calendar.clientEvents(function(o) {
-            return o.className.join(' ') === eventClassName
+          eventObj = calendar.getEvents(function(o) {
+            return o.classNames.join(' ') === eventClassName
           })[0]
         } else {
-          eventObj = calendar.clientEvents()[0]
+          eventObj = calendar.getEvents()[0]
         }
 
-        successfulDrop = eventObj.end && eventObj.end.format() === resizeDate.format()
+        successfulDrop = eventObj.end && eventObj.end.valueOf() === resizeDate.valueOf()
 
         expect(allowed).toBe(successfulDrop)
         expect(allowed).toBe(expectSuccess)
@@ -153,11 +181,8 @@ export function testEventResize(options, resizeDate, expectSuccess, callback, ev
 }
 
 
-// always starts at 2014-11-12
-export function testSelection(options, startTime, end, expectSuccess, callback) {
+export function testSelection(options, start, end, expectSuccess, callback) {
   var successfulSelection = false
-  var calendar
-  var start
   var firstDayEl, lastDayEl
   var firstSlatIndex, lastSlatIndex
   var firstSlatEl, lastSlatEl
@@ -165,35 +190,43 @@ export function testSelection(options, startTime, end, expectSuccess, callback) 
   var dragEl
   var allowed
 
+  var allDay = false
+  var meta
+  if (typeof start === 'string') {
+    meta = parseMarker(start)
+    allDay = allDay || meta.isTimeUnspecified
+    start = meta.marker
+  }
+  if (typeof end === 'string') {
+    meta = parseMarker(end)
+    allDay = allDay || meta.isTimeUnspecified
+    end = meta.marker
+  }
+
   options.selectable = true
-  options.select = function(selectionStart, selectionEnd) {
+  options.select = function(arg) {
     successfulSelection =
-      selectionStart.format() === start.format() &&
-        selectionEnd.format() === end.format()
+      arg.allDay === allDay &&
+      arg.start.valueOf() === start.valueOf() &&
+      arg.end.valueOf() === end.valueOf()
   }
   spyOn(options, 'select').and.callThrough()
   initCalendar(options)
 
-  calendar = currentCalendar
-  start = calendar.moment('2014-11-12')
-  end = calendar.moment(end)
-
-  if (startTime) {
-    start.time(startTime)
-    firstDayEl = $('.fc-time-grid .fc-day[data-date="' + start.format('YYYY-MM-DD') + '"]')
-    lastDayEl = $('.fc-time-grid .fc-day[data-date="' + end.format('YYYY-MM-DD') + '"]')
-    firstSlatIndex = start.hours() * 2 + (start.minutes() / 30) // assumes slotDuration:'30:00'
-    lastSlatIndex = end.hours() * 2 + (end.minutes() / 30) - 1 // assumes slotDuration:'30:00'
-    firstSlatEl = $('.fc-slats tr:eq(' + firstSlatIndex + ')')
-    lastSlatEl = $('.fc-slats tr:eq(' + lastSlatIndex + ')')
+  if (!allDay) {
+    firstDayEl = getTimeGridDayEls(start)
+    lastDayEl = getTimeGridDayEls(end)
+    firstSlatIndex = start.getUTCHours() * 2 + (start.getUTCMinutes() / 30) // assumes slotDuration:'30:00'
+    lastSlatIndex = end.getUTCHours() * 2 + (end.getUTCMinutes() / 30) - 1 // assumes slotDuration:'30:00'
+    firstSlatEl = getSlotElByIndex(firstSlatIndex)
+    lastSlatEl = getSlotElByIndex(lastSlatIndex)
     expect(firstSlatEl.length).toBe(1)
     expect(lastSlatEl.length).toBe(1)
     dy = lastSlatEl.offset().top - firstSlatEl.offset().top
     dragEl = firstSlatEl
   } else {
-    end.stripTime()
-    firstDayEl = $('.fc-day-grid .fc-day[data-date="' + start.format('YYYY-MM-DD') + '"]')
-    lastDayEl = $('.fc-day-grid .fc-day[data-date="' + end.clone().add(-1, 'day').format('YYYY-MM-DD') + '"]')
+    firstDayEl = getDayEl(start)
+    lastDayEl = getDayEl(new Date(end.valueOf() - 1)) // inclusive
     dy = lastDayEl.offset().top - firstDayEl.offset().top
     dragEl = firstDayEl
   }
